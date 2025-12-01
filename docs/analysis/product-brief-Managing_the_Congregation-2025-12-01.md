@@ -155,25 +155,26 @@ A specialized **Member Management System** that provides:
     - Create/Read/Update/Delete member profiles.
     - Mandatory fields: Name, DOB, Feast Day, Contact Info.
     - Profile photo upload.
+    - **Passport Details:** Number, Expiry Date, and Scan upload.
 2.  **Religious Life Tracking:**
     - Track dates for Postulancy, Novitiate, First Vows, Perpetual Vows.
     - Automatic calculation of "Next Renewal Date".
 3.  **Community Management:**
     - Create Communities (Houses).
     - Assign members to a specific community for a specific year (Service History).
-4.  **Financial Reporting (Basic):**
-    - Simple expense entry for Community Directors (Date, Category, Amount, Description).
-    - Monthly Report generation (PDF export).
-5.  **Dashboard (Admin View):**
+    - Assign members to a specific community for a specific year (Service History).
+4.  **Dashboard (Admin View):**
     - Total count of members.
     - List of upcoming birthdays and feast days (next 30 days).
-6.  **User Roles & Permissions:**
+5.  **User Roles & Permissions:**
     - Super Admin, General Secretary, Community Director.
 
 ### Out of Scope for MVP (Deferred to Phase 2)
 
+- **Financial Reporting Module (Optional):** Expense entry and monthly reports. De-prioritized per user request.
+- **Project Management Module (Optional):** Tracking projects, grants, and evidence. To be implemented after core systems.
 - **Medical Records (HIPAA/Privacy complexity):** Deferred to ensure initial focus on admin/financial data.
-- **Project Management Module:** Complex project tracking and grant management will be added later.
+- **Medical Records (HIPAA/Privacy complexity):** Deferred to ensure initial focus on admin/financial data.
 - **Celebration Card Generator:** Nice-to-have, but not critical for operations.
 - **Document Management System (Full):** Simple file uploads for profiles allowed, but full folder/permission structure deferred.
 - **Multi-language Support:** Interface will be English-first, though data can be entered in any language.

@@ -263,6 +263,7 @@ The system will be a **Multi-Page Application (MPA)** utilizing Laravel's server
 - **FR3:** Admin/Director can update member status (Active, Deceased, Exited, Transferred).
 - **FR4:** Admin/Director can search for members by name, religious name, or civil name.
 - **FR5:** System must prevent duplicate member entries based on Civil Name + DOB.
+- **FR_Passport:** Admin/Director can enter Passport Number, Expiry Date, and upload a scanned copy.
 
 ### Formation Tracking
 
@@ -271,13 +272,9 @@ The system will be a **Multi-Page Application (MPA)** utilizing Laravel's server
 - **FR8:** Admin/Director can upload documents (Baptismal Cert, Health Report) to a specific formation stage.
 - **FR9:** System must display a "Critical Alert" on the dashboard for vows expiring within 30 days.
 
-### Financial Management
+### Financial Management (Moved to Optional)
 
-- **FR10:** Community Director can enter a daily expense with Category, Amount, Date, and Description.
-- **FR11:** Community Director can upload a receipt image/PDF for any expense > threshold (configurable).
-- **FR12:** Community Director can generate a "Monthly Financial Report" PDF that aggregates expenses by category.
-- **FR13:** General Treasurer can view read-only financial reports from all communities.
-- **FR14:** System must lock financial records after the monthly report is submitted.
+<!-- See Post-MVP section -->
 
 ### Community & Housing
 
@@ -291,6 +288,23 @@ The system will be a **Multi-Page Application (MPA)** utilizing Laravel's server
 - **FR19:** System must restrict Community Directors to view/edit ONLY members and finances of their assigned House.
 - **FR20:** System must log all critical actions (Create, Delete, Transfer) in an audit trail visible to Super Admin.
 - **FR21:** Users can reset their own passwords via email link.
+
+### Post-MVP / Optional Features
+
+#### Financial Management (Optional)
+
+- **FR10 (Optional):** Community Director can enter a daily expense with Category, Amount, Date, and Description.
+- **FR11 (Optional):** Community Director can upload a receipt image/PDF for any expense > threshold (configurable).
+- **FR12 (Optional):** Community Director can generate a "Monthly Financial Report" PDF that aggregates expenses by category.
+- **FR13 (Optional):** General Treasurer can view read-only financial reports from all communities.
+- **FR14 (Optional):** System must lock financial records after the monthly report is submitted.
+
+#### Project Management (Optional)
+
+- **FR22 (Optional):** Admin/PM can create a new Project with Name, Duration, Budget, and Target Beneficiaries.
+- **FR23 (Optional):** Admin/PM can assign roles (Project Manager, Budget Manager, Staff) to a project.
+- **FR24 (Optional):** Staff can upload "Evidence" (photos, docs) to a project milestone.
+- **FR25 (Optional):** System must perform a "Balance Check" (Actual vs Budget) before allowing a project to be closed.
 
 ## Non-Functional Requirements
 

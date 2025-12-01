@@ -33,13 +33,14 @@ Based on the PRD, Architecture, and UX documents, I am structuring the work into
 - **UX Integration:** Implements the "Spiritual Timeline" (`<x-feast-timeline>`) and the core member profile view. Focuses on the "Pastoral Dashboard" design direction for Sr. Teresa.
 - **Dependencies:** Epic 1.
 
-**Epic 3: Community Financial Stewardship**
+**Epic 3: Community Financial Stewardship (Optional / Phase 2)**
 
-- **User Value:** Dramatically reduces administrative stress by providing Community Directors with an incredibly simple and forgiving system for tracking daily expenses and generating their monthly financial report.
+- **User Value:** Dramatically reduces administrative stress by providing Community Directors with an incredibly simple and forgiving system for tracking daily expenses.
+- **Priority:** Low / Optional.
 - **PRD Coverage:** FR10-FR14 (Financials), FR15 (Community Creation).
-- **Technical Context:** Implements the `FinancialController` and the `PdfService`. Uses Laravel Policies to ensure Sr. Mary can only see her own community's finances. Leverages the `ScopeByHouse` middleware heavily.
-- **UX Integration:** Implements "The Digital Ledger" (`<x-ledger-row>`) for a simple, non-intimidating expense entry experience. This directly delivers the "Stress-Free Monthly Close" journey.
-- **Dependencies:** Epic 1, Epic 2 (for member assignment to communities).
+- **Technical Context:** Implements the `FinancialController` and the `PdfService`.
+- **UX Integration:** Implements "The Digital Ledger" (`<x-ledger-row>`).
+- **Dependencies:** Epic 1, Epic 2.
 
 **Epic 4: Strategic Oversight & Reporting**
 
@@ -48,6 +49,14 @@ Based on the PRD, Architecture, and UX documents, I am structuring the work into
 - **Technical Context:** Builds out the main administrative dashboard, leveraging model scopes and optimized queries to generate statistics. Implements global search functionality.
 - **UX Integration:** Implements the "Exception Reporting" and "Pastoral Status Card" flows for Sr. Anne, using high-level `Pastoral Status Cards` to summarize data.
 - **Dependencies:** Epics 1, 2, and 3.
+
+**Epic 5: Project & Grant Management (Optional / Phase 2)**
+
+- **User Value:** Enables the congregation to professionally manage development projects (schools, hospitals) and grants.
+- **Priority:** Low / Optional. To be implemented only after Epics 1-4 are fully stable.
+- **PRD Coverage:** FR22-FR25 (Project Management).
+- **Technical Context:** Introduces `Project`, `Grant`, and `ProjectRole` models.
+- **Dependencies:** Epic 1, Epic 3.
 
 ---
 
@@ -74,6 +83,10 @@ Based on the PRD, Architecture, and UX documents, I am structuring the work into
 - **FR19:** System must restrict Community Directors to view/edit ONLY members and finances of their assigned House.
 - **FR20:** System must log all critical actions (Create, Delete, Transfer) in an audit trail visible to Super Admin.
 - **FR21:** Users can reset their own passwords via email link.
+- **FR22:** Admin/PM can create a new Project with Name, Duration, Budget, and Target Beneficiaries.
+- **FR23:** Admin/PM can assign roles (Project Manager, Budget Manager, Staff) to a project.
+- **FR24:** Staff can upload "Evidence" (photos, docs) to a project milestone.
+- **FR25:** System must perform a "Balance Check" (Actual vs Budget) before allowing a project to be closed.
 
 ---
 
@@ -114,6 +127,13 @@ Based on the PRD, Architecture, and UX documents, I am structuring the work into
 - **FR19:** House Scoping → **Story 1.5** (House-Scoped Data Access for Directors)
 - **FR20:** Audit Trail → **Story 4.4** (Audit Trail Log)
 - **FR21:** Password Reset → **Story 1.3** (User Authentication)
+
+### Project Management
+
+- **FR22:** Create Project → **Story 5.1** (Project Creation & Planning)
+- **FR23:** Assign Roles → **Story 5.2** (Project Role Assignment)
+- **FR24:** Upload Evidence → **Story 5.3** (Evidence Upload & Monitoring)
+- **FR25:** Balance Check → **Story 5.4** (Project Closing & Balance Check)
 
 ---
 
@@ -261,11 +281,21 @@ Based on the PRD, Architecture, and UX documents, I am structuring the work into
 - **PRD Coverage:** FR2
 - **Technical Implementation:** Uses a client-side library for cropping and the `FileStorageService` for secure storage.
 
+### Story 2.8: Passport & ID Management
+
+- **User Story:** As a Director, I want to record passport details and upload a scan for each member, so that we have their travel documents ready for visa applications.
+- **Acceptance Criteria:**
+  - Given I am editing a member profile,
+  - I can enter Passport Number, Issuing Country, and Expiry Date.
+  - And I can upload a scanned image/PDF of the passport.
+  - Then the document is stored securely (private disk) and the expiry date is tracked.
+- **PRD Coverage:** FR_Passport
+
 ---
 
-## Epic 3: Community Financial Stewardship
+**Epic 3: Community Financial Stewardship (Optional / Phase 2)**
 
-**Epic Goal:** To deliver the "Stress-Free Monthly Close" by providing Community Directors with an incredibly simple and forgiving system for tracking daily expenses and generating their monthly financial report.
+**Epic Goal:** To deliver the "Stress-Free Monthly Close" by providing Community Directors with an incredibly simple and forgiving system for tracking daily expenses. **Note:** This epic is optional.
 
 ### Story 3.1: Daily Expense Entry
 
@@ -368,6 +398,50 @@ Based on the PRD, Architecture, and UX documents, I am structuring the work into
   - And the log captures who, what, and when for all Create, Delete, and Transfer actions.
 - **PRD Coverage:** FR20
 - **Technical Implementation:** Create an `AuditObserver` that listens for Eloquent model events (`created`, `updated`, `deleted`) on key models and writes to an `audit_events` table.
+
+---
+
+## Epic 5: Project & Grant Management (Optional / Phase 2)
+
+**Epic Goal:** To enable professional management of development projects and grants. **Note:** This epic is optional and should only be started after all core systems (Epics 1-4) are complete and stable.
+
+### Story 5.1: Project Creation & Planning
+
+- **User Story:** As a Project Manager, I want to create a new project with a budget and timeline, so that we can track our development initiatives.
+- **Acceptance Criteria:**
+  - Given I am a PM,
+  - When I create a project, I can define Name, Start/End Date, Total Budget, and Target Beneficiaries.
+  - Then the project is saved with a status of "Planning".
+- **PRD Coverage:** FR22
+
+### Story 5.2: Project Role Assignment
+
+- **User Story:** As a PM, I want to assign specific sisters to roles like "Budget Manager" or "Field Staff", so that responsibilities are clear.
+- **Acceptance Criteria:**
+  - Given a project exists,
+  - When I add a member to the project, I can select a role (PM, BM, Staff).
+  - Then the assigned member gains access to the project's dashboard.
+- **PRD Coverage:** FR23
+
+### Story 5.3: Evidence Upload & Monitoring
+
+- **User Story:** As Field Staff, I want to upload photos of progress (e.g., building construction), so that we have evidence for our donors.
+- **Acceptance Criteria:**
+  - Given I am viewing a project,
+  - When I click "Upload Evidence", I can attach a photo or PDF.
+  - Then the file is securely stored and listed in the project's "Evidence Log".
+- **PRD Coverage:** FR24
+
+### Story 5.4: Project Closing & Balance Check
+
+- **User Story:** As a PM, I want to close a completed project, but only if the finances are balanced, so that we don't have unaccounted funds.
+- **Acceptance Criteria:**
+  - Given a project is ready to close,
+  - When I click "Close Project",
+  - Then the system checks if Total Expenses == Total Budget (or within tolerance).
+  - If balanced, the project status changes to "Closed".
+  - If not balanced, an error is shown: "Budget variance detected. Please reconcile."
+- **PRD Coverage:** FR25
 
 ---
 
