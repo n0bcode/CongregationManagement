@@ -1,0 +1,15 @@
+installation:
+  version: 6.0.0-alpha.13
+  installDate: '2025-12-01T10:58:41.942Z'
+  lastUpdated: '2025-12-01T10:58:41.942Z'
+modules:
+  - core
+  - bmm
+ides:
+  - rovo-dev
+  - cursor
+  - antigravity
+  - cline
+  - gemini
+  - kilo
+  - roo
