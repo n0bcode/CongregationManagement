@@ -67,7 +67,7 @@ workflow_status:
     note: "Complete system design for greenfield projects"
 
   create-epics-and-stories:
-    status: "required"
+    status: "docs/epics.md"
     agent: "pm"
     command: "/bmad-bmm-workflows-create-epics-and-stories"
     note: "Required: Break down PRD into implementable epics and stories with full context (PRD + UX + Architecture)"
@@ -80,20 +80,20 @@ workflow_status:
     note: "Testability assessment before gate check - auto-detects system-level mode"
 
   validate-architecture:
-    status: "optional"
+    status: "docs/validation-report-architecture.md"
     agent: "architect"
     command: "/bmad-bmm-workflows-validate-architecture"
     note: "Quality check for architecture completeness"
 
   implementation-readiness:
-    status: "required"
+    status: "docs/implementation-readiness-report-2025-12-01.md"
     agent: "architect"
     command: "/bmad-bmm-workflows-implementation-readiness"
     note: "Validates PRD + UX + Architecture + Epics + Testability cohesion before implementation"
 
   # Phase 3: Implementation
   sprint-planning:
-    status: "required"
+    status: "docs/sprint-artifacts/sprint-status.yaml"
     agent: "sm"
     command: "/bmad-bmm-workflows-sprint-planning"
     note: "Creates sprint plan - subsequent work tracked there"
