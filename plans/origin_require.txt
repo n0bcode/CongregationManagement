@@ -1,0 +1,480 @@
+I. OVERVIEW (TỔNG QUAN HỆ THỐNG)
+
+Ứng dụng được thiết kế để quản lý đầy đủ thông tin của hội viên trong một hội dòng hoặc tổ chức tôn giáo.
+Hệ thống quản lý:
+
+   •   thông tin cá nhân
+
+   •   thông tin tu trì / đời sống thánh hiến
+
+   •   giấy tờ quan trọng
+
+   •   đào tạo – giai đoạn huấn luyện
+
+   •   cộng đoàn – phân nhiệm hằng năm
+
+   •   chức vụ – vai trò
+
+   •   công cuộc – dự án – chi tiêu
+
+   •   nhắc nhở các ngày lễ, sinh nhật, hạn khấn
+
+   •   hồ sơ sức khỏe
+
+   •   đánh giá hằng năm
+
+   •   lịch sử phục vụ
+
+   •   kỹ năng chuyên môn
+
+   •   tài liệu nội bộ
+
+   •   tạo thiệp chúc mừng
+
+   •   báo cáo thống kê và dashboard
+
+Ứng dụng hướng đến tính lâu dài, dễ sử dụng, khoa học và chuẩn quản lý theo mô hình các hội dòng hiện đại.
+ II. DANH SÁCH CHỨC NĂNG CHI TIẾT
+
+Dưới đây là danh mục đầy đủ, theo module.
+
+
+
+1. MODULE QUẢN LÝ HỘI VIÊN (MEMBER MANAGEMENT)
+
+1.1. Hồ sơ cá nhân
+
+   •   Thông tin cơ bản: họ tên, hình ảnh, ngày sinh, giới tính
+
+   •   Địa chỉ, liên hệ, email, số điện thoại
+
+   •   Lý lịch trích ngang (tùy chọn)
+
+   •   Liên hệ khẩn cấp: tên, quan hệ, số điện thoại
+
+   •   Tài liệu cá nhân (CMND/Passport…) – upload PDF/JPG
+
+1.2. Thông tin tu trì
+
+   •   Ngày gia nhập
+
+   •   Giai đoạn tu trì (aspirant / postulant / novice / temporary vows / perpetual vows)
+
+   •   Ngày khấn đầu
+
+   •   Lịch sử khấn tạm (nhiều lần)
+
+   •   Ngày khấn trọn
+
+   •   Tự động tính ngày hết hạn khấn tạm
+
+   •   Nhắc nhở hạn khấn, khấn lại
+
+   •   Ghi chú đời sống tu trì
+1.3. Truyền chức (nếu có)
+
+   •   Ngày lãnh tác vụ đọc sách / giúp lễ
+
+   •   Ngày lãnh chức phó tế
+
+   •   Ngày phong chức linh mục
+
+   •   Chứng nhận (upload)
+
+1.4. Học vấn – chuyên môn
+
+   •   Trình độ học vấn
+
+   •   Trường đào tạo
+
+   •   Lĩnh vực chuyên môn
+
+   •   Bằng cấp (upload)
+
+   •   Khóa đào tạo đã tham gia
+
+1.5. Hồ sơ sức khỏe
+
+   •   Bệnh nền
+
+   •   Thuốc đang dùng
+
+   •   Tài liệu y tế (upload)
+
+   •   Tình trạng đặc biệt
+
+1.6. Kỹ năng – năng lực
+
+   •   Kỹ năng mục vụ: giảng dạy, giáo lý, âm nhạc, y tế, truyền thông
+
+   •   Kỹ năng thực hành: lái xe, quản lý, công nghệ
+   •   Kỹ năng đặc biệt khác
+
+1.7. Nhật ký hội viên (Timeline)
+
+Hệ thống ghi lại mọi sự kiện:
+
+   •   chuyển cộng đoàn
+
+   •   đổi vai trò
+
+   •   gia hạn khấn
+
+   •   nhận chức vụ
+
+   •   khóa học
+
+   •   bệnh viện
+
+   •   dự án tham gia
+
+1.8. Lịch sử phục vụ (Service History)
+
+   •   Nơi phục vụ
+
+   •   Nhiệm vụ đảm nhận
+
+   •   Năm bắt đầu – năm kết thúc
+
+   •   Tài liệu liên quan
+
+
+
+2. MODULE COMMUNITY MANAGEMENT (QUẢN LÝ CỘNG ĐOÀN)
+
+2.1. Quản lý cộng đoàn
+
+   •   Tên, địa chỉ
+   •   Thông tin người phụ trách
+
+   •   Danh sách thành viên hiện tại
+
+   •   Danh sách tài sản cộng đoàn (tùy chọn)
+
+2.2. Phân nhiệm theo năm
+
+   •   Mỗi hội viên chỉ thuộc 1 cộng đoàn trong 1 năm
+
+   •   Chọn vai trò: Director, Assistant, Treasurer, House In-Charge…
+
+   •   Lưu lịch sử thuyên chuyển
+
+   •   Biên bản phân công (upload)
+
+2.3. Phân nhiệm theo công việc
+
+   •   Công tác mục vụ
+
+   •   Công việc chuyên môn
+
+   •   Nhiệm vụ văn phòng
+
+
+
+3. MODULE PROJECTS & EXPENSES
+
+3.1. Quản lý dự án
+
+   •   Tên dự án
+
+   •   Cộng đoàn phụ trách
+
+   •   Trưởng dự án
+
+   •   Thời gian triển khai
+   •   Mục đích
+
+   •   Tài liệu dự án
+
+   •   Giai đoạn dự án
+
+3.2. Chi tiêu – tài chính cộng đoàn
+
+   •   Danh mục chi tiêu từ văn phòng chính
+
+   •   Mục đích, lý do
+
+   •   Số tiền
+
+   •   Hóa đơn/chứng từ (upload)
+
+   •   Người duyệt
+
+   •   Báo cáo theo tháng/quý/năm
+
+
+
+4. MODULE DOCUMENT MANAGEMENT (QUẢN LÝ TÀI LIỆU)
+
+4.1. Hệ thống lưu trữ văn bản
+
+   •   Quyết định bổ nhiệm
+
+   •   Quyết định thuyên chuyển
+
+   •   Quyết định khấn
+
+   •   Thư giới thiệu
+
+   •   Hồ sơ nội bộ
+
+   •   Phân loại theo thư mục
+   •   Tìm kiếm nâng cao
+
+   •   Phân quyền truy cập
+
+
+
+5. MODULE REMINDERS & CELEBRATIONS
+
+5.1. Tự động nhắc nhở
+
+   •   Sinh nhật
+
+   •   Kỷ niệm khấn đầu
+
+   •   Kỷ niệm khấn trọn
+
+   •   Ngày nhập dòng
+
+   •   Ngày thụ phong
+
+   •   Ngày hết hạn lời khấn
+
+   •   Nhắc trước: 7 ngày – 30 ngày – 60 ngày
+
+5.2. Hệ thống sự kiện định kỳ
+
+   •   Lễ hội dòng
+
+   •   Tĩnh tâm năm
+
+   •   Các khóa huấn luyện
+
+   •   Cuộc họp định kỳ
+
+5.3. Tạo thiệp chúc mừng
+
+   •   Lấy ảnh hội viên
+   •   Chọn template
+
+   •   Tự động tạo hình chúc mừng (PNG/JPG)
+
+   •   Tải về hoặc gửi email
+
+
+
+6. MODULE REPORTING & DASHBOARD
+
+6.1. Dashboard trực quan
+
+   •   Số lượng hội viên theo giai đoạn đào luyện
+
+   •   Số hội viên sắp hết hạn khấn
+
+   •   Danh sách sinh nhật hôm nay / tuần này
+
+   •   Số dự án đang hoạt động
+
+   •   Chi tiêu cộng đoàn
+
+   •   Thống kê vai trò cộng đoàn
+
+6.2. Báo cáo xuất ﬁle
+
+Xuất PDF / Excel:
+
+   •   Danh sách hội viên
+
+   •   Lịch sử phục vụ
+
+   •   Chi tiêu cộng đoàn
+
+   •   Dự án
+
+   •   Hồ sơ cá nhân
+   •   Danh sách thành viên theo cộng đoàn
+
+   •   Lực lượng nhân sự theo kỹ năng
+
+
+
+7. MODULE AUTHENTICATION & PERMISSIONS
+
+7.1. Các vai trò người dùng
+
+   •   Super Admin: toàn quyền
+
+   •   Central Office: xem tất cả, duyệt chi tiêu
+
+   •   Community Director: quản lý cộng đoàn mình
+
+   •   Secretary: nhập liệu
+
+   •   Member: xem hồ sơ cá nhân
+
+7.2. Phân quyền chi tiết
+
+   •   Quyền xem
+
+   •   Quyền tạo
+
+   •   Quyền sửa
+
+   •   Quyền xóa
+
+   •   Quyền truy cập tài liệu
+
+   •   Quyền duyệt chi tiêu
+
+   •   Quyền xuất báo cáo
+8. MODULE SETTINGS & SYSTEM MANAGEMENT
+
+8.1. Thiết lập chung
+
+   •   Năm phục vụ mặc định
+
+   •   Thời gian nhắc nhở (days before)
+
+   •   Upload logo hội dòng
+
+   •   Cấu hình email server
+
+8.2. Hệ thống ghi log
+
+   •   Ai thay đổi thông tin
+
+   •   Khi nào thay đổi
+
+   •   Thay đổi điều gì
+
+8.3. Sao lưu và khôi phục
+
+   •   Backup database
+
+   •   Restore backup
+
+
+
+ III. TỔNG HỢP CHỨC NĂNG (FULL SYSTEM FUNCTION LIST)
+
+Tổng số chức năng: hơn 80 chức năng chi tiết, bao gồm:
+
+   •   Member Management (20+)
+
+   •   Community Management (10+)
+
+   •   Projects & Financials (10+)
+   •   Formation Stages (5+)
+
+   •   Health / Skills / Service History (10+)
+
+   •   Document Management (5+)
+
+   •   Reminder System (5+)
+
+   •   Celebration Cards (3)
+
+   •   Reporting (7+)
+
+   •   Permissions (5+)
+
+   •   System Management (5+)
+
+
+
+ IV. KẾT LUẬN
+
+Với đầy đủ các chức năng trên, hệ thống:
+
+   •   Đáp ứng quy trình quản lý đầy đủ của hội dòng
+
+   •   Tự động hóa công việc
+
+   •   Quản lý dữ liệu khoa học và lâu dài
+
+   •   Giảm lỗi nhập liệu
+
+   •   Tăng tính thống nhất trong quản lý
+
+   •   Phù hợp cho hội dòng tại châu Phi hoặc quốc tế
+
+
+Hệ Thống Quản Lý Hội Viên – Tổng Quan & Chức Năng
+I. Tổng Quan Hệ Thống
+Ứng dụng được xây dựng nhằm mục đích quản lý toàn diện thông tin hội viên của các hội dòng hoặc tổ chức tôn giáo. Hệ thống bao gồm
+các chức năng quản lý thông tin cá nhân, đời sống tu trì, giấy tờ quan trọng, đào tạo, phân nhiệm, chức vụ, dự án, chi tiêu, nhắc nhở các
+sự kiện quan trọng, hồ sơ sức khỏe, đánh giá, lịch sử phục vụ, kỹ năng chuyên môn, tài liệu nội bộ, tạo thiệp chúc mừng, báo cáo thống
+kê cùng dashboard trực quan. Ứng dụng hướng đến tính bền vững, dễ sử dụng, tối ưu hóa quy trình quản lý theo mô hình các hội dòng
+hiện đại.
+
+
+II. Danh Sách Chức Năng Chi Tiết
+1. Module Quản Lý Hội Viên (Member Management)
+   •   Hồ sơ cá nhân: Ghi nhận thông tin cơ bản như họ tên, hình ảnh, ngày sinh, giới tính, địa chỉ, liên hệ, email, số điện thoại, lý lịch
+       trích ngang, người liên hệ khẩn cấp, tài liệu cá nhân (CMND/Passport…).
+   •   Thông tin tu trì: Quản lý ngày gia nhập, các giai đoạn tu trì, ngày khấn đầu, lịch sử khấn tạm, ngày khấn trọn, tự động tính ngày hết
+       hạn khấn, nhắc nhở hạn khấn, ghi chú đời sống tu trì.
+   •   Truyền chức: Lưu trữ ngày lãnh các tác vụ, chức vụ, giấy chứng nhận (nếu có).
+   •   Học vấn – chuyên môn: Quản lý trình độ, trường đào tạo, lĩnh vực, bằng cấp, các khóa đào tạo đã tham dự.
+   •   Hồ sơ sức khỏe: Theo dõi bệnh nền, thuốc đang dùng, tình trạng đặc biệt, tài liệu y tế.
+   •   Kỹ năng – năng lực: Ghi nhận kỹ năng mục vụ, thực hành, đặc biệt.
+   •   Nhật ký hội viên (Timeline): Lưu vết các sự kiện như chuyển cộng đoàn, đổi vai trò, gia hạn khấn, nhận chức vụ, tham gia khóa
+       học, nhập viện, dự án tham gia.
+   •   Lịch sử phục vụ: Theo dõi nơi phục vụ, nhiệm vụ, thời gian, tài liệu liên quan.
+
+2. Module Quản Lý Cộng Đoàn (Community Management)
+   •   Quản lý cộng đoàn: Quản lý tên, địa chỉ, người phụ trách, thành viên, tài sản.
+   •   Phân nhiệm theo năm: Mỗi hội viên chỉ thuộc một cộng đoàn mỗi năm, lưu lịch sử thuyên chuyển, biên bản phân công.
+   •   Phân nhiệm theo công việc: Theo dõi công tác mục vụ, chuyên môn, văn phòng.
+3. Module Dự Án & Chi Tiêu (Projects & Expenses)
+  •   Quản lý dự án: Ghi nhận tên dự án, cộng đoàn phụ trách, trưởng dự án, thời gian, mục đích, tài liệu, các giai đoạn dự án.
+  •   Chi tiêu – tài chính cộng đoàn: Quản lý danh mục chi tiêu, mục đích, số tiền, hóa đơn/chứng từ, người duyệt, báo cáo định kỳ.
+
+4. Module Quản Lý Tài Liệu (Document Management)
+  •   Quản lý quyết định bổ nhiệm, quyết định thuyên chuyển, quyết định khấn, thư giới thiệu, hồ sơ nội bộ theo thư mục, tìm kiếm
+      nâng cao, phân quyền truy cập.
+
+5. Module Nhắc Nhở & Chúc Mừng (Reminders & Celebrations)
+  •   Tự động nhắc nhở: Sinh nhật, các ngày kỷ niệm, nhắc trước các sự kiện quan trọng.
+  •   Sự kiện định kỳ: Lễ hội, tĩnh tâm, khóa huấn luyện, họp định kỳ.
+  •   Tạo thiệp chúc mừng: Chọn ảnh, template, tự động tạo thiệp, tải về hoặc gửi email.
+
+6. Module Báo Cáo & Dashboard
+  •   Dashboard trực quan: Thống kê hội viên, dự án, chi tiêu, vai trò, sinh nhật.
+  •   Báo cáo xuất ﬁle: Danh sách hội viên, lịch sử phục vụ, chi tiêu, dự án, hồ sơ cá nhân, thành viên theo cộng đoàn, nhân sự theo kỹ
+      năng.
+
+7. Module Xác Thực & Phân Quyền (Authentication & Permissions)
+  •   Các vai trò người dùng: Super Admin, Central Office, Community Director, Secretary, Member – với quyền hạn tương ứng.
+  •   Phân quyền chi tiết: Xem, tạo, sửa, xóa, truy cập tài liệu, duyệt chi tiêu, xuất báo cáo.
+
+8. Module Cài Đặt & Quản Lý Hệ Thống
+  •   Thiết lập chung: Năm phục vụ mặc định, thời gian nhắc nhở, upload logo, cấu hình email.
+  •   Hệ thống ghi log: Ghi nhận ai, khi nào, thay đổi nội dung gì.
+  •   Sao lưu và khôi phục: Chức năng backup và restore dữ liệu.
+III. Tổng Hợp Chức Năng
+Hệ thống bao gồm hơn 80 chức năng chi tiết trải rộng trên các lĩnh vực quản lý hội viên, cộng đoàn, tài chính, đào tạo, sức khỏe, kỹ năng,
+tài liệu, nhắc nhở, chúc mừng, báo cáo, phân quyền và quản lý hệ thống.
+
+   •   Member Management: 20+ chức năng
+   •   Community Management: 10+ chức năng
+   •   Projects & Financials: 10+ chức năng
+   •   Formation Stages: 5+ chức năng
+   •   Health / Skills / Service History: 10+ chức năng
+   •   Document Management: 5+ chức năng
+   •   Reminder System: 5+ chức năng
+   •   Celebration Cards: 3 chức năng
+   •   Reporting: 7+ chức năng
+   •   Permissions: 5+ chức năng
+   •   System Management: 5+ chức năng
+
+
+IV. Kết Luận
+Với các chức năng đầy đủ, hệ thống đáp ứng quy trình quản lý toàn diện của hội dòng, tự động hóa nghiệp vụ, quản lý dữ liệu khoa học,
+giảm thiểu sai sót nhập liệu, tăng tính thống nhất, phù hợp với hội dòng tại châu Phi hoặc quốc tế.
+
+**REQUIRE**: Ngôn ngữ yêu cầu là PHP (Lavarel) + MySQL
+
+**NOTE**: 
+ Demonstrate the project with: `composer create-project laravel/laravel {name}`
