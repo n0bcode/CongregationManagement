@@ -37,7 +37,7 @@ story_location: docs/sprint-artifacts
 
 development_status:
   epic-1: backlog
-  1-1-project-initialization-environment-setup: ready-for-dev
+  1-1-project-initialization-environment-setup: done
   1-2-core-data-model-migrations: backlog
   1-3-user-authentication: backlog
   1-4-role-based-access-control-rbac-foundation: backlog
