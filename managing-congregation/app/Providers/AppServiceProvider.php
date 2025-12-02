@@ -1,7 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Providers;
 
+use App\Enums\UserRole;
+use App\Services\PermissionService;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -11,7 +16,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->singleton(PermissionService::class);
     }
 
     /**
@@ -19,6 +24,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Define view-admin gate
+        Gate::define('view-admin', function ($user) {
+            return $user->hasRole(UserRole::SUPER_ADMIN) || $user->hasRole(UserRole::GENERAL);
+        });
+
+        // Register UserPolicy for automatic discovery
+        Gate::policy(\App\Models\User::class, \App\Policies\UserPolicy::class);
     }
 }
