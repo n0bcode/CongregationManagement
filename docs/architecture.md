@@ -53,6 +53,9 @@ The system requires a robust Member Management core with specialized lifecycle t
 ### Cross-Cutting Concerns Identified
 
 - **Role-Based Access Control (RBAC):** Must be pervasive, filtering data at the query level based on user scope (House vs. General).
+  - **Implementation:** Hybrid model with type-safe permission enums (`PermissionKey`) and simplified 3-table schema
+  - **Pattern:** Super admin bypass for performance, Global Scopes for automatic filtering, Policy-based authorization
+  - **Files:** `app/Enums/UserRole.php`, `app/Enums/PermissionKey.php`, `app/Services/PermissionService.php`, `app/Policies/*`
 - **Audit Logging:** Every state change (transfer, delete, financial approval) needs an immutable log.
 - **File Management:** Secure storage and serving of private documents (receipts, health records).
 - **Notification Engine:** Time-based alerts (vow expiry) and event-based notifications.
@@ -155,8 +158,142 @@ php artisan breeze:install blade
 ### Authentication & Security
 
 - **Auth Method:** Session-based Authentication (Standard Laravel). Simple and secure for a Monolith.
-- **Authorization:** Policy-based Authorization (Laravel Policies).
-  - _Critical Pattern:_ Every query must be scoped. `Member::where('house_id', $user->house_id)`.
+- **Authorization:** Hybrid RBAC Model combining role-based and permission-based access control.
+
+#### RBAC Permission Infrastructure
+
+**Architecture Pattern:** Simplified 3-table schema adapted from proven ASP.NET Core patterns (see `plans/RBAC_System_Documentation.md`).
+
+**Database Schema:**
+
+```
+users
+  - role (enum: super_admin, general, director, member)
+  - community_id (nullable FK → communities)
+
+permissions
+  - id
+  - key (unique: 'territories.view', 'publishers.manage')
+  - name ('View Territories', 'Manage Publishers')
+  - module ('Territories', 'Publishers', 'Reports')
+
+role_permissions (pivot)
+  - role (enum value)
+  - permission_id (FK → permissions.id)
+  - composite PK: (role, permission_id)
+```
+
+**Type-Safe Permission Constants:**
+
+```php
+// app/Enums/UserRole.php
+enum UserRole: string {
+    case SUPER_ADMIN = 'super_admin';
+    case GENERAL = 'general';
+    case DIRECTOR = 'director';
+    case MEMBER = 'member';
+}
+
+// app/Enums/PermissionKey.php
+enum PermissionKey: string {
+    case TERRITORIES_VIEW = 'territories.view';
+    case TERRITORIES_ASSIGN = 'territories.assign';
+    case TERRITORIES_MANAGE = 'territories.manage';
+    case PUBLISHERS_VIEW = 'publishers.view';
+    case PUBLISHERS_MANAGE = 'publishers.manage';
+    case REPORTS_VIEW = 'reports.view';
+    case REPORTS_EXPORT = 'reports.export';
+}
+```
+
+**Permission Checking Pattern:**
+
+```php
+// User Model
+public function hasPermission(PermissionKey|string $permission): bool {
+    // Super admin bypass for performance
+    if ($this->role === UserRole::SUPER_ADMIN) {
+        return true;
+    }
+
+    $key = $permission instanceof PermissionKey
+        ? $permission->value
+        : $permission;
+
+    return DB::table('role_permissions')
+        ->join('permissions', 'permissions.id', '=', 'role_permissions.permission_id')
+        ->where('role_permissions.role', $this->role->value)
+        ->where('permissions.key', $key)
+        ->exists();
+}
+```
+
+**Permission Matrix:**
+
+| Role            | Territories          | Publishers   | Reports      | Users        |
+| --------------- | -------------------- | ------------ | ------------ | ------------ |
+| **Super Admin** | All (bypass)         | All (bypass) | All (bypass) | All (bypass) |
+| **General**     | View, Assign, Manage | View, Manage | View, Export | View         |
+| **Director**    | View, Assign         | View, Manage | View         | -            |
+| **Member**      | View (own only\*)    | -            | -            | -            |
+
+_\*Community-scoped access enforced via Global Scopes and Policies_
+
+**Critical Patterns:**
+
+1. **Query Scoping:** Every query must be scoped by user context.
+
+   ```php
+   // For Directors: scope to their community
+   Member::where('community_id', $user->community_id)->get();
+
+   // Use Global Scopes for automatic filtering
+   class Member extends Model {
+       protected static function booted() {
+           static::addGlobalScope('community', function (Builder $builder) {
+               if (Auth::check() && Auth::user()->role === UserRole::DIRECTOR) {
+                   $builder->where('community_id', Auth::user()->community_id);
+               }
+           });
+       }
+   }
+   ```
+
+2. **Policy-Based Authorization:** Use Laravel Policies for all authorization checks.
+
+   ```php
+   // app/Policies/MemberPolicy.php
+   public function before(User $user, string $ability): bool|null {
+       // Super admin bypass
+       if ($user->role === UserRole::SUPER_ADMIN) {
+           return true;
+       }
+       return null; // Fall through to individual policy methods
+   }
+
+   public function view(User $user, Member $member): bool {
+       return $user->hasPermission(PermissionKey::TERRITORIES_VIEW) &&
+              ($user->role !== UserRole::DIRECTOR ||
+               $user->community_id === $member->community_id);
+   }
+   ```
+
+3. **Service Layer:** Permission management logic in dedicated service.
+   ```php
+   // app/Services/PermissionService.php
+   class PermissionService {
+       public function assignPermissionsToRole(UserRole $role, array $permissionKeys): void;
+       public function getRolePermissions(UserRole $role): Collection;
+   }
+   ```
+
+**Future Enhancements (Post-MVP):**
+
+- Auto-discovery of permissions from routes/controllers
+- Permission management UI for admins
+- Caching layer (Cache::remember with 1-hour TTL)
+- Audit logging (who granted what permission when)
+
 - **Data Privacy:** Health records and sensitive documents must be stored in a private S3/MinIO bucket, not public storage. URLs generated with temporary signatures.
 
 ### API & Communication Patterns
@@ -193,7 +330,10 @@ php artisan breeze:install blade
 
 **Cross-Component Dependencies:**
 
-- **RBAC** affects _every_ controller and query. It must be built first.
+- **RBAC Permission Infrastructure** affects _every_ controller and query. It must be built first.
+  - Type-safe enums (`UserRole`, `PermissionKey`) must be defined before any authorization logic
+  - Permission seeding must complete before user creation in tests
+  - Global Scopes depend on User model having `role` and `community_id` columns
 - **Formation Logic** depends on the **Member** entity being stable.
 
 ## Implementation Patterns & Consistency Rules
@@ -321,6 +461,9 @@ managing-congregation/
 ├── docker-compose.yml
 ├── app/
 │   ├── Console/
+│   ├── Enums/
+│   │   ├── UserRole.php (RBAC)
+│   │   └── PermissionKey.php (RBAC - Type-safe permissions)
 │   ├── Exceptions/
 │   ├── Http/
 │   │   ├── Controllers/
@@ -336,17 +479,21 @@ managing-congregation/
 │   │   │   └── StoreExpenseRequest.php
 │   │   └── Resources/ (API Resources if needed)
 │   ├── Models/
-│   │   ├── User.php
+│   │   ├── User.php (with hasPermission method)
+│   │   ├── Permission.php (RBAC)
 │   │   ├── Member.php
 │   │   ├── Community.php
 │   │   ├── Assignment.php
 │   │   ├── FormationEvent.php
 │   │   └── Expense.php
 │   ├── Policies/
+│   │   ├── UserPolicy.php (RBAC - with super admin bypass)
 │   │   ├── MemberPolicy.php
 │   │   └── FinancialPolicy.php
 │   ├── Providers/
+│   │   └── AppServiceProvider.php (Gates + PermissionService registration)
 │   ├── Services/
+│   │   ├── PermissionService.php (RBAC - Permission management)
 │   │   ├── FormationService.php (Date Logic)
 │   │   ├── PdfService.php
 │   │   └── FileStorageService.php
@@ -356,14 +503,20 @@ managing-congregation/
 │           └── LedgerRow.php
 ├── database/
 │   ├── factories/
+│   │   ├── PermissionFactory.php (RBAC)
+│   │   └── ... (other factories)
 │   ├── migrations/
 │   │   ├── 0001_01_01_000000_create_users_table.php
+│   │   ├── xxxx_xx_xx_add_role_and_community_to_users_table.php (RBAC)
+│   │   ├── xxxx_xx_xx_create_permissions_table.php (RBAC)
+│   │   ├── xxxx_xx_xx_create_role_permissions_table.php (RBAC)
 │   │   ├── xxxx_xx_xx_create_communities_table.php
 │   │   ├── xxxx_xx_xx_create_members_table.php
 │   │   ├── xxxx_xx_xx_create_assignments_table.php
 │   │   └── xxxx_xx_xx_create_expenses_table.php
 │   └── seeders/
-│       └── DatabaseSeeder.php
+│       ├── DatabaseSeeder.php (calls PermissionSeeder)
+│       └── PermissionSeeder.php (RBAC - Seeds permissions + role assignments)
 ├── resources/
 │   ├── css/
 │   │   └── app.css
@@ -392,10 +545,20 @@ managing-congregation/
 │       └── private/ (Secure Docs)
 └── tests/
     ├── Feature/
+    │   ├── Auth/
+    │   │   ├── RbacPermissionTest.php (RBAC - Schema tests)
+    │   │   ├── PermissionSeederTest.php (RBAC - Seeder tests)
+    │   │   └── RbacIntegrationTest.php (RBAC - End-to-end tests)
     │   ├── MemberTest.php
     │   └── FinancialReportTest.php
-    └── Unit/
-        └── FormationLogicTest.php
+    ├── Unit/
+    │   ├── Enums/
+    │   │   └── PermissionKeyTest.php (RBAC - Enum validation)
+    │   ├── UserPermissionTest.php (RBAC - Permission checking logic)
+    │   ├── PermissionServiceTest.php (RBAC - Service layer)
+    │   └── FormationLogicTest.php
+    └── Performance/ (Optional)
+        └── PermissionPerformanceTest.php (RBAC - Query optimization)
 ```
 
 ### Architectural Boundaries

@@ -19,6 +19,6 @@ class SeederTest extends TestCase
         $this->seed(DatabaseSeeder::class);
 
         $this->assertGreaterThan(0, Community::count());
-        $this->assertGreaterThan(0, Member::count());
+        $this->assertGreaterThan(0, Member::withoutGlobalScopes()->count());
     }
 }

@@ -174,16 +174,31 @@ Based on the PRD, Architecture, and UX documents, I am structuring the work into
   - Given I have forgotten my password, I can use the "Forgot Password" link to receive a reset email via Mailpit.
 - **Technical Implementation:** Utilizes the default routes and controllers provided by Laravel Breeze. No custom logic needed for this story.
 
-### Story 1.4: Role-Based Access Control (RBAC) Foundation
+### Story 1.4: RBAC Foundation with Permission Infrastructure
 
-- **User Story:** As a System Administrator, I want to assign roles (Super Admin, General, Director) to users, so that I can control their access levels.
+- **User Story:** As a System Administrator, I want to assign roles and granular permissions to users with type-safe, scalable infrastructure, so that I can control their access levels precisely.
 - **Acceptance Criteria:**
   - Given the `users` table exists,
-  - Then it is modified to include a `role` column (e.g., string or enum).
-  - And a `UserPolicy` is created.
-  - When a user has the 'Super Admin' role, they can access a future "Admin" section (gate passes).
-  - When a user has the 'Director' role, they are restricted from admin functions.
-- **Technical Implementation:** Creates a `role` column in the `users` migration. Defines basic gates or policies in `AuthServiceProvider`.
+  - Then it is modified to include a `role` column (enum: super_admin, general, director, member) and `community_id` (nullable FK).
+  - And a `permissions` table exists with columns: `id`, `key` (unique), `name`, `module`.
+  - And a `role_permissions` pivot table exists with composite PK: (role, permission_id).
+  - And type-safe enums are defined: `UserRole` and `PermissionKey` (territories, publishers, reports).
+  - And a `PermissionSeeder` creates all MVP permissions with default role assignments.
+  - And a `PermissionService` provides methods for permission management.
+  - And the `User` model has `hasPermission(PermissionKey|string)` method with super admin bypass.
+  - And a `UserPolicy` is created with `before()` method for super admin bypass.
+  - When a user has the 'Super Admin' role, they can access all features (bypass pattern).
+  - When a user has the 'Director' role, they have specific permissions (territories.view, territories.assign, publishers.view, publishers.manage).
+  - And comprehensive tests pass (22+ tests covering schema, enums, permissions, seeders, service, integration).
+- **Technical Implementation:**
+  - Creates `app/Enums/UserRole.php` and `app/Enums/PermissionKey.php`
+  - Creates migrations for permissions infrastructure
+  - Creates `app/Models/Permission.php` and `app/Services/PermissionService.php`
+  - Implements hybrid RBAC model adapted from ASP.NET Core patterns (see `plans/RBAC_System_Documentation.md`)
+  - Defines basic gates and policies with super admin bypass pattern
+  - Comprehensive test suite (95%+ coverage) for all permission logic
+- **Architecture Reference:** See "RBAC Permission Infrastructure" section in `architecture.md`
+- **Story File:** `docs/sprint-artifacts/stories/1-4-role-based-access-control-rbac-foundation.md`
 
 ### Story 1.5: House-Scoped Data Access for Directors
 
