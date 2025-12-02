@@ -1,4 +1,4 @@
-# generated: 2025-12-01
+# generated: 2025-12-02
 # project: Managing the Congregation (at the organizational level)
 # project_key: MTC
 # tracking_system: file-system
@@ -29,7 +29,7 @@
 # - SM typically drafts next story after previous one is 'done' to incorporate learnings
 # - Dev moves story to 'review', SM reviews, then Dev moves to 'done'
 
-generated: 2025-12-01
+generated: 2025-12-02
 project: Managing the Congregation (at the organizational level)
 project_key: MTC
 tracking_system: file-system
@@ -38,7 +38,7 @@ story_location: docs/sprint-artifacts
 development_status:
   epic-1: backlog
   1-1-project-initialization-environment-setup: done
-  1-2-core-data-model-migrations: backlog
+  1-2-core-data-model-migrations: done
   1-3-user-authentication: backlog
   1-4-role-based-access-control-rbac-foundation: backlog
   1-5-house-scoped-data-access-for-directors: backlog
@@ -52,6 +52,7 @@ development_status:
   2-5-secure-document-upload-for-formation: backlog
   2-6-member-transfer-history: backlog
   2-7-member-profile-photo-management: backlog
+  2-8-passport-id-management: backlog
   epic-2-retrospective: optional
 
   epic-3: backlog
@@ -68,3 +69,10 @@ development_status:
   4-3-view-all-financial-reports: backlog
   4-4-audit-trail-log: backlog
   epic-4-retrospective: optional
+
+  epic-5: backlog
+  5-1-project-creation-planning: backlog
+  5-2-project-role-assignment: backlog
+  5-3-evidence-upload-monitoring: backlog
+  5-4-project-closing-balance-check: backlog
+  epic-5-retrospective: optional
