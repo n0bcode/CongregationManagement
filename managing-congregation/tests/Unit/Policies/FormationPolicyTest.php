@@ -17,7 +17,7 @@ class FormationPolicyTest extends TestCase
     public function test_super_admin_can_create_and_view(): void
     {
         $user = User::factory()->create(['role' => UserRole::SUPER_ADMIN]);
-        $policy = new FormationPolicy();
+        $policy = new FormationPolicy;
 
         $this->assertTrue($policy->viewAny($user));
         $this->assertTrue($policy->create($user));
@@ -26,7 +26,7 @@ class FormationPolicyTest extends TestCase
     public function test_director_can_create_and_view(): void
     {
         $user = User::factory()->create(['role' => UserRole::DIRECTOR]);
-        $policy = new FormationPolicy();
+        $policy = new FormationPolicy;
 
         $this->assertTrue($policy->viewAny($user));
         $this->assertTrue($policy->create($user));
@@ -35,7 +35,7 @@ class FormationPolicyTest extends TestCase
     public function test_member_cannot_create(): void
     {
         $user = User::factory()->create(['role' => UserRole::MEMBER]);
-        $policy = new FormationPolicy();
+        $policy = new FormationPolicy;
 
         $this->assertFalse($policy->create($user));
     }

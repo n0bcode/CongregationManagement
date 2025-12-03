@@ -2,10 +2,10 @@
 
 namespace Tests\Feature;
 
+use App\Models\Assignment;
 use App\Models\Community;
 use App\Models\Member;
 use App\Models\User;
-use App\Models\Assignment;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -18,7 +18,7 @@ class MemberTransferTest extends TestCase
         $oldCommunity = Community::factory()->create(['name' => 'Old House']);
         $user = User::factory()->create(['community_id' => $oldCommunity->id]);
         $newCommunity = Community::factory()->create(['name' => 'New House']);
-        
+
         $member = Member::factory()->create([
             'community_id' => $oldCommunity->id,
             'first_name' => 'John',

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Feature;
 
-use App\Enums\PermissionKey;
 use App\Enums\UserRole;
 use App\Models\Community;
 use App\Models\FormationDocument;
@@ -76,12 +75,12 @@ class FormationDocumentTest extends TestCase
     {
         $community1 = Community::factory()->create();
         $community2 = Community::factory()->create();
-        
+
         $user = User::factory()->create([
             'role' => UserRole::DIRECTOR,
             'community_id' => $community1->id,
         ]);
-        
+
         $member = Member::factory()->create(['community_id' => $community2->id]);
         $event = FormationEvent::factory()->create(['member_id' => $member->id]);
         $file = UploadedFile::fake()->create('test.pdf', 1024);
@@ -138,7 +137,7 @@ class FormationDocumentTest extends TestCase
     public function test_authorized_user_can_download_document(): void
     {
         Storage::fake('local');
-        
+
         $community = Community::factory()->create();
         $user = User::factory()->create([
             'role' => UserRole::DIRECTOR,
@@ -146,11 +145,11 @@ class FormationDocumentTest extends TestCase
         ]);
         $member = Member::factory()->create(['community_id' => $community->id]);
         $event = FormationEvent::factory()->create(['member_id' => $member->id]);
-        
+
         // Create a real file in storage
-        $filePath = 'formation-documents/' . $member->id . '/' . $event->id . '/test.pdf';
+        $filePath = 'formation-documents/'.$member->id.'/'.$event->id.'/test.pdf';
         Storage::disk('local')->put($filePath, 'test content');
-        
+
         $document = FormationDocument::factory()->create([
             'formation_event_id' => $event->id,
             'file_path' => $filePath,
@@ -177,12 +176,12 @@ class FormationDocumentTest extends TestCase
     {
         $community1 = Community::factory()->create();
         $community2 = Community::factory()->create();
-        
+
         $user = User::factory()->create([
             'role' => UserRole::DIRECTOR,
             'community_id' => $community1->id,
         ]);
-        
+
         $member = Member::factory()->create(['community_id' => $community2->id]);
         $event = FormationEvent::factory()->create(['member_id' => $member->id]);
         $document = FormationDocument::factory()->create(['formation_event_id' => $event->id]);
@@ -227,13 +226,13 @@ class FormationDocumentTest extends TestCase
         ]);
 
         $document = FormationDocument::where('formation_event_id', $event->id)->first();
-        
+
         // Assert file is in formation-documents directory (private storage)
         $this->assertStringContainsString('formation-documents', $document->file_path);
-        
+
         // Assert file exists in local (private) disk
         Storage::disk('local')->assertExists($document->file_path);
-        
+
         // Assert file does NOT exist in public disk
         Storage::disk('public')->assertMissing($document->file_path);
     }
@@ -241,18 +240,18 @@ class FormationDocumentTest extends TestCase
     public function test_general_role_can_access_all_community_documents(): void
     {
         Storage::fake('local');
-        
+
         $community1 = Community::factory()->create();
         $community2 = Community::factory()->create();
-        
+
         $user = User::factory()->create(['role' => UserRole::GENERAL]);
-        
+
         $member1 = Member::factory()->create(['community_id' => $community1->id]);
         $member2 = Member::factory()->create(['community_id' => $community2->id]);
-        
+
         $event1 = FormationEvent::factory()->create(['member_id' => $member1->id]);
         $event2 = FormationEvent::factory()->create(['member_id' => $member2->id]);
-        
+
         $file1 = UploadedFile::fake()->create('test1.pdf', 1024);
         $file2 = UploadedFile::fake()->create('test2.pdf', 1024);
 

@@ -14,22 +14,31 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::patch('/profile/role', [ProfileController::class, 'updateRole'])->name('profile.role.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::resource('members', \App\Http\Controllers\MemberController::class);
     Route::post('/members/{member}/formation', [\App\Http\Controllers\FormationController::class, 'store'])->name('members.formation.store');
-    
+
     // Formation Documents
     Route::post('/formation-events/{event}/documents', [\App\Http\Controllers\FormationDocumentController::class, 'store'])->name('formation.documents.store');
     Route::get('/formation-documents/{document}/download', [\App\Http\Controllers\FormationDocumentController::class, 'download'])->name('formation.documents.download');
     Route::delete('/formation-documents/{document}', [\App\Http\Controllers\FormationDocumentController::class, 'destroy'])->name('formation.documents.destroy');
-    
+
     // Member Transfer
     Route::post('/members/{member}/transfer', [\App\Http\Controllers\MemberTransferController::class, 'store'])->name('members.transfer');
 
     // Member Photos
     Route::put('/members/{member}/photo', [\App\Http\Controllers\MemberPhotoController::class, 'update'])->name('members.photo.update');
     Route::delete('/members/{member}/photo', [\App\Http\Controllers\MemberPhotoController::class, 'destroy'])->name('members.photo.destroy');
+
+    // Health Records
+    Route::post('/members/{member}/health', [\App\Http\Controllers\HealthRecordController::class, 'store'])->name('members.health.store');
+    Route::delete('/health-records/{healthRecord}', [\App\Http\Controllers\HealthRecordController::class, 'destroy'])->name('health-records.destroy');
+
+    // Skills
+    Route::post('/members/{member}/skills', [\App\Http\Controllers\SkillController::class, 'store'])->name('members.skills.store');
+    Route::delete('/skills/{skill}', [\App\Http\Controllers\SkillController::class, 'destroy'])->name('skills.destroy');
 });
 
 require __DIR__.'/auth.php';

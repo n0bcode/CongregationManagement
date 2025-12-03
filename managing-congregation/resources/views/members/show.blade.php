@@ -24,90 +24,253 @@
         </div>
     </x-slot>
 
-    <div class="py-12">
+    <div class="py-12" x-data="{ activeTab: 'personal' }">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <!-- Timeline Section -->
+            <!-- Member Header with Photo -->
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-6">
-                <div class="p-6 text-gray-900">
-                    <h3 class="text-lg font-medium text-gray-900 mb-4">{{ __('Formation Timeline') }}</h3>
-                    <x-feast-timeline :events="$member->formationEvents()->with('documents')->get()" :member="$member" :projectedEvents="$projectedEvents" />
-                </div>
-            </div>
-
-            <!-- Service History Section -->
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-6">
-                <div class="p-6 text-gray-900">
-                    <h3 class="text-lg font-medium text-gray-900 mb-4">{{ __('Service History') }}</h3>
-                    <x-service-history-list :assignments="$member->assignments" />
-                </div>
-            </div>
-
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <div class="flex items-center space-x-6 mb-6">
-                                <div class="shrink-0">
-                                    <img class="h-24 w-24 object-cover rounded-full border-2 border-gray-200" src="{{ $member->profile_photo_url }}" alt="{{ $member->first_name }}" />
-                                </div>
-                                <div>
-                                    @can('update', $member)
-                                        <div class="flex space-x-2">
-                                            <x-secondary-button x-data="" x-on:click.prevent="$dispatch('open-modal', 'update-photo')">
-                                                {{ __('Update Photo') }}
-                                            </x-secondary-button>
-                                            
-                                            @if($member->profile_photo_path)
-                                                <form method="POST" action="{{ route('members.photo.destroy', $member) }}" class="inline">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <x-danger-button onclick="return confirm('Are you sure you want to remove this photo?')">
-                                                        {{ __('Remove') }}
-                                                    </x-danger-button>
-                                                </form>
-                                            @endif
-                                        </div>
-                                    @endcan
-                                </div>
+                <div class="p-6">
+                    <div class="flex items-center space-x-6">
+                        <div class="shrink-0">
+                            <img class="h-32 w-32 object-cover rounded-full border-4 border-stone-200" src="{{ $member->profile_photo_url }}" alt="{{ $member->first_name }}" />
+                        </div>
+                        <div class="flex-1">
+                            <h2 class="text-3xl font-serif font-bold text-slate-900">
+                                {{ $member->first_name }} {{ $member->last_name }}
+                            </h2>
+                            @if($member->religious_name)
+                                <p class="text-xl text-slate-600 mt-1">{{ $member->religious_name }}</p>
+                            @endif
+                            <div class="mt-3 flex items-center space-x-4">
+                                <span class="px-3 py-1 text-sm font-semibold rounded-full bg-sanctuary-green/10 text-sanctuary-green">
+                                    {{ $member->status }}
+                                </span>
+                                <span class="text-sm text-slate-600">{{ $member->community->name ?? 'N/A' }}</span>
                             </div>
+                        </div>
+                        @can('update', $member)
+                            <div class="flex flex-col space-y-2">
+                                <x-secondary-button x-data="" x-on:click.prevent="$dispatch('open-modal', 'update-photo')">
+                                    {{ __('Update Photo') }}
+                                </x-secondary-button>
+                                @if($member->profile_photo_path)
+                                    <form method="POST" action="{{ route('members.photo.destroy', $member) }}" class="inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <x-danger-button onclick="return confirm('Are you sure you want to remove this photo?')" class="w-full">
+                                            {{ __('Remove Photo') }}
+                                        </x-danger-button>
+                                    </form>
+                                @endif
+                            </div>
+                        @endcan
+                    </div>
+                </div>
+            </div>
 
-                            <h3 class="text-lg font-medium text-gray-900">{{ __('Personal Information') }}</h3>
-                            <dl class="mt-4 space-y-4">
-                                <div>
-                                    <dt class="text-sm font-medium text-gray-500">{{ __('Full Name') }}</dt>
-                                    <dd class="mt-1 text-sm text-gray-900">{{ $member->first_name }} {{ $member->last_name }}</dd>
-                                </div>
-                                <div>
-                                    <dt class="text-sm font-medium text-gray-500">{{ __('Religious Name') }}</dt>
-                                    <dd class="mt-1 text-sm text-gray-900">{{ $member->religious_name ?? '-' }}</dd>
-                                </div>
-                                <div>
-                                    <dt class="text-sm font-medium text-gray-500">{{ __('Date of Birth') }}</dt>
-                                    <dd class="mt-1 text-sm text-gray-900">{{ $member->dob->format('M d, Y') }}</dd>
-                                </div>
-                            </dl>
+            <!-- Tab Navigation -->
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-6">
+                <div class="border-b border-stone-200">
+                    <nav class="flex -mb-px" aria-label="Tabs">
+                        <button 
+                            @click="activeTab = 'personal'" 
+                            :class="activeTab === 'personal' ? 'border-sanctuary-gold text-sanctuary-gold' : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300'"
+                            class="w-1/5 py-4 px-1 text-center border-b-2 font-medium text-lg transition-colors duration-200"
+                        >
+                            {{ __('Personal') }}
+                        </button>
+                        <button 
+                            @click="activeTab = 'formation'" 
+                            :class="activeTab === 'formation' ? 'border-sanctuary-gold text-sanctuary-gold' : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300'"
+                            class="w-1/5 py-4 px-1 text-center border-b-2 font-medium text-lg transition-colors duration-200"
+                        >
+                            {{ __('Formation') }}
+                        </button>
+                        <button 
+                            @click="activeTab = 'health'" 
+                            :class="activeTab === 'health' ? 'border-sanctuary-gold text-sanctuary-gold' : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300'"
+                            class="w-1/5 py-4 px-1 text-center border-b-2 font-medium text-lg transition-colors duration-200"
+                        >
+                            {{ __('Health') }}
+                        </button>
+                        <button 
+                            @click="activeTab = 'skills'" 
+                            :class="activeTab === 'skills' ? 'border-sanctuary-gold text-sanctuary-gold' : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300'"
+                            class="w-1/5 py-4 px-1 text-center border-b-2 font-medium text-lg transition-colors duration-200"
+                        >
+                            {{ __('Skills') }}
+                        </button>
+                        <button 
+                            @click="activeTab = 'service'" 
+                            :class="activeTab === 'service' ? 'border-sanctuary-gold text-sanctuary-gold' : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300'"
+                            class="w-1/5 py-4 px-1 text-center border-b-2 font-medium text-lg transition-colors duration-200"
+                        >
+                            {{ __('Service History') }}
+                        </button>
+                    </nav>
+                </div>
+
+                <!-- Tab Content -->
+                <div class="p-6">
+                    <!-- Personal Tab -->
+                    <div x-show="activeTab === 'personal'" x-transition>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <h3 class="text-lg font-medium text-slate-900 mb-4">{{ __('Personal Information') }}</h3>
+                                <dl class="space-y-4">
+                                    <div>
+                                        <dt class="text-sm font-medium text-slate-500">{{ __('Full Name') }}</dt>
+                                        <dd class="mt-1 text-lg text-slate-900">{{ $member->first_name }} {{ $member->last_name }}</dd>
+                                    </div>
+                                    <div>
+                                        <dt class="text-sm font-medium text-slate-500">{{ __('Religious Name') }}</dt>
+                                        <dd class="mt-1 text-lg text-slate-900">{{ $member->religious_name ?? '-' }}</dd>
+                                    </div>
+                                    <div>
+                                        <dt class="text-sm font-medium text-slate-500">{{ __('Date of Birth') }}</dt>
+                                        <dd class="mt-1 text-lg text-slate-900">{{ $member->dob->format('M d, Y') }} ({{ $member->dob->age }} years old)</dd>
+                                    </div>
+                                </dl>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-medium text-slate-900 mb-4">{{ __('Community Status') }}</h3>
+                                <dl class="space-y-4">
+                                    <div>
+                                        <dt class="text-sm font-medium text-slate-500">{{ __('Status') }}</dt>
+                                        <dd class="mt-1">
+                                            <span class="px-3 py-1 text-sm font-semibold rounded-full bg-sanctuary-green/10 text-sanctuary-green">
+                                                {{ $member->status }}
+                                            </span>
+                                        </dd>
+                                    </div>
+                                    <div>
+                                        <dt class="text-sm font-medium text-slate-500">{{ __('Entry Date') }}</dt>
+                                        <dd class="mt-1 text-lg text-slate-900">{{ $member->entry_date->format('M d, Y') }}</dd>
+                                    </div>
+                                    <div>
+                                        <dt class="text-sm font-medium text-slate-500">{{ __('Community') }}</dt>
+                                        <dd class="mt-1 text-lg text-slate-900">{{ $member->community->name ?? 'N/A' }}</dd>
+                                    </div>
+                                </dl>
+                            </div>
                         </div>
-                        <div>
-                            <h3 class="text-lg font-medium text-gray-900">{{ __('Community Status') }}</h3>
-                            <dl class="mt-4 space-y-4">
-                                <div>
-                                    <dt class="text-sm font-medium text-gray-500">{{ __('Status') }}</dt>
-                                    <dd class="mt-1 text-sm text-gray-900">
-                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                            {{ $member->status }}
-                                        </span>
-                                    </dd>
-                                </div>
-                                <div>
-                                    <dt class="text-sm font-medium text-gray-500">{{ __('Entry Date') }}</dt>
-                                    <dd class="mt-1 text-sm text-gray-900">{{ $member->entry_date->format('M d, Y') }}</dd>
-                                </div>
-                                <div>
-                                    <dt class="text-sm font-medium text-gray-500">{{ __('Community') }}</dt>
-                                    <dd class="mt-1 text-sm text-gray-900">{{ $member->community->name ?? 'N/A' }}</dd>
-                                </div>
-                            </dl>
+                    </div>
+
+                    <!-- Formation Tab -->
+                    <div x-show="activeTab === 'formation'" x-transition>
+                        <h3 class="text-lg font-medium text-slate-900 mb-4">{{ __('Formation Timeline') }}</h3>
+                        <x-feast-timeline :events="$member->formationEvents()->with('documents')->get()" :member="$member" :projectedEvents="$projectedEvents" />
+                    </div>
+
+                    <!-- Health Tab -->
+                    <div x-show="activeTab === 'health'" x-transition>
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-lg font-medium text-slate-900">{{ __('Health Records') }}</h3>
+                            @can('update', $member)
+                                <x-primary-button x-data="" x-on:click.prevent="$dispatch('open-modal', 'add-health-record')">
+                                    {{ __('Add Health Record') }}
+                                </x-primary-button>
+                            @endcan
                         </div>
+                        @if($member->healthRecords->count() > 0)
+                            <div class="space-y-4">
+                                @foreach($member->healthRecords as $record)
+                                    <div class="border border-stone-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                                        <div class="flex justify-between items-start">
+                                            <div class="flex-1">
+                                                <h4 class="text-lg font-medium text-slate-900">{{ $record->condition }}</h4>
+                                                @if($record->medications)
+                                                    <p class="text-sm text-slate-600 mt-1"><strong>Medications:</strong> {{ $record->medications }}</p>
+                                                @endif
+                                                @if($record->notes)
+                                                    <p class="text-sm text-slate-600 mt-1">{{ $record->notes }}</p>
+                                                @endif
+                                                <p class="text-xs text-slate-500 mt-2">Recorded: {{ $record->recorded_at->format('M d, Y') }}</p>
+                                            </div>
+                                            <div class="flex items-center space-x-2 ml-4">
+                                                @if($record->document_path)
+                                                    <a href="{{ Storage::url($record->document_path) }}" target="_blank" class="text-sanctuary-gold hover:text-amber-700">
+                                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                                        </svg>
+                                                    </a>
+                                                @endif
+                                                @can('update', $member)
+                                                    <form method="POST" action="{{ route('health-records.destroy', $record) }}" class="inline">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" onclick="return confirm('Are you sure you want to delete this health record?')" class="text-red-600 hover:text-red-800">
+                                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                                            </svg>
+                                                        </button>
+                                                    </form>
+                                                @endcan
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @else
+                            <p class="text-slate-500 text-center py-8">{{ __('No health records yet.') }}</p>
+                        @endif
+                    </div>
+
+                    <!-- Skills Tab -->
+                    <div x-show="activeTab === 'skills'" x-transition>
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-lg font-medium text-slate-900">{{ __('Skills & Talents') }}</h3>
+                            @can('update', $member)
+                                <x-primary-button x-data="" x-on:click.prevent="$dispatch('open-modal', 'add-skill')">
+                                    {{ __('Add Skill') }}
+                                </x-primary-button>
+                            @endcan
+                        </div>
+                        @if($member->skills->count() > 0)
+                            @foreach(['pastoral' => 'Pastoral', 'practical' => 'Practical', 'special' => 'Special'] as $category => $label)
+                                @php
+                                    $categorySkills = $member->skills->where('category', $category);
+                                @endphp
+                                @if($categorySkills->count() > 0)
+                                    <div class="mb-6">
+                                        <h4 class="text-md font-medium text-slate-700 mb-3">{{ $label }} Skills</h4>
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                            @foreach($categorySkills as $skill)
+                                                <div class="border border-stone-200 rounded-lg p-3">
+                                                    <div class="flex justify-between items-start">
+                                                        <div class="flex-1">
+                                                            <h5 class="font-medium text-slate-900">{{ $skill->name }}</h5>
+                                                            <span class="text-xs text-slate-500 capitalize">{{ $skill->proficiency }}</span>
+                                                            @if($skill->notes)
+                                                                <p class="text-sm text-slate-600 mt-1">{{ $skill->notes }}</p>
+                                                            @endif
+                                                        </div>
+                                                        @can('update', $member)
+                                                            <form method="POST" action="{{ route('skills.destroy', $skill) }}" class="inline ml-2">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" onclick="return confirm('Are you sure you want to delete this skill?')" class="text-red-600 hover:text-red-800">
+                                                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                                                    </svg>
+                                                                </button>
+                                                            </form>
+                                                        @endcan
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                @endif
+                            @endforeach
+                        @else
+                            <p class="text-slate-500 text-center py-8">{{ __('No skills recorded yet.') }}</p>
+                        @endif
+                    </div>
+
+                    <!-- Service History Tab -->
+                    <div x-show="activeTab === 'service'" x-transition>
+                        <h3 class="text-lg font-medium text-slate-900 mb-4">{{ __('Service History') }}</h3>
+                        <x-service-history-list :assignments="$member->assignments" />
                     </div>
                 </div>
             </div>
@@ -350,6 +513,123 @@
 
                 <x-primary-button class="ml-3">
                     {{ __('Save Photo') }}
+                </x-primary-button>
+            </div>
+        </form>
+    </x-modal>
+
+    <!-- Add Health Record Modal -->
+    <x-modal name="add-health-record" focusable>
+        <form method="post" action="{{ route('members.health.store', $member) }}" enctype="multipart/form-data" class="p-6">
+            @csrf
+
+            <h2 class="text-lg font-medium text-gray-900">
+                {{ __('Add Health Record') }}
+            </h2>
+
+            <div class="mt-6">
+                <x-input-label for="condition" value="{{ __('Condition') }}" />
+                <x-text-input id="condition" name="condition" type="text" class="mt-1 block w-full" required />
+                <x-input-error :messages="$errors->get('condition')" class="mt-2" />
+            </div>
+
+            <div class="mt-6">
+                <x-input-label for="medications" value="{{ __('Medications (Optional)') }}" />
+                <textarea id="medications" name="medications" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" rows="2"></textarea>
+                <x-input-error :messages="$errors->get('medications')" class="mt-2" />
+            </div>
+
+            <div class="mt-6">
+                <x-input-label for="health_notes" value="{{ __('Notes (Optional)') }}" />
+                <textarea id="health_notes" name="notes" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" rows="3"></textarea>
+                <x-input-error :messages="$errors->get('notes')" class="mt-2" />
+            </div>
+
+            <div class="mt-6">
+                <x-input-label for="recorded_at" value="{{ __('Recorded Date') }}" />
+                <x-text-input id="recorded_at" name="recorded_at" type="date" class="mt-1 block w-full" :value="now()->format('Y-m-d')" required />
+                <x-input-error :messages="$errors->get('recorded_at')" class="mt-2" />
+            </div>
+
+            <div class="mt-6">
+                <x-input-label for="health_document" value="{{ __('Document (Optional - PDF, JPG, PNG - Max 5MB)') }}" />
+                <input 
+                    id="health_document" 
+                    name="document" 
+                    type="file" 
+                    accept=".pdf,.jpg,.jpeg,.png"
+                    class="mt-1 block w-full text-sm text-gray-500
+                        file:mr-4 file:py-2 file:px-4
+                        file:rounded-md file:border-0
+                        file:text-sm file:font-semibold
+                        file:bg-sanctuary-green/10 file:text-sanctuary-green
+                        hover:file:bg-sanctuary-green/20"
+                />
+                <x-input-error :messages="$errors->get('document')" class="mt-2" />
+            </div>
+
+            <div class="mt-6 flex justify-end">
+                <x-secondary-button x-on:click="$dispatch('close')">
+                    {{ __('Cancel') }}
+                </x-secondary-button>
+
+                <x-primary-button class="ml-3">
+                    {{ __('Save Health Record') }}
+                </x-primary-button>
+            </div>
+        </form>
+    </x-modal>
+
+    <!-- Add Skill Modal -->
+    <x-modal name="add-skill" focusable>
+        <form method="post" action="{{ route('members.skills.store', $member) }}" class="p-6">
+            @csrf
+
+            <h2 class="text-lg font-medium text-gray-900">
+                {{ __('Add Skill') }}
+            </h2>
+
+            <div class="mt-6">
+                <x-input-label for="skill_category" value="{{ __('Category') }}" />
+                <select id="skill_category" name="category" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required>
+                    <option value="">{{ __('Select Category') }}</option>
+                    <option value="pastoral">{{ __('Pastoral') }}</option>
+                    <option value="practical">{{ __('Practical') }}</option>
+                    <option value="special">{{ __('Special') }}</option>
+                </select>
+                <x-input-error :messages="$errors->get('category')" class="mt-2" />
+            </div>
+
+            <div class="mt-6">
+                <x-input-label for="skill_name" value="{{ __('Skill Name') }}" />
+                <x-text-input id="skill_name" name="name" type="text" class="mt-1 block w-full" placeholder="e.g., Teaching, Cooking, Music" required />
+                <x-input-error :messages="$errors->get('name')" class="mt-2" />
+            </div>
+
+            <div class="mt-6">
+                <x-input-label for="proficiency" value="{{ __('Proficiency Level') }}" />
+                <select id="proficiency" name="proficiency" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required>
+                    <option value="beginner">{{ __('Beginner') }}</option>
+                    <option value="intermediate" selected>{{ __('Intermediate') }}</option>
+                    <option value="advanced">{{ __('Advanced') }}</option>
+                    <option value="expert">{{ __('Expert') }}</option>
+                </select>
+                <x-input-error :messages="$errors->get('proficiency')" class="mt-2" />
+            </div>
+
+            <div class="mt-6">
+                <x-input-label for="skill_notes" value="{{ __('Notes (Optional)') }}" />
+                <textarea id="skill_notes" name="notes" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" rows="2" placeholder="Additional details about this skill"></textarea>
+                <x-input-error :messages="$errors->get('notes')" class="mt-2" />
+            </div>
+
+            <div class="mt-6 flex justify-end">
+                <x-secondary-button x-on:click="$dispatch('close')">
+                    {{ __('Cancel') }}
+                </x-secondary-button>
+
+                <x-primary-button class="ml-3">
+                    {{ __('Save Skill') }}
                 </x-primary-button>
             </div>
         </form>

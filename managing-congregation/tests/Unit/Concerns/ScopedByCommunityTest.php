@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Concerns;
 
+use App\Enums\UserRole;
 use App\Models\Concerns\ScopedByCommunity;
 use App\Models\User;
-use App\Enums\UserRole;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Auth;
-use Tests\TestCase;
 use PHPUnit\Framework\Attributes\Test;
+use Tests\TestCase;
 
 class ScopedByCommunityTest extends TestCase
 {
@@ -20,8 +20,10 @@ class ScopedByCommunityTest extends TestCase
     #[Test]
     public function it_applies_scope_for_director_role(): void
     {
-        $model = new class extends Model {
+        $model = new class extends Model
+        {
             use ScopedByCommunity;
+
             protected $table = 'users';
         };
 
@@ -40,8 +42,10 @@ class ScopedByCommunityTest extends TestCase
     #[Test]
     public function it_applies_scope_for_member_role(): void
     {
-        $model = new class extends Model {
+        $model = new class extends Model
+        {
             use ScopedByCommunity;
+
             protected $table = 'users';
         };
 
@@ -60,8 +64,10 @@ class ScopedByCommunityTest extends TestCase
     #[Test]
     public function it_bypasses_scope_for_super_admin(): void
     {
-        $model = new class extends Model {
+        $model = new class extends Model
+        {
             use ScopedByCommunity;
+
             protected $table = 'users';
         };
 
@@ -78,8 +84,10 @@ class ScopedByCommunityTest extends TestCase
     #[Test]
     public function it_bypasses_scope_for_general_role(): void
     {
-        $model = new class extends Model {
+        $model = new class extends Model
+        {
             use ScopedByCommunity;
+
             protected $table = 'users';
         };
 
@@ -96,8 +104,10 @@ class ScopedByCommunityTest extends TestCase
     #[Test]
     public function without_global_scopes_removes_the_scope(): void
     {
-        $model = new class extends Model {
+        $model = new class extends Model
+        {
             use ScopedByCommunity;
+
             protected $table = 'users';
         };
 
@@ -117,11 +127,14 @@ class ScopedByCommunityTest extends TestCase
         $queryWithoutScope = $model::withoutGlobalScopes()->toSql();
         $this->assertStringNotContainsString('community_id', $queryWithoutScope);
     }
+
     #[Test]
     public function it_blocks_access_for_unauthenticated_users(): void
     {
-        $model = new class extends Model {
+        $model = new class extends Model
+        {
             use ScopedByCommunity;
+
             protected $table = 'users';
         };
 

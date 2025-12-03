@@ -20,7 +20,7 @@ class FormationServiceTest extends TestCase
 
     public function test_it_calculates_next_stage_date(): void
     {
-        $service = new FormationService();
+        $service = new FormationService;
         $date = now();
 
         // Novitiate -> First Vows (+12 months)
@@ -44,7 +44,7 @@ class FormationServiceTest extends TestCase
 
     public function test_it_adds_event(): void
     {
-        $service = new FormationService();
+        $service = new FormationService;
         $member = \App\Models\Member::factory()->create();
         $data = [
             'stage' => \App\Enums\FormationStage::Postulancy,

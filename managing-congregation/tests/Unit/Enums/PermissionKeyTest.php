@@ -22,7 +22,7 @@ class PermissionKeyTest extends TestCase
         ];
 
         $actualPermissions = array_map(
-            fn(PermissionKey $case) => $case->value,
+            fn (PermissionKey $case) => $case->value,
             PermissionKey::cases()
         );
 

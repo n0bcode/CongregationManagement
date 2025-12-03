@@ -11,33 +11,33 @@ class UiHelper
     /**
      * Format money for display
      * Store as integers (cents), display as formatted currency
-     * 
-     * @param int $cents Amount in cents
-     * @param string $currency Currency code
+     *
+     * @param  int  $cents  Amount in cents
+     * @param  string  $currency  Currency code
      * @return string Formatted amount
      */
     public static function formatMoney(int $cents, string $currency = 'USD'): string
     {
         $amount = $cents / 100;
-        
-        return match($currency) {
-            'USD' => '$' . number_format($amount, 2),
-            'EUR' => '€' . number_format($amount, 2),
-            'VND' => number_format($amount, 0) . ' ₫',
-            default => $currency . ' ' . number_format($amount, 2),
+
+        return match ($currency) {
+            'USD' => '$'.number_format($amount, 2),
+            'EUR' => '€'.number_format($amount, 2),
+            'VND' => number_format($amount, 0).' ₫',
+            default => $currency.' '.number_format($amount, 2),
         };
     }
 
     /**
      * Get status badge variant based on status
      * Following "Pastoral Status Card" pattern
-     * 
-     * @param string $status Status value
+     *
+     * @param  string  $status  Status value
      * @return string Variant name
      */
     public static function getStatusVariant(string $status): string
     {
-        return match(strtolower($status)) {
+        return match (strtolower($status)) {
             'active', 'approved', 'completed', 'good' => 'peace',
             'pending', 'in_progress', 'review' => 'pending',
             'attention', 'overdue', 'expired', 'error' => 'attention',
@@ -48,13 +48,13 @@ class UiHelper
     /**
      * Get friendly error message
      * Following "Kindness in Code" principle
-     * 
-     * @param string $errorCode Error code
+     *
+     * @param  string  $errorCode  Error code
      * @return string User-friendly message
      */
     public static function getFriendlyErrorMessage(string $errorCode): string
     {
-        return match($errorCode) {
+        return match ($errorCode) {
             '404' => 'We couldn\'t find what you\'re looking for. Please check the link and try again.',
             '403' => 'You don\'t have permission to access this page. Please contact your administrator if you need access.',
             '500' => 'We couldn\'t complete that action right now. Please try again in a moment.',
@@ -67,18 +67,18 @@ class UiHelper
     /**
      * Format date for display
      * Following UX Spec date format patterns
-     * 
-     * @param \Carbon\Carbon $date Date to format
-     * @param string $format Format type
+     *
+     * @param  \Carbon\Carbon  $date  Date to format
+     * @param  string  $format  Format type
      * @return string Formatted date
      */
     public static function formatDate($date, string $format = 'human'): string
     {
-        if (!$date) {
+        if (! $date) {
             return '';
         }
 
-        return match($format) {
+        return match ($format) {
             'human' => $date->format('M j, Y'), // Jan 1, 2024
             'full' => $date->format('l, F j, Y'), // Monday, January 1, 2024
             'short' => $date->format('m/d/Y'), // 01/01/2024
@@ -92,14 +92,14 @@ class UiHelper
     /**
      * Get greeting based on time of day
      * Following "Pastoral Efficiency" - personal touch
-     * 
+     *
      * @return string Greeting message
      */
     public static function getGreeting(): string
     {
         $hour = now()->hour;
 
-        return match(true) {
+        return match (true) {
             $hour < 12 => 'Good Morning',
             $hour < 17 => 'Good Afternoon',
             default => 'Good Evening',
@@ -108,13 +108,13 @@ class UiHelper
 
     /**
      * Get icon for file type
-     * 
-     * @param string $extension File extension
+     *
+     * @param  string  $extension  File extension
      * @return string SVG icon HTML
      */
     public static function getFileIcon(string $extension): string
     {
-        return match(strtolower($extension)) {
+        return match (strtolower($extension)) {
             'pdf' => '<svg class="w-6 h-6 text-rose-600" fill="currentColor" viewBox="0 0 20 20"><path d="M4 18h12V6h-4V2H4v16zm-2 1V0h12l4 4v16H2v-1z"/></svg>',
             'doc', 'docx' => '<svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 20 20"><path d="M4 18h12V6h-4V2H4v16zm-2 1V0h12l4 4v16H2v-1z"/></svg>',
             'xls', 'xlsx' => '<svg class="w-6 h-6 text-emerald-600" fill="currentColor" viewBox="0 0 20 20"><path d="M4 18h12V6h-4V2H4v16zm-2 1V0h12l4 4v16H2v-1z"/></svg>',
@@ -125,9 +125,9 @@ class UiHelper
 
     /**
      * Truncate text with ellipsis
-     * 
-     * @param string $text Text to truncate
-     * @param int $length Maximum length
+     *
+     * @param  string  $text  Text to truncate
+     * @param  int  $length  Maximum length
      * @return string Truncated text
      */
     public static function truncate(string $text, int $length = 50): string
@@ -136,32 +136,32 @@ class UiHelper
             return $text;
         }
 
-        return mb_substr($text, 0, $length) . '...';
+        return mb_substr($text, 0, $length).'...';
     }
 
     /**
      * Get initials from name
      * For avatar placeholders
-     * 
-     * @param string $name Full name
+     *
+     * @param  string  $name  Full name
      * @return string Initials (max 2 characters)
      */
     public static function getInitials(string $name): string
     {
         $words = explode(' ', $name);
-        
+
         if (count($words) >= 2) {
-            return strtoupper(substr($words[0], 0, 1) . substr($words[1], 0, 1));
+            return strtoupper(substr($words[0], 0, 1).substr($words[1], 0, 1));
         }
-        
+
         return strtoupper(substr($name, 0, 2));
     }
 
     /**
      * Generate avatar color based on name
      * Consistent color for same name
-     * 
-     * @param string $name Name
+     *
+     * @param  string  $name  Name
      * @return string Tailwind color class
      */
     public static function getAvatarColor(string $name): string
@@ -175,7 +175,7 @@ class UiHelper
         ];
 
         $index = ord(strtolower($name[0])) % count($colors);
-        
+
         return $colors[$index];
     }
 }

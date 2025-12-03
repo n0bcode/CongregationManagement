@@ -25,8 +25,8 @@ class FormationDocumentFactory extends Factory
     {
         return [
             'formation_event_id' => FormationEvent::factory(),
-            'file_name' => $this->faker->word() . '.pdf',
-            'file_path' => 'formation-documents/' . $this->faker->uuid() . '.pdf',
+            'file_name' => $this->faker->word().'.pdf',
+            'file_path' => 'formation-documents/'.$this->faker->uuid().'.pdf',
             'document_type' => null,
             'file_size' => $this->faker->numberBetween(10000, 5000000),
             'mime_type' => 'application/pdf',
@@ -77,7 +77,7 @@ class FormationDocumentFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'file_name' => 'document.jpg',
-            'file_path' => 'formation-documents/' . $this->faker->uuid() . '.jpg',
+            'file_path' => 'formation-documents/'.$this->faker->uuid().'.jpg',
             'mime_type' => 'image/jpeg',
             'file_size' => $this->faker->numberBetween(50000, 2000000),
         ]);

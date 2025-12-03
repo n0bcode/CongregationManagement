@@ -35,7 +35,7 @@ class UserPolicy
      */
     public function view(User $user, User $model): bool
     {
-        return $user->hasRole(UserRole::SUPER_ADMIN) 
+        return $user->hasRole(UserRole::SUPER_ADMIN)
             || $user->hasRole(UserRole::GENERAL)
             || $user->id === $model->id;
     }
@@ -53,7 +53,7 @@ class UserPolicy
      */
     public function update(User $user, User $model): bool
     {
-        return $user->hasRole(UserRole::SUPER_ADMIN) 
+        return $user->hasRole(UserRole::SUPER_ADMIN)
             || $user->hasRole(UserRole::GENERAL)
             || $user->id === $model->id;
     }

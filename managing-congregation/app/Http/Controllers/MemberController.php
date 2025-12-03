@@ -18,24 +18,27 @@ class MemberController extends Controller
         }
 
         $members = $query->paginate(20)->appends($request->query());
-        
+
         return view('members.index', compact('members'));
     }
 
     public function create(): View
     {
+        \Illuminate\Support\Facades\Gate::authorize('create', \App\Models\Member::class);
+
         return view('members.create');
     }
 
     public function store(\App\Http\Requests\StoreMemberRequest $request)
     {
+        \Illuminate\Support\Facades\Gate::authorize('create', \App\Models\Member::class);
         $data = $request->validated();
-        
+
         // Handle community_id
         // If User is Director/Member: Use Auth::user()->community_id
         // If User is Super Admin: Require community_id from input (not implemented in form yet, assuming Director for now as per MVP decision)
         // AC3: "And the new member is automatically assigned to my community_id."
-        
+
         $data['community_id'] = \Illuminate\Support\Facades\Auth::user()->community_id;
 
         $member = \App\Models\Member::create($data);
@@ -45,24 +48,26 @@ class MemberController extends Controller
 
     public function show(\App\Models\Member $member): View
     {
-        $member->load(['formationEvents', 'assignments.community']);
-        
+        \Illuminate\Support\Facades\Gate::authorize('view', $member);
+
+        $member->load(['formationEvents', 'assignments.community', 'healthRecords', 'skills']);
+
         // Calculate projected future events based on most recent formation event
         $projectedEvents = [];
         $latestEvent = $member->formationEvents->sortByDesc('started_at')->first();
-        
+
         if ($latestEvent) {
             $formationService = app(\App\Services\FormationService::class);
             $nextStageDate = $formationService->calculateNextStageDate($latestEvent->stage, $latestEvent->started_at);
-            
+
             if ($nextStageDate) {
                 // Determine next stage based on current stage
-                $nextStage = match($latestEvent->stage) {
+                $nextStage = match ($latestEvent->stage) {
                     \App\Enums\FormationStage::Novitiate => \App\Enums\FormationStage::FirstVows,
                     \App\Enums\FormationStage::FirstVows => \App\Enums\FormationStage::FinalVows,
                     default => null,
                 };
-                
+
                 if ($nextStage) {
                     $projectedEvents[] = [
                         'stage' => $nextStage,
@@ -71,9 +76,9 @@ class MemberController extends Controller
                 }
             }
         }
-        
+
         $communities = \App\Models\Community::all();
-        
+
         return view('members.show', compact('member', 'projectedEvents', 'communities'));
     }
 

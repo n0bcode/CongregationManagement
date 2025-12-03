@@ -45,8 +45,9 @@ trait ScopedByCommunity
             // STEP 2: Handle unauthenticated requests (console commands, API)
             // SECURE-BY-DEFAULT: Block access for unauthenticated context
             // Console commands/Seeders must explicitly use withoutGlobalScopes()
-            if (!$user) {
+            if (! $user) {
                 $builder->whereRaw('1 = 0');
+
                 return;
             }
 

@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Tests\Feature;
 
+use App\Enums\UserRole;
 use App\Models\Community;
 use App\Models\Member;
 use App\Models\User;
-use App\Enums\UserRole;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
-use Tests\TestCase;
 use PHPUnit\Framework\Attributes\Test;
+use Tests\TestCase;
 
 class MemberScopingTest extends TestCase
 {
@@ -129,13 +129,13 @@ class MemberScopingTest extends TestCase
 
         // Act
         $this->actingAs($director);
-        
+
         // Even if we load the other community explicitly, its members relationship should be empty
         // because the global scope applies to the Member model query
         $otherCommunityLoaded = Community::find($otherCommunity->id);
-        
+
         $this->assertCount(0, $otherCommunityLoaded->members);
-        
+
         // My community members should be visible
         $myCommunityLoaded = Community::find($myCommunity->id);
         $this->assertCount(3, $myCommunityLoaded->members);
@@ -199,7 +199,7 @@ class MemberScopingTest extends TestCase
         // If they have NO assigned community, they should see NOTHING.
         // I need to fix the trait logic if this test fails (it will fail if my logic allows full access).
         // Actually, let's write the test expecting 0 members, and if it fails, I fix the trait.
-        
+
         $this->assertCount(0, $members);
     }
 
@@ -266,7 +266,7 @@ class MemberScopingTest extends TestCase
 
         // Act
         $this->actingAs($director);
-        
+
         // Query with trashed
         $members = Member::onlyTrashed()->get();
 
@@ -290,16 +290,16 @@ class MemberScopingTest extends TestCase
         DB::enableQueryLog();
         // Eager load community to avoid N+1 on accessing relationship
         $members = Member::with('community')->get();
-        
+
         // Access relationship to ensure it was eager loaded
         foreach ($members as $member) {
             $member->community;
         }
-        
+
         $queryLog = DB::getQueryLog();
         $queryCount = count($queryLog);
 
-        // Should be 2 queries: 
+        // Should be 2 queries:
         // 1. Select members with scope
         // 2. Select communities for those members
         $this->assertEquals(2, $queryCount);

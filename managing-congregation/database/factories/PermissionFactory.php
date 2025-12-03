@@ -20,10 +20,10 @@ class PermissionFactory extends Factory
     {
         $module = fake()->randomElement(['territories', 'publishers', 'reports', 'users']);
         $action = fake()->randomElement(['view', 'create', 'update', 'delete', 'manage']);
-        
+
         return [
             'key' => "{$module}.{$action}",
-            'name' => ucfirst($action) . ' ' . ucfirst($module),
+            'name' => ucfirst($action).' '.ucfirst($module),
             'module' => $module,
         ];
     }

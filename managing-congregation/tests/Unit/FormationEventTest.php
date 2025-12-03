@@ -16,7 +16,7 @@ class FormationEventTest extends TestCase
 
     public function test_it_has_fillable_attributes(): void
     {
-        $fillable = (new FormationEvent())->getFillable();
+        $fillable = (new FormationEvent)->getFillable();
 
         $this->assertContains('member_id', $fillable);
         $this->assertContains('stage', $fillable);
@@ -26,7 +26,7 @@ class FormationEventTest extends TestCase
 
     public function test_it_casts_attributes(): void
     {
-        $casts = (new FormationEvent())->getCasts();
+        $casts = (new FormationEvent)->getCasts();
 
         $this->assertEquals(FormationStage::class, $casts['stage']);
         $this->assertEquals('date', $casts['started_at']);

@@ -97,7 +97,7 @@ class User extends Authenticatable
      * Super admin bypass pattern for performance.
      * Uses caching to prevent N+1 queries.
      *
-     * @param PermissionKey|string $permission The permission to check
+     * @param  PermissionKey|string  $permission  The permission to check
      * @return bool True if user has permission, false otherwise
      */
     public function hasPermission(PermissionKey|string $permission): bool
@@ -112,7 +112,7 @@ class User extends Authenticatable
 
         // Cache permission check for 1 hour to prevent N+1 queries
         $cacheKey = "user.{$this->id}.permission.{$permissionKey}";
-        
+
         return \Illuminate\Support\Facades\Cache::remember($cacheKey, 3600, function () use ($permissionKey) {
             return DB::table('role_permissions')
                 ->join('permissions', 'role_permissions.permission_id', '=', 'permissions.id')

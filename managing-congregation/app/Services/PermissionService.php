@@ -24,10 +24,10 @@ class PermissionService
         // Get permission IDs for the given keys
         $validPermissions = Permission::whereIn('key', $permissionKeys)->get();
         $validKeys = $validPermissions->pluck('key')->toArray();
-        
+
         // Log warning for invalid permission keys
         $invalidKeys = array_diff($permissionKeys, $validKeys);
-        if (!empty($invalidKeys)) {
+        if (! empty($invalidKeys)) {
             \Illuminate\Support\Facades\Log::warning('Invalid permission keys provided to assignPermissionsToRole', [
                 'role' => $role->value,
                 'invalid_keys' => $invalidKeys,
@@ -42,7 +42,7 @@ class PermissionService
             ];
         })->toArray();
 
-        if (!empty($assignments)) {
+        if (! empty($assignments)) {
             DB::table('role_permissions')->insert($assignments);
         }
     }

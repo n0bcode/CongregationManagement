@@ -19,13 +19,13 @@ class UpdateMemberRequest extends FormRequest
     {
         return [
             'first_name' => [
-                'required', 
-                'string', 
+                'required',
+                'string',
                 'max:255',
                 Rule::unique('members')->where(function ($query) {
                     return $query->where('last_name', $this->last_name)
-                                 ->where('dob', $this->dob);
-                })->ignore($this->member)
+                        ->where('dob', $this->dob);
+                })->ignore($this->member),
             ],
             'last_name' => ['required', 'string', 'max:255'],
             'religious_name' => ['nullable', 'string', 'max:255'],

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Tests\Unit;
 
-use Tests\TestCase;
 use App\Models\Community;
 use App\Models\Member;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Database\Seeders\DatabaseSeeder;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class SeederTest extends TestCase
 {

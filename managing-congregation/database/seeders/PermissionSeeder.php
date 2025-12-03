@@ -23,15 +23,15 @@ class PermissionSeeder extends Seeder
             ['key' => PermissionKey::TERRITORIES_VIEW->value, 'name' => 'View Territories', 'module' => 'territories'],
             ['key' => PermissionKey::TERRITORIES_ASSIGN->value, 'name' => 'Assign Territories', 'module' => 'territories'],
             ['key' => PermissionKey::TERRITORIES_MANAGE->value, 'name' => 'Manage Territories', 'module' => 'territories'],
-            
+
             // Publishers
             ['key' => PermissionKey::PUBLISHERS_VIEW->value, 'name' => 'View Publishers', 'module' => 'publishers'],
             ['key' => PermissionKey::PUBLISHERS_MANAGE->value, 'name' => 'Manage Publishers', 'module' => 'publishers'],
-            
+
             // Reports
             ['key' => PermissionKey::REPORTS_VIEW->value, 'name' => 'View Reports', 'module' => 'reports'],
             ['key' => PermissionKey::REPORTS_EXPORT->value, 'name' => 'Export Reports', 'module' => 'reports'],
-            
+
             // Formation
             ['key' => PermissionKey::FORMATION_VIEW->value, 'name' => 'View Formation', 'module' => 'formation'],
             ['key' => PermissionKey::FORMATION_MANAGE->value, 'name' => 'Manage Formation', 'module' => 'formation'],

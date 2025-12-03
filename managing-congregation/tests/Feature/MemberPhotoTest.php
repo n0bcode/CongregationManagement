@@ -28,7 +28,7 @@ class MemberPhotoTest extends TestCase
             ]);
 
         $response->assertSessionHas('success');
-        
+
         $member->refresh();
         $this->assertNotNull($member->profile_photo_path);
         Storage::disk('public')->assertExists($member->profile_photo_path);
@@ -42,7 +42,7 @@ class MemberPhotoTest extends TestCase
         $member = Member::factory()->create([
             'profile_photo_path' => 'profile-photos/old-photo.jpg',
         ]);
-        
+
         // Create the fake file
         Storage::disk('public')->put('profile-photos/old-photo.jpg', 'content');
 

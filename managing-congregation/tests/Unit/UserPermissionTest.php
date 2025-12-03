@@ -39,7 +39,7 @@ class UserPermissionTest extends TestCase
         $this->assertTrue($user->hasPermission(PermissionKey::TERRITORIES_ASSIGN));
         $this->assertTrue($user->hasPermission(PermissionKey::PUBLISHERS_VIEW));
         $this->assertTrue($user->hasPermission(PermissionKey::PUBLISHERS_MANAGE));
-        
+
         $this->assertFalse($user->hasPermission(PermissionKey::TERRITORIES_MANAGE));
         $this->assertFalse($user->hasPermission(PermissionKey::REPORTS_EXPORT));
     }
@@ -59,7 +59,7 @@ class UserPermissionTest extends TestCase
 
         // Test with enum
         $this->assertTrue($user->hasPermission(PermissionKey::TERRITORIES_VIEW));
-        
+
         // Test with string
         $this->assertTrue($user->hasPermission('territories.view'));
     }

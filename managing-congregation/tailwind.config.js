@@ -14,6 +14,22 @@ export default {
             fontFamily: {
                 sans: ['Inter', ...defaultTheme.fontFamily.sans],
                 serif: ['Merriweather', ...defaultTheme.fontFamily.serif],
+                heading: ['Merriweather', 'serif'], // Traditional, warm
+                body: ['Inter', 'sans-serif'],      // High legibility
+            },
+            fontSize: {
+                'base': '18px',      // Increased for elderly users (NFR11)
+                'h1': '32px',
+                'h2': '24px',
+            },
+            lineHeight: {
+                'relaxed': '1.6',    // Enhanced readability
+            },
+            minHeight: {
+                'touch': '48px',     // Minimum touch target for accessibility
+            },
+            minWidth: {
+                'touch': '48px',     // Minimum touch target for accessibility
             },
             colors: {
                 // Sanctuary & Stone Palette
@@ -115,8 +131,34 @@ export default {
             borderRadius: {
                 '4xl': '2rem',
             },
+            ringColor: {
+                'sanctuary-gold': '#d97706', // High-visibility focus rings
+            },
+            ringOffsetWidth: {
+                '2': '2px',
+            },
         },
     },
 
-    plugins: [forms],
+    plugins: [
+        forms,
+        // Add custom utilities for accessibility
+        function({ addUtilities }) {
+            const newUtilities = {
+                '.focus-sanctuary': {
+                    '&:focus': {
+                        outline: 'none',
+                        'ring-width': '4px',
+                        'ring-color': '#d97706',
+                        'ring-offset-width': '2px',
+                    },
+                },
+                '.touch-target': {
+                    'min-height': '48px',
+                    'min-width': '48px',
+                },
+            }
+            addUtilities(newUtilities)
+        },
+    ],
 };

@@ -2,7 +2,7 @@
 
 use App\Helpers\UiHelper;
 
-if (!function_exists('money')) {
+if (! function_exists('money')) {
     /**
      * Format money for display
      */
@@ -12,7 +12,7 @@ if (!function_exists('money')) {
     }
 }
 
-if (!function_exists('status_variant')) {
+if (! function_exists('status_variant')) {
     /**
      * Get status badge variant
      */
@@ -22,7 +22,7 @@ if (!function_exists('status_variant')) {
     }
 }
 
-if (!function_exists('friendly_error')) {
+if (! function_exists('friendly_error')) {
     /**
      * Get friendly error message
      */
@@ -32,7 +32,7 @@ if (!function_exists('friendly_error')) {
     }
 }
 
-if (!function_exists('format_date')) {
+if (! function_exists('format_date')) {
     /**
      * Format date for display
      */
@@ -42,7 +42,7 @@ if (!function_exists('format_date')) {
     }
 }
 
-if (!function_exists('greeting')) {
+if (! function_exists('greeting')) {
     /**
      * Get time-based greeting
      */
@@ -52,7 +52,7 @@ if (!function_exists('greeting')) {
     }
 }
 
-if (!function_exists('initials')) {
+if (! function_exists('initials')) {
     /**
      * Get initials from name
      */
@@ -62,7 +62,7 @@ if (!function_exists('initials')) {
     }
 }
 
-if (!function_exists('avatar_color')) {
+if (! function_exists('avatar_color')) {
     /**
      * Get avatar color class
      */

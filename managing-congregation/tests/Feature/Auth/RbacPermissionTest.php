@@ -16,14 +16,14 @@ class RbacPermissionTest extends TestCase
     {
         $this->assertTrue(Schema::hasTable('permissions'));
         $this->assertTrue(Schema::hasColumns('permissions', [
-            'id', 'key', 'name', 'module', 'created_at', 'updated_at'
+            'id', 'key', 'name', 'module', 'created_at', 'updated_at',
         ]));
     }
 
     public function test_permissions_table_has_unique_constraint_on_key(): void
     {
         $this->assertTrue(Schema::hasTable('permissions'));
-        
+
         // This will be verified by attempting to insert duplicate keys in seeder tests
         $this->assertTrue(true);
     }
@@ -32,14 +32,14 @@ class RbacPermissionTest extends TestCase
     {
         $this->assertTrue(Schema::hasTable('role_permissions'));
         $this->assertTrue(Schema::hasColumns('role_permissions', [
-            'role', 'permission_id'
+            'role', 'permission_id',
         ]));
     }
 
     public function test_role_permissions_has_composite_primary_key(): void
     {
         $this->assertTrue(Schema::hasTable('role_permissions'));
-        
+
         // Composite primary key verified by schema
         $this->assertTrue(true);
     }

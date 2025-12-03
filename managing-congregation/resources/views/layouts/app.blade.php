@@ -17,6 +17,11 @@
         @stack('styles')
     </head>
     <body class="font-sans antialiased bg-stone-50">
+        <!-- Skip to main content link for keyboard navigation -->
+        <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-6 focus:py-3 focus:bg-amber-600 focus:text-white focus:rounded-lg focus:shadow-lg">
+            Skip to main content
+        </a>
+
         <div class="min-h-screen">
             <!-- Navigation -->
             @include('layouts.navigation')
@@ -48,7 +53,7 @@
             @endif
 
             <!-- Page Content -->
-            <main class="py-6">
+            <main id="main-content" class="py-6" role="main">
                 {{ $slot }}
             </main>
 

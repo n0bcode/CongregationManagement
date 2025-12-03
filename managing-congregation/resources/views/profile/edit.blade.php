@@ -19,6 +19,14 @@
                 </div>
             </div>
 
+            @if(!app()->environment('production'))
+                <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg border-2 border-amber-500">
+                    <div class="max-w-xl">
+                        @include('profile.partials.update-role-form')
+                    </div>
+                </div>
+            @endif
+
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
                 <div class="max-w-xl">
                     @include('profile.partials.delete-user-form')

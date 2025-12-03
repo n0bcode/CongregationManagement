@@ -3,17 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreMemberTransferRequest;
-use App\Models\Member;
 use App\Models\Assignment;
-use Illuminate\Support\Facades\DB;
+use App\Models\Member;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
 
 class MemberTransferController extends Controller
 {
     public function store(StoreMemberTransferRequest $request, Member $member): RedirectResponse
     {
         // Authorization check (can be moved to Policy later)
-        // $this->authorize('update', $member); 
+        // $this->authorize('update', $member);
 
         DB::transaction(function () use ($request, $member) {
             $validated = $request->validated();
@@ -31,7 +31,7 @@ class MemberTransferController extends Controller
                 // Or just assume this is the first tracked assignment.
                 // Let's create a closed assignment for the *previous* community if we want to track it.
                 // For now, we just ensure the new one starts.
-                
+
                 // OPTIONAL: If we want to backfill the history, we could create an assignment for the old community.
                 // But we don't know the start date. So we skip.
             }

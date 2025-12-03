@@ -15,9 +15,9 @@ class FileStorageService
     /**
      * Store a formation document.
      *
-     * @param UploadedFile $file The uploaded file
-     * @param FormationEvent $event The formation event to attach the document to
-     * @param string|null $documentType Optional document type label
+     * @param  UploadedFile  $file  The uploaded file
+     * @param  FormationEvent  $event  The formation event to attach the document to
+     * @param  string|null  $documentType  Optional document type label
      * @return FormationDocument The created document record
      */
     public function storeFormationDocument(
@@ -33,7 +33,7 @@ class FileStorageService
 
         // Organize files by member and event
         $directory = "formation-documents/{$event->member_id}/{$event->id}";
-        
+
         // Store file to private disk
         $filePath = $file->storeAs($directory, $uniqueFilename, 'local');
 
@@ -52,7 +52,7 @@ class FileStorageService
     /**
      * Delete a formation document.
      *
-     * @param FormationDocument $document The document to delete
+     * @param  FormationDocument  $document  The document to delete
      * @return bool Success status
      */
     public function deleteFormationDocument(FormationDocument $document): bool
@@ -69,7 +69,7 @@ class FileStorageService
     /**
      * Get the full storage path for a document.
      *
-     * @param FormationDocument $document The document
+     * @param  FormationDocument  $document  The document
      * @return string The full storage path
      */
     public function getDocumentPath(FormationDocument $document): string
@@ -80,7 +80,7 @@ class FileStorageService
     /**
      * Sanitize filename by removing special characters and spaces.
      *
-     * @param string $filename The original filename
+     * @param  string  $filename  The original filename
      * @return string The sanitized filename
      */
     private function sanitizeFilename(string $filename): string
@@ -91,16 +91,16 @@ class FileStorageService
 
         // Remove special characters, keep only alphanumeric, dash, and underscore
         $sanitized = preg_replace('/[^a-zA-Z0-9\-_]/', '-', $nameWithoutExtension);
-        
+
         // Remove multiple consecutive dashes
         $sanitized = preg_replace('/-+/', '-', $sanitized);
-        
+
         // Trim dashes from start and end
         $sanitized = trim($sanitized, '-');
 
         // Limit length to 100 characters
         $sanitized = Str::limit($sanitized, 100, '');
 
-        return $sanitized . '.' . $extension;
+        return $sanitized.'.'.$extension;
     }
 }

@@ -20,7 +20,7 @@ class PermissionSeederTest extends TestCase
         $this->seed(\Database\Seeders\PermissionSeeder::class);
 
         $this->assertDatabaseCount('permissions', 7);
-        
+
         $this->assertDatabaseHas('permissions', ['key' => PermissionKey::TERRITORIES_VIEW->value]);
         $this->assertDatabaseHas('permissions', ['key' => PermissionKey::TERRITORIES_ASSIGN->value]);
         $this->assertDatabaseHas('permissions', ['key' => PermissionKey::TERRITORIES_MANAGE->value]);

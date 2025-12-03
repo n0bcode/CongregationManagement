@@ -16,7 +16,7 @@ class MemberStatusTest extends TestCase
         $this->assertContains('deceased', $values);
         $this->assertContains('exited', $values);
         $this->assertContains('transferred', $values);
-        
+
         $this->assertCount(4, $cases);
     }
 

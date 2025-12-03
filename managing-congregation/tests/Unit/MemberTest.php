@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Tests\Unit;
 
-use Tests\TestCase;
-use App\Models\Member;
 use App\Models\Community;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Member;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class MemberTest extends TestCase
 {

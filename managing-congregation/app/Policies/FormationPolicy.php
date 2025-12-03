@@ -17,7 +17,7 @@ class FormationPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->hasRole(UserRole::SUPER_ADMIN) || 
+        return $user->hasRole(UserRole::SUPER_ADMIN) ||
                $user->hasRole(UserRole::GENERAL) ||
                $user->hasRole(UserRole::DIRECTOR);
     }
@@ -35,7 +35,7 @@ class FormationPolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasRole(UserRole::SUPER_ADMIN) || 
+        return $user->hasRole(UserRole::SUPER_ADMIN) ||
                $user->hasRole(UserRole::GENERAL) ||
                $user->hasRole(UserRole::DIRECTOR);
     }
@@ -51,7 +51,7 @@ class FormationPolicy
         }
 
         // Check permission
-        if (!$user->hasPermission(PermissionKey::FORMATION_MANAGE)) {
+        if (! $user->hasPermission(PermissionKey::FORMATION_MANAGE)) {
             return false;
         }
 
@@ -60,6 +60,7 @@ class FormationPolicy
             if ($formationEvent->member === null) {
                 return false;
             }
+
             return $formationEvent->member->community_id === $user->community_id;
         }
 
@@ -78,7 +79,7 @@ class FormationPolicy
         }
 
         // Check permission
-        if (!$user->hasPermission(PermissionKey::FORMATION_VIEW)) {
+        if (! $user->hasPermission(PermissionKey::FORMATION_VIEW)) {
             return false;
         }
 
@@ -87,6 +88,7 @@ class FormationPolicy
             if ($document->formationEvent === null || $document->formationEvent->member === null) {
                 return false;
             }
+
             return $document->formationEvent->member->community_id === $user->community_id;
         }
 
@@ -105,7 +107,7 @@ class FormationPolicy
         }
 
         // Check permission
-        if (!$user->hasPermission(PermissionKey::FORMATION_MANAGE)) {
+        if (! $user->hasPermission(PermissionKey::FORMATION_MANAGE)) {
             return false;
         }
 
@@ -114,6 +116,7 @@ class FormationPolicy
             if ($document->formationEvent === null || $document->formationEvent->member === null) {
                 return false;
             }
+
             return $document->formationEvent->member->community_id === $user->community_id;
         }
 

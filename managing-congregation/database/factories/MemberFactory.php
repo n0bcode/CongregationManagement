@@ -28,6 +28,7 @@ class MemberFactory extends Factory
             'status' => 'Active',
         ];
     }
+
     public function forCommunity(\App\Models\Community $community): static
     {
         return $this->state(fn (array $attributes) => [

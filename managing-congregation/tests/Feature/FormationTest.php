@@ -75,7 +75,7 @@ class FormationTest extends TestCase
         $community = \App\Models\Community::factory()->create();
         $user = User::factory()->create(['role' => UserRole::DIRECTOR, 'community_id' => $community->id]);
         $member = Member::factory()->create(['community_id' => $community->id]);
-        
+
         \App\Models\FormationEvent::create([
             'member_id' => $member->id,
             'stage' => FormationStage::Postulancy,

@@ -22,7 +22,7 @@ class FileStorageServiceTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->service = new FileStorageService();
+        $this->service = new FileStorageService;
         Storage::fake('local');
     }
 
@@ -100,7 +100,7 @@ class FileStorageServiceTest extends TestCase
     public function test_get_document_path_returns_full_storage_path(): void
     {
         Storage::fake('local');
-        
+
         $document = FormationDocument::factory()->create([
             'file_path' => 'formation-documents/1/1/test.pdf',
         ]);

@@ -53,7 +53,7 @@ class MemberEditTest extends TestCase
     {
         $community1 = Community::factory()->create();
         $director = User::factory()->create(['role' => UserRole::DIRECTOR, 'community_id' => $community1->id]);
-        
+
         $community2 = Community::factory()->create();
         $member = Member::factory()->create(['community_id' => $community2->id]);
 
@@ -65,7 +65,7 @@ class MemberEditTest extends TestCase
     {
         $community1 = Community::factory()->create();
         $director = User::factory()->create(['role' => UserRole::DIRECTOR, 'community_id' => $community1->id]);
-        
+
         $community2 = Community::factory()->create();
         $member = Member::factory()->create(['community_id' => $community2->id]);
 
@@ -113,7 +113,7 @@ class MemberEditTest extends TestCase
         $community = Community::factory()->create();
         $director = User::factory()->create(['role' => UserRole::DIRECTOR, 'community_id' => $community->id]);
         $member = Member::factory()->create(['community_id' => $community->id]);
-        
+
         $regularMember = User::factory()->create(['role' => UserRole::MEMBER, 'community_id' => $community->id]);
 
         // Director sees Edit button

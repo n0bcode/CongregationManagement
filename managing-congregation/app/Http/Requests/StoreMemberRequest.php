@@ -18,13 +18,13 @@ class StoreMemberRequest extends FormRequest
     {
         return [
             'first_name' => [
-                'required', 
-                'string', 
+                'required',
+                'string',
                 'max:255',
                 Rule::unique('members')->where(function ($query) {
                     return $query->where('last_name', $this->last_name)
-                                 ->where('dob', $this->dob);
-                })
+                        ->where('dob', $this->dob);
+                }),
             ],
             'last_name' => ['required', 'string', 'max:255'],
             'religious_name' => ['nullable', 'string', 'max:255'],

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Member;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Http\RedirectResponse;
 
 class MemberPhotoController extends Controller
 {
@@ -35,7 +35,7 @@ class MemberPhotoController extends Controller
     {
         if ($member->profile_photo_path) {
             Storage::disk('public')->delete($member->profile_photo_path);
-            
+
             $member->update([
                 'profile_photo_path' => null,
             ]);

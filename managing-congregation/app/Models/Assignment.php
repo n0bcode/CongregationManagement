@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Assignment extends Model
 {
@@ -22,12 +22,12 @@ class Assignment extends Model
         'end_date' => 'date',
     ];
 
-    public function member()
+    public function member(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Member::class);
     }
 
-    public function community()
+    public function community(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Community::class);
     }
