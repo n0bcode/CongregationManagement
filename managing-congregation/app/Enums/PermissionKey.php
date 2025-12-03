@@ -18,4 +18,8 @@ enum PermissionKey: string
     // Reports
     case REPORTS_VIEW = 'reports.view';
     case REPORTS_EXPORT = 'reports.export';
+
+    // Formation
+    case FORMATION_VIEW = 'formation.view';
+    case FORMATION_MANAGE = 'formation.manage';
 }

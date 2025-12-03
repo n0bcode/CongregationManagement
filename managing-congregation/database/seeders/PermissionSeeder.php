@@ -31,6 +31,10 @@ class PermissionSeeder extends Seeder
             // Reports
             ['key' => PermissionKey::REPORTS_VIEW->value, 'name' => 'View Reports', 'module' => 'reports'],
             ['key' => PermissionKey::REPORTS_EXPORT->value, 'name' => 'Export Reports', 'module' => 'reports'],
+            
+            // Formation
+            ['key' => PermissionKey::FORMATION_VIEW->value, 'name' => 'View Formation', 'module' => 'formation'],
+            ['key' => PermissionKey::FORMATION_MANAGE->value, 'name' => 'Manage Formation', 'module' => 'formation'],
         ];
 
         foreach ($permissions as $permission) {
@@ -43,12 +47,14 @@ class PermissionSeeder extends Seeder
         // Assign default permissions to roles
         $permissionService = app(PermissionService::class);
 
-        // DIRECTOR: territories.view, territories.assign, publishers.view, publishers.manage
+        // DIRECTOR: territories.view, territories.assign, publishers.view, publishers.manage, formation.view, formation.manage
         $permissionService->assignPermissionsToRole(UserRole::DIRECTOR, [
             PermissionKey::TERRITORIES_VIEW->value,
             PermissionKey::TERRITORIES_ASSIGN->value,
             PermissionKey::PUBLISHERS_VIEW->value,
             PermissionKey::PUBLISHERS_MANAGE->value,
+            PermissionKey::FORMATION_VIEW->value,
+            PermissionKey::FORMATION_MANAGE->value,
         ]);
 
         // GENERAL: All permissions except user management
@@ -60,6 +66,8 @@ class PermissionSeeder extends Seeder
             PermissionKey::PUBLISHERS_MANAGE->value,
             PermissionKey::REPORTS_VIEW->value,
             PermissionKey::REPORTS_EXPORT->value,
+            PermissionKey::FORMATION_VIEW->value,
+            PermissionKey::FORMATION_MANAGE->value,
         ]);
 
         // MEMBER: territories.view (own assigned only - enforced in future story)

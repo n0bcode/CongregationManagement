@@ -18,6 +18,11 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('members', \App\Http\Controllers\MemberController::class);
     Route::post('/members/{member}/formation', [\App\Http\Controllers\FormationController::class, 'store'])->name('members.formation.store');
+    
+    // Formation Documents
+    Route::post('/formation-events/{event}/documents', [\App\Http\Controllers\FormationDocumentController::class, 'store'])->name('formation.documents.store');
+    Route::get('/formation-documents/{document}/download', [\App\Http\Controllers\FormationDocumentController::class, 'download'])->name('formation.documents.download');
+    Route::delete('/formation-documents/{document}', [\App\Http\Controllers\FormationDocumentController::class, 'destroy'])->name('formation.documents.destroy');
 });
 
 require __DIR__.'/auth.php';

@@ -23,7 +23,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-6">
                 <div class="p-6 text-gray-900">
                     <h3 class="text-lg font-medium text-gray-900 mb-4">{{ __('Formation Timeline') }}</h3>
-                    <x-feast-timeline :events="$member->formationEvents" :member="$member" :projectedEvents="$projectedEvents" />
+                    <x-feast-timeline :events="$member->formationEvents()->with('documents')->get()" :member="$member" :projectedEvents="$projectedEvents" />
                 </div>
             </div>
 
@@ -116,4 +116,118 @@
             </div>
         </form>
     </x-modal>
+
+    <!-- Upload Document Modals (one per event) -->
+    @foreach($member->formationEvents as $event)
+        <x-modal name="upload-document-{{ $event->id }}" focusable>
+            <form method="post" action="{{ route('formation.documents.store', $event) }}" enctype="multipart/form-data" class="p-6">
+                @csrf
+                <input type="hidden" name="formation_event_id" value="{{ $event->id }}">
+
+                <h2 class="text-lg font-medium text-gray-900">
+                    {{ __('Upload Document') }} - {{ $event->stage->label() }}
+                </h2>
+
+                <div class="mt-6">
+                    <x-input-label for="file-{{ $event->id }}" value="{{ __('Select File (PDF, JPG, PNG - Max 5MB)') }}" />
+                    <input 
+                        id="file-{{ $event->id }}" 
+                        name="file" 
+                        type="file" 
+                        accept=".pdf,.jpg,.jpeg,.png"
+                        class="mt-1 block w-full text-sm text-gray-500
+                            file:mr-4 file:py-2 file:px-4
+                            file:rounded-md file:border-0
+                            file:text-sm file:font-semibold
+                            file:bg-muted-gold file:text-white
+                            hover:file:bg-amber-700"
+                        required 
+                    />
+                    <x-input-error :messages="$errors->get('file')" class="mt-2" />
+                </div>
+
+                <div class="mt-6">
+                    <x-input-label for="document_type-{{ $event->id }}" value="{{ __('Document Type (Optional)') }}" />
+                    <x-text-input 
+                        id="document_type-{{ $event->id }}" 
+                        name="document_type" 
+                        type="text" 
+                        class="mt-1 block w-full" 
+                        placeholder="e.g., Baptismal Certificate, Health Report"
+                    />
+                    <x-input-error :messages="$errors->get('document_type')" class="mt-2" />
+                </div>
+
+                <div class="mt-6 flex justify-end">
+                    <x-secondary-button x-on:click="$dispatch('close')">
+                        {{ __('Cancel') }}
+                    </x-secondary-button>
+
+                    <x-primary-button class="ml-3">
+                        {{ __('Upload Document') }}
+                    </x-primary-button>
+                </div>
+            </form>
+        </x-modal>
+
+        <!-- View Documents Modal -->
+        <x-modal name="view-documents-{{ $event->id }}" focusable>
+            <div class="p-6">
+                <h2 class="text-lg font-medium text-gray-900 mb-4">
+                    {{ __('Documents') }} - {{ $event->stage->label() }}
+                </h2>
+
+                @if($event->documents->count() > 0)
+                    <div class="space-y-3">
+                        @foreach($event->documents as $document)
+                            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                <div class="flex-1">
+                                    <div class="font-medium text-gray-900">{{ $document->file_name }}</div>
+                                    @if($document->document_type)
+                                        <div class="text-sm text-gray-600">{{ $document->document_type }}</div>
+                                    @endif
+                                    <div class="text-xs text-gray-500 mt-1">
+                                        {{ number_format($document->file_size / 1024, 2) }} KB
+                                        • Uploaded {{ $document->created_at->format('M d, Y') }}
+                                        by {{ $document->uploadedBy->name }}
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-2 ml-4">
+                                    @can('downloadDocument', $document)
+                                        <a 
+                                            href="{{ route('formation.documents.download', $document) }}" 
+                                            class="inline-flex items-center px-3 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700"
+                                        >
+                                            Download
+                                        </a>
+                                    @endcan
+                                    @can('deleteDocument', $document)
+                                        <form method="post" action="{{ route('formation.documents.destroy', $document) }}" class="inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button 
+                                                type="submit" 
+                                                class="inline-flex items-center px-3 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-700"
+                                                onclick="return confirm('Are you sure you want to delete this document?')"
+                                            >
+                                                Delete
+                                            </button>
+                                        </form>
+                                    @endcan
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                @else
+                    <p class="text-gray-500">No documents uploaded yet.</p>
+                @endif
+
+                <div class="mt-6 flex justify-end">
+                    <x-secondary-button x-on:click="$dispatch('close')">
+                        {{ __('Close') }}
+                    </x-secondary-button>
+                </div>
+            </div>
+        </x-modal>
+    @endforeach
 </x-app-layout>
