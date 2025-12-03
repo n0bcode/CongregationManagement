@@ -5,11 +5,16 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreMemberTransferRequest;
 use App\Models\Assignment;
 use App\Models\Member;
+use App\Services\AuditService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
 
 class MemberTransferController extends Controller
 {
+    public function __construct(
+        protected AuditService $auditService
+    ) {}
+
     public function store(StoreMemberTransferRequest $request, Member $member): RedirectResponse
     {
         // Authorization check (can be moved to Policy later)
@@ -50,7 +55,20 @@ class MemberTransferController extends Controller
                 // 'role' => $member->role, // If we tracked roles
             ]);
 
-            // Audit logging is handled by Observers if configured, or we can log explicitly here if needed.
+            // 4. Log the transfer with both old and new community IDs
+            $this->auditService->log(
+                model: $member,
+                action: 'transferred',
+                oldValues: [
+                    'community_id' => $oldCommunityId,
+                    'transfer_date' => $transferDate,
+                ],
+                newValues: [
+                    'community_id' => $newCommunityId,
+                    'transfer_date' => $transferDate,
+                ],
+                description: "Member '{$member->first_name} {$member->last_name}' was transferred from community ID {$oldCommunityId} to community ID {$newCommunityId}"
+            );
         });
 
         return redirect()->route('members.show', $member)

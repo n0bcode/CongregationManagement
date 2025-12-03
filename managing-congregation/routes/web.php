@@ -39,6 +39,10 @@ Route::middleware('auth')->group(function () {
     // Skills
     Route::post('/members/{member}/skills', [\App\Http\Controllers\SkillController::class, 'store'])->name('members.skills.store');
     Route::delete('/skills/{skill}', [\App\Http\Controllers\SkillController::class, 'destroy'])->name('skills.destroy');
+
+    // Audit Logs
+    Route::get('/audit-logs', [\App\Http\Controllers\AuditLogController::class, 'index'])->name('audit-logs.index');
+    Route::get('/audit-logs/export', [\App\Http\Controllers\AuditLogController::class, 'export'])->name('audit-logs.export');
 });
 
 require __DIR__.'/auth.php';

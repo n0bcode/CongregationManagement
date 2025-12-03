@@ -23,6 +23,11 @@
                     <x-nav-link :href="route('members.index')" :active="request()->routeIs('members.*')" class="font-medium">
                         {{ __('Members') }}
                     </x-nav-link>
+                    @can('viewAny', \App\Models\AuditLog::class)
+                        <x-nav-link :href="route('audit-logs.index')" :active="request()->routeIs('audit-logs.*')" class="font-medium">
+                            {{ __('Audit Logs') }}
+                        </x-nav-link>
+                    @endcan
                 </div>
             </div>
 
