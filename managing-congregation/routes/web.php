@@ -43,6 +43,15 @@ Route::middleware('auth')->group(function () {
     // Audit Logs
     Route::get('/audit-logs', [\App\Http\Controllers\AuditLogController::class, 'index'])->name('audit-logs.index');
     Route::get('/audit-logs/export', [\App\Http\Controllers\AuditLogController::class, 'export'])->name('audit-logs.export');
+
+    // Financials
+    Route::resource('financials', \App\Http\Controllers\FinancialController::class)->parameters([
+        'financials' => 'expense'
+    ]);
+    Route::get('/financials-lock-period', [\App\Http\Controllers\FinancialController::class, 'lockPeriodForm'])->name('financials.lock-period.form');
+    Route::post('/financials-lock-period', [\App\Http\Controllers\FinancialController::class, 'lockPeriod'])->name('financials.lock-period');
+    Route::get('/financials-monthly-report', [\App\Http\Controllers\FinancialController::class, 'monthlyReport'])->name('financials.monthly-report');
+    Route::get('/financials-export-report', [\App\Http\Controllers\FinancialController::class, 'exportMonthlyReport'])->name('financials.export-report');
 });
 
 require __DIR__.'/auth.php';

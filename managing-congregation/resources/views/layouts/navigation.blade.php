@@ -23,6 +23,9 @@
                     <x-nav-link :href="route('members.index')" :active="request()->routeIs('members.*')" class="font-medium">
                         {{ __('Members') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('financials.index')" :active="request()->routeIs('financials.*')" class="font-medium">
+                        {{ __('Financials') }}
+                    </x-nav-link>
                     @can('viewAny', \App\Models\AuditLog::class)
                         <x-nav-link :href="route('audit-logs.index')" :active="request()->routeIs('audit-logs.*')" class="font-medium">
                             {{ __('Audit Logs') }}
@@ -94,6 +97,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('members.index')" :active="request()->routeIs('members.*')" class="font-medium">
                 {{ __('Members') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('financials.index')" :active="request()->routeIs('financials.*')" class="font-medium">
+                {{ __('Financials') }}
             </x-responsive-nav-link>
         </div>
 
