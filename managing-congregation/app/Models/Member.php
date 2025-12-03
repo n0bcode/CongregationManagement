@@ -22,7 +22,13 @@ class Member extends Model
         'religious_name', 
         'dob', 
         'entry_date', 
-        'status'
+        'entry_date', 
+        'status',
+        'profile_photo_path',
+    ];
+
+    protected $appends = [
+        'profile_photo_url',
     ];
 
     protected $casts = [
@@ -38,6 +44,23 @@ class Member extends Model
     public function formationEvents()
     {
         return $this->hasMany(FormationEvent::class)->orderBy('started_at');
+    }
+
+    public function assignments()
+    {
+        return $this->hasMany(Assignment::class)->orderBy('start_date', 'desc');
+    }
+
+    public function currentAssignment()
+    {
+        return $this->hasOne(Assignment::class)->latestOfMany();
+    }
+
+    public function getProfilePhotoUrlAttribute()
+    {
+        return $this->profile_photo_path
+            ? \Illuminate\Support\Facades\Storage::disk('public')->url($this->profile_photo_path)
+            : 'https://ui-avatars.com/api/?name='.urlencode($this->first_name.' '.$this->last_name).'&color=7F9CF5&background=EBF4FF';
     }
 
     public function scopeSearch($query, $term)

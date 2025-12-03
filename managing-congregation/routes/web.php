@@ -23,6 +23,13 @@ Route::middleware('auth')->group(function () {
     Route::post('/formation-events/{event}/documents', [\App\Http\Controllers\FormationDocumentController::class, 'store'])->name('formation.documents.store');
     Route::get('/formation-documents/{document}/download', [\App\Http\Controllers\FormationDocumentController::class, 'download'])->name('formation.documents.download');
     Route::delete('/formation-documents/{document}', [\App\Http\Controllers\FormationDocumentController::class, 'destroy'])->name('formation.documents.destroy');
+    
+    // Member Transfer
+    Route::post('/members/{member}/transfer', [\App\Http\Controllers\MemberTransferController::class, 'store'])->name('members.transfer');
+
+    // Member Photos
+    Route::put('/members/{member}/photo', [\App\Http\Controllers\MemberPhotoController::class, 'update'])->name('members.photo.update');
+    Route::delete('/members/{member}/photo', [\App\Http\Controllers\MemberPhotoController::class, 'destroy'])->name('members.photo.destroy');
 });
 
 require __DIR__.'/auth.php';

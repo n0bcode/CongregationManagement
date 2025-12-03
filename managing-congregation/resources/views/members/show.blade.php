@@ -6,6 +6,13 @@
             </h2>
             <div class="flex items-center space-x-4">
                 @can('update', $member)
+                    <x-secondary-button
+                        x-data=""
+                        x-on:click.prevent="$dispatch('open-modal', 'transfer-member')"
+                        class="mr-2"
+                    >
+                        {{ __('Transfer') }}
+                    </x-secondary-button>
                     <a href="{{ route('members.edit', $member) }}" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
                         {{ __('Edit') }}
                     </a>
@@ -27,10 +34,43 @@
                 </div>
             </div>
 
+            <!-- Service History Section -->
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-6">
+                <div class="p-6 text-gray-900">
+                    <h3 class="text-lg font-medium text-gray-900 mb-4">{{ __('Service History') }}</h3>
+                    <x-service-history-list :assignments="$member->assignments" />
+                </div>
+            </div>
+
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
+                            <div class="flex items-center space-x-6 mb-6">
+                                <div class="shrink-0">
+                                    <img class="h-24 w-24 object-cover rounded-full border-2 border-gray-200" src="{{ $member->profile_photo_url }}" alt="{{ $member->first_name }}" />
+                                </div>
+                                <div>
+                                    @can('update', $member)
+                                        <div class="flex space-x-2">
+                                            <x-secondary-button x-data="" x-on:click.prevent="$dispatch('open-modal', 'update-photo')">
+                                                {{ __('Update Photo') }}
+                                            </x-secondary-button>
+                                            
+                                            @if($member->profile_photo_path)
+                                                <form method="POST" action="{{ route('members.photo.destroy', $member) }}" class="inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <x-danger-button onclick="return confirm('Are you sure you want to remove this photo?')">
+                                                        {{ __('Remove') }}
+                                                    </x-danger-button>
+                                                </form>
+                                            @endif
+                                        </div>
+                                    @endcan
+                                </div>
+                            </div>
+
                             <h3 class="text-lg font-medium text-gray-900">{{ __('Personal Information') }}</h3>
                             <dl class="mt-4 space-y-4">
                                 <div>
@@ -230,4 +270,88 @@
             </div>
         </x-modal>
     @endforeach
+
+    <!-- Transfer Member Modal -->
+    <x-modal name="transfer-member" focusable>
+        <form method="post" action="{{ route('members.transfer', $member) }}" class="p-6">
+            @csrf
+
+            <h2 class="text-lg font-medium text-gray-900">
+                {{ __('Transfer Member') }}
+            </h2>
+
+            <p class="mt-1 text-sm text-gray-600">
+                {{ __('Select the new community and the date of transfer. This will update the member\'s current location and add an entry to their service history.') }}
+            </p>
+
+            <div class="mt-6">
+                <x-input-label for="community_id" value="{{ __('New Community') }}" />
+                <select id="community_id" name="community_id" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required>
+                    <option value="">{{ __('Select Community') }}</option>
+                    @foreach($communities as $community)
+                        @if($community->id !== $member->community_id)
+                            <option value="{{ $community->id }}">{{ $community->name }}</option>
+                        @endif
+                    @endforeach
+                </select>
+                <x-input-error :messages="$errors->get('community_id')" class="mt-2" />
+            </div>
+
+            <div class="mt-6">
+                <x-input-label for="transfer_date" value="{{ __('Transfer Date') }}" />
+                <x-text-input id="transfer_date" name="transfer_date" type="date" class="mt-1 block w-full" :value="now()->format('Y-m-d')" required />
+                <x-input-error :messages="$errors->get('transfer_date')" class="mt-2" />
+            </div>
+
+            <div class="mt-6 flex justify-end">
+                <x-secondary-button x-on:click="$dispatch('close')">
+                    {{ __('Cancel') }}
+                </x-secondary-button>
+
+                <x-primary-button class="ml-3">
+                    {{ __('Confirm Transfer') }}
+                </x-primary-button>
+            </div>
+        </form>
+    </x-modal>
+
+    <!-- Update Photo Modal -->
+    <x-modal name="update-photo" focusable>
+        <form method="post" action="{{ route('members.photo.update', $member) }}" enctype="multipart/form-data" class="p-6">
+            @csrf
+            @method('PUT')
+
+            <h2 class="text-lg font-medium text-gray-900">
+                {{ __('Update Profile Photo') }}
+            </h2>
+
+            <div class="mt-6">
+                <x-input-label for="photo" value="{{ __('Select Photo (JPG, PNG - Max 2MB)') }}" />
+                <input 
+                    id="photo" 
+                    name="photo" 
+                    type="file" 
+                    accept=".jpg,.jpeg,.png"
+                    class="mt-1 block w-full text-sm text-gray-500
+                        file:mr-4 file:py-2 file:px-4
+                        file:rounded-md file:border-0
+                        file:text-sm file:font-semibold
+                        file:bg-indigo-50 file:text-indigo-700
+                        hover:file:bg-indigo-100"
+                    required 
+                />
+                <x-input-error :messages="$errors->get('photo')" class="mt-2" />
+            </div>
+
+            <div class="mt-6 flex justify-end">
+                <x-secondary-button x-on:click="$dispatch('close')">
+                    {{ __('Cancel') }}
+                </x-secondary-button>
+
+                <x-primary-button class="ml-3">
+                    {{ __('Save Photo') }}
+                </x-primary-button>
+            </div>
+        </form>
+    </x-modal>
 </x-app-layout>

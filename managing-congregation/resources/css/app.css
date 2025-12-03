@@ -1,3 +1,206 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Inter:wght@300;400;500;600&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Base styles for Sanctuary & Stone Design System */
+@layer base {
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 18px; /* NFR11: Increased base size for elderly users */
+    line-height: 1.6; /* Enhanced readability */
+  }
+
+  body {
+    @apply bg-stone-50 text-slate-800;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Merriweather', serif;
+    @apply text-slate-800;
+  }
+
+  h1 { @apply text-3xl font-bold; } /* 32px */
+  h2 { @apply text-2xl font-semibold; } /* 24px */
+  h3 { @apply text-xl font-semibold; }
+  h4 { @apply text-lg font-medium; }
+
+  /* High-visibility focus states for keyboard navigation (Senior-focused) */
+  *:focus-visible {
+    @apply outline-none ring-4 ring-amber-500 ring-offset-2;
+  }
+
+  /* Smooth transitions for interactive elements */
+  button, a, input, textarea, select {
+    transition: all 0.15s ease-in-out;
+  }
+
+  /* Respect prefers-reduced-motion for accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* Custom scrollbar for webkit browsers */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-stone-100;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-stone-300 rounded;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-stone-400;
+  }
+}
+
+/* Component styles following UI/UX Sync Rules */
+@layer components {
+  /* Buttons - Minimum 48x48px touch targets */
+  .btn {
+    @apply min-h-[48px] px-6 py-3 rounded-lg font-medium transition-colors;
+    @apply focus:ring-4 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-primary {
+    @apply btn bg-amber-600 text-white hover:bg-amber-700 focus:ring-amber-500;
+  }
+
+  .btn-secondary {
+    @apply btn bg-white text-slate-700 border border-stone-300 hover:bg-stone-50 focus:ring-amber-500;
+  }
+
+  .btn-success {
+    @apply btn bg-emerald-600 text-white hover:bg-emerald-700 focus:ring-emerald-500;
+  }
+
+  .btn-danger {
+    @apply btn bg-rose-600 text-white hover:bg-rose-700 focus:ring-rose-500;
+  }
+
+  /* Cards - "Cards on a Desk" metaphor */
+  .card {
+    @apply bg-white rounded-xl shadow-sm border border-stone-200 p-6;
+  }
+
+  .card-header {
+    @apply border-b border-stone-200 pb-4 mb-4;
+  }
+
+  /* Forms - Enhanced for accessibility */
+  .form-label {
+    @apply block text-sm font-medium text-slate-700 mb-2;
+  }
+
+  .form-input, .form-select, .form-textarea {
+    @apply min-h-[48px] w-full px-4 py-3 border border-stone-300 rounded-lg;
+    @apply focus:border-amber-500 focus:ring-2 focus:ring-amber-500;
+    @apply disabled:bg-stone-100 disabled:cursor-not-allowed;
+  }
+
+  .form-textarea {
+    @apply min-h-[120px];
+  }
+
+  .form-error {
+    @apply text-rose-600 text-sm mt-1;
+  }
+
+  /* Status Cards - Pastoral design */
+  .status-card {
+    @apply card flex items-start space-x-4;
+  }
+
+  .status-card-peace {
+    @apply bg-emerald-50 border-emerald-200;
+  }
+
+  .status-card-attention {
+    @apply bg-rose-50 border-rose-200;
+  }
+
+  .status-card-pending {
+    @apply bg-amber-50 border-amber-200;
+  }
+
+  /* Ledger Row - "Digital Ledger" pattern */
+  .ledger-row {
+    @apply flex items-center justify-between p-4 border-b border-stone-200;
+    @apply hover:bg-stone-50 transition-colors cursor-pointer;
+    @apply min-h-[64px]; /* Comfortable touch target */
+  }
+
+  /* Alerts - "Kindness in Code" */
+  .alert {
+    @apply p-4 rounded-lg flex items-start space-x-3;
+  }
+
+  .alert-success {
+    @apply bg-emerald-50 border border-emerald-200 text-emerald-800;
+  }
+
+  .alert-error {
+    @apply bg-rose-50 border border-rose-200 text-rose-800;
+  }
+
+  .alert-warning {
+    @apply bg-amber-50 border border-amber-200 text-amber-800;
+  }
+
+  .alert-info {
+    @apply bg-blue-50 border border-blue-200 text-blue-800;
+  }
+
+  /* Navigation */
+  .nav-link {
+    @apply min-h-[48px] px-4 py-3 flex items-center space-x-3 rounded-lg;
+    @apply text-slate-700 hover:bg-stone-100 transition-colors;
+  }
+
+  .nav-link-active {
+    @apply bg-amber-50 text-amber-900 font-medium;
+  }
+
+  /* Tables - Responsive design */
+  .table-responsive {
+    @apply overflow-x-auto -mx-4 sm:mx-0;
+  }
+
+  .table {
+    @apply w-full border-collapse;
+  }
+
+  .table th {
+    @apply bg-stone-100 px-4 py-3 text-left text-sm font-semibold text-slate-700;
+  }
+
+  .table td {
+    @apply px-4 py-3 border-t border-stone-200;
+  }
+
+  /* Loading states */
+  .loading-spinner {
+    @apply inline-block w-6 h-6 border-4 border-stone-300 border-t-amber-600 rounded-full animate-spin;
+  }
+}
+
+/* Utility classes */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .touch-target {
+    @apply min-h-[48px] min-w-[48px];
+  }
+}

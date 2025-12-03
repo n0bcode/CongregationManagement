@@ -45,7 +45,7 @@ class MemberController extends Controller
 
     public function show(\App\Models\Member $member): View
     {
-        $member->load('formationEvents');
+        $member->load(['formationEvents', 'assignments.community']);
         
         // Calculate projected future events based on most recent formation event
         $projectedEvents = [];
@@ -72,7 +72,9 @@ class MemberController extends Controller
             }
         }
         
-        return view('members.show', compact('member', 'projectedEvents'));
+        $communities = \App\Models\Community::all();
+        
+        return view('members.show', compact('member', 'projectedEvents', 'communities'));
     }
 
     public function edit(\App\Models\Member $member): View
