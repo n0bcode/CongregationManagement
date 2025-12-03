@@ -40,4 +40,23 @@ class MemberController extends Controller
     {
         return view('members.show', compact('member'));
     }
+
+    public function edit(\App\Models\Member $member): View
+    {
+        \Illuminate\Support\Facades\Gate::authorize('update', $member);
+
+        return view('members.edit', [
+            'member' => $member,
+            'statuses' => \App\Enums\MemberStatus::cases(),
+        ]);
+    }
+
+    public function update(\App\Http\Requests\UpdateMemberRequest $request, \App\Models\Member $member)
+    {
+        \Illuminate\Support\Facades\Gate::authorize('update', $member);
+
+        $member->update($request->validated());
+
+        return redirect()->route('members.show', $member)->with('status', 'Member updated successfully.');
+    }
 }

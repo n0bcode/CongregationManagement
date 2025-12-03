@@ -1,4 +1,4 @@
-# generated: 2025-12-02
+# generated: 2025-12-03
 # project: Managing the Congregation (at the organizational level)
 # project_key: MTC
 # tracking_system: file-system
@@ -9,6 +9,8 @@
 # Epic Status:
 #   - backlog: Epic exists in epic file but not contexted
 #   - contexted: Epic tech context created (required before drafting stories)
+#   - in-progress: Stories are being worked on
+#   - done: All stories completed
 #
 # Story Status:
 #   - backlog: Story only exists in epic file
@@ -29,14 +31,14 @@
 # - SM typically drafts next story after previous one is 'done' to incorporate learnings
 # - Dev moves story to 'review', SM reviews, then Dev moves to 'done'
 
-generated: 2025-12-02
+generated: 2025-12-03
 project: Managing the Congregation (at the organizational level)
 project_key: MTC
 tracking_system: file-system
 story_location: docs/sprint-artifacts
 
 development_status:
-  epic-1: backlog
+  epic-1: done
   1-1-project-initialization-environment-setup: done
   1-2-core-data-model-migrations: done
   1-3-user-authentication: done
@@ -46,7 +48,7 @@ development_status:
 
   epic-2: in-progress
   2-1-create-and-view-member-profiles: done
-  2-2-edit-member-profile-and-status: backlog
+  2-2-edit-member-profile-and-status: done
   2-3-member-search: backlog
   2-4-visual-formation-timeline: backlog
   2-5-secure-document-upload-for-formation: backlog

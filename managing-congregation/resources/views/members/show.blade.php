@@ -4,9 +4,16 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('Member Profile') }}
             </h2>
-            <a href="{{ route('members.index') }}" class="text-sm text-gray-600 hover:text-gray-900">
-                {{ __('Back to List') }}
-            </a>
+            <div class="flex items-center space-x-4">
+                @can('update', $member)
+                    <a href="{{ route('members.edit', $member) }}" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                        {{ __('Edit') }}
+                    </a>
+                @endcan
+                <a href="{{ route('members.index') }}" class="text-sm text-gray-600 hover:text-gray-900">
+                    {{ __('Back to List') }}
+                </a>
+            </div>
         </div>
     </x-slot>
 
