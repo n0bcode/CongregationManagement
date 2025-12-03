@@ -49,8 +49,8 @@ development_status:
   epic-2: in-progress
   2-1-create-and-view-member-profiles: done
   2-2-edit-member-profile-and-status: done
-  2-3-member-search: backlog
-  2-4-visual-formation-timeline: backlog
+  2-3-member-search: done
+  2-4-visual-formation-timeline: done
   2-5-secure-document-upload-for-formation: backlog
   2-6-member-transfer-history: backlog
   2-7-member-profile-photo-management: backlog

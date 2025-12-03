@@ -9,9 +9,16 @@ use Illuminate\View\View;
 
 class MemberController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
-        $members = \App\Models\Member::paginate(20);
+        $query = \App\Models\Member::query();
+
+        if ($request->has('search')) {
+            $query->search($request->input('search'));
+        }
+
+        $members = $query->paginate(20)->appends($request->query());
+        
         return view('members.index', compact('members'));
     }
 
@@ -38,7 +45,34 @@ class MemberController extends Controller
 
     public function show(\App\Models\Member $member): View
     {
-        return view('members.show', compact('member'));
+        $member->load('formationEvents');
+        
+        // Calculate projected future events based on most recent formation event
+        $projectedEvents = [];
+        $latestEvent = $member->formationEvents->sortByDesc('started_at')->first();
+        
+        if ($latestEvent) {
+            $formationService = app(\App\Services\FormationService::class);
+            $nextStageDate = $formationService->calculateNextStageDate($latestEvent->stage, $latestEvent->started_at);
+            
+            if ($nextStageDate) {
+                // Determine next stage based on current stage
+                $nextStage = match($latestEvent->stage) {
+                    \App\Enums\FormationStage::Novitiate => \App\Enums\FormationStage::FirstVows,
+                    \App\Enums\FormationStage::FirstVows => \App\Enums\FormationStage::FinalVows,
+                    default => null,
+                };
+                
+                if ($nextStage) {
+                    $projectedEvents[] = [
+                        'stage' => $nextStage,
+                        'date' => $nextStageDate,
+                    ];
+                }
+            }
+        }
+        
+        return view('members.show', compact('member', 'projectedEvents'));
     }
 
     public function edit(\App\Models\Member $member): View

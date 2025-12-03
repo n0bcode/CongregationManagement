@@ -20,11 +20,11 @@ class MemberFactory extends Factory
     {
         return [
             'community_id' => \App\Models\Community::factory(),
-            'first_name' => $this->faker->firstName(),
-            'last_name' => $this->faker->lastName(),
-            'religious_name' => $this->faker->optional()->firstName(),
-            'dob' => $this->faker->date(),
-            'entry_date' => $this->faker->date(),
+            'first_name' => fake()->firstName(),
+            'last_name' => fake()->lastName(),
+            'religious_name' => fake()->optional()->firstName(),
+            'dob' => fake()->date(),
+            'entry_date' => fake()->date(),
             'status' => 'Active',
         ];
     }

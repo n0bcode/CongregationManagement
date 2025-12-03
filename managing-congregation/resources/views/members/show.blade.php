@@ -19,6 +19,14 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <!-- Timeline Section -->
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-6">
+                <div class="p-6 text-gray-900">
+                    <h3 class="text-lg font-medium text-gray-900 mb-4">{{ __('Formation Timeline') }}</h3>
+                    <x-feast-timeline :events="$member->formationEvents" :member="$member" :projectedEvents="$projectedEvents" />
+                </div>
+            </div>
+
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -65,4 +73,47 @@
             </div>
         </div>
     </div>
+
+    <!-- Add Formation Event Modal -->
+    <x-modal name="add-formation-event" focusable>
+        <form method="post" action="{{ route('members.formation.store', $member) }}" class="p-6">
+            @csrf
+
+            <h2 class="text-lg font-medium text-gray-900">
+                {{ __('Add Formation Milestone') }}
+            </h2>
+
+            <div class="mt-6">
+                <x-input-label for="stage" value="{{ __('Stage') }}" />
+                <select id="stage" name="stage" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                    @foreach(\App\Enums\FormationStage::cases() as $stage)
+                        <option value="{{ $stage->value }}">{{ $stage->label() }}</option>
+                    @endforeach
+                </select>
+                <x-input-error :messages="$errors->get('stage')" class="mt-2" />
+            </div>
+
+            <div class="mt-6">
+                <x-input-label for="started_at" value="{{ __('Start Date') }}" />
+                <x-text-input id="started_at" name="started_at" type="date" class="mt-1 block w-full" required />
+                <x-input-error :messages="$errors->get('started_at')" class="mt-2" />
+            </div>
+
+            <div class="mt-6">
+                <x-input-label for="notes" value="{{ __('Notes (Optional)') }}" />
+                <textarea id="notes" name="notes" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" rows="3"></textarea>
+                <x-input-error :messages="$errors->get('notes')" class="mt-2" />
+            </div>
+
+            <div class="mt-6 flex justify-end">
+                <x-secondary-button x-on:click="$dispatch('close')">
+                    {{ __('Cancel') }}
+                </x-secondary-button>
+
+                <x-primary-button class="ml-3">
+                    {{ __('Save Milestone') }}
+                </x-primary-button>
+            </div>
+        </form>
+    </x-modal>
 </x-app-layout>

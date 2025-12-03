@@ -34,4 +34,18 @@ class Member extends Model
     {
         return $this->belongsTo(Community::class);
     }
+
+    public function formationEvents()
+    {
+        return $this->hasMany(FormationEvent::class)->orderBy('started_at');
+    }
+
+    public function scopeSearch($query, $term)
+    {
+        return $query->where(function ($query) use ($term) {
+            $query->where('religious_name', 'like', "%{$term}%")
+                  ->orWhere('first_name', 'like', "%{$term}%")
+                  ->orWhere('last_name', 'like', "%{$term}%");
+        });
+    }
 }

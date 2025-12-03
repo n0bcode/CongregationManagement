@@ -31,5 +31,6 @@ class AppServiceProvider extends ServiceProvider
 
         // Register UserPolicy for automatic discovery
         Gate::policy(\App\Models\User::class, \App\Policies\UserPolicy::class);
+        Gate::policy(\App\Models\FormationEvent::class, \App\Policies\FormationPolicy::class);
     }
 }
