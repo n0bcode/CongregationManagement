@@ -15,7 +15,15 @@ class Member extends Model
 {
     use HasFactory, SoftDeletes, ScopedByCommunity;
 
-    protected $fillable = ['community_id', 'name', 'civil_name', 'dob', 'entry_date', 'status'];
+    protected $fillable = [
+        'community_id', 
+        'first_name', 
+        'last_name', 
+        'religious_name', 
+        'dob', 
+        'entry_date', 
+        'status'
+    ];
 
     protected $casts = [
         'dob' => 'date',

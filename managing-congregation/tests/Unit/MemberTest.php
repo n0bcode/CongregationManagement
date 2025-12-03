@@ -27,13 +27,15 @@ class MemberTest extends TestCase
     public function test_member_has_required_fields()
     {
         $member = Member::factory()->create([
-            'name' => 'Sister Mary',
-            'civil_name' => 'Mary Smith',
+            'first_name' => 'Mary',
+            'last_name' => 'Smith',
+            'religious_name' => 'Sister Mary',
             'status' => 'Active',
         ]);
 
-        $this->assertEquals('Sister Mary', $member->name);
-        $this->assertEquals('Mary Smith', $member->civil_name);
+        $this->assertEquals('Sister Mary', $member->religious_name);
+        $this->assertEquals('Mary', $member->first_name);
+        $this->assertEquals('Smith', $member->last_name);
         $this->assertEquals('Active', $member->status);
     }
 
