@@ -97,4 +97,74 @@ class Member extends Model
                 });
         });
     }
+
+    /**
+     * Get complete timeline of member's history
+     * Aggregates formation events, assignments, and transfers
+     * Returns chronologically sorted collection
+     */
+    public function timeline(): \Illuminate\Support\Collection
+    {
+        $timeline = collect();
+
+        // Add entry date
+        if ($this->entry_date) {
+            $timeline->push((object) [
+                'type' => 'entry',
+                'date' => $this->entry_date,
+                'title' => 'Entered Congregation',
+                'description' => 'Joined the congregation',
+                'icon' => 'door-open',
+                'color' => 'blue',
+            ]);
+        }
+
+        // Add formation events
+        foreach ($this->formationEvents as $event) {
+            $timeline->push((object) [
+                'type' => 'formation',
+                'date' => $event->started_at,
+                'title' => ucfirst(str_replace('_', ' ', $event->stage)),
+                'description' => $event->notes ?? 'Formation milestone',
+                'icon' => 'book',
+                'color' => 'amber',
+                'model' => $event,
+            ]);
+        }
+
+        // Add assignments
+        foreach ($this->assignments as $assignment) {
+            $timeline->push((object) [
+                'type' => 'assignment',
+                'date' => $assignment->start_date,
+                'title' => $assignment->role ?? 'Assignment',
+                'description' => "Assigned to {$assignment->community->name}".
+                    ($assignment->end_date ? " (ended {$assignment->end_date->format('M Y')})" : ' (ongoing)'),
+                'icon' => 'briefcase',
+                'color' => 'green',
+                'model' => $assignment,
+            ]);
+        }
+
+        // Sort chronologically (most recent first)
+        return $timeline->sortByDesc('date')->values();
+    }
+
+    /**
+     * Get timeline events for a specific date range
+     */
+    public function timelineForPeriod(\Carbon\Carbon $startDate, \Carbon\Carbon $endDate): \Illuminate\Support\Collection
+    {
+        return $this->timeline()->filter(function ($event) use ($startDate, $endDate) {
+            return $event->date->between($startDate, $endDate);
+        });
+    }
+
+    /**
+     * Get timeline events by type
+     */
+    public function timelineByType(string $type): \Illuminate\Support\Collection
+    {
+        return $this->timeline()->where('type', $type);
+    }
 }

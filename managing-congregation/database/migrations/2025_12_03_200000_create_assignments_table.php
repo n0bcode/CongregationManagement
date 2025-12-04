@@ -19,6 +19,12 @@ return new class extends Migration
             $table->date('end_date')->nullable();
             $table->string('role')->nullable();
             $table->timestamps();
+
+            // Indexes for performance
+            $table->index('member_id');
+            $table->index('community_id');
+            $table->index('start_date');
+            $table->index('end_date');
         });
     }
 

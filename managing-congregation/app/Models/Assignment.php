@@ -31,4 +31,64 @@ class Assignment extends Model
     {
         return $this->belongsTo(Community::class);
     }
+
+    /**
+     * Get the duration of the assignment in days
+     */
+    public function getDurationAttribute(): int
+    {
+        $endDate = $this->end_date ?? now();
+
+        return $this->start_date->diffInDays($endDate);
+    }
+
+    /**
+     * Get the duration in human-readable format
+     */
+    public function getDurationHumanAttribute(): string
+    {
+        $days = $this->duration;
+
+        if ($days < 30) {
+            return $days.' '.str('day')->plural($days);
+        }
+
+        if ($days < 365) {
+            $months = round($days / 30);
+
+            return $months.' '.str('month')->plural($months);
+        }
+
+        $years = round($days / 365, 1);
+
+        return $years.' '.str('year')->plural($years);
+    }
+
+    /**
+     * Check if assignment is currently active
+     */
+    public function isActive(): bool
+    {
+        return $this->end_date === null || $this->end_date->isFuture();
+    }
+
+    /**
+     * Scope to get active assignments
+     */
+    public function scopeActive($query)
+    {
+        return $query->where(function ($q) {
+            $q->whereNull('end_date')
+                ->orWhere('end_date', '>', now());
+        });
+    }
+
+    /**
+     * Scope to get completed assignments
+     */
+    public function scopeCompleted($query)
+    {
+        return $query->whereNotNull('end_date')
+            ->where('end_date', '<=', now());
+    }
 }
