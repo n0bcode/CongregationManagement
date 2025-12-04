@@ -11,3 +11,6 @@ Artisan::command('inspire', function () {
 // Schedule reminders
 Schedule::command('reminders:send --schedule')->daily()->at('06:00');
 Schedule::command('reminders:send')->daily()->at('08:00');
+
+// Schedule backups
+Schedule::command('system:backup')->daily()->at('02:00');

@@ -67,6 +67,11 @@ Route::middleware('auth')->group(function () {
         Route::post('/permissions/update', [\App\Http\Controllers\Admin\PermissionManagementController::class, 'update'])->name('permissions.update');
         Route::post('/permissions/sync', [\App\Http\Controllers\Admin\PermissionManagementController::class, 'sync'])->name('permissions.sync');
         Route::get('/permissions/audit', [\App\Http\Controllers\Admin\PermissionManagementController::class, 'audit'])->name('permissions.audit');
+
+        // System Settings
+        Route::get('/settings', [\App\Http\Controllers\SettingsController::class, 'index'])->name('settings.index');
+        Route::post('/settings', [\App\Http\Controllers\SettingsController::class, 'update'])->name('settings.update');
+        Route::post('/settings/test-email', [\App\Http\Controllers\SettingsController::class, 'testEmail'])->name('settings.test-email');
     });
 });
 
