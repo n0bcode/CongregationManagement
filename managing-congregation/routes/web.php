@@ -73,10 +73,6 @@ Route::middleware('auth')->group(function () {
         Route::post('/settings', [\App\Http\Controllers\SettingsController::class, 'update'])->name('settings.update');
         Route::post('/settings/test-email', [\App\Http\Controllers\SettingsController::class, 'testEmail'])->name('settings.test-email');
     });
-});
-
-require __DIR__.'/auth.php';
-
     // Reports
     Route::get('/reports/demographic', [\App\Http\Controllers\ReportController::class, 'demographic'])->name('reports.demographic');
     Route::get('/reports/demographic/export', [\App\Http\Controllers\ReportController::class, 'exportDemographic'])->name('reports.demographic.export');
@@ -86,3 +82,6 @@ require __DIR__.'/auth.php';
     Route::get('/celebrations/birthday/{member}/generate', [\App\Http\Controllers\CelebrationController::class, 'generateBirthday'])->name('celebrations.birthday.generate');
     Route::get('/celebrations/birthday/{member}/download', [\App\Http\Controllers\CelebrationController::class, 'downloadBirthday'])->name('celebrations.birthday.download');
     Route::post('/celebrations/birthday/{member}/email', [\App\Http\Controllers\CelebrationController::class, 'emailBirthday'])->name('celebrations.birthday.email');
+});
+
+require __DIR__.'/auth.php';
