@@ -31,7 +31,7 @@
                 <div class="p-6">
                     <div class="flex items-center space-x-6">
                         <div class="shrink-0">
-                            <img class="h-32 w-32 object-cover rounded-full border-4 border-stone-200" src="{{ $member->profile_photo_url }}" alt="{{ $member->first_name }}" />
+                            <img class="h-32 w-32 object-cover rounded-full border-4 border-stone-200" src="{{ $member->profile_photo_url }}" alt="{{ $member->full_name }}" />
                         </div>
                         <div class="flex-1">
                             <h2 class="text-3xl font-serif font-bold text-slate-900">

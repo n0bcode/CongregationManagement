@@ -71,6 +71,11 @@ class Member extends Model
             : 'https://ui-avatars.com/api/?name='.urlencode($this->first_name.' '.$this->last_name).'&color=7F9CF5&background=EBF4FF';
     }
 
+    public function getFullNameAttribute(): string
+    {
+        return "{$this->first_name} {$this->last_name}";
+    }
+
     public function scopeSearch($query, $term)
     {
         return $query->where(function ($query) use ($term) {
