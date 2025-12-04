@@ -26,6 +26,11 @@
                     <x-nav-link :href="route('financials.index')" :active="request()->routeIs('financials.*')" class="font-medium">
                         {{ __('Financials') }}
                     </x-nav-link>
+                    @can('viewAny', \App\Models\Document::class)
+                        <x-nav-link :href="route('documents.index')" :active="request()->routeIs('documents.*')" class="font-medium">
+                            {{ __('Documents') }}
+                        </x-nav-link>
+                    @endcan
                     @can('viewAny', \App\Models\AuditLog::class)
                         <x-nav-link :href="route('audit-logs.index')" :active="request()->routeIs('audit-logs.*')" class="font-medium">
                             {{ __('Audit Logs') }}
@@ -101,6 +106,11 @@
             <x-responsive-nav-link :href="route('financials.index')" :active="request()->routeIs('financials.*')" class="font-medium">
                 {{ __('Financials') }}
             </x-responsive-nav-link>
+            @can('viewAny', \App\Models\Document::class)
+                <x-responsive-nav-link :href="route('documents.index')" :active="request()->routeIs('documents.*')" class="font-medium">
+                    {{ __('Documents') }}
+                </x-responsive-nav-link>
+            @endcan
         </div>
 
         <!-- Responsive Settings Options -->

@@ -52,6 +52,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/financials-lock-period', [\App\Http\Controllers\FinancialController::class, 'lockPeriod'])->name('financials.lock-period');
     Route::get('/financials-monthly-report', [\App\Http\Controllers\FinancialController::class, 'monthlyReport'])->name('financials.monthly-report');
     Route::get('/financials-export-report', [\App\Http\Controllers\FinancialController::class, 'exportMonthlyReport'])->name('financials.export-report');
+
+    // Documents
+    Route::resource('documents', \App\Http\Controllers\DocumentController::class);
+    Route::get('/documents/{document}/download', [\App\Http\Controllers\DocumentController::class, 'download'])->name('documents.download');
 });
 
 require __DIR__.'/auth.php';

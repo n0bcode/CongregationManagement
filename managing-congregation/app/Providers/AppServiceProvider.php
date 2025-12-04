@@ -40,5 +40,6 @@ class AppServiceProvider extends ServiceProvider
         Gate::policy(\App\Models\FormationDocument::class, \App\Policies\FormationPolicy::class);
         Gate::policy(\App\Models\AuditLog::class, \App\Policies\AuditLogPolicy::class);
         Gate::policy(\App\Models\Expense::class, \App\Policies\ExpensePolicy::class);
+        Gate::policy(\App\Models\Document::class, \App\Policies\DocumentPolicy::class);
     }
 }
