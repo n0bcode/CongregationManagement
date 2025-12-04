@@ -36,21 +36,8 @@
             @endisset
 
             <!-- Flash Messages -->
-            @if(session('status'))
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
-                    <x-alert type="success" dismissible>
-                        {{ session('status') }}
-                    </x-alert>
-                </div>
-            @endif
-
-            @if(session('error'))
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
-                    <x-alert type="error" dismissible>
-                        {{ session('error') }}
-                    </x-alert>
-                </div>
-            @endif
+            <!-- Flash Messages -->
+            <x-flash-message />
 
             <!-- Page Content -->
             <main id="main-content" class="py-6" role="main">

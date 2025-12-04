@@ -1,4 +1,5 @@
 <x-app-layout>
+    <!-- @php dump(session()->all()); @endphp -->
     <x-slot name="header">
         <div class="flex items-center justify-between">
             <div>

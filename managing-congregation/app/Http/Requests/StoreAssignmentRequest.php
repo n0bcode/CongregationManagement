@@ -24,4 +24,12 @@ class StoreAssignmentRequest extends FormRequest
             'end_date' => ['nullable', 'date', 'after_or_equal:start_date'],
         ];
     }
+    public function messages(): array
+    {
+        return [
+            'community_id.required' => 'Please select a community.',
+            'start_date.required' => 'The start date is required.',
+            'end_date.after_or_equal' => 'The end date must be after or equal to the start date.',
+        ];
+    }
 }

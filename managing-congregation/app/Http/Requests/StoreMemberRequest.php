@@ -33,5 +33,12 @@ class StoreMemberRequest extends FormRequest
         ];
     }
 
-    // Removed withValidator as it is replaced by Rule::unique
+    public function messages(): array
+    {
+        return [
+            'first_name.unique' => 'A member with this name and date of birth already exists.',
+            'dob.before' => 'The date of birth must be in the past.',
+            'entry_date.required' => 'Please provide the date the member entered the congregation.',
+        ];
+    }
 }
