@@ -59,3 +59,7 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+    // Reports
+    Route::get('/reports/demographic', [\App\Http\Controllers\ReportController::class, 'demographic'])->name('reports.demographic');
+    Route::get('/reports/demographic/export', [\App\Http\Controllers\ReportController::class, 'exportDemographic'])->name('reports.demographic.export');

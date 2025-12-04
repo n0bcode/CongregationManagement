@@ -135,4 +135,21 @@ class PdfService
 
         return $pdf->save($path);
     }
+
+    /**
+     * Generate demographic report PDF
+     */
+    public function generateDemographicReport(array $data): \Symfony\Component\HttpFoundation\StreamedResponse
+    {
+        $pdf = Pdf::loadView('reports.pdf.demographic', $data);
+
+        $pdf->setPaper('a4', 'portrait');
+
+        $filename = sprintf(
+            'demographic-report-%s.pdf',
+            now()->format('Y-m-d')
+        );
+
+        return $pdf->download($filename);
+    }
 }

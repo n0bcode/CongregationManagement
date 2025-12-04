@@ -31,6 +31,9 @@
                             {{ __('Documents') }}
                         </x-nav-link>
                     @endcan
+                    <x-nav-link :href="route('reports.demographic')" :active="request()->routeIs('reports.*')" class="font-medium">
+                        {{ __('Reports') }}
+                    </x-nav-link>
                     @can('viewAny', \App\Models\AuditLog::class)
                         <x-nav-link :href="route('audit-logs.index')" :active="request()->routeIs('audit-logs.*')" class="font-medium">
                             {{ __('Audit Logs') }}
