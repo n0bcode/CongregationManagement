@@ -28,8 +28,7 @@ class ExpensePolicy
      */
     public function viewAny(User $user): bool
     {
-        // General (Treasurer) and Directors can view expenses
-        return $user->hasRole(UserRole::GENERAL) || $user->hasRole(UserRole::DIRECTOR);
+        return $user->hasPermission('financials.view');
     }
 
     /**
@@ -37,17 +36,17 @@ class ExpensePolicy
      */
     public function view(User $user, Expense $expense): bool
     {
-        // General (Treasurer) can view all expenses across all communities
-        if ($user->hasRole(UserRole::GENERAL)) {
-            return true;
+        if (! $user->hasPermission('financials.view')) {
+            return false;
         }
 
-        // Directors can only view expenses from their own community
+        // Community scoping for Directors
         if ($user->hasRole(UserRole::DIRECTOR)) {
             return $user->community_id === $expense->community_id;
         }
 
-        return false;
+        // General and Super Admin can view all
+        return true;
     }
 
     /**
@@ -55,9 +54,7 @@ class ExpensePolicy
      */
     public function create(User $user): bool
     {
-        // Only Directors can create expenses (not General Treasurer)
-        // General has read-only access
-        return $user->hasRole(UserRole::DIRECTOR);
+        return $user->hasPermission('financials.create');
     }
 
     /**
@@ -65,18 +62,21 @@ class ExpensePolicy
      */
     public function update(User $user, Expense $expense): bool
     {
-        // General (Treasurer) has read-only access - cannot update
-        if ($user->hasRole(UserRole::GENERAL)) {
+        if (! $user->hasPermission('financials.create')) {
             return false;
         }
 
-        // Directors can only update expenses from their own community
-        // and only if the expense is not locked
-        if ($user->hasRole(UserRole::DIRECTOR)) {
-            return $user->community_id === $expense->community_id && ! $expense->is_locked;
+        // Cannot update locked expenses
+        if ($expense->is_locked) {
+            return false;
         }
 
-        return false;
+        // Community scoping for Directors
+        if ($user->hasRole(UserRole::DIRECTOR)) {
+            return $user->community_id === $expense->community_id;
+        }
+
+        return true;
     }
 
     /**
@@ -84,18 +84,29 @@ class ExpensePolicy
      */
     public function delete(User $user, Expense $expense): bool
     {
-        // General (Treasurer) has read-only access - cannot delete
-        if ($user->hasRole(UserRole::GENERAL)) {
+        if (! $user->hasPermission('financials.manage')) {
             return false;
         }
 
-        // Directors can only delete expenses from their own community
-        // and only if the expense is not locked
-        if ($user->hasRole(UserRole::DIRECTOR)) {
-            return $user->community_id === $expense->community_id && ! $expense->is_locked;
+        // Cannot delete locked expenses
+        if ($expense->is_locked) {
+            return false;
         }
 
-        return false;
+        // Community scoping for Directors
+        if ($user->hasRole(UserRole::DIRECTOR)) {
+            return $user->community_id === $expense->community_id;
+        }
+
+        return true;
+    }
+
+    /**
+     * Determine whether the user can approve expenses.
+     */
+    public function approve(User $user): bool
+    {
+        return $user->hasPermission('financials.approve');
     }
 
     /**
@@ -103,9 +114,7 @@ class ExpensePolicy
      */
     public function lockPeriod(User $user): bool
     {
-        // Only General (Treasurer) can lock periods
-        // Directors cannot lock their own periods
-        return $user->hasRole(UserRole::GENERAL);
+        return $user->hasPermission('financials.manage');
     }
 
     /**
@@ -113,8 +122,7 @@ class ExpensePolicy
      */
     public function viewReports(User $user): bool
     {
-        // Both General (Treasurer) and Directors can view reports
-        return $user->hasRole(UserRole::GENERAL) || $user->hasRole(UserRole::DIRECTOR);
+        return $user->hasPermission('financials.view');
     }
 
     /**
@@ -122,7 +130,6 @@ class ExpensePolicy
      */
     public function exportReports(User $user): bool
     {
-        // Both General (Treasurer) and Directors can export reports
-        return $user->hasRole(UserRole::GENERAL) || $user->hasRole(UserRole::DIRECTOR);
+        return $user->hasPermission('financials.export');
     }
 }

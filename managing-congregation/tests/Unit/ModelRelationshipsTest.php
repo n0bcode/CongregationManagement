@@ -66,6 +66,8 @@ class ModelRelationshipsTest extends TestCase
             [Member::class, 'formationEvents', HasMany::class],
             [Member::class, 'assignments', HasMany::class],
             [Member::class, 'currentAssignment', HasOne::class],
+            [Member::class, 'healthRecords', HasMany::class],
+            [Member::class, 'skills', HasMany::class],
 
             // Community model
             [Community::class, 'members', HasMany::class],

@@ -21,8 +21,11 @@ class AuditLog extends Model
         'action',
         'auditable_type',
         'auditable_id',
+        'target_type',
+        'target_id',
         'old_values',
         'new_values',
+        'changes',
         'description',
         'ip_address',
         'user_agent',
@@ -31,6 +34,7 @@ class AuditLog extends Model
     protected $casts = [
         'old_values' => 'array',
         'new_values' => 'array',
+        'changes' => 'array',
         'created_at' => 'datetime',
     ];
 
@@ -86,5 +90,25 @@ class AuditLog extends Model
     public function scopeDateRange($query, $startDate, $endDate)
     {
         return $query->whereBetween('created_at', [$startDate, $endDate]);
+    }
+
+    /**
+     * Scope to permission-related actions
+     */
+    public function scopePermissionActions($query)
+    {
+        return $query->whereIn('action', [
+            'permission_updated',
+            'role_changed',
+        ]);
+    }
+
+    /**
+     * Scope to a specific target
+     */
+    public function scopeTarget($query, string $type, $id)
+    {
+        return $query->where('target_type', $type)
+            ->where('target_id', $id);
     }
 }

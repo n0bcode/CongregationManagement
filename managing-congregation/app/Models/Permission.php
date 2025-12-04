@@ -12,5 +12,10 @@ class Permission extends Model
         'key',
         'name',
         'module',
+        'is_active',
+    ];
+
+    protected $casts = [
+        'is_active' => 'boolean',
     ];
 }

@@ -56,6 +56,14 @@ Route::middleware('auth')->group(function () {
     // Documents
     Route::resource('documents', \App\Http\Controllers\DocumentController::class);
     Route::get('/documents/{document}/download', [\App\Http\Controllers\DocumentController::class, 'download'])->name('documents.download');
+
+    // Permission Management (Super Admin & General only)
+    Route::middleware('can:view-admin')->prefix('admin')->name('admin.')->group(function () {
+        Route::get('/permissions', [\App\Http\Controllers\Admin\PermissionManagementController::class, 'index'])->name('permissions.index');
+        Route::post('/permissions/update', [\App\Http\Controllers\Admin\PermissionManagementController::class, 'update'])->name('permissions.update');
+        Route::post('/permissions/sync', [\App\Http\Controllers\Admin\PermissionManagementController::class, 'sync'])->name('permissions.sync');
+        Route::get('/permissions/audit', [\App\Http\Controllers\Admin\PermissionManagementController::class, 'audit'])->name('permissions.audit');
+    });
 });
 
 require __DIR__.'/auth.php';

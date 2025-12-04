@@ -9,16 +9,23 @@ use App\Models\User;
 class DocumentPolicy
 {
     /**
+     * Perform pre-authorization checks.
+     */
+    public function before(User $user, string $ability): ?bool
+    {
+        if ($user->isSuperAdmin()) {
+            return true;
+        }
+
+        return null;
+    }
+
+    /**
      * Determine if the user can view any documents
      */
     public function viewAny(User $user): bool
     {
-        // Super Admin, General, and Directors can view documents
-        return in_array($user->role, [
-            UserRole::SUPER_ADMIN,
-            UserRole::GENERAL,
-            UserRole::DIRECTOR,
-        ]);
+        return $user->hasPermission('documents.view');
     }
 
     /**
@@ -26,28 +33,22 @@ class DocumentPolicy
      */
     public function view(User $user, Document $document): bool
     {
-        // Super Admin can view all documents
-        if ($user->role === UserRole::SUPER_ADMIN) {
-            return true;
+        if (! $user->hasPermission('documents.view')) {
+            return false;
         }
 
-        // General can view all documents (oversight)
-        if ($user->role === UserRole::GENERAL) {
-            return true;
-        }
-
-        // Directors can only view documents from their community
-        if ($user->role === UserRole::DIRECTOR) {
+        // Community scoping for Directors
+        if ($user->hasRole(UserRole::DIRECTOR)) {
             // If document has no community, allow access
             if (! $document->community_id) {
                 return true;
             }
 
-            // Check if user's community matches document's community
             return $user->community_id === $document->community_id;
         }
 
-        return false;
+        // General and Super Admin can view all
+        return true;
     }
 
     /**
@@ -55,11 +56,28 @@ class DocumentPolicy
      */
     public function create(User $user): bool
     {
-        // Super Admin and Directors can create documents
-        return in_array($user->role, [
-            UserRole::SUPER_ADMIN,
-            UserRole::DIRECTOR,
-        ]);
+        return $user->hasPermission('documents.upload');
+    }
+
+    /**
+     * Determine if the user can download documents
+     */
+    public function download(User $user, Document $document): bool
+    {
+        if (! $user->hasPermission('documents.download')) {
+            return false;
+        }
+
+        // Community scoping for Directors
+        if ($user->hasRole(UserRole::DIRECTOR)) {
+            if (! $document->community_id) {
+                return true;
+            }
+
+            return $user->community_id === $document->community_id;
+        }
+
+        return true;
     }
 
     /**
@@ -67,23 +85,20 @@ class DocumentPolicy
      */
     public function update(User $user, Document $document): bool
     {
-        // Super Admin can update all documents
-        if ($user->role === UserRole::SUPER_ADMIN) {
-            return true;
+        if (! $user->hasPermission('documents.manage')) {
+            return false;
         }
 
-        // Directors can only update documents from their community
-        if ($user->role === UserRole::DIRECTOR) {
-            // If document has no community, allow update
+        // Community scoping for Directors
+        if ($user->hasRole(UserRole::DIRECTOR)) {
             if (! $document->community_id) {
                 return true;
             }
 
-            // Check if user's community matches document's community
             return $user->community_id === $document->community_id;
         }
 
-        return false;
+        return true;
     }
 
     /**
@@ -91,23 +106,20 @@ class DocumentPolicy
      */
     public function delete(User $user, Document $document): bool
     {
-        // Super Admin can delete all documents
-        if ($user->role === UserRole::SUPER_ADMIN) {
-            return true;
+        if (! $user->hasPermission('documents.delete')) {
+            return false;
         }
 
-        // Directors can only delete documents from their community
-        if ($user->role === UserRole::DIRECTOR) {
-            // If document has no community, allow deletion
+        // Community scoping for Directors
+        if ($user->hasRole(UserRole::DIRECTOR)) {
             if (! $document->community_id) {
                 return true;
             }
 
-            // Check if user's community matches document's community
             return $user->community_id === $document->community_id;
         }
 
-        return false;
+        return true;
     }
 
     /**
@@ -115,7 +127,7 @@ class DocumentPolicy
      */
     public function restore(User $user, Document $document): bool
     {
-        return $this->delete($user, $document);
+        return $user->hasPermission('documents.manage');
     }
 
     /**
@@ -123,7 +135,6 @@ class DocumentPolicy
      */
     public function forceDelete(User $user, Document $document): bool
     {
-        // Only Super Admin can force delete
-        return $user->role === UserRole::SUPER_ADMIN;
+        return $user->hasPermission('documents.manage');
     }
 }

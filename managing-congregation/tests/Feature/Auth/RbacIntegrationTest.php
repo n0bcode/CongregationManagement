@@ -29,9 +29,11 @@ class RbacIntegrationTest extends TestCase
         // Verify role
         $this->assertTrue($director->hasRole(UserRole::DIRECTOR));
 
-        // Verify permissions
-        $this->assertTrue($director->hasPermission(PermissionKey::TERRITORIES_VIEW));
-        $this->assertFalse($director->hasPermission(PermissionKey::REPORTS_EXPORT));
+        // Verify permissions - Director should have view/create/edit/export but not delete/approve
+        $this->assertTrue($director->hasPermission(PermissionKey::MEMBERS_VIEW));
+        $this->assertTrue($director->hasPermission(PermissionKey::REPORTS_EXPORT));
+        $this->assertFalse($director->hasPermission(PermissionKey::MEMBERS_DELETE));
+        $this->assertFalse($director->hasPermission(PermissionKey::FINANCIALS_APPROVE));
 
         // Verify super admin bypass doesn't apply
         $this->assertFalse($director->isSuperAdmin());

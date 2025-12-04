@@ -63,7 +63,21 @@ class User extends Authenticatable
         // Clear permission cache when user role changes
         static::updated(function ($user) {
             if ($user->isDirty('role')) {
-                \Illuminate\Support\Facades\Cache::flush();
+                try {
+                    $cacheManager = app(\App\Contracts\CacheManagerInterface::class);
+                    $cacheManager->invalidateUserCache($user->id);
+
+                    \Illuminate\Support\Facades\Log::info('User role changed, cache invalidated', [
+                        'user_id' => $user->id,
+                        'old_role' => $user->getOriginal('role'),
+                        'new_role' => $user->role?->value,
+                    ]);
+                } catch (\Throwable $e) {
+                    \Illuminate\Support\Facades\Log::error('Failed to invalidate user cache on role change', [
+                        'user_id' => $user->id,
+                        'error' => $e->getMessage(),
+                    ]);
+                }
             }
         });
     }
@@ -95,7 +109,7 @@ class User extends Authenticatable
     /**
      * Check if user has a specific permission.
      * Super admin bypass pattern for performance.
-     * Uses caching to prevent N+1 queries.
+     * Uses CacheManager to prevent N+1 queries.
      *
      * @param  PermissionKey|string  $permission  The permission to check
      * @return bool True if user has permission, false otherwise
@@ -107,18 +121,47 @@ class User extends Authenticatable
             return true;
         }
 
+        // If user has no role, they have no permissions
+        if ($this->role === null) {
+            return false;
+        }
+
         // Convert enum to string if needed
         $permissionKey = $permission instanceof PermissionKey ? $permission->value : $permission;
 
-        // Cache permission check for 1 hour to prevent N+1 queries
-        $cacheKey = "user.{$this->id}.permission.{$permissionKey}";
+        try {
+            // Get CacheManager instance
+            $cacheManager = app(\App\Contracts\CacheManagerInterface::class);
 
-        return \Illuminate\Support\Facades\Cache::remember($cacheKey, 3600, function () use ($permissionKey) {
+            // Try to get cached permissions
+            $cachedPermissions = $cacheManager->getUserPermissions($this->id);
+
+            if ($cachedPermissions === null) {
+                // Cache miss - query database
+                $cachedPermissions = DB::table('role_permissions')
+                    ->join('permissions', 'role_permissions.permission_id', '=', 'permissions.id')
+                    ->where('role_permissions.role', $this->role->value)
+                    ->pluck('permissions.key')
+                    ->toArray();
+
+                // Cache the result
+                $cacheManager->cacheUserPermissions($this->id, $cachedPermissions);
+            }
+
+            return in_array($permissionKey, $cachedPermissions);
+        } catch (\Throwable $e) {
+            // Graceful fallback to database on cache errors
+            \Illuminate\Support\Facades\Log::warning('Permission check failed, falling back to database', [
+                'user_id' => $this->id,
+                'permission' => $permissionKey,
+                'error' => $e->getMessage(),
+            ]);
+
             return DB::table('role_permissions')
                 ->join('permissions', 'role_permissions.permission_id', '=', 'permissions.id')
                 ->where('role_permissions.role', $this->role->value)
                 ->where('permissions.key', $permissionKey)
                 ->exists();
-        });
+        }
     }
 }

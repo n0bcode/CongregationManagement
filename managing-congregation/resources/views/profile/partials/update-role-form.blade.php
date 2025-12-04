@@ -16,20 +16,20 @@
         <div>
             <label for="role" class="form-label">Select Role</label>
             <select id="role" name="role" class="form-select" required>
-                <option value="super_admin" {{ Auth::user()->role->value === 'super_admin' ? 'selected' : '' }}>
+                <option value="super_admin" {{ Auth::user()->role?->value === 'super_admin' ? 'selected' : '' }}>
                     Super Admin (Full Access)
                 </option>
-                <option value="general" {{ Auth::user()->role->value === 'general' ? 'selected' : '' }}>
+                <option value="general" {{ Auth::user()->role?->value === 'general' ? 'selected' : '' }}>
                     General Secretary (All Communities)
                 </option>
    
-               <option value="director" {{ Auth::user()->role->value === 'director' ? 'selected' : '' }}>
+               <option value="director" {{ Auth::user()->role?->value === 'director' ? 'selected' : '' }}>
                     Community Director (Own Community Only)
                 </option>
-                <option value="secretary" {{ Auth::user()->role->value === 'secretary' ? 'selected' : '' }}>
+                <option value="secretary" {{ Auth::user()->role?->value === 'secretary' ? 'selected' : '' }}>
                     Secretary (Data Entry)
                 </option>
-                <option value="member" {{ Auth::user()->role->value === 'member' ? 'selected' : '' }}>
+                <option value="member" {{ Auth::user()->role?->value === 'member' ? 'selected' : '' }}>
                     Member (View Own Profile)
                 </option>
             </select>
@@ -45,7 +45,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
                 </svg>
                 <div class="text-sm text-amber-800">
-                    <p class="font-semibold">Current Role: {{ Auth::user()->role->value }}</p>
+                    <p class="font-semibold">Current Role: {{ Auth::user()->role?->value ?? 'No role assigned' }}</p>
                     <p class="mt-1">Changing your role will affect what you can see and do in the system. This is for testing purposes only.</p>
                 </div>
             </div>

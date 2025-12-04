@@ -19,6 +19,24 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->singleton(PermissionService::class);
+
+        // Register CacheManager as singleton
+        $this->app->singleton(
+            \App\Contracts\CacheManagerInterface::class,
+            \App\Services\CacheManager::class
+        );
+
+        // Register AuditLogger as singleton
+        $this->app->singleton(
+            \App\Contracts\AuditLoggerInterface::class,
+            \App\Services\AuditLogger::class
+        );
+
+        // Register RouteScanner as singleton
+        $this->app->singleton(
+            \App\Contracts\RouteScannerInterface::class,
+            \App\Services\RouteScanner::class
+        );
     }
 
     /**

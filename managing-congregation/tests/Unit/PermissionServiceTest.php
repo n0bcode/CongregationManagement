@@ -63,14 +63,13 @@ class PermissionServiceTest extends TestCase
 
     public function test_assign_permissions_to_role_ignores_invalid_permission_keys(): void
     {
+        // With the new error handling, invalid permissions should throw an exception
+        $this->expectException(\App\Exceptions\PermissionNotFoundException::class);
+        $this->expectExceptionMessage("Permission 'invalid.permission' not found in system");
+
         $this->service->assignPermissionsToRole(UserRole::DIRECTOR, [
             PermissionKey::TERRITORIES_VIEW->value,
             'invalid.permission',
         ]);
-
-        // Should only assign the valid permission
-        $this->assertEquals(1, DB::table('role_permissions')
-            ->where('role', UserRole::DIRECTOR->value)
-            ->count());
     }
 }

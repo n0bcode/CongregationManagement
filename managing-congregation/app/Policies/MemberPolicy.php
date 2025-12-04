@@ -21,52 +21,70 @@ class MemberPolicy
 
     public function viewAny(User $user): bool
     {
-        return $user->hasRole(UserRole::GENERAL) || $user->hasRole(UserRole::DIRECTOR);
+        return $user->hasPermission('members.view');
     }
 
     public function view(User $user, Member $member): bool
     {
-        if ($user->hasRole(UserRole::GENERAL)) {
-            return true;
+        if (! $user->hasPermission('members.view')) {
+            return false;
         }
 
+        // Community scoping for Directors
         if ($user->hasRole(UserRole::DIRECTOR)) {
             return $user->community_id === $member->community_id;
         }
 
-        return false;
+        // General and Super Admin can view all
+        return true;
     }
 
     public function create(User $user): bool
     {
-        return $user->hasRole(UserRole::GENERAL) || $user->hasRole(UserRole::DIRECTOR);
+        return $user->hasPermission('members.create');
     }
 
     public function update(User $user, Member $member): bool
     {
-        if ($user->hasRole(UserRole::GENERAL)) {
-            return true;
+        if (! $user->hasPermission('members.edit')) {
+            return false;
         }
 
+        // Community scoping for Directors
         if ($user->hasRole(UserRole::DIRECTOR)) {
             return $user->community_id === $member->community_id;
         }
 
-        return false;
+        // General and Super Admin can update all
+        return true;
     }
 
     public function delete(User $user, Member $member): bool
     {
-        return $user->hasRole(UserRole::GENERAL);
+        if (! $user->hasPermission('members.delete')) {
+            return false;
+        }
+
+        // Community scoping for Directors (if they had delete permission)
+        if ($user->hasRole(UserRole::DIRECTOR)) {
+            return $user->community_id === $member->community_id;
+        }
+
+        return true;
     }
 
     public function restore(User $user, Member $member): bool
     {
-        return $user->hasRole(UserRole::GENERAL);
+        return $user->hasPermission('members.delete');
     }
 
     public function forceDelete(User $user, Member $member): bool
     {
-        return $user->hasRole(UserRole::GENERAL);
+        return $user->hasPermission('members.delete');
+    }
+
+    public function export(User $user): bool
+    {
+        return $user->hasPermission('members.export');
     }
 }
