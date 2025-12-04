@@ -15,9 +15,9 @@ class DocumentPolicy
     {
         // Super Admin, General, and Directors can view documents
         return in_array($user->role, [
-            UserRole::SuperAdmin,
-            UserRole::General,
-            UserRole::Director,
+            UserRole::SUPER_ADMIN,
+            UserRole::GENERAL,
+            UserRole::DIRECTOR,
         ]);
     }
 
@@ -27,17 +27,17 @@ class DocumentPolicy
     public function view(User $user, Document $document): bool
     {
         // Super Admin can view all documents
-        if ($user->role === UserRole::SuperAdmin) {
+        if ($user->role === UserRole::SUPER_ADMIN) {
             return true;
         }
 
         // General can view all documents (oversight)
-        if ($user->role === UserRole::General) {
+        if ($user->role === UserRole::GENERAL) {
             return true;
         }
 
         // Directors can only view documents from their community
-        if ($user->role === UserRole::Director) {
+        if ($user->role === UserRole::DIRECTOR) {
             // If document has no community, allow access
             if (! $document->community_id) {
                 return true;
@@ -57,8 +57,8 @@ class DocumentPolicy
     {
         // Super Admin and Directors can create documents
         return in_array($user->role, [
-            UserRole::SuperAdmin,
-            UserRole::Director,
+            UserRole::SUPER_ADMIN,
+            UserRole::DIRECTOR,
         ]);
     }
 
@@ -68,12 +68,12 @@ class DocumentPolicy
     public function update(User $user, Document $document): bool
     {
         // Super Admin can update all documents
-        if ($user->role === UserRole::SuperAdmin) {
+        if ($user->role === UserRole::SUPER_ADMIN) {
             return true;
         }
 
         // Directors can only update documents from their community
-        if ($user->role === UserRole::Director) {
+        if ($user->role === UserRole::DIRECTOR) {
             // If document has no community, allow update
             if (! $document->community_id) {
                 return true;
@@ -92,12 +92,12 @@ class DocumentPolicy
     public function delete(User $user, Document $document): bool
     {
         // Super Admin can delete all documents
-        if ($user->role === UserRole::SuperAdmin) {
+        if ($user->role === UserRole::SUPER_ADMIN) {
             return true;
         }
 
         // Directors can only delete documents from their community
-        if ($user->role === UserRole::Director) {
+        if ($user->role === UserRole::DIRECTOR) {
             // If document has no community, allow deletion
             if (! $document->community_id) {
                 return true;
@@ -124,6 +124,6 @@ class DocumentPolicy
     public function forceDelete(User $user, Document $document): bool
     {
         // Only Super Admin can force delete
-        return $user->role === UserRole::SuperAdmin;
+        return $user->role === UserRole::SUPER_ADMIN;
     }
 }
