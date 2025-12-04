@@ -75,3 +75,8 @@ require __DIR__.'/auth.php';
     // Reports
     Route::get('/reports/demographic', [\App\Http\Controllers\ReportController::class, 'demographic'])->name('reports.demographic');
     Route::get('/reports/demographic/export', [\App\Http\Controllers\ReportController::class, 'exportDemographic'])->name('reports.demographic.export');
+
+    // Celebrations
+    Route::get('/celebrations', [\App\Http\Controllers\CelebrationController::class, 'index'])->name('celebrations.index');
+    Route::get('/celebrations/birthday/{member}/generate', [\App\Http\Controllers\CelebrationController::class, 'generateBirthday'])->name('celebrations.birthday.generate');
+    Route::get('/celebrations/birthday/{member}/download', [\App\Http\Controllers\CelebrationController::class, 'downloadBirthday'])->name('celebrations.birthday.download');
