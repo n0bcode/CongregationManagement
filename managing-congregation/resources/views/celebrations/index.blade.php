@@ -20,12 +20,20 @@
                                     <p class="text-gray-600">{{ $member->dob->format('M d') }} (Turning {{ $member->dob->age + 1 }})</p>
                                     
                                     <div class="mt-4 flex space-x-2">
-                                        <a href="{{ route('celebrations.birthday.generate', $member) }}" target="_blank" class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700">
-                                            Preview Card
+                                        <a href="{{ route('celebrations.birthday.generate', $member) }}" target="_blank" class="px-3 py-2 bg-indigo-600 text-white text-sm rounded hover:bg-indigo-700">
+                                            Preview
                                         </a>
-                                        <a href="{{ route('celebrations.birthday.download', $member) }}" class="px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300">
+                                        <a href="{{ route('celebrations.birthday.download', $member) }}" class="px-3 py-2 bg-gray-200 text-gray-800 text-sm rounded hover:bg-gray-300">
                                             Download
                                         </a>
+                                        @if($member->email)
+                                            <form action="{{ route('celebrations.birthday.email', $member) }}" method="POST" class="inline">
+                                                @csrf
+                                                <button type="submit" class="px-3 py-2 bg-green-600 text-white text-sm rounded hover:bg-green-700" onclick="return confirm('Send birthday card to {{ $member->email }}?')">
+                                                    Email
+                                                </button>
+                                            </form>
+                                        @endif
                                     </div>
                                 </div>
                             @endforeach

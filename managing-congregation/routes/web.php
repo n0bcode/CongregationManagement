@@ -80,3 +80,4 @@ require __DIR__.'/auth.php';
     Route::get('/celebrations', [\App\Http\Controllers\CelebrationController::class, 'index'])->name('celebrations.index');
     Route::get('/celebrations/birthday/{member}/generate', [\App\Http\Controllers\CelebrationController::class, 'generateBirthday'])->name('celebrations.birthday.generate');
     Route::get('/celebrations/birthday/{member}/download', [\App\Http\Controllers\CelebrationController::class, 'downloadBirthday'])->name('celebrations.birthday.download');
+    Route::post('/celebrations/birthday/{member}/email', [\App\Http\Controllers\CelebrationController::class, 'emailBirthday'])->name('celebrations.birthday.email');

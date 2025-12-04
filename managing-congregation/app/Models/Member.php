@@ -99,6 +99,22 @@ class Member extends Model
     }
 
     /**
+     * Scope to find members with upcoming birthdays.
+     * Replaces CURDATE() with a parameter for testability.
+     */
+    public function scopeUpcomingBirthdays($query, $startDate = null, $days = 30)
+    {
+        $date = $startDate ? \Carbon\Carbon::parse($startDate) : now();
+        $dateString = $date->format('Y-m-d');
+        $endDateString = $date->copy()->addDays($days)->format('Y-m-d');
+
+        return $query->whereRaw("
+            DATE_ADD(dob, INTERVAL YEAR('{$dateString}')-YEAR(dob) + IF(DAYOFYEAR('{$dateString}') > DAYOFYEAR(dob),1,0) YEAR) 
+            BETWEEN '{$dateString}' AND '{$endDateString}'
+        ");
+    }
+
+    /**
      * Get complete timeline of member's history
      * Aggregates formation events, assignments, and transfers
      * Returns chronologically sorted collection

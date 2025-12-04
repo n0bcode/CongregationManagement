@@ -25,7 +25,7 @@
                     {{-- Management Dropdown --}}
                     <x-nav-dropdown 
                         label="{{ __('Management') }}" 
-                        :active="request()->routeIs('members.*', 'documents.*')">
+                        :active="request()->routeIs('members.*', 'documents.*', 'celebrations.*')">
                         <x-dropdown-link :href="route('members.index')" :active="request()->routeIs('members.*')">
                             {{ __('Members') }}
                         </x-dropdown-link>
@@ -34,6 +34,9 @@
                                 {{ __('Documents') }}
                             </x-dropdown-link>
                         @endcan
+                        <x-dropdown-link :href="route('celebrations.index')" :active="request()->routeIs('celebrations.*')">
+                            {{ __('Celebrations') }}
+                        </x-dropdown-link>
                     </x-nav-dropdown>
 
                     {{-- Finance Dropdown --}}
@@ -136,10 +139,10 @@
             </x-responsive-nav-link>
 
             {{-- Management Section --}}
-            <div x-data="{ expanded: {{ request()->routeIs('members.*', 'documents.*') ? 'true' : 'false' }} }">
+            <div x-data="{ expanded: {{ request()->routeIs('members.*', 'documents.*', 'celebrations.*') ? 'true' : 'false' }} }">
                 <button @click="expanded = !expanded" 
                         class="w-full flex items-center justify-between px-4 py-2 text-base font-medium text-slate-700 hover:bg-stone-100 transition duration-150 ease-in-out"
-                        :class="{'text-amber-600 bg-amber-50': {{ request()->routeIs('members.*', 'documents.*') ? 'true' : 'false' }} }">
+                        :class="{'text-amber-600 bg-amber-50': {{ request()->routeIs('members.*', 'documents.*', 'celebrations.*') ? 'true' : 'false' }} }">
                     <span>{{ __('Management') }}</span>
                     <svg class="w-5 h-5 transition-transform duration-200" :class="{'rotate-180': expanded}" 
                          fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -155,6 +158,9 @@
                             {{ __('Documents') }}
                         </x-responsive-nav-link>
                     @endcan
+                    <x-responsive-nav-link :href="route('celebrations.index')" :active="request()->routeIs('celebrations.*')" class="pl-8">
+                        {{ __('Celebrations') }}
+                    </x-responsive-nav-link>
                 </div>
             </div>
 
