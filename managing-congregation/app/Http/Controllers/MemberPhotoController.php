@@ -9,11 +9,9 @@ use Illuminate\Support\Facades\Storage;
 
 class MemberPhotoController extends Controller
 {
-    public function update(Request $request, Member $member): RedirectResponse
+    public function update(\App\Http\Requests\UpdateMemberPhotoRequest $request, Member $member): RedirectResponse
     {
-        $request->validate([
-            'photo' => ['required', 'image', 'max:2048', 'mimes:jpg,jpeg,png'],
-        ]);
+        // Validation handled by FormRequest
 
         if ($request->hasFile('photo')) {
             // Delete old photo if exists

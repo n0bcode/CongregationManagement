@@ -269,7 +269,14 @@
 
                     <!-- Service History Tab -->
                     <div x-show="activeTab === 'service'" x-transition>
-                        <h3 class="text-lg font-medium text-slate-900 mb-4">{{ __('Service History') }}</h3>
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-lg font-medium text-slate-900">{{ __('Service History') }}</h3>
+                            @can('update', $member)
+                                <x-primary-button x-data="" x-on:click.prevent="$dispatch('open-modal', 'add-service-record')">
+                                    {{ __('Add Service Record') }}
+                                </x-primary-button>
+                            @endcan
+                        </div>
                         <x-service-history-list :assignments="$member->assignments" />
                     </div>
                 </div>
@@ -630,6 +637,56 @@
 
                 <x-primary-button class="ml-3">
                     {{ __('Save Skill') }}
+                </x-primary-button>
+            </div>
+        </form>
+    </x-modal>
+    <!-- Add Service Record Modal -->
+    <x-modal name="add-service-record" focusable>
+        <form method="post" action="{{ route('members.assignments.store', $member) }}" class="p-6">
+            @csrf
+
+            <h2 class="text-lg font-medium text-gray-900">
+                {{ __('Add Service Record') }}
+            </h2>
+
+            <div class="mt-6">
+                <x-input-label for="assignment_community_id" value="{{ __('Community') }}" />
+                <select id="assignment_community_id" name="community_id" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required>
+                    <option value="">{{ __('Select Community') }}</option>
+                    @foreach($communities as $community)
+                        <option value="{{ $community->id }}">{{ $community->name }}</option>
+                    @endforeach
+                </select>
+                <x-input-error :messages="$errors->get('community_id')" class="mt-2" />
+            </div>
+
+            <div class="mt-6">
+                <x-input-label for="role" value="{{ __('Role (Optional)') }}" />
+                <x-text-input id="role" name="role" type="text" class="mt-1 block w-full" placeholder="e.g., Director, Assistant" />
+                <x-input-error :messages="$errors->get('role')" class="mt-2" />
+            </div>
+
+            <div class="mt-6 grid grid-cols-2 gap-4">
+                <div>
+                    <x-input-label for="start_date" value="{{ __('Start Date') }}" />
+                    <x-text-input id="start_date" name="start_date" type="date" class="mt-1 block w-full" required />
+                    <x-input-error :messages="$errors->get('start_date')" class="mt-2" />
+                </div>
+                <div>
+                    <x-input-label for="end_date" value="{{ __('End Date (Optional)') }}" />
+                    <x-text-input id="end_date" name="end_date" type="date" class="mt-1 block w-full" />
+                    <x-input-error :messages="$errors->get('end_date')" class="mt-2" />
+                </div>
+            </div>
+
+            <div class="mt-6 flex justify-end">
+                <x-secondary-button x-on:click="$dispatch('close')">
+                    {{ __('Cancel') }}
+                </x-secondary-button>
+
+                <x-primary-button class="ml-3">
+                    {{ __('Save Record') }}
                 </x-primary-button>
             </div>
         </form>
