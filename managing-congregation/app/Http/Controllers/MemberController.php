@@ -26,7 +26,9 @@ class MemberController extends Controller
     {
         \Illuminate\Support\Facades\Gate::authorize('create', \App\Models\Member::class);
 
-        return view('members.create');
+        $communities = \App\Models\Community::all();
+
+        return view('members.create', compact('communities'));
     }
 
     public function store(\App\Http\Requests\StoreMemberRequest $request)
@@ -35,11 +37,11 @@ class MemberController extends Controller
         $data = $request->validated();
 
         // Handle community_id
-        // If User is Director/Member: Use Auth::user()->community_id
-        // If User is Super Admin: Require community_id from input (not implemented in form yet, assuming Director for now as per MVP decision)
-        // AC3: "And the new member is automatically assigned to my community_id."
-
-        $data['community_id'] = \Illuminate\Support\Facades\Auth::user()->community_id;
+        // If provided in request (e.g. by Super Admin), use it.
+        // Otherwise, fall back to the authenticated user's community_id.
+        if (!isset($data['community_id'])) {
+            $data['community_id'] = \Illuminate\Support\Facades\Auth::user()->community_id;
+        }
 
         $member = \App\Models\Member::create($data);
 

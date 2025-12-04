@@ -30,6 +30,11 @@ class StoreMemberRequest extends FormRequest
             'religious_name' => ['nullable', 'string', 'max:255'],
             'dob' => ['required', 'date', 'before:today'],
             'entry_date' => ['required', 'date'],
+            'community_id' => [
+                Rule::requiredIf(fn () => auth()->user()->community_id === null),
+                'nullable',
+                'exists:communities,id',
+            ],
         ];
     }
 
@@ -39,6 +44,7 @@ class StoreMemberRequest extends FormRequest
             'first_name.unique' => 'A member with this name and date of birth already exists.',
             'dob.before' => 'The date of birth must be in the past.',
             'entry_date.required' => 'Please provide the date the member entered the congregation.',
+            'community_id.required' => 'Please select a community for the new member.',
         ];
     }
 }

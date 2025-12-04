@@ -112,6 +112,31 @@
                     </div>
                 </div>
 
+                {{-- Community Selection (Super Admin only) --}}
+                @if(isset($communities) && auth()->user()->community_id === null)
+                    <div>
+                        <label for="community_id" class="block text-lg font-medium text-slate-700 mb-2">
+                            {{ __('Community') }} <span class="text-rose-600">*</span>
+                        </label>
+                        <select 
+                            name="community_id" 
+                            id="community_id" 
+                            required
+                            class="w-full min-h-[48px] px-4 py-3 text-base text-slate-800 bg-white border border-stone-300 rounded-lg focus:border-amber-600 focus:ring-4 focus:ring-amber-500 focus:outline-none @error('community_id') border-rose-500 @enderror"
+                        >
+                            <option value="">{{ __('Select a community...') }}</option>
+                            @foreach($communities as $community)
+                                <option value="{{ $community->id }}" {{ old('community_id') == $community->id ? 'selected' : '' }}>
+                                    {{ $community->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('community_id')
+                            <p class="mt-2 text-sm text-rose-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+                @endif
+
                 {{-- Form Actions --}}
                 <div class="flex gap-4 pt-6 border-t border-stone-200">
                     <x-button type="submit" variant="primary" class="flex-1">
