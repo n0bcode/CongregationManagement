@@ -99,13 +99,16 @@
 
   /* Forms - Enhanced for accessibility */
   .form-label {
-    @apply block text-sm font-medium text-slate-700 mb-2;
+    @apply block text-lg font-medium text-slate-700 mb-2;
   }
 
   .form-input, .form-select, .form-textarea {
-    @apply min-h-[48px] w-full px-4 py-3 border border-stone-300 rounded-lg;
-    @apply focus:border-amber-500 focus:ring-2 focus:ring-amber-500;
-    @apply disabled:bg-stone-100 disabled:cursor-not-allowed;
+    @apply min-h-[48px] w-full px-4 py-3;
+    @apply text-base text-slate-800 bg-white;
+    @apply border border-stone-300 rounded-lg;
+    @apply placeholder:text-slate-400;
+    @apply focus:border-amber-600 focus:ring-4 focus:ring-amber-500 focus:outline-none;
+    @apply disabled:bg-stone-100 disabled:text-slate-500 disabled:cursor-not-allowed;
   }
 
   .form-textarea {

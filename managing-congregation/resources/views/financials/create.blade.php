@@ -26,7 +26,7 @@
                         name="community_id" 
                         id="community_id"
                         required
-                        class="w-full min-h-[48px] px-4 py-3 text-base border border-stone-300 rounded-lg focus:ring-4 focus:ring-amber-500 focus:border-amber-500 @error('community_id') border-rose-500 @enderror"
+                        class="w-full min-h-[48px] px-4 py-3 text-base text-slate-800 bg-white border border-stone-300 rounded-lg placeholder:text-slate-400 focus:border-amber-600 focus:ring-4 focus:ring-amber-500 focus:outline-none @error('community_id') border-rose-500 @enderror"
                     >
                         <option value="">{{ __('Select a community') }}</option>
                         @foreach($communities as $community)
@@ -40,53 +40,54 @@
                     @enderror
                 </div>
 
-                {{-- Date --}}
-                <div>
-                    <label for="date" class="block text-lg font-medium text-slate-800 mb-2">
-                        {{ __('Date') }} <span class="text-rose-600">*</span>
-                    </label>
-                    <input 
-                        type="date" 
-                        name="date" 
-                        id="date"
-                        value="{{ old('date', date('Y-m-d')) }}"
-                        required
-                        class="w-full min-h-[48px] px-4 py-3 text-base border border-stone-300 rounded-lg focus:ring-4 focus:ring-amber-500 focus:border-amber-500 @error('date') border-rose-500 @enderror"
-                    >
-                    @error('date')
-                        <p class="mt-2 text-sm text-rose-600">{{ $message }}</p>
-                    @enderror
-                </div>
+                {{-- Date and Category --}}
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="date" class="block text-lg font-medium text-slate-800 mb-2">
+                            {{ __('Date') }} <span class="text-rose-600">*</span>
+                        </label>
+                        <input 
+                            type="date" 
+                            name="date" 
+                            id="date"
+                            value="{{ old('date', date('Y-m-d')) }}"
+                            required
+                            class="w-full min-h-[48px] px-4 py-3 text-base text-slate-800 bg-white border border-stone-300 rounded-lg placeholder:text-slate-400 focus:border-amber-600 focus:ring-4 focus:ring-amber-500 focus:outline-none @error('date') border-rose-500 @enderror"
+                        >
+                        @error('date')
+                            <p class="mt-2 text-sm text-rose-600">{{ $message }}</p>
+                        @enderror
+                    </div>
 
-                {{-- Category --}}
-                <div>
-                    <label for="category" class="block text-lg font-medium text-slate-800 mb-2">
-                        {{ __('Category') }} <span class="text-rose-600">*</span>
-                    </label>
-                    <input 
-                        type="text" 
-                        name="category" 
-                        id="category"
-                        value="{{ old('category') }}"
-                        required
-                        placeholder="{{ __('e.g., Utilities, Groceries, Maintenance') }}"
-                        list="category-suggestions"
-                        class="w-full min-h-[48px] px-4 py-3 text-base border border-stone-300 rounded-lg focus:ring-4 focus:ring-amber-500 focus:border-amber-500 @error('category') border-rose-500 @enderror"
-                    >
-                    <datalist id="category-suggestions">
-                        <option value="Utilities">
-                        <option value="Groceries">
-                        <option value="Maintenance">
-                        <option value="Supplies">
-                        <option value="Transportation">
-                        <option value="Healthcare">
-                        <option value="Education">
-                        <option value="Ministry">
-                        <option value="Other">
-                    </datalist>
-                    @error('category')
-                        <p class="mt-2 text-sm text-rose-600">{{ $message }}</p>
-                    @enderror
+                    <div>
+                        <label for="category" class="block text-lg font-medium text-slate-800 mb-2">
+                            {{ __('Category') }} <span class="text-rose-600">*</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            name="category" 
+                            id="category"
+                            value="{{ old('category') }}"
+                            required
+                            placeholder="{{ __('e.g., Utilities, Groceries') }}"
+                            list="category-suggestions"
+                            class="w-full min-h-[48px] px-4 py-3 text-base text-slate-800 bg-white border border-stone-300 rounded-lg placeholder:text-slate-400 focus:border-amber-600 focus:ring-4 focus:ring-amber-500 focus:outline-none @error('category') border-rose-500 @enderror"
+                        >
+                        <datalist id="category-suggestions">
+                            <option value="Utilities">
+                            <option value="Groceries">
+                            <option value="Maintenance">
+                            <option value="Supplies">
+                            <option value="Transportation">
+                            <option value="Healthcare">
+                            <option value="Education">
+                            <option value="Ministry">
+                            <option value="Other">
+                        </datalist>
+                        @error('category')
+                            <p class="mt-2 text-sm text-rose-600">{{ $message }}</p>
+                        @enderror
+                    </div>
                 </div>
 
                 {{-- Amount --}}
@@ -105,7 +106,7 @@
                             min="0.01"
                             required
                             placeholder="0.00"
-                            class="w-full min-h-[48px] pl-8 pr-4 py-3 text-base border border-stone-300 rounded-lg focus:ring-4 focus:ring-amber-500 focus:border-amber-500 @error('amount') border-rose-500 @enderror"
+                            class="w-full min-h-[48px] pl-8 pr-4 py-3 text-base text-slate-800 bg-white border border-stone-300 rounded-lg placeholder:text-slate-400 focus:border-amber-600 focus:ring-4 focus:ring-amber-500 focus:outline-none @error('amount') border-rose-500 @enderror"
                         >
                     </div>
                     @error('amount')
@@ -124,7 +125,7 @@
                         rows="4"
                         required
                         placeholder="{{ __('Provide details about this expense...') }}"
-                        class="w-full px-4 py-3 text-base border border-stone-300 rounded-lg focus:ring-4 focus:ring-amber-500 focus:border-amber-500 @error('description') border-rose-500 @enderror"
+                        class="w-full px-4 py-3 text-base text-slate-800 bg-white border border-stone-300 rounded-lg placeholder:text-slate-400 focus:border-amber-600 focus:ring-4 focus:ring-amber-500 focus:outline-none @error('description') border-rose-500 @enderror"
                     >{{ old('description') }}</textarea>
                     @error('description')
                         <p class="mt-2 text-sm text-rose-600">{{ $message }}</p>
