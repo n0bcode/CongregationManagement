@@ -17,27 +17,57 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex items-center">
+                    {{-- Dashboard - standalone --}}
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="font-medium">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('members.index')" :active="request()->routeIs('members.*')" class="font-medium">
-                        {{ __('Members') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('financials.index')" :active="request()->routeIs('financials.*')" class="font-medium">
-                        {{ __('Financials') }}
-                    </x-nav-link>
-                    @can('viewAny', \App\Models\Document::class)
-                        <x-nav-link :href="route('documents.index')" :active="request()->routeIs('documents.*')" class="font-medium">
-                            {{ __('Documents') }}
-                        </x-nav-link>
-                    @endcan
-                    <x-nav-link :href="route('reports.demographic')" :active="request()->routeIs('reports.*')" class="font-medium">
-                        {{ __('Reports') }}
-                    </x-nav-link>
+
+                    {{-- Management Dropdown --}}
+                    <x-nav-dropdown 
+                        label="{{ __('Management') }}" 
+                        :active="request()->routeIs('members.*', 'documents.*')">
+                        <x-dropdown-link :href="route('members.index')" :active="request()->routeIs('members.*')">
+                            {{ __('Members') }}
+                        </x-dropdown-link>
+                        @can('viewAny', \App\Models\Document::class)
+                            <x-dropdown-link :href="route('documents.index')" :active="request()->routeIs('documents.*')">
+                                {{ __('Documents') }}
+                            </x-dropdown-link>
+                        @endcan
+                    </x-nav-dropdown>
+
+                    {{-- Finance Dropdown --}}
+                    <x-nav-dropdown 
+                        label="{{ __('Finance') }}" 
+                        :active="request()->routeIs('financials.*')">
+                        <x-dropdown-link :href="route('financials.index')" :active="request()->routeIs('financials.*')">
+                            {{ __('Financials') }}
+                        </x-dropdown-link>
+                    </x-nav-dropdown>
+
+                    {{-- Reports Dropdown --}}
+                    <x-nav-dropdown 
+                        label="{{ __('Reports') }}" 
+                        :active="request()->routeIs('reports.*')">
+                        <x-dropdown-link :href="route('reports.demographic')" :active="request()->routeIs('reports.demographic')">
+                            {{ __('Demographic Reports') }}
+                        </x-dropdown-link>
+                    </x-nav-dropdown>
+
+                    {{-- System Dropdown (admin only) --}}
                     @can('viewAny', \App\Models\AuditLog::class)
-                        <x-nav-link :href="route('audit-logs.index')" :active="request()->routeIs('audit-logs.*')" class="font-medium">
-                            {{ __('Audit Logs') }}
-                        </x-nav-link>
+                        <x-nav-dropdown 
+                            label="{{ __('System') }}" 
+                            :active="request()->routeIs('audit-logs.*', 'admin.permissions.*')">
+                            <x-dropdown-link :href="route('audit-logs.index')" :active="request()->routeIs('audit-logs.*')">
+                                {{ __('Audit Logs') }}
+                            </x-dropdown-link>
+                            @can('view-admin')
+                                <x-dropdown-link :href="route('admin.permissions.index')" :active="request()->routeIs('admin.permissions.*')">
+                                    {{ __('Permissions') }}
+                                </x-dropdown-link>
+                            @endcan
+                        </x-nav-dropdown>
                     @endcan
                 </div>
             </div>
@@ -100,19 +130,93 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden bg-stone-50 border-t border-stone-200">
         <div class="pt-2 pb-3 space-y-1">
+            {{-- Dashboard - standalone --}}
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="font-medium">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('members.index')" :active="request()->routeIs('members.*')" class="font-medium">
-                {{ __('Members') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('financials.index')" :active="request()->routeIs('financials.*')" class="font-medium">
-                {{ __('Financials') }}
-            </x-responsive-nav-link>
-            @can('viewAny', \App\Models\Document::class)
-                <x-responsive-nav-link :href="route('documents.index')" :active="request()->routeIs('documents.*')" class="font-medium">
-                    {{ __('Documents') }}
-                </x-responsive-nav-link>
+
+            {{-- Management Section --}}
+            <div x-data="{ expanded: {{ request()->routeIs('members.*', 'documents.*') ? 'true' : 'false' }} }">
+                <button @click="expanded = !expanded" 
+                        class="w-full flex items-center justify-between px-4 py-2 text-base font-medium text-slate-700 hover:bg-stone-100 transition duration-150 ease-in-out"
+                        :class="{'text-amber-600 bg-amber-50': {{ request()->routeIs('members.*', 'documents.*') ? 'true' : 'false' }} }">
+                    <span>{{ __('Management') }}</span>
+                    <svg class="w-5 h-5 transition-transform duration-200" :class="{'rotate-180': expanded}" 
+                         fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </button>
+                <div x-show="expanded" x-collapse class="bg-white">
+                    <x-responsive-nav-link :href="route('members.index')" :active="request()->routeIs('members.*')" class="pl-8">
+                        {{ __('Members') }}
+                    </x-responsive-nav-link>
+                    @can('viewAny', \App\Models\Document::class)
+                        <x-responsive-nav-link :href="route('documents.index')" :active="request()->routeIs('documents.*')" class="pl-8">
+                            {{ __('Documents') }}
+                        </x-responsive-nav-link>
+                    @endcan
+                </div>
+            </div>
+
+            {{-- Finance Section --}}
+            <div x-data="{ expanded: {{ request()->routeIs('financials.*') ? 'true' : 'false' }} }">
+                <button @click="expanded = !expanded" 
+                        class="w-full flex items-center justify-between px-4 py-2 text-base font-medium text-slate-700 hover:bg-stone-100 transition duration-150 ease-in-out"
+                        :class="{'text-amber-600 bg-amber-50': {{ request()->routeIs('financials.*') ? 'true' : 'false' }} }">
+                    <span>{{ __('Finance') }}</span>
+                    <svg class="w-5 h-5 transition-transform duration-200" :class="{'rotate-180': expanded}" 
+                         fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </button>
+                <div x-show="expanded" x-collapse class="bg-white">
+                    <x-responsive-nav-link :href="route('financials.index')" :active="request()->routeIs('financials.*')" class="pl-8">
+                        {{ __('Financials') }}
+                    </x-responsive-nav-link>
+                </div>
+            </div>
+
+            {{-- Reports Section --}}
+            <div x-data="{ expanded: {{ request()->routeIs('reports.*') ? 'true' : 'false' }} }">
+                <button @click="expanded = !expanded" 
+                        class="w-full flex items-center justify-between px-4 py-2 text-base font-medium text-slate-700 hover:bg-stone-100 transition duration-150 ease-in-out"
+                        :class="{'text-amber-600 bg-amber-50': {{ request()->routeIs('reports.*') ? 'true' : 'false' }} }">
+                    <span>{{ __('Reports') }}</span>
+                    <svg class="w-5 h-5 transition-transform duration-200" :class="{'rotate-180': expanded}" 
+                         fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </button>
+                <div x-show="expanded" x-collapse class="bg-white">
+                    <x-responsive-nav-link :href="route('reports.demographic')" :active="request()->routeIs('reports.demographic')" class="pl-8">
+                        {{ __('Demographic Reports') }}
+                    </x-responsive-nav-link>
+                </div>
+            </div>
+
+            {{-- System Section (admin only) --}}
+            @can('viewAny', \App\Models\AuditLog::class)
+                <div x-data="{ expanded: {{ request()->routeIs('audit-logs.*', 'admin.permissions.*') ? 'true' : 'false' }} }">
+                    <button @click="expanded = !expanded" 
+                            class="w-full flex items-center justify-between px-4 py-2 text-base font-medium text-slate-700 hover:bg-stone-100 transition duration-150 ease-in-out"
+                            :class="{'text-amber-600 bg-amber-50': {{ request()->routeIs('audit-logs.*', 'admin.permissions.*') ? 'true' : 'false' }} }">
+                        <span>{{ __('System') }}</span>
+                        <svg class="w-5 h-5 transition-transform duration-200" :class="{'rotate-180': expanded}" 
+                             fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div x-show="expanded" x-collapse class="bg-white">
+                        <x-responsive-nav-link :href="route('audit-logs.index')" :active="request()->routeIs('audit-logs.*')" class="pl-8">
+                            {{ __('Audit Logs') }}
+                        </x-responsive-nav-link>
+                        @can('view-admin')
+                            <x-responsive-nav-link :href="route('admin.permissions.index')" :active="request()->routeIs('admin.permissions.*')" class="pl-8">
+                                {{ __('Permissions') }}
+                            </x-responsive-nav-link>
+                        @endcan
+                    </div>
+                </div>
             @endcan
         </div>
 
