@@ -14,7 +14,7 @@ class UpdateMemberPhotoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'photo' => ['required', 'image', 'max:2048', 'mimes:jpg,jpeg,png'],
+            'photo' => ['required', 'image', 'max:5120', 'mimes:jpg,jpeg,png'],
         ];
     }
 }

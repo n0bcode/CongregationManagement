@@ -16,7 +16,11 @@ class StoreAssignmentRequest extends FormRequest
         return [
             'community_id' => ['required', 'exists:communities,id'],
             'role' => ['nullable', 'string', 'max:255'],
-            'start_date' => ['required', 'date'],
+            'start_date' => [
+                'required', 
+                'date',
+                new \App\Rules\AssignmentOverlapRule($this->route('member'), $this->input('end_date'))
+            ],
             'end_date' => ['nullable', 'date', 'after_or_equal:start_date'],
         ];
     }

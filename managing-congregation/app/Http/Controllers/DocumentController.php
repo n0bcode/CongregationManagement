@@ -113,7 +113,7 @@ class DocumentController extends Controller
             'folder_id' => 'nullable|exists:folders,id',
             'community_id' => 'nullable|exists:communities,id',
             'member_id' => 'nullable|exists:members,id',
-            'file' => 'required|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:10240', // 10MB max
+            'file' => 'required|file|mimes:pdf,jpg,jpeg,png|max:10240', // 10MB max
         ]);
 
         // Upload file
@@ -191,7 +191,7 @@ class DocumentController extends Controller
             'folder_id' => 'nullable|exists:folders,id',
             'community_id' => 'nullable|exists:communities,id',
             'member_id' => 'nullable|exists:members,id',
-            'file' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:10240', // 10MB max
+            'file' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:10240', // 10MB max
         ]);
 
         // Update file if new one uploaded
