@@ -64,7 +64,6 @@ class ReportController extends Controller
             ->when($communityId, fn ($q) => $q->where('members.community_id', $communityId))
             ->when($status, fn ($q) => $q->where('members.status', $status))
             ->groupBy('formation_events.stage')
-            ->get()
             ->pluck('count', 'stage')
             ->toArray();
 
@@ -75,7 +74,10 @@ class ReportController extends Controller
             ->groupBy('community_id')
             ->with('community:id,name')
             ->get()
-            ->mapWithKeys(fn ($item) => [$item->community->name ?? 'Unknown' => $item->count])
+            ->mapWithKeys(function ($item) {
+                /** @var \App\Models\Member $item */
+                return [$item->community->name ?? 'Unknown' => $item->count];
+            })
             ->toArray();
 
         // Status distribution
@@ -105,7 +107,7 @@ class ReportController extends Controller
     /**
      * Export demographic report as PDF
      */
-    public function exportDemographic(Request $request): StreamedResponse
+    public function exportDemographic(Request $request): \Illuminate\Http\Response
     {
         $this->checkAuthorization('exportReports');
 
@@ -145,7 +147,6 @@ class ReportController extends Controller
             ->when($communityId, fn ($q) => $q->where('members.community_id', $communityId))
             ->when($status, fn ($q) => $q->where('members.status', $status))
             ->groupBy('formation_events.stage')
-            ->get()
             ->pluck('count', 'stage')
             ->toArray();
 
@@ -155,7 +156,10 @@ class ReportController extends Controller
             ->groupBy('community_id')
             ->with('community:id,name')
             ->get()
-            ->mapWithKeys(fn ($item) => [$item->community->name ?? 'Unknown' => $item->count])
+            ->mapWithKeys(function ($item) {
+                /** @var \App\Models\Member $item */
+                return [$item->community->name ?? 'Unknown' => $item->count];
+            })
             ->toArray();
 
         $statusDistribution = Member::select('status', DB::raw('COUNT(*) as count'))
@@ -187,8 +191,8 @@ class ReportController extends Controller
         $user = auth()->user();
 
         $allowed = match ($ability) {
-            'viewReports' => in_array($user->role->value, ['super_admin', 'general', 'director']),
-            'exportReports' => in_array($user->role->value, ['super_admin', 'general', 'director']),
+            'viewReports' => in_array($user->role->value, [\App\Enums\UserRole::SUPER_ADMIN->value, \App\Enums\UserRole::GENERAL->value, \App\Enums\UserRole::DIRECTOR->value]),
+            'exportReports' => in_array($user->role->value, [\App\Enums\UserRole::SUPER_ADMIN->value, \App\Enums\UserRole::GENERAL->value, \App\Enums\UserRole::DIRECTOR->value]),
             default => false,
         };
 

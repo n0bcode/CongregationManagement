@@ -113,14 +113,17 @@ class NotificationService
             return;
         }
 
+        /** @var \App\Models\Member $member */
+        $member = $event->member;
+
         // Create reminder for Formation Directress
         Reminder::create([
             'type' => 'formation_milestone',
-            'title' => "Formation Milestone: {$event->member->first_name} {$event->member->last_name}",
-            'description' => "Formation event '{$event->stage}' recorded for {$event->member->first_name} {$event->member->last_name} on {$event->date->format('M d, Y')}.",
+            'title' => "Formation Milestone: {$member->first_name} {$member->last_name}",
+            'description' => "Formation event '{$event->stage->value}' recorded for {$member->first_name} {$member->last_name} on {$event->started_at->format('M d, Y')}.",
             'reminder_date' => now()->toDateString(),
             'member_id' => $event->member_id,
-            'community_id' => $event->member->community_id,
+            'community_id' => $member->community_id,
             'created_by' => 1, // System user
         ]);
 
@@ -144,6 +147,7 @@ class NotificationService
 
         foreach ($members as $member) {
             // Get last health record
+            /** @var \App\Models\HealthRecord|null $lastHealthRecord */
             $lastHealthRecord = $member->healthRecords()->latest('recorded_at')->first();
 
             if ($lastHealthRecord) {

@@ -18,7 +18,7 @@ class RouteScanner implements RouteScannerInterface
     public function scanRoutes(): Collection
     {
         try {
-            $routes = RouteFacade::getRoutes();
+            $routes = RouteFacade::getRoutes()->getRoutes();
             $permissions = collect();
 
             foreach ($routes as $route) {

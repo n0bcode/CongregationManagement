@@ -171,24 +171,5 @@ class ErrorMonitoringService
         return $health;
     }
 
-    /**
-     * Send alert for critical issues
-     */
-    private function sendAlert(string $message, array $context = []): void
-    {
-        // Integration point for alerting services
-        // Example: PagerDuty, Slack, email, SMS, etc.
 
-        Log::alert($message, $context);
-
-        // Slack example:
-        // if (config('services.slack.webhook_url')) {
-        //     Http::post(config('services.slack.webhook_url'), [
-        //         'text' => $message,
-        //         'attachments' => [
-        //             ['text' => json_encode($context, JSON_PRETTY_PRINT)],
-        //         ],
-        //     ]);
-        // }
-    }
 }

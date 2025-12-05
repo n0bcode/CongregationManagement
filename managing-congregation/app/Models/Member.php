@@ -9,6 +9,28 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @property int $id
+ * @property int $community_id
+ * @property string $first_name
+ * @property string $last_name
+ * @property string|null $religious_name
+ * @property string|null $email
+ * @property \Illuminate\Support\Carbon|null $dob
+ * @property \Illuminate\Support\Carbon|null $entry_date
+ * @property string $status
+ * @property string|null $profile_photo_path
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \App\Models\Community $community
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\FormationEvent[] $formationEvents
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Assignment[] $assignments
+ * @property-read \App\Models\Assignment|null $currentAssignment
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\HealthRecord[] $healthRecords
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Skill[] $skills
+ * @property int|null $count
+ */
 class Member extends Model
 {
     use HasFactory, ScopedByCommunity, SoftDeletes;
@@ -146,7 +168,7 @@ class Member extends Model
             $timeline->push((object) [
                 'type' => 'formation',
                 'date' => $event->started_at,
-                'title' => ucfirst(str_replace('_', ' ', $event->stage)),
+                'title' => ucfirst(str_replace('_', ' ', $event->stage->value)),
                 'description' => $event->notes ?? 'Formation milestone',
                 'icon' => 'book',
                 'color' => 'amber',
@@ -156,6 +178,7 @@ class Member extends Model
 
         // Add assignments
         foreach ($this->assignments as $assignment) {
+            /** @var \App\Models\Assignment $assignment */
             $timeline->push((object) [
                 'type' => 'assignment',
                 'date' => $assignment->start_date,

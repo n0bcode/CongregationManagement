@@ -112,7 +112,7 @@ class PermissionSeeder extends Seeder
             PermissionKey::MEMBERS_EXPORT->value,
             // Financials
             PermissionKey::FINANCIALS_VIEW->value,
-            PermissionKey::FINANCIALS_CREATE->value,
+            // PermissionKey::FINANCIALS_CREATE->value, // General Treasurer is read-only
             PermissionKey::FINANCIALS_APPROVE->value,
             PermissionKey::FINANCIALS_EXPORT->value,
             PermissionKey::FINANCIALS_MANAGE->value,

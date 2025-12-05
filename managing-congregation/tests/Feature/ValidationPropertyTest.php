@@ -61,6 +61,13 @@ class ValidationPropertyTest extends TestCase
         $user = User::factory()->director()->create();
         $member = Member::factory()->create(['entry_date' => '2020-01-01', 'community_id' => $user->community_id]);
 
+        // Grant permissions
+        $permission = \App\Models\Permission::create(['key' => 'members.view', 'name' => 'View Members', 'module' => 'members']);
+        \Illuminate\Support\Facades\DB::table('role_permissions')->insert([
+            'role' => $user->role->value,
+            'permission_id' => $permission->id,
+        ]);
+
         // 1. Postulancy after entry
         $response = $this->actingAs($user)->post(route('members.formation.store', $member), [
             'stage' => FormationStage::Postulancy->value,

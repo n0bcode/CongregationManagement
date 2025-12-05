@@ -143,6 +143,6 @@ class Reminder extends Model
      */
     public function getDaysUntilAttribute(): int
     {
-        return now()->diffInDays($this->reminder_date, false);
+        return (int) now()->diffInDays($this->reminder_date, false);
     }
 }

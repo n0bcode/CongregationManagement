@@ -21,6 +21,7 @@ class AssignmentOverlapRule implements ValidationRule
         $assignments = $this->member->assignments()->get();
 
         foreach ($assignments as $assignment) {
+            /** @var \App\Models\Assignment $assignment */
             $existingStart = \Carbon\Carbon::parse($assignment->start_date);
             $existingEnd = $assignment->end_date ? \Carbon\Carbon::parse($assignment->end_date) : null;
 

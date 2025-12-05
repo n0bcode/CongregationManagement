@@ -68,7 +68,7 @@ class UiHelper
      * Format date for display
      * Following UX Spec date format patterns
      *
-     * @param  \Carbon\Carbon  $date  Date to format
+     * @param  \Carbon\Carbon|null  $date  Date to format
      * @param  string  $format  Format type
      * @return string Formatted date
      */

@@ -56,6 +56,7 @@ class MemberController extends Controller
 
         // Calculate projected future events based on most recent formation event
         $projectedEvents = [];
+        /** @var \App\Models\FormationEvent|null $latestEvent */
         $latestEvent = $member->formationEvents->sortByDesc('started_at')->first();
 
         if ($latestEvent) {

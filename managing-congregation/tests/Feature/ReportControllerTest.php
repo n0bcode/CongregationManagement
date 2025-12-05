@@ -76,7 +76,7 @@ class ReportControllerTest extends TestCase
         $this->mock(PdfService::class, function ($mock) {
             $mock->shouldReceive('generateDemographicReport')
                 ->once()
-                ->andReturn(new \Symfony\Component\HttpFoundation\StreamedResponse(function () {}, 200, ['Content-Type' => 'application/pdf']));
+                ->andReturn(new \Illuminate\Http\Response('PDF content', 200, ['Content-Type' => 'application/pdf']));
         });
 
         $response = $this->actingAs($user)->get(route('reports.demographic.export'));

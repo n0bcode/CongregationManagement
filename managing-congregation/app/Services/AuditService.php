@@ -30,7 +30,7 @@ class AuditService
             'user_id' => Auth::id(),
             'action' => $action,
             'auditable_type' => get_class($model),
-            'auditable_id' => $model->id,
+            'auditable_id' => $model->getKey(),
             'old_values' => $oldValues,
             'new_values' => $newValues,
             'description' => $description ?? $this->generateDescription($model, $action),
@@ -74,7 +74,7 @@ class AuditService
             return $model->title;
         }
 
-        return "ID: {$model->id}";
+        return "ID: {$model->getKey()}";
     }
 
     /**

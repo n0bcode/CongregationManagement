@@ -74,8 +74,8 @@ class AuditLogController extends Controller
         $this->authorize('viewAny', AuditLog::class);
 
         // Generate tamper-evident report
-        $startDate = $request->filled('start_date') ? \Carbon\Carbon::parse($request->start_date) : null;
-        $endDate = $request->filled('end_date') ? \Carbon\Carbon::parse($request->end_date) : null;
+        $startDate = $request->filled('start_date') ? \Illuminate\Support\Carbon::parse($request->start_date) : null;
+        $endDate = $request->filled('end_date') ? \Illuminate\Support\Carbon::parse($request->end_date) : null;
 
         $report = $this->auditService->generateTamperEvidentReport($startDate, $endDate);
 

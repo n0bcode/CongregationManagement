@@ -17,7 +17,7 @@ class FormationDocument extends Model
     /**
      * The attributes that are mass assignable.
      *
-     * @var array<int, string>
+     * @var list<string>
      */
     protected $fillable = [
         'formation_event_id',

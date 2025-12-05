@@ -40,8 +40,9 @@ class FormationChronologyRule implements ValidationRule
         $currentOrder = $order[$newStage->value];
 
         foreach ($events as $event) {
+            /** @var \App\Models\FormationEvent $event */
             $eventStage = $event->stage;
-            $eventOrder = $order[$eventStage->value] ?? 0;
+            $eventOrder = $order[$eventStage->value];
             $eventDate = \Carbon\Carbon::parse($event->started_at);
 
             // If existing event is earlier stage, its date must be <= new date

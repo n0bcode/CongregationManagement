@@ -32,7 +32,7 @@ class UnauthorizedException extends Exception
     /**
      * Render the exception as an HTTP response.
      */
-    public function render(Request $request): Response
+    public function render(Request $request): \Illuminate\Http\Response|\Illuminate\Http\JsonResponse
     {
         if ($request->expectsJson()) {
             return response()->json([

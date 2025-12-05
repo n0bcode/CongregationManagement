@@ -5,6 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int $id
+ * @property int $member_id
+ * @property int $community_id
+ * @property \Illuminate\Support\Carbon $start_date
+ * @property \Illuminate\Support\Carbon|null $end_date
+ * @property string $role
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Member $member
+ * @property-read \App\Models\Community $community
+ * @property-read int $duration
+ * @property-read string $duration_human
+ */
 class Assignment extends Model
 {
     use HasFactory;
@@ -39,7 +53,7 @@ class Assignment extends Model
     {
         $endDate = $this->end_date ?? now();
 
-        return $this->start_date->diffInDays($endDate);
+        return (int) $this->start_date->diffInDays($endDate);
     }
 
     /**
@@ -54,14 +68,14 @@ class Assignment extends Model
         }
 
         if ($days < 365) {
-            $months = round($days / 30);
+            $months = (int) round($days / 30);
 
             return $months.' '.str('month')->plural($months);
         }
 
         $years = round($days / 365, 1);
 
-        return $years.' '.str('year')->plural($years);
+        return $years.' '.str('year')->plural((int) $years);
     }
 
     /**

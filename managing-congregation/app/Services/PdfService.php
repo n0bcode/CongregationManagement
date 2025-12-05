@@ -124,7 +124,7 @@ class PdfService
     /**
      * Save PDF to storage.
      */
-    public function saveFinancialReport(array $report, string $communityName, string $path): bool
+    public function saveFinancialReport(array $report, string $communityName, string $path): void
     {
         $pdf = Pdf::loadView('financials.pdf.monthly-report', [
             'report' => $report,
@@ -133,13 +133,13 @@ class PdfService
 
         $pdf->setPaper('a4', 'portrait');
 
-        return $pdf->save($path);
+        $pdf->save($path);
     }
 
     /**
      * Generate demographic report PDF
      */
-    public function generateDemographicReport(array $data): \Symfony\Component\HttpFoundation\StreamedResponse
+    public function generateDemographicReport(array $data): \Illuminate\Http\Response
     {
         $pdf = Pdf::loadView('reports.pdf.demographic', $data);
 

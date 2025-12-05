@@ -21,7 +21,7 @@ class DashboardController extends Controller
         $user = auth()->user();
 
         // Get community ID based on user role
-        $communityId = $user->role === 'director' ? $user->community_id : null;
+        $communityId = $user->role === \App\Enums\UserRole::DIRECTOR ? $user->community_id : null;
 
         // Get upcoming reminders (next 30 days)
         $upcomingReminders = $this->notificationService->getUpcomingReminders(30, $communityId);

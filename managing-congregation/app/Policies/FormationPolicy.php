@@ -57,11 +57,14 @@ class FormationPolicy
 
         // Community scoping for Directors
         if ($user->role === UserRole::DIRECTOR) {
-            if ($formationEvent->member === null) {
+            /** @var \App\Models\Member|null $member */
+            $member = $formationEvent->member;
+
+            if ($member === null) {
                 return false;
             }
 
-            return $formationEvent->member->community_id === $user->community_id;
+            return $member->community_id === $user->community_id;
         }
 
         // General role can access all
@@ -85,11 +88,21 @@ class FormationPolicy
 
         // Community scoping for Directors
         if ($user->role === UserRole::DIRECTOR) {
-            if ($document->formationEvent === null || $document->formationEvent->member === null) {
+            /** @var \App\Models\FormationEvent|null $event */
+            $event = $document->formationEvent;
+
+            if ($event === null) {
                 return false;
             }
 
-            return $document->formationEvent->member->community_id === $user->community_id;
+            /** @var \App\Models\Member|null $member */
+            $member = $event->member;
+
+            if ($member === null) {
+                return false;
+            }
+
+            return $member->community_id === $user->community_id;
         }
 
         // General role can access all
@@ -113,11 +126,21 @@ class FormationPolicy
 
         // Community scoping for Directors
         if ($user->role === UserRole::DIRECTOR) {
-            if ($document->formationEvent === null || $document->formationEvent->member === null) {
+            /** @var \App\Models\FormationEvent|null $event */
+            $event = $document->formationEvent;
+
+            if ($event === null) {
                 return false;
             }
 
-            return $document->formationEvent->member->community_id === $user->community_id;
+            /** @var \App\Models\Member|null $member */
+            $member = $event->member;
+
+            if ($member === null) {
+                return false;
+            }
+
+            return $member->community_id === $user->community_id;
         }
 
         // General role can access all

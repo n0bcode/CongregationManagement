@@ -12,7 +12,10 @@ class StoreFormationEventRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return true;
+        $member = $this->route('member');
+
+        return $this->user()->can('create', \App\Models\FormationEvent::class) &&
+               $this->user()->can('view', $member);
     }
 
     public function rules(): array
