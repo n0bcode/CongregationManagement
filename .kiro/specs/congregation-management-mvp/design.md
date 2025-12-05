@@ -31,6 +31,8 @@ The design prioritizes:
    - Custom RBAC with type-safe enums (UserRole, PermissionKey)
    - Policy-based authorization with super admin bypass
    - Community-scoped data access via Global Scopes
+   - Production-ready caching layer for permissions
+   - Route-based permission auto-discovery
 
 2. **Member Management**
 
@@ -241,13 +243,49 @@ class NotificationService
 
 #### AuditService
 
-```php
+````php
 class AuditService
 {
     public function log(string $action, Model $model, ?array $oldValues = null): AuditLog;
     public function generateTamperEvidentReport(Collection $logs): string;
 }
+
+#### PermissionService
+
+```php
+interface PermissionServiceInterface
+{
+    public function assignPermissionsToRole(UserRole $role, array $permissionKeys): void;
+    public function getRolePermissions(UserRole $role): Collection;
+    public function syncPermissionsFromRoutes(): array;
+    public function invalidateRoleCache(UserRole $role): void;
+    public function invalidateUserCache(int $userId): void;
+}
+````
+
+#### CacheManager
+
+```php
+interface CacheManagerInterface
+{
+    public function getUserPermissions(int $userId): ?array;
+    public function cacheUserPermissions(int $userId, array $permissions): void;
+    public function invalidateUserCache(int $userId): void;
+    public function invalidateRoleCache(UserRole $role): void;
+}
 ```
+
+#### RouteScanner
+
+```php
+interface RouteScannerInterface
+{
+    public function scanRoutes(): Collection;
+    public function extractPermissionFromMiddleware(array $middleware): ?string;
+}
+```
+
+````
 
 ### Blade Components
 
@@ -260,7 +298,7 @@ class AuditService
     title="Members in Formation"
     :value="$count"
 />
-```
+````
 
 #### Ledger Row
 
@@ -295,6 +333,32 @@ class AuditService
 </x-button>
 ```
 
+#### Navigation Dropdown
+
+```blade
+<x-nav-dropdown
+    label="Management"
+    :active="request()->routeIs('members.*', 'documents.*')"
+>
+    <x-dropdown-link :href="route('members.index')">
+        {{ __('Members') }}
+    </x-dropdown-link>
+</x-nav-dropdown>
+```
+
+#### Responsive Navigation Accordion
+
+```blade
+<div x-data="{ expanded: false }">
+    <button @click="expanded = !expanded">
+        {{ __('Management') }}
+    </button>
+    <div x-show="expanded">
+        <!-- Links -->
+    </div>
+</div>
+```
+
 ## Data Models
 
 ### Database Schema
@@ -309,6 +373,22 @@ class AuditService
 - community_id: bigint (FK, nullable)
 - email_verified_at: timestamp (nullable)
 - remember_token: string (nullable)
+- timestamps
+
+#### permissions
+
+- id: bigint (PK)
+- key: string (unique)
+- name: string
+- module: string
+- is_active: boolean
+- timestamps
+
+#### role_permissions
+
+- id: bigint (PK)
+- role: string
+- permission_id: bigint (FK)
 - timestamps
 
 #### communities
@@ -699,6 +779,26 @@ _For any_ file upload, invalid file types and files exceeding size limits (10MB 
 
 _For any_ image in the system, the alt attribute should be non-empty and descriptive
 **Validates: Requirements 15.2**
+
+### Property 49: Permission Cache Consistency
+
+_For any_ user, when their permissions are checked twice within the cache TTL period, the second check should use cached data without querying the database
+**Validates: Requirements 13.4**
+
+### Property 50: Cache Invalidation on Role Change
+
+_For any_ user, when their role is changed, subsequent permission checks should reflect the new role's permissions immediately
+**Validates: Requirements 13.4**
+
+### Property 51: Navigation Dropdown Visibility
+
+_For any_ navigation dropdown, clicking the trigger should toggle the dropdown between open and closed states
+**Validates: Requirements 16.1**
+
+### Property 52: Navigation Active State
+
+_For any_ navigation dropdown, when a child route is active, the parent dropdown trigger should display active styling
+**Validates: Requirements 16.4**
 
 ## Error Handling
 

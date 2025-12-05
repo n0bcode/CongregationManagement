@@ -18,6 +18,7 @@ This specification covers the comprehensive implementation of the Managing the C
 - **Expense**: A financial transaction recorded by a community
 - **Project**: A congregation initiative with budget and timeline
 - **Audit Log**: Immutable record of system changes
+- **Navigation System**: The primary navigation bar component with grouped dropdown menus
 
 ## Requirements
 
@@ -128,8 +129,10 @@ This specification covers the comprehensive implementation of the Managing the C
 1. WHEN a member is created, updated, or deleted THEN the system SHALL log the action with user, timestamp, and changes
 2. WHEN a member is transferred THEN the system SHALL record the old and new community in the audit log
 3. WHEN financial records are modified THEN the system SHALL create an immutable audit entry
-4. WHEN viewing audit logs THEN the system SHALL support filtering by user, action type, and date range
-5. WHEN exporting audit logs THEN the system SHALL generate a tamper-evident report
+4. WHEN permissions are assigned or revoked THEN the system SHALL log the action with timestamp and admin user
+5. WHEN a user's role is changed THEN the system SHALL log the action
+6. WHEN viewing audit logs THEN the system SHALL support filtering by user, action type, and date range
+7. WHEN exporting audit logs THEN the system SHALL generate a tamper-evident report
 
 ### Requirement 10: Service History and Timeline
 
@@ -176,8 +179,9 @@ This specification covers the comprehensive implementation of the Managing the C
 1. WHEN loading the dashboard THEN the system SHALL complete initial render in under 2 seconds on 4G
 2. WHEN searching members THEN the system SHALL return results in under 500ms for databases with 500+ members
 3. WHEN uploading photos THEN the system SHALL automatically optimize to WebP format at 85% quality
-4. WHEN querying with RBAC THEN the system SHALL use cached permissions to prevent N+1 queries
-5. WHEN generating reports THEN the system SHALL use database indexes for efficient filtering
+4. WHEN querying with RBAC THEN the system SHALL use cached permissions (1 hour TTL) to prevent N+1 queries
+5. WHEN a user's role changes THEN the system SHALL invalidate their permission cache immediately
+6. WHEN generating reports THEN the system SHALL use database indexes for efficient filtering
 
 ### Requirement 14: Data Validation and Integrity
 
@@ -190,6 +194,7 @@ This specification covers the comprehensive implementation of the Managing the C
 3. WHEN creating an assignment THEN the system SHALL prevent overlapping assignments for the same member
 4. WHEN entering expenses THEN the system SHALL validate amounts are positive numbers
 5. WHEN uploading files THEN the system SHALL validate file types and enforce size limits (10MB for documents, 5MB for photos)
+6. WHEN performing CRUD operations THEN the system SHALL synchronize form inputs with database constraints, ensuring all required fields (like community_id) are validated before insertion.
 
 ### Requirement 15: Accessibility Compliance
 
@@ -202,3 +207,15 @@ This specification covers the comprehensive implementation of the Managing the C
 3. WHEN navigating with keyboard THEN all interactive elements SHALL be reachable via Tab key
 4. WHEN viewing text THEN all color contrasts SHALL meet WCAG 2.1 Level AA standards (4.5:1 minimum)
 5. WHEN animations play THEN the system SHALL respect prefers-reduced-motion settings
+
+### Requirement 16: Grouped Navigation System
+
+**User Story:** As a user, I want related navigation items grouped into logical dropdown menus, so that I can easily find and access related features without a cluttered navigation bar.
+
+#### Acceptance Criteria
+
+1. WHEN the navigation bar loads THEN the system SHALL display dropdown menus for Management, Finance, Reports, and System
+2. WHEN a user hovers over or clicks a dropdown trigger THEN the system SHALL reveal the dropdown menu
+3. WHEN a user is viewing a page within a group THEN the system SHALL highlight the parent dropdown trigger as active
+4. WHEN a user lacks permissions for a group THEN the system SHALL hide the entire dropdown or specific items
+5. WHEN viewing on mobile THEN the system SHALL display grouped items in a responsive accordion menu

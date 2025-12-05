@@ -46,30 +46,30 @@ development_status:
   1-5-house-scoped-data-access-for-directors: done
   epic-1-retrospective: optional
 
-  epic-2: in-progress
+  epic-2: done
   2-1-create-and-view-member-profiles: done
   2-2-edit-member-profile-and-status: done
   2-3-member-search: done
   2-4-visual-formation-timeline: done
-  2-5-secure-document-upload-for-formation: review
+  2-5-secure-document-upload-for-formation: done
   2-6-member-transfer-history: done
-  2-7-member-profile-photo-management: in-progress
-  2-8-passport-id-management: backlog
+  2-7-member-profile-photo-management: done
+  2-8-passport-id-management: done
   epic-2-retrospective: optional
 
-  epic-3: backlog
-  3-1-daily-expense-entry: backlog
-  3-2-receipt-upload: backlog
-  3-3-one-click-monthly-pdf-report: backlog
-  3-4-locking-financial-records: backlog
+  epic-3: in-progress
+  3-1-daily-expense-entry: done
+  3-2-receipt-upload: done
+  3-3-one-click-monthly-pdf-report: done
+  3-4-locking-financial-records: done
   3-5-community-house-creation: backlog
   epic-3-retrospective: optional
 
-  epic-4: backlog
-  4-1-generalate-dashboard-view: backlog
-  4-2-critical-vow-expiry-alerts: backlog
-  4-3-view-all-financial-reports: backlog
-  4-4-audit-trail-log: backlog
+  epic-4: in-progress
+  4-1-generalate-dashboard-view: done
+  4-2-critical-vow-expiry-alerts: done
+  4-3-view-all-financial-reports: done
+  4-4-audit-trail-log: done
   epic-4-retrospective: optional
 
   epic-5: backlog
