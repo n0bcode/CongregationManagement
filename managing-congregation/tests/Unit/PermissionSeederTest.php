@@ -136,7 +136,7 @@ class PermissionSeederTest extends TestCase
             'members.export',
             // Financials (full access)
             'financials.view',
-            'financials.create',
+            // 'financials.create', // General Treasurer is read-only
             'financials.approve',
             'financials.export',
             'financials.manage',
