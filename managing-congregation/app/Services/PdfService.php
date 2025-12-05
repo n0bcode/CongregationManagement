@@ -11,7 +11,7 @@ class PdfService
     /**
      * Generate a financial report PDF.
      */
-    public function generateFinancialReport(array $report, string $communityName): string
+    public function generateFinancialReport(array $report, string $communityName): \Illuminate\Http\Response
     {
         $pdf = Pdf::loadView('financials.pdf.monthly-report', [
             'report' => $report,
@@ -33,12 +33,12 @@ class PdfService
     /**
      * Generate a member profile PDF.
      */
-    public function generateMemberProfile($member): string
+    public function generateMemberProfile($member): \Illuminate\Http\Response
     {
         $member->load([
             'community',
             'formationEvents' => function ($query) {
-                $query->orderBy('event_date', 'desc');
+                $query->orderBy('started_at', 'desc');
             },
             'healthRecords' => function ($query) {
                 $query->orderBy('recorded_at', 'desc');
@@ -67,7 +67,7 @@ class PdfService
     /**
      * Generate year-to-date summary PDF.
      */
-    public function generateYearToDateReport(array $summary, string $communityName): string
+    public function generateYearToDateReport(array $summary, string $communityName): \Illuminate\Http\Response
     {
         $pdf = Pdf::loadView('financials.pdf.ytd-report', [
             'summary' => $summary,
@@ -88,7 +88,7 @@ class PdfService
     /**
      * Generate expense receipt PDF.
      */
-    public function generateExpenseReceipt($expense): string
+    public function generateExpenseReceipt($expense): \Illuminate\Http\Response
     {
         $expense->load(['community', 'creator']);
 

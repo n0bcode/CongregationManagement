@@ -27,6 +27,7 @@ class ModelRelationshipsTest extends TestCase
 {
     /**
      * @test
+     *
      * @dataProvider modelRelationshipProvider
      */
     public function model_relationships_have_correct_return_types(string $modelClass, string $method, string $expectedReturnType): void

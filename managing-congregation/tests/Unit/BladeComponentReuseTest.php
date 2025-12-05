@@ -29,7 +29,7 @@ class BladeComponentReuseTest extends TestCase
 
         foreach ($requiredComponents as $component) {
             $componentPath = resource_path("views/components/{$component}.blade.php");
-            
+
             $this->assertFileExists(
                 $componentPath,
                 "Component {$component} should exist at {$componentPath}"
@@ -74,8 +74,8 @@ class BladeComponentReuseTest extends TestCase
         // This allows gradual migration to components
         if (count($violations) > 0) {
             $this->markTestIncomplete(
-                "Found " . count($violations) . " views that could use components:\n" .
-                implode("\n", array_map(fn($v) => "- {$v['file']}", $violations))
+                'Found '.count($violations)." views that could use components:\n".
+                implode("\n", array_map(fn ($v) => "- {$v['file']}", $violations))
             );
         }
 

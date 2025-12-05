@@ -14,6 +14,12 @@ class MemberEditTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->seed(\Database\Seeders\PermissionSeeder::class);
+    }
+
     public function test_director_can_view_edit_page()
     {
         $community = Community::factory()->create();

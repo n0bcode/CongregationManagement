@@ -6,7 +6,6 @@ namespace App\Services;
 
 use App\Contracts\CacheManagerInterface;
 use App\Enums\UserRole;
-use App\Exceptions\CacheException;
 use App\Models\User;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
@@ -14,7 +13,9 @@ use Illuminate\Support\Facades\Log;
 class CacheManager implements CacheManagerInterface
 {
     private const CACHE_PREFIX = 'user_permissions_';
+
     private const CACHE_TTL = 3600; // 1 hour in seconds
+
     private const STATS_KEY = 'rbac_cache_stats';
 
     /**
@@ -209,7 +210,7 @@ class CacheManager implements CacheManagerInterface
      */
     private function getCacheKey(int $userId): string
     {
-        return self::CACHE_PREFIX . $userId;
+        return self::CACHE_PREFIX.$userId;
     }
 
     /**

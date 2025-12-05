@@ -7,7 +7,6 @@ namespace Tests\Unit;
 use App\Contracts\RouteScannerInterface;
 use App\Services\RouteScanner;
 use Illuminate\Routing\Route;
-use Illuminate\Support\Facades\Route as RouteFacade;
 use Tests\TestCase;
 
 class RouteScannerTest extends TestCase

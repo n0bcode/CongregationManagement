@@ -27,7 +27,7 @@ class AssignmentOverlapRule implements ValidationRule
             // Check overlap
             // Overlap if (StartA <= EndB) and (EndA >= StartB)
             // Treat null end date as infinity
-            
+
             $startA = $newStart;
             $endA = $newEnd;
             $startB = $existingStart;
@@ -44,6 +44,7 @@ class AssignmentOverlapRule implements ValidationRule
 
             if ($overlap) {
                 $fail('The assignment dates overlap with an existing assignment.');
+
                 return;
             }
         }

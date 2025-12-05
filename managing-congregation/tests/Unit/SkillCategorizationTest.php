@@ -198,7 +198,7 @@ class SkillCategorizationTest extends TestCase
             ->get();
 
         $this->assertEquals(2, $pastoralSkills->count());
-        
+
         // Skills are ordered by name (from Member model relationship)
         $skillNames = $pastoralSkills->pluck('name')->toArray();
         $this->assertContains('Teaching', $skillNames);

@@ -11,7 +11,7 @@ class SettingsController extends Controller
     public function index()
     {
         $settings = SystemSetting::all()->groupBy('group');
-        
+
         return view('settings.index', compact('settings'));
     }
 
@@ -44,7 +44,7 @@ class SettingsController extends Controller
 
             return back()->with('success', 'Test email sent successfully.');
         } catch (\Exception $e) {
-            return back()->with('error', 'Failed to send email: ' . $e->getMessage());
+            return back()->with('error', 'Failed to send email: '.$e->getMessage());
         }
     }
 }

@@ -19,7 +19,7 @@ interface RouteScannerInterface
     /**
      * Extract permission from middleware array
      *
-     * @param array $middleware Array of middleware strings
+     * @param  array  $middleware  Array of middleware strings
      * @return string|null Permission key or null if not found
      */
     public function extractPermissionFromMiddleware(array $middleware): ?string;
@@ -27,8 +27,6 @@ interface RouteScannerInterface
     /**
      * Generate permission metadata from route
      *
-     * @param Route $route
-     * @param string $permissionKey
      * @return array{key: string, name: string, module: string, route_name: string|null, route_uri: string, methods: array}
      */
     public function generatePermissionMetadata(Route $route, string $permissionKey): array;

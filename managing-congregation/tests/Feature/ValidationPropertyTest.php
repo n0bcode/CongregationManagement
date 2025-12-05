@@ -20,15 +20,19 @@ class ValidationPropertyTest extends TestCase
      */
     public function test_dob_cannot_be_future()
     {
-        $user = User::factory()->create(['role' => \App\Enums\UserRole::MEMBER]);
-        
+        $community = \App\Models\Community::factory()->create();
+        $user = User::factory()->create([
+            'role' => \App\Enums\UserRole::MEMBER,
+            'community_id' => $community->id,
+        ]);
+
         // Grant permission
         $permission = \App\Models\Permission::create(['key' => 'members.create', 'name' => 'Create Members', 'module' => 'members']);
         \Illuminate\Support\Facades\DB::table('role_permissions')->insert([
             'role' => $user->role->value,
             'permission_id' => $permission->id,
         ]);
-        
+
         $response = $this->actingAs($user)->post(route('members.store'), [
             'first_name' => 'John',
             'last_name' => 'Doe',
@@ -37,7 +41,7 @@ class ValidationPropertyTest extends TestCase
         ]);
 
         $response->assertSessionHasErrors('dob');
-        
+
         $response = $this->actingAs($user)->post(route('members.store'), [
             'first_name' => 'John',
             'last_name' => 'Doe',
@@ -69,7 +73,7 @@ class ValidationPropertyTest extends TestCase
             'started_at' => '2020-02-01', // After entry
         ]);
         $response->assertSessionHasNoErrors();
-        
+
         // Create the event manually to proceed
         $member->formationEvents()->create([
             'stage' => FormationStage::Postulancy,
@@ -82,7 +86,7 @@ class ValidationPropertyTest extends TestCase
             'started_at' => '2020-01-15', // Before Postulancy
         ]);
         $response->assertSessionHasErrors('started_at');
-        
+
         $response = $this->actingAs($user)->post(route('members.formation.store', $member), [
             'stage' => FormationStage::Novitiate->value,
             'started_at' => '2020-03-01', // After Postulancy
@@ -98,7 +102,7 @@ class ValidationPropertyTest extends TestCase
     {
         $user = User::factory()->director()->create();
         $member = Member::factory()->create(['community_id' => $user->community_id]);
-        
+
         // Create initial assignment
         $member->assignments()->create([
             'community_id' => $user->community_id,
@@ -154,14 +158,14 @@ class ValidationPropertyTest extends TestCase
     {
         Storage::fake('private');
         Storage::fake('public');
-        
+
         $user = User::factory()->director()->create();
         $member = Member::factory()->create(['community_id' => $user->community_id]);
 
         // Grant permissions
         $permUpload = \App\Models\Permission::create(['key' => 'documents.upload', 'name' => 'Upload Documents', 'module' => 'documents']);
         $permEdit = \App\Models\Permission::create(['key' => 'members.edit', 'name' => 'Edit Members', 'module' => 'members']);
-        
+
         \Illuminate\Support\Facades\DB::table('role_permissions')->insert([
             ['role' => $user->role->value, 'permission_id' => $permUpload->id],
             ['role' => $user->role->value, 'permission_id' => $permEdit->id],

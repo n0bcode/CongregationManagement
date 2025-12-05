@@ -12,10 +12,9 @@ interface AuditLoggerInterface
     /**
      * Log permission change
      *
-     * @param int $userId User who made the change
-     * @param UserRole $role Role that was modified
-     * @param array $permissions Array of permission keys
-     * @return void
+     * @param  int  $userId  User who made the change
+     * @param  UserRole  $role  Role that was modified
+     * @param  array  $permissions  Array of permission keys
      */
     public function logPermissionChange(
         int $userId,
@@ -26,11 +25,10 @@ interface AuditLoggerInterface
     /**
      * Log role change
      *
-     * @param int $userId User who made the change
-     * @param int $targetUserId User whose role was changed
-     * @param UserRole $oldRole Previous role
-     * @param UserRole $newRole New role
-     * @return void
+     * @param  int  $userId  User who made the change
+     * @param  int  $targetUserId  User whose role was changed
+     * @param  UserRole  $oldRole  Previous role
+     * @param  UserRole  $newRole  New role
      */
     public function logRoleChange(
         int $userId,
@@ -41,17 +39,11 @@ interface AuditLoggerInterface
 
     /**
      * Get audit history for a role
-     *
-     * @param UserRole $role
-     * @return Collection
      */
     public function getRoleAuditHistory(UserRole $role): Collection;
 
     /**
      * Get audit history for a user
-     *
-     * @param int $userId
-     * @return Collection
      */
     public function getUserAuditHistory(int $userId): Collection;
 }

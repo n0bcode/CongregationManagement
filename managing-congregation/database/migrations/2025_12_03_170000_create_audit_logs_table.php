@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('ip_address', 45)->nullable();
             $table->string('user_agent')->nullable();
             $table->timestamp('created_at'); // Only created_at, no updates allowed
-            
+
             // Indexes for performance
             // Note: morphs() already creates index for auditable_type and auditable_id
             $table->index('user_id');

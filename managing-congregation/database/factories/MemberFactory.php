@@ -23,6 +23,7 @@ class MemberFactory extends Factory
             'first_name' => fake()->firstName(),
             'last_name' => fake()->lastName(),
             'religious_name' => fake()->optional()->firstName(),
+            'email' => fake()->unique()->safeEmail(),
             'dob' => fake()->date(),
             'entry_date' => fake()->date(),
             'status' => 'Active',

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Member;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class MemberPhotoController extends Controller
@@ -22,16 +21,16 @@ class MemberPhotoController extends Controller
             $file = $request->file('photo');
             $filename = $file->hashName();
             // Change extension to webp
-            $filename = pathinfo($filename, PATHINFO_FILENAME) . '.webp';
-            $path = 'profile-photos/' . $filename;
+            $filename = pathinfo($filename, PATHINFO_FILENAME).'.webp';
+            $path = 'profile-photos/'.$filename;
 
             // Optimize image
-            $manager = new \Intervention\Image\ImageManager(new \Intervention\Image\Drivers\Gd\Driver());
+            $manager = new \Intervention\Image\ImageManager(new \Intervention\Image\Drivers\Gd\Driver);
             $image = $manager->read($file);
-            
+
             // Resize to max 800x800, keeping aspect ratio
             $image->scale(width: 800, height: 800);
-            
+
             // Encode to WebP with 85% quality
             $encoded = $image->toWebp(quality: 85);
 
@@ -48,6 +47,8 @@ class MemberPhotoController extends Controller
 
     public function destroy(Member $member): RedirectResponse
     {
+        \Illuminate\Support\Facades\Gate::authorize('update', $member);
+
         if ($member->profile_photo_path) {
             Storage::disk('public')->delete($member->profile_photo_path);
 

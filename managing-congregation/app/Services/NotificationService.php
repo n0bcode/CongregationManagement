@@ -24,8 +24,8 @@ class NotificationService
 
         // Get members with temporary vows expiring on target date
         $members = Member::whereHas('formationEvents', function ($query) use ($targetDate) {
-            $query->where('stage', 'temporary_vows')
-                ->whereDate('date', $targetDate);
+            $query->where('stage', \App\Enums\FormationStage::FirstVows)
+                ->whereDate('started_at', $targetDate);
         })->get();
 
         foreach ($members as $member) {
@@ -63,8 +63,8 @@ class NotificationService
         $count = 0;
 
         // Get members with birthdays on target date (month and day match)
-        $members = Member::whereMonth('date_of_birth', $targetDate->month)
-            ->whereDay('date_of_birth', $targetDate->day)
+        $members = Member::whereMonth('dob', $targetDate->month)
+            ->whereDay('dob', $targetDate->day)
             ->get();
 
         foreach ($members as $member) {
@@ -75,7 +75,7 @@ class NotificationService
                 ->exists();
 
             if (! $exists) {
-                $age = $targetDate->year - $member->date_of_birth->year;
+                $age = $targetDate->year - $member->dob->year;
 
                 Reminder::create([
                     'type' => 'birthday',

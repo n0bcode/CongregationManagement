@@ -22,7 +22,7 @@ class SettingsPropertyTest extends TestCase
 
         // Verify setting is saved and retrieved correctly
         $this->assertEquals(9, SystemSetting::get('service_year_start'));
-        
+
         // Logic for default assignment dates would use this setting
         // For this property test, we verify the setting persistence and retrieval
         $retrieved = SystemSetting::get('service_year_start');
@@ -40,7 +40,7 @@ class SettingsPropertyTest extends TestCase
         SystemSetting::set('reminder_vow_expiration', 60);
 
         $this->assertEquals(60, SystemSetting::get('reminder_vow_expiration'));
-        
+
         // Verify type casting
         $this->assertIsInt(SystemSetting::get('reminder_vow_expiration'));
     }
@@ -54,16 +54,16 @@ class SettingsPropertyTest extends TestCase
         $user = User::factory()->create([
             'role' => \App\Enums\UserRole::SUPER_ADMIN,
         ]);
-        
+
         // For this test, we are testing the controller validation logic
-        
+
         $response = $this->actingAs($user)
             ->post(route('admin.settings.test-email'), [
                 'email' => 'invalid-email',
             ]);
 
         $response->assertSessionHasErrors('email');
-        
+
         $response = $this->actingAs($user)
             ->post(route('admin.settings.test-email'), [
                 'email' => 'valid@example.com',
@@ -80,7 +80,7 @@ class SettingsPropertyTest extends TestCase
     {
         SystemSetting::set('backup_enabled', true);
         $this->assertTrue(SystemSetting::get('backup_enabled'));
-        
+
         SystemSetting::set('backup_enabled', false);
         $this->assertFalse(SystemSetting::get('backup_enabled'));
     }

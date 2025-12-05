@@ -58,13 +58,13 @@ class FormationChronologyRule implements ValidationRule
                 }
             }
         }
-        
+
         // Also check entry_date from member model if it exists
         if ($this->member->entry_date) {
-             $entryDate = \Carbon\Carbon::parse($this->member->entry_date);
-             if ($entryDate->gt($newDate)) {
-                 $fail("The date must be after the entry date ({$entryDate->format('Y-m-d')}).");
-             }
+            $entryDate = \Carbon\Carbon::parse($this->member->entry_date);
+            if ($entryDate->gt($newDate)) {
+                $fail("The date must be after the entry date ({$entryDate->format('Y-m-d')}).");
+            }
         }
     }
 }

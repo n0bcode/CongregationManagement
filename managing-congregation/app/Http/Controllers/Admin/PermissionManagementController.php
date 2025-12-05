@@ -29,7 +29,7 @@ class PermissionManagementController extends Controller
     public function index(): View
     {
         $roles = UserRole::cases();
-        
+
         // Get all permissions grouped by module
         $permissions = Permission::orderBy('module')
             ->orderBy('key')
@@ -83,24 +83,24 @@ class PermissionManagementController extends Controller
         try {
             // Run the sync command programmatically
             \Illuminate\Support\Facades\Artisan::call('permissions:sync', ['--force' => true]);
-            
+
             $output = \Illuminate\Support\Facades\Artisan::output();
-            
+
             // Extract statistics from output
             preg_match('/Created (\d+) new permissions/', $output, $newMatches);
             preg_match('/Updated (\d+) permissions/', $output, $updatedMatches);
             preg_match('/Marked (\d+) permissions as inactive/', $output, $orphanedMatches);
-            
+
             $new = $newMatches[1] ?? 0;
             $updated = $updatedMatches[1] ?? 0;
             $orphaned = $orphanedMatches[1] ?? 0;
-            
+
             $message = __('Permissions synced successfully! Created: :new, Updated: :updated, Marked inactive: :orphaned', [
                 'new' => $new,
                 'updated' => $updated,
                 'orphaned' => $orphaned,
             ]);
-            
+
             return back()->with('success', $message);
         } catch (\Throwable $e) {
             return back()->withErrors(['error' => __('Failed to sync permissions. Please try again.')]);

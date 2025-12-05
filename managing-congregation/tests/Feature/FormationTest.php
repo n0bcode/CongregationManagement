@@ -15,6 +15,12 @@ class FormationTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->seed(\Database\Seeders\PermissionSeeder::class);
+    }
+
     public function test_authorized_user_can_add_formation_event(): void
     {
         $community = \App\Models\Community::factory()->create();

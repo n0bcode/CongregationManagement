@@ -9,9 +9,20 @@ use Tests\TestCase;
 
 class StoreFormationEventRequestTest extends TestCase
 {
+    use \Illuminate\Foundation\Testing\RefreshDatabase;
+
     public function test_rules_are_correct(): void
     {
+        $member = \App\Models\Member::factory()->create();
+        
         $request = new StoreFormationEventRequest;
+        $request->setRouteResolver(function () use ($member, $request) {
+            $route = new \Illuminate\Routing\Route('POST', 'dummy', []);
+            $route->bind($request);
+            $route->setParameter('member', $member);
+            return $route;
+        });
+
         $rules = $request->rules();
 
         $this->assertArrayHasKey('stage', $rules);

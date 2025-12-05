@@ -16,7 +16,7 @@ class ServiceHistoryTest extends TestCase
     public function test_can_add_service_record()
     {
         $this->seed(\Database\Seeders\PermissionSeeder::class);
-        
+
         $community = Community::factory()->create();
         $user = User::factory()->director($community)->create();
         $member = Member::factory()->create(['community_id' => $community->id]);
@@ -49,7 +49,7 @@ class ServiceHistoryTest extends TestCase
         $community = Community::factory()->create();
         $user = User::factory()->director($community)->create();
         $member = Member::factory()->create(['community_id' => $community->id]);
-        
+
         $assignment = Assignment::create([
             'member_id' => $member->id,
             'community_id' => $community->id,

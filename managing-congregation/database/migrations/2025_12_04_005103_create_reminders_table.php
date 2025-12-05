@@ -19,7 +19,7 @@ return new class extends Migration
                 'health_check',
                 'formation_milestone',
                 'anniversary',
-                'other'
+                'other',
             ]);
             $table->string('title');
             $table->text('description')->nullable();

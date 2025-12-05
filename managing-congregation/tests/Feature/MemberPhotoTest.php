@@ -13,12 +13,19 @@ class MemberPhotoTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->seed(\Database\Seeders\PermissionSeeder::class);
+    }
+
     public function test_can_upload_profile_photo()
     {
         Storage::fake('public');
 
-        $user = User::factory()->create();
-        $member = Member::factory()->create();
+        $community = \App\Models\Community::factory()->create();
+        $user = User::factory()->create(['role' => \App\Enums\UserRole::DIRECTOR, 'community_id' => $community->id]);
+        $member = Member::factory()->create(['community_id' => $community->id]);
 
         $file = UploadedFile::fake()->image('photo.jpg');
 
@@ -38,8 +45,10 @@ class MemberPhotoTest extends TestCase
     {
         Storage::fake('public');
 
-        $user = User::factory()->create();
+        $community = \App\Models\Community::factory()->create();
+        $user = User::factory()->create(['role' => \App\Enums\UserRole::DIRECTOR, 'community_id' => $community->id]);
         $member = Member::factory()->create([
+            'community_id' => $community->id,
             'profile_photo_path' => 'profile-photos/old-photo.jpg',
         ]);
 
@@ -58,12 +67,15 @@ class MemberPhotoTest extends TestCase
 
     public function test_photo_validation()
     {
-        $user = User::factory()->create();
-        $member = Member::factory()->create();
+        $community = \App\Models\Community::factory()->create();
+        $user = User::factory()->create(['role' => \App\Enums\UserRole::DIRECTOR, 'community_id' => $community->id]);
+        $member = Member::factory()->create(['community_id' => $community->id]);
+
+        $file = UploadedFile::fake()->create('document.pdf', 100); // Not an image
 
         $response = $this->actingAs($user)
             ->put(route('members.photo.update', $member), [
-                'photo' => 'not-an-image',
+                'photo' => $file,
             ]);
 
         $response->assertSessionHasErrors(['photo']);

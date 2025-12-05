@@ -157,7 +157,14 @@
 
                     <!-- Formation Tab -->
                     <div x-show="activeTab === 'formation'" x-transition>
-                        <h3 class="text-lg font-medium text-slate-900 mb-4">{{ __('Formation Timeline') }}</h3>
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-lg font-medium text-slate-900">{{ __('Formation Timeline') }}</h3>
+                            @can('create', \App\Models\FormationEvent::class)
+                                <x-primary-button x-data="" x-on:click.prevent="$dispatch('open-modal', 'add-formation-event')">
+                                    {{ __('Add Milestone') }}
+                                </x-primary-button>
+                            @endcan
+                        </div>
                         <x-feast-timeline :events="$member->formationEvents()->with('documents')->get()" :member="$member" :projectedEvents="$projectedEvents" />
                     </div>
 

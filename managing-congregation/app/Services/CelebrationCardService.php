@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Models\Member;
-use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
-use Intervention\Image\Typography\FontFactory;
+use Intervention\Image\ImageManager;
 
 class CelebrationCardService
 {
@@ -15,7 +14,7 @@ class CelebrationCardService
 
     public function __construct()
     {
-        $this->manager = new ImageManager(new Driver());
+        $this->manager = new ImageManager(new Driver);
     }
 
     public function generateBirthdayCard(Member $member): string
@@ -45,7 +44,7 @@ class CelebrationCardService
         });
 
         // Add Member Name
-        $image->text($member->first_name . ' ' . $member->last_name, 400, 200, function ($font) {
+        $image->text($member->first_name.' '.$member->last_name, 400, 200, function ($font) {
             $font->file(public_path('fonts/Roboto-Regular.ttf'));
             $font->size(48);
             $font->color('#1a202c');

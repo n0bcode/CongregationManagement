@@ -63,6 +63,7 @@ class RouteAuthorizationTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider protectedRouteProvider
      */
     public function protected_routes_require_authentication(string $method, string $uri): void

@@ -50,7 +50,7 @@ Route::middleware('auth')->group(function () {
 
     // Financials
     Route::resource('financials', \App\Http\Controllers\FinancialController::class)->parameters([
-        'financials' => 'expense'
+        'financials' => 'expense',
     ]);
     Route::get('/financials-lock-period', [\App\Http\Controllers\FinancialController::class, 'lockPeriodForm'])->name('financials.lock-period.form');
     Route::post('/financials-lock-period', [\App\Http\Controllers\FinancialController::class, 'lockPeriod'])->name('financials.lock-period');

@@ -20,9 +20,10 @@ class StoreFormationEventRequest extends FormRequest
         return [
             'stage' => ['required', Rule::enum(FormationStage::class)],
             'started_at' => [
-                'required', 
+                'required',
                 'date',
-                new \App\Rules\FormationChronologyRule($this->route('member'), $this->input('stage'))
+                'bail',
+                new \App\Rules\FormationChronologyRule($this->route('member'), $this->input('stage')),
             ],
             'notes' => ['nullable', 'string'],
         ];

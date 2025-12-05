@@ -14,7 +14,7 @@ class CelebrationCardTest extends TestCase
     public function test_celebrations_page_loads()
     {
         $user = User::factory()->create();
-        
+
         $response = $this->actingAs($user)
             ->get(route('celebrations.index'));
 
@@ -46,6 +46,6 @@ class CelebrationCardTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertHeader('Content-Type', 'image/png');
-        $response->assertHeader('Content-Disposition', 'attachment; filename="birthday-card-' . $member->id . '.png"');
+        $response->assertHeader('Content-Disposition', 'attachment; filename="birthday-card-'.$member->id.'.png"');
     }
 }

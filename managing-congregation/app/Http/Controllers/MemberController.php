@@ -39,7 +39,7 @@ class MemberController extends Controller
         // Handle community_id
         // If provided in request (e.g. by Super Admin), use it.
         // Otherwise, fall back to the authenticated user's community_id.
-        if (!isset($data['community_id'])) {
+        if (! isset($data['community_id'])) {
             $data['community_id'] = \Illuminate\Support\Facades\Auth::user()->community_id;
         }
 

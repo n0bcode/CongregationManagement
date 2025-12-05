@@ -43,9 +43,9 @@ class NavigationPropertyTest extends TestCase
 
         // Visit Members page (child of Management)
         $response = $this->actingAs($user)->get(route('members.index'));
-        
+
         // Assert Management dropdown is marked active (border-amber-600)
         // We look for the active class on the Management button
-        $response->assertSee('border-amber-600', false); 
+        $response->assertSee('border-amber-600', false);
     }
 }

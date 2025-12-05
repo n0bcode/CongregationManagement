@@ -30,13 +30,14 @@ class BackupDatabase extends Command
     {
         if (! SystemSetting::get('backup_enabled', false)) {
             $this->info('Backups are disabled in system settings.');
+
             return;
         }
 
         $this->info('Starting database backup...');
 
-        $filename = 'backup-' . date('Y-m-d-H-i-s') . '.sql';
-        $path = storage_path('app/backups/' . $filename);
+        $filename = 'backup-'.date('Y-m-d-H-i-s').'.sql';
+        $path = storage_path('app/backups/'.$filename);
 
         // Ensure directory exists
         if (! file_exists(storage_path('app/backups'))) {
@@ -55,15 +56,15 @@ class BackupDatabase extends Command
             // Encrypt and store
             $content = file_get_contents($path);
             $encrypted = encrypt($content);
-            
-            Storage::put('backups/' . $filename . '.encrypted', $encrypted);
-            
+
+            Storage::put('backups/'.$filename.'.encrypted', $encrypted);
+
             // Remove raw SQL file
             unlink($path);
 
-            $this->info('Backup completed successfully: ' . $filename . '.encrypted');
+            $this->info('Backup completed successfully: '.$filename.'.encrypted');
         } catch (\Exception $e) {
-            $this->error('Backup failed: ' . $e->getMessage());
+            $this->error('Backup failed: '.$e->getMessage());
         }
     }
 }

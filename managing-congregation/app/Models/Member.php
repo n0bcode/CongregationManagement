@@ -18,6 +18,7 @@ class Member extends Model
         'first_name',
         'last_name',
         'religious_name',
+        'email',
         'dob',
         'entry_date',
         'entry_date',

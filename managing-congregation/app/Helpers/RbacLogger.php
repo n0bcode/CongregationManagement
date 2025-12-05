@@ -18,9 +18,13 @@ class RbacLogger
      * Log levels as defined in PSR-3
      */
     public const LEVEL_DEBUG = 'debug';
+
     public const LEVEL_INFO = 'info';
+
     public const LEVEL_WARNING = 'warning';
+
     public const LEVEL_ERROR = 'error';
+
     public const LEVEL_CRITICAL = 'critical';
 
     /**

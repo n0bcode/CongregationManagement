@@ -25,7 +25,7 @@ return new class extends Migration
                 'vows',
                 'introduction_letter',
                 'internal',
-                'other'
+                'other',
             ]);
             $table->foreignId('folder_id')->nullable()->constrained()->onDelete('set null');
             $table->foreignId('community_id')->nullable()->constrained()->onDelete('cascade');

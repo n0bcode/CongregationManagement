@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::table('permissions', function (Blueprint $table) {
             // Add index on is_active for faster filtering of active permissions
             $table->index('is_active');
-            
+
             // Add composite index for common query pattern (module + is_active)
             $table->index(['module', 'is_active']);
         });
