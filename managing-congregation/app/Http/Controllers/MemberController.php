@@ -17,6 +17,11 @@ class MemberController extends Controller
             $query->search($request->input('search'));
         }
 
+        // Filter by community if provided
+        if ($request->filled('community_id')) {
+            $query->where('community_id', $request->input('community_id'));
+        }
+
         $members = $query->paginate(20)->appends($request->query());
 
         return view('members.index', compact('members'));

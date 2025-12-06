@@ -44,7 +44,13 @@
                                 <span class="px-3 py-1 text-sm font-semibold rounded-full bg-sanctuary-green/10 text-sanctuary-green">
                                     {{ $member->status }}
                                 </span>
-                                <span class="text-sm text-slate-600">{{ $member->community->name ?? 'N/A' }}</span>
+                                @if($member->community)
+                                    <a href="{{ route('communities.show', $member->community) }}" class="text-sm text-amber-600 hover:text-amber-700 hover:underline font-medium">
+                                        {{ $member->community->name }}
+                                    </a>
+                                @else
+                                    <span class="text-sm text-slate-600">N/A</span>
+                                @endif
                             </div>
                         </div>
                         @can('update', $member)
@@ -148,7 +154,15 @@
                                     </div>
                                     <div>
                                         <dt class="text-sm font-medium text-slate-500">{{ __('Community') }}</dt>
-                                        <dd class="mt-1 text-lg text-slate-900">{{ $member->community->name ?? 'N/A' }}</dd>
+                                        <dd class="mt-1 text-lg text-slate-900">
+                                            @if($member->community)
+                                                <a href="{{ route('communities.show', $member->community) }}" class="text-amber-600 hover:text-amber-700 hover:underline font-medium">
+                                                    {{ $member->community->name }}
+                                                </a>
+                                            @else
+                                                N/A
+                                            @endif
+                                        </dd>
                                     </div>
                                 </dl>
                             </div>
