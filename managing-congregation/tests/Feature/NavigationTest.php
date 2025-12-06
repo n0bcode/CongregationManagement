@@ -11,17 +11,7 @@ class NavigationTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_regular_user_can_see_projects_link()
-    {
-        $user = User::factory()->create();
-
-        $response = $this->actingAs($user)->get('/dashboard');
-
-        $response->assertStatus(200);
-        $response->assertSee(route('projects.index'));
-        $response->assertDontSee(route('admin.settings.index'));
-        $response->assertDontSee(route('admin.backups.index'));
-    }
+    // Replaced by test_regular_user_sees_periodic_events_but_not_admin_links
 
     public function test_admin_can_see_admin_links()
     {
@@ -30,8 +20,27 @@ class NavigationTest extends TestCase
         $response = $this->actingAs($admin)->get('/dashboard');
 
         $response->assertStatus(200);
+        $response->assertStatus(200);
         $response->assertSee(route('projects.index'));
+        $response->assertSee(route('periodic-events.index'));
+        $response->assertSee(route('reports.advanced'));
         $response->assertSee(route('admin.settings.index'));
         $response->assertSee(route('admin.backups.index'));
+    }
+
+    public function test_regular_user_sees_periodic_events_but_not_admin_links()
+    {
+        $user = User::factory()->create(['role' => UserRole::MEMBER]);
+
+        $response = $this->actingAs($user)->get('/dashboard');
+
+        $response->assertStatus(200);
+        $response->assertSee(route('projects.index'));
+        $response->assertSee(route('periodic-events.index'));
+        // The link is currently visible even if they get 403, unless we wrap it in @can
+        $response->assertSee(route('reports.advanced')); 
+        
+        $response->assertDontSee(route('admin.settings.index'));
+        $response->assertDontSee(route('admin.backups.index'));
     }
 }

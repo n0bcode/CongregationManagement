@@ -184,6 +184,53 @@ class ReportController extends Controller
     }
 
     /**
+     * Display advanced statistics
+     */
+    public function advanced(): View
+    {
+        $this->checkAuthorization('viewReports');
+
+        // Skills Distribution
+        $skillsDistribution = \App\Models\Skill::select('name', DB::raw('count(*) as count'))
+            ->groupBy('name')
+            ->orderByDesc('count')
+            ->limit(10)
+            ->pluck('count', 'name')
+            ->toArray();
+
+        // Age Demographics (Detailed)
+        $ageDemographics = Member::select(
+            DB::raw('CASE 
+                WHEN TIMESTAMPDIFF(YEAR, dob, CURDATE()) < 20 THEN "Under 20"
+                WHEN TIMESTAMPDIFF(YEAR, dob, CURDATE()) BETWEEN 20 AND 29 THEN "20-29"
+                WHEN TIMESTAMPDIFF(YEAR, dob, CURDATE()) BETWEEN 30 AND 39 THEN "30-39"
+                WHEN TIMESTAMPDIFF(YEAR, dob, CURDATE()) BETWEEN 40 AND 49 THEN "40-49"
+                WHEN TIMESTAMPDIFF(YEAR, dob, CURDATE()) BETWEEN 50 AND 59 THEN "50-59"
+                WHEN TIMESTAMPDIFF(YEAR, dob, CURDATE()) BETWEEN 60 AND 69 THEN "60-69"
+                ELSE "70+"
+            END as age_group'),
+            DB::raw('COUNT(*) as count')
+        )
+            ->groupBy('age_group')
+            ->orderBy('age_group')
+            ->get()
+            ->pluck('count', 'age_group')
+            ->toArray();
+
+        // Upcoming Ordination Anniversaries (Next 30 days)
+        $upcomingOrdinations = \App\Models\Ordination::with('member')
+            ->whereRaw('DATE_ADD(date, INTERVAL YEAR(CURDATE())-YEAR(date) YEAR) BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 30 DAY)')
+            ->orderByRaw('DATE_ADD(date, INTERVAL YEAR(CURDATE())-YEAR(date) YEAR)')
+            ->get();
+
+        return view('reports.advanced', compact(
+            'skillsDistribution',
+            'ageDemographics',
+            'upcomingOrdinations'
+        ));
+    }
+
+    /**
      * Check authorization for reports
      */
     protected function checkAuthorization(string $ability): void

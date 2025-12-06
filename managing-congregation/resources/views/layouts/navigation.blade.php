@@ -25,7 +25,7 @@
                     {{-- Management Dropdown --}}
                     <x-nav-dropdown 
                         label="{{ __('Management') }}" 
-                        :active="request()->routeIs('members.*', 'documents.*', 'celebrations.*', 'communities.*', 'projects.*')">
+                        :active="request()->routeIs('members.*', 'documents.*', 'celebrations.*', 'communities.*', 'projects.*', 'periodic-events.*')">
                         <x-dropdown-link :href="route('members.index')" :active="request()->routeIs('members.*')">
                             {{ __('Members') }}
                         </x-dropdown-link>
@@ -45,6 +45,9 @@
                         <x-dropdown-link :href="route('projects.index')" :active="request()->routeIs('projects.*')">
                             {{ __('Projects') }}
                         </x-dropdown-link>
+                        <x-dropdown-link :href="route('periodic-events.index')" :active="request()->routeIs('periodic-events.*')">
+                            {{ __('Periodic Events') }}
+                        </x-dropdown-link>
                     </x-nav-dropdown>
 
                     {{-- Finance Dropdown --}}
@@ -62,6 +65,9 @@
                         :active="request()->routeIs('reports.*')">
                         <x-dropdown-link :href="route('reports.demographic')" :active="request()->routeIs('reports.demographic')">
                             {{ __('Demographic Reports') }}
+                        </x-dropdown-link>
+                        <x-dropdown-link :href="route('reports.advanced')" :active="request()->routeIs('reports.advanced')">
+                            {{ __('Advanced Statistics') }}
                         </x-dropdown-link>
                     </x-nav-dropdown>
 
@@ -153,10 +159,10 @@
             </x-responsive-nav-link>
 
             {{-- Management Section --}}
-                <div x-data="{ expanded: {{ request()->routeIs('members.*', 'documents.*', 'celebrations.*', 'projects.*') ? 'true' : 'false' }} }">
+                <div x-data="{ expanded: {{ request()->routeIs('members.*', 'documents.*', 'celebrations.*', 'projects.*', 'periodic-events.*') ? 'true' : 'false' }} }">
                 <button @click="expanded = !expanded" 
                         class="w-full flex items-center justify-between px-4 py-2 text-base font-medium text-slate-700 hover:bg-stone-100 transition duration-150 ease-in-out"
-                        :class="{'text-amber-600 bg-amber-50': {{ request()->routeIs('members.*', 'documents.*', 'celebrations.*', 'projects.*') ? 'true' : 'false' }} }">
+                        :class="{'text-amber-600 bg-amber-50': {{ request()->routeIs('members.*', 'documents.*', 'celebrations.*', 'projects.*', 'periodic-events.*') ? 'true' : 'false' }} }">
                     <span>{{ __('Management') }}</span>
                     <svg class="w-5 h-5 transition-transform duration-200" :class="{'rotate-180': expanded}" 
                          fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -177,6 +183,9 @@
                     </x-responsive-nav-link>
                     <x-responsive-nav-link :href="route('projects.index')" :active="request()->routeIs('projects.*')" class="pl-8">
                         {{ __('Projects') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('periodic-events.index')" :active="request()->routeIs('periodic-events.*')" class="pl-8">
+                        {{ __('Periodic Events') }}
                     </x-responsive-nav-link>
                 </div>
             </div>
@@ -213,6 +222,9 @@
                 <div x-show="expanded" x-collapse class="bg-white">
                     <x-responsive-nav-link :href="route('reports.demographic')" :active="request()->routeIs('reports.demographic')" class="pl-8">
                         {{ __('Demographic Reports') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('reports.advanced')" :active="request()->routeIs('reports.advanced')" class="pl-8">
+                        {{ __('Advanced Statistics') }}
                     </x-responsive-nav-link>
                 </div>
             </div>

@@ -67,6 +67,9 @@ Route::middleware('auth')->group(function () {
     // Projects
     Route::resource('projects', \App\Http\Controllers\ProjectController::class);
 
+    // Periodic Events
+    Route::resource('periodic-events', \App\Http\Controllers\PeriodicEventController::class);
+
     // Permission Management (Super Admin & General only)
     Route::middleware('can:view-admin')->prefix('admin')->name('admin.')->group(function () {
         Route::get('/permissions', [\App\Http\Controllers\Admin\PermissionManagementController::class, 'index'])->name('permissions.index');
@@ -86,7 +89,8 @@ Route::middleware('auth')->group(function () {
     });
     // Reports
     Route::get('/reports/demographic', [\App\Http\Controllers\ReportController::class, 'demographic'])->name('reports.demographic');
-    Route::get('/reports/demographic/export', [\App\Http\Controllers\ReportController::class, 'exportDemographic'])->name('reports.demographic.export');
+    Route::get('/reports/advanced', [\App\Http\Controllers\ReportController::class, 'advanced'])->name('reports.advanced');
+    Route::get('/reports/export/demographic', [\App\Http\Controllers\ReportController::class, 'exportDemographic'])->name('reports.export.demographic');
 
     // Celebrations
     Route::get('/celebrations', [\App\Http\Controllers\CelebrationController::class, 'index'])->name('celebrations.index');
