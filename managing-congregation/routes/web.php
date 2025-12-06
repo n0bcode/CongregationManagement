@@ -64,6 +64,9 @@ Route::middleware('auth')->group(function () {
     // Communities
     Route::resource('communities', \App\Http\Controllers\CommunityController::class);
 
+    // Projects
+    Route::resource('projects', \App\Http\Controllers\ProjectController::class);
+
     // Permission Management (Super Admin & General only)
     Route::middleware('can:view-admin')->prefix('admin')->name('admin.')->group(function () {
         Route::get('/permissions', [\App\Http\Controllers\Admin\PermissionManagementController::class, 'index'])->name('permissions.index');
@@ -75,6 +78,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/settings', [\App\Http\Controllers\SettingsController::class, 'index'])->name('settings.index');
         Route::post('/settings', [\App\Http\Controllers\SettingsController::class, 'update'])->name('settings.update');
         Route::post('/settings/test-email', [\App\Http\Controllers\SettingsController::class, 'testEmail'])->name('settings.test-email');
+        
+        // Backups
+        Route::get('/backups', [\App\Http\Controllers\BackupController::class, 'index'])->name('backups.index');
+        Route::post('/backups', [\App\Http\Controllers\BackupController::class, 'create'])->name('backups.create');
+        Route::get('/backups/{filename}', [\App\Http\Controllers\BackupController::class, 'download'])->name('backups.download');
     });
     // Reports
     Route::get('/reports/demographic', [\App\Http\Controllers\ReportController::class, 'demographic'])->name('reports.demographic');

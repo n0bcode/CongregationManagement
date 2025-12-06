@@ -87,6 +87,21 @@ class Member extends Model
         return $this->hasMany(Skill::class)->orderBy('category')->orderBy('name');
     }
 
+    public function ordinations(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Ordination::class)->orderBy('date');
+    }
+
+    public function educations(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Education::class)->orderByDesc('end_year');
+    }
+
+    public function emergencyContacts(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(EmergencyContact::class);
+    }
+
     public function getProfilePhotoUrlAttribute()
     {
         return $this->profile_photo_path

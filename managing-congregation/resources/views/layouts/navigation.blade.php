@@ -25,7 +25,7 @@
                     {{-- Management Dropdown --}}
                     <x-nav-dropdown 
                         label="{{ __('Management') }}" 
-                        :active="request()->routeIs('members.*', 'documents.*', 'celebrations.*', 'communities.*')">
+                        :active="request()->routeIs('members.*', 'documents.*', 'celebrations.*', 'communities.*', 'projects.*')">
                         <x-dropdown-link :href="route('members.index')" :active="request()->routeIs('members.*')">
                             {{ __('Members') }}
                         </x-dropdown-link>
@@ -41,6 +41,9 @@
                         @endcan
                         <x-dropdown-link :href="route('celebrations.index')" :active="request()->routeIs('celebrations.*')">
                             {{ __('Celebrations') }}
+                        </x-dropdown-link>
+                        <x-dropdown-link :href="route('projects.index')" :active="request()->routeIs('projects.*')">
+                            {{ __('Projects') }}
                         </x-dropdown-link>
                     </x-nav-dropdown>
 
@@ -66,13 +69,19 @@
                     @can('viewAny', \App\Models\AuditLog::class)
                         <x-nav-dropdown 
                             label="{{ __('System') }}" 
-                            :active="request()->routeIs('audit-logs.*', 'admin.permissions.*')">
+                            :active="request()->routeIs('audit-logs.*', 'admin.permissions.*', 'admin.settings.*', 'admin.backups.*')">
                             <x-dropdown-link :href="route('audit-logs.index')" :active="request()->routeIs('audit-logs.*')">
                                 {{ __('Audit Logs') }}
                             </x-dropdown-link>
                             @can('view-admin')
                                 <x-dropdown-link :href="route('admin.permissions.index')" :active="request()->routeIs('admin.permissions.*')">
                                     {{ __('Permissions') }}
+                                </x-dropdown-link>
+                                <x-dropdown-link :href="route('admin.settings.index')" :active="request()->routeIs('admin.settings.*')">
+                                    {{ __('Settings') }}
+                                </x-dropdown-link>
+                                <x-dropdown-link :href="route('admin.backups.index')" :active="request()->routeIs('admin.backups.*')">
+                                    {{ __('Backups') }}
                                 </x-dropdown-link>
                             @endcan
                         </x-nav-dropdown>
@@ -144,10 +153,10 @@
             </x-responsive-nav-link>
 
             {{-- Management Section --}}
-            <div x-data="{ expanded: {{ request()->routeIs('members.*', 'documents.*', 'celebrations.*') ? 'true' : 'false' }} }">
+                <div x-data="{ expanded: {{ request()->routeIs('members.*', 'documents.*', 'celebrations.*', 'projects.*') ? 'true' : 'false' }} }">
                 <button @click="expanded = !expanded" 
                         class="w-full flex items-center justify-between px-4 py-2 text-base font-medium text-slate-700 hover:bg-stone-100 transition duration-150 ease-in-out"
-                        :class="{'text-amber-600 bg-amber-50': {{ request()->routeIs('members.*', 'documents.*', 'celebrations.*') ? 'true' : 'false' }} }">
+                        :class="{'text-amber-600 bg-amber-50': {{ request()->routeIs('members.*', 'documents.*', 'celebrations.*', 'projects.*') ? 'true' : 'false' }} }">
                     <span>{{ __('Management') }}</span>
                     <svg class="w-5 h-5 transition-transform duration-200" :class="{'rotate-180': expanded}" 
                          fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -165,6 +174,9 @@
                     @endcan
                     <x-responsive-nav-link :href="route('celebrations.index')" :active="request()->routeIs('celebrations.*')" class="pl-8">
                         {{ __('Celebrations') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('projects.index')" :active="request()->routeIs('projects.*')" class="pl-8">
+                        {{ __('Projects') }}
                     </x-responsive-nav-link>
                 </div>
             </div>
@@ -207,10 +219,10 @@
 
             {{-- System Section (admin only) --}}
             @can('viewAny', \App\Models\AuditLog::class)
-                <div x-data="{ expanded: {{ request()->routeIs('audit-logs.*', 'admin.permissions.*') ? 'true' : 'false' }} }">
+                <div x-data="{ expanded: {{ request()->routeIs('audit-logs.*', 'admin.permissions.*', 'admin.settings.*', 'admin.backups.*') ? 'true' : 'false' }} }">
                     <button @click="expanded = !expanded" 
                             class="w-full flex items-center justify-between px-4 py-2 text-base font-medium text-slate-700 hover:bg-stone-100 transition duration-150 ease-in-out"
-                            :class="{'text-amber-600 bg-amber-50': {{ request()->routeIs('audit-logs.*', 'admin.permissions.*') ? 'true' : 'false' }} }">
+                            :class="{'text-amber-600 bg-amber-50': {{ request()->routeIs('audit-logs.*', 'admin.permissions.*', 'admin.settings.*', 'admin.backups.*') ? 'true' : 'false' }} }">
                         <span>{{ __('System') }}</span>
                         <svg class="w-5 h-5 transition-transform duration-200" :class="{'rotate-180': expanded}" 
                              fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -224,6 +236,12 @@
                         @can('view-admin')
                             <x-responsive-nav-link :href="route('admin.permissions.index')" :active="request()->routeIs('admin.permissions.*')" class="pl-8">
                                 {{ __('Permissions') }}
+                            </x-responsive-nav-link>
+                            <x-responsive-nav-link :href="route('admin.settings.index')" :active="request()->routeIs('admin.settings.*')" class="pl-8">
+                                {{ __('Settings') }}
+                            </x-responsive-nav-link>
+                            <x-responsive-nav-link :href="route('admin.backups.index')" :active="request()->routeIs('admin.backups.*')" class="pl-8">
+                                {{ __('Backups') }}
                             </x-responsive-nav-link>
                         @endcan
                     </div>

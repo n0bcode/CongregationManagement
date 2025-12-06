@@ -29,6 +29,7 @@ class Assignment extends Model
         'start_date',
         'end_date',
         'role',
+        'type',
     ];
 
     protected $casts = [

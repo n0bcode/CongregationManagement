@@ -79,6 +79,7 @@ class FinancialController extends Controller
 
         $validated = $request->validate([
             'community_id' => ['required', 'exists:communities,id'],
+            'project_id' => ['nullable', 'exists:projects,id'],
             'category' => ['required', 'string', 'max:255'],
             'amount' => ['required', 'numeric', 'min:0.01'],
             'date' => ['required', 'date'],
@@ -145,6 +146,7 @@ class FinancialController extends Controller
 
         $validated = $request->validate([
             'community_id' => ['required', 'exists:communities,id'],
+            'project_id' => ['nullable', 'exists:projects,id'],
             'category' => ['required', 'string', 'max:255'],
             'amount' => ['required', 'numeric', 'min:0.01'],
             'date' => ['required', 'date'],

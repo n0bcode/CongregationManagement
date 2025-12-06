@@ -24,6 +24,7 @@ class Expense extends Model
         'is_locked',
         'locked_at',
         'locked_by',
+        'project_id', // Added project_id to fillable
     ];
 
     protected $casts = [
@@ -39,6 +40,14 @@ class Expense extends Model
     public function community(): BelongsTo
     {
         return $this->belongsTo(Community::class);
+    }
+
+    /**
+     * Get the project that the expense belongs to.
+     */
+    public function project(): BelongsTo
+    {
+        return $this->belongsTo(Project::class);
     }
 
     /**
