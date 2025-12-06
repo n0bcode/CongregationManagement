@@ -36,11 +36,18 @@ class DashboardController extends Controller
 
         $needsAttentionCount = $overdueReminders->count();
 
+        // Get recent activity
+        $recentActivity = \App\Models\AuditLog::with('user')
+            ->latest()
+            ->take(5)
+            ->get();
+
         return view('dashboard', compact(
             'upcomingReminders',
             'overdueReminders',
             'activeMembersCount',
-            'needsAttentionCount'
+            'needsAttentionCount',
+            'recentActivity'
         ));
     }
 }

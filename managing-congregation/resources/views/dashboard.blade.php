@@ -44,24 +44,18 @@
             <div class="lg:col-span-2">
                 <x-card title="Recent Activity" subtitle="Latest updates from your communities">
                     <div class="space-y-0 -mx-6">
-                        <x-ledger-row 
-                            :date="now()->subDays(1)"
-                            description="Sr. Maria entered Novitiate"
-                            category="Formation"
-                            amount="✓"
-                        />
-                        <x-ledger-row 
-                            :date="now()->subDays(2)"
-                            description="Monthly report submitted"
-                            category="St. Joseph House"
-                            amount="✓"
-                        />
-                        <x-ledger-row 
-                            :date="now()->subDays(3)"
-                            description="New member registered"
-                            category="Bethany House"
-                            amount="✓"
-                        />
+                        @forelse($recentActivity as $activity)
+                            <x-ledger-row 
+                                :date="$activity->created_at"
+                                :description="$activity->description"
+                                :category="ucfirst(str_replace('_', ' ', $activity->target_type ?? 'System'))"
+                                :amount="$activity->user ? $activity->user->name : 'System'"
+                            />
+                        @empty
+                            <div class="px-6 py-4 text-sm text-gray-500 text-center">
+                                No recent activity found.
+                            </div>
+                        @endforelse
                     </div>
                 </x-card>
             </div>

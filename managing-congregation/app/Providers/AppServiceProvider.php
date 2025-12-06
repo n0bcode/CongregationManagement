@@ -46,6 +46,8 @@ class AppServiceProvider extends ServiceProvider
     {
         // Register observers
         Member::observe(MemberAuditObserver::class);
+        \App\Models\Project::observe(\App\Observers\AuditObserver::class);
+        \App\Models\PeriodicEvent::observe(\App\Observers\AuditObserver::class);
 
         // Define view-admin gate
         Gate::define('view-admin', function ($user) {
