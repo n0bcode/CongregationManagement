@@ -61,6 +61,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('documents', \App\Http\Controllers\DocumentController::class);
     Route::get('/documents/{document}/download', [\App\Http\Controllers\DocumentController::class, 'download'])->name('documents.download');
 
+    // Communities
+    Route::resource('communities', \App\Http\Controllers\CommunityController::class);
+
     // Permission Management (Super Admin & General only)
     Route::middleware('can:view-admin')->prefix('admin')->name('admin.')->group(function () {
         Route::get('/permissions', [\App\Http\Controllers\Admin\PermissionManagementController::class, 'index'])->name('permissions.index');

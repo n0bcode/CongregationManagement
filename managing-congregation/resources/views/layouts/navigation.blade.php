@@ -25,10 +25,15 @@
                     {{-- Management Dropdown --}}
                     <x-nav-dropdown 
                         label="{{ __('Management') }}" 
-                        :active="request()->routeIs('members.*', 'documents.*', 'celebrations.*')">
+                        :active="request()->routeIs('members.*', 'documents.*', 'celebrations.*', 'communities.*')">
                         <x-dropdown-link :href="route('members.index')" :active="request()->routeIs('members.*')">
                             {{ __('Members') }}
                         </x-dropdown-link>
+                        @can('viewAny', \App\Models\Community::class)
+                            <x-dropdown-link :href="route('communities.index')" :active="request()->routeIs('communities.*')">
+                                {{ __('Communities') }}
+                            </x-dropdown-link>
+                        @endcan
                         @can('viewAny', \App\Models\Document::class)
                             <x-dropdown-link :href="route('documents.index')" :active="request()->routeIs('documents.*')">
                                 {{ __('Documents') }}
