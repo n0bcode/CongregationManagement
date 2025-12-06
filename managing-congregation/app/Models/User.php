@@ -167,4 +167,11 @@ class User extends Authenticatable
                 ->exists();
         }
     }
+    /**
+     * Get the member profile associated with the user.
+     */
+    public function getMemberAttribute()
+    {
+        return \App\Models\Member::where('email', $this->email)->first();
+    }
 }

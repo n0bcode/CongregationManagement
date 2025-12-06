@@ -26,6 +26,7 @@ class NavigationTest extends TestCase
         $response->assertSee(route('reports.advanced'));
         $response->assertSee(route('admin.settings.index'));
         $response->assertSee(route('admin.backups.index'));
+        $response->assertSee(route('my-tasks.index'));
     }
 
     public function test_regular_user_sees_periodic_events_but_not_admin_links()

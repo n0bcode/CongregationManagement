@@ -62,6 +62,13 @@ class Member extends Model
         return $this->belongsTo(Community::class);
     }
 
+    public function projects(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Project::class, 'project_members')
+            ->withPivot('id', 'role', 'status')
+            ->withTimestamps();
+    }
+
     public function formationEvents(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(FormationEvent::class)->orderBy('started_at');

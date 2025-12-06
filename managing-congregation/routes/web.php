@@ -66,6 +66,27 @@ Route::middleware('auth')->group(function () {
 
     // Projects
     Route::resource('projects', \App\Http\Controllers\ProjectController::class);
+    Route::post('projects/{project}/members', [\App\Http\Controllers\ProjectMemberController::class, 'store'])->name('projects.members.store');
+    Route::put('projects/{project}/members/{member}', [\App\Http\Controllers\ProjectMemberController::class, 'update'])->name('projects.members.update');
+    Route::delete('projects/{project}/members/{member}', [\App\Http\Controllers\ProjectMemberController::class, 'destroy'])->name('projects.members.destroy');
+    
+    Route::get('projects/{project}/tasks/create', [\App\Http\Controllers\TaskController::class, 'create'])->name('projects.tasks.create');
+    Route::get('projects/{project}/tasks/timeline', [\App\Http\Controllers\TaskController::class, 'timeline'])->name('projects.tasks.timeline');
+    Route::post('projects/{project}/tasks', [\App\Http\Controllers\TaskController::class, 'store'])->name('projects.tasks.store');
+    Route::get('projects/{project}/tasks/{task}/edit', [\App\Http\Controllers\TaskController::class, 'edit'])->name('projects.tasks.edit');
+    Route::put('projects/{project}/tasks/{task}', [\App\Http\Controllers\TaskController::class, 'update'])->name('projects.tasks.update');
+    Route::get('projects/{project}/tasks/create', [\App\Http\Controllers\TaskController::class, 'create'])->name('projects.tasks.create');
+    Route::post('projects/{project}/tasks', [\App\Http\Controllers\TaskController::class, 'store'])->name('projects.tasks.store');
+    Route::get('projects/{project}/tasks/{task}/edit', [\App\Http\Controllers\TaskController::class, 'edit'])->name('projects.tasks.edit');
+    Route::put('projects/{project}/tasks/{task}', [\App\Http\Controllers\TaskController::class, 'update'])->name('projects.tasks.update');
+    Route::delete('projects/{project}/tasks/{task}', [\App\Http\Controllers\TaskController::class, 'destroy'])->name('projects.tasks.destroy');
+
+    // My Tasks
+    Route::get('projects/ai/create', [\App\Http\Controllers\AIProjectController::class, 'create'])->name('projects.ai.create');
+    Route::post('projects/ai/generate', [\App\Http\Controllers\AIProjectController::class, 'generate'])->name('projects.ai.generate');
+    Route::post('projects/ai/store', [\App\Http\Controllers\AIProjectController::class, 'store'])->name('projects.ai.store');
+
+    Route::get('my-tasks', [\App\Http\Controllers\MyTaskController::class, 'index'])->name('my-tasks.index');
 
     // Periodic Events
     Route::resource('periodic-events', \App\Http\Controllers\PeriodicEventController::class);

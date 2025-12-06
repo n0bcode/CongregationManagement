@@ -120,6 +120,16 @@
                             <p class="text-sm font-medium text-slate-900">{{ auth()->user()->name }}</p>
                             <p class="text-xs text-slate-500">{{ auth()->user()->email }}</p>
                         </div>
+                        
+                        <x-dropdown-link :href="route('projects.index')">
+                            {{ __('My Projects') }}
+                        </x-dropdown-link>
+                        <x-dropdown-link :href="route('my-tasks.index')">
+                            {{ __('My Tasks') }}
+                        </x-dropdown-link>
+                        
+                        <div class="border-t border-gray-100"></div>
+
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Profile Settings') }}
                         </x-dropdown-link>
@@ -276,6 +286,13 @@
             </div>
 
             <div class="mt-3 space-y-1">
+                <x-responsive-nav-link :href="route('projects.index')">
+                    {{ __('My Projects') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('my-tasks.index')">
+                    {{ __('My Tasks') }}
+                </x-responsive-nav-link>
+
                 <x-responsive-nav-link :href="route('profile.edit')">
                     {{ __('Profile Settings') }}
                 </x-responsive-nav-link>
