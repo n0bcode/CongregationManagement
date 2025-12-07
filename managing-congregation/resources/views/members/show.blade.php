@@ -5,26 +5,48 @@
                 {{ __('Member Profile') }}
             </h2>
             <div class="flex items-center space-x-4">
+                @foreach($actions as $action)
+                    @if($action->method === 'GET')
+                        <a href="{{ $action->url }}" class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150 {{ $action->variant === 'danger' ? 'text-red-600 hover:text-red-700 hover:bg-red-50' : '' }}">
+                            @if($action->icon)
+                                <!-- Icon rendering could be improved with a component -->
+                                <span class="mr-2">{{ $action->label }}</span>
+                            @else
+                                {{ $action->label }}
+                            @endif
+                        </a>
+                    @else
+                        <form method="POST" action="{{ $action->url }}" class="inline">
+                            @csrf
+                            @method($action->method)
+                            <button type="submit" 
+                                class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150 {{ $action->variant === 'danger' ? 'text-red-600 hover:text-red-700 hover:bg-red-50' : '' }}"
+                                @if($action->confirm) onclick="return confirm('{{ $action->confirmMessage }}')" @endif
+                            >
+                                {{ $action->label }}
+                            </button>
+                        </form>
+                    @endif
+                @endforeach
+                
                 @can('update', $member)
                     <x-secondary-button
                         x-data=""
                         x-on:click.prevent="$dispatch('open-modal', 'transfer-member')"
-                        class="mr-2"
+                        class="ml-2"
                     >
                         {{ __('Transfer') }}
                     </x-secondary-button>
-                    <a href="{{ route('members.edit', $member) }}" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
-                        {{ __('Edit') }}
-                    </a>
                 @endcan
-                <a href="{{ route('members.index') }}" class="text-sm text-gray-600 hover:text-gray-900">
+
+                <a href="{{ route('members.index') }}" class="text-sm text-gray-600 hover:text-gray-900 ml-4">
                     {{ __('Back to List') }}
                 </a>
             </div>
         </div>
     </x-slot>
 
-    <div class="py-12" x-data="{ activeTab: 'personal' }">
+    <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <!-- Member Header with Photo -->
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-6">
@@ -73,235 +95,199 @@
                 </div>
             </div>
 
-            <!-- Tab Navigation -->
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-6">
-                <div class="border-b border-stone-200">
-                    <nav class="flex -mb-px" aria-label="Tabs">
-                        <button 
-                            @click="activeTab = 'personal'" 
-                            :class="activeTab === 'personal' ? 'border-sanctuary-gold text-sanctuary-gold' : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300'"
-                            class="w-1/5 py-4 px-1 text-center border-b-2 font-medium text-lg transition-colors duration-200"
-                        >
-                            {{ __('Personal') }}
-                        </button>
-                        <button 
-                            @click="activeTab = 'formation'" 
-                            :class="activeTab === 'formation' ? 'border-sanctuary-gold text-sanctuary-gold' : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300'"
-                            class="w-1/5 py-4 px-1 text-center border-b-2 font-medium text-lg transition-colors duration-200"
-                        >
-                            {{ __('Formation') }}
-                        </button>
-                        <button 
-                            @click="activeTab = 'health'" 
-                            :class="activeTab === 'health' ? 'border-sanctuary-gold text-sanctuary-gold' : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300'"
-                            class="w-1/5 py-4 px-1 text-center border-b-2 font-medium text-lg transition-colors duration-200"
-                        >
-                            {{ __('Health') }}
-                        </button>
-                        <button 
-                            @click="activeTab = 'skills'" 
-                            :class="activeTab === 'skills' ? 'border-sanctuary-gold text-sanctuary-gold' : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300'"
-                            class="w-1/5 py-4 px-1 text-center border-b-2 font-medium text-lg transition-colors duration-200"
-                        >
-                            {{ __('Skills') }}
-                        </button>
-                        <button 
-                            @click="activeTab = 'service'" 
-                            :class="activeTab === 'service' ? 'border-sanctuary-gold text-sanctuary-gold' : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300'"
-                            class="w-1/5 py-4 px-1 text-center border-b-2 font-medium text-lg transition-colors duration-200"
-                        >
-                            {{ __('Service History') }}
-                        </button>
-                    </nav>
-                </div>
+            <!-- Related Records Tabs -->
+            <x-related-records :tabs="[
+                'personal' => 'Personal',
+                'formation' => 'Formation',
+                'health' => 'Health',
+                'skills' => 'Skills',
+                'service' => 'Service History',
+                'history' => 'Audit Log'
+            ]">
+                <x-slot name="personal">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-lg font-medium text-slate-900 mb-4">{{ __('Personal Information') }}</h3>
+                            <dl class="space-y-4">
+                                <div>
+                                    <dt class="text-sm font-medium text-slate-500">{{ __('Full Name') }}</dt>
+                                    <dd class="mt-1 text-lg text-slate-900">{{ $member->first_name }} {{ $member->last_name }}</dd>
+                                </div>
+                                <div>
+                                    <dt class="text-sm font-medium text-slate-500">{{ __('Religious Name') }}</dt>
+                                    <dd class="mt-1 text-lg text-slate-900">{{ $member->religious_name ?? '-' }}</dd>
+                                </div>
+                                <div>
+                                    <dt class="text-sm font-medium text-slate-500">{{ __('Date of Birth') }}</dt>
+                                    <dd class="mt-1 text-lg text-slate-900">{{ $member->dob->format('M d, Y') }} ({{ $member->dob->age }} years old)</dd>
+                                </div>
+                            </dl>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-medium text-slate-900 mb-4">{{ __('Community Status') }}</h3>
+                            <dl class="space-y-4">
+                                <div>
+                                    <dt class="text-sm font-medium text-slate-500">{{ __('Status') }}</dt>
+                                    <dd class="mt-1">
+                                        <span class="px-3 py-1 text-sm font-semibold rounded-full bg-sanctuary-green/10 text-sanctuary-green">
+                                            {{ $member->status }}
+                                        </span>
+                                    </dd>
+                                </div>
+                                <div>
+                                    <dt class="text-sm font-medium text-slate-500">{{ __('Entry Date') }}</dt>
+                                    <dd class="mt-1 text-lg text-slate-900">{{ $member->entry_date->format('M d, Y') }}</dd>
+                                </div>
+                                <div>
+                                    <dt class="text-sm font-medium text-slate-500">{{ __('Community') }}</dt>
+                                    <dd class="mt-1 text-lg text-slate-900">
+                                        @if($member->community)
+                                            <a href="{{ route('communities.show', $member->community) }}" class="text-amber-600 hover:text-amber-700 hover:underline font-medium">
+                                                {{ $member->community->name }}
+                                            </a>
+                                        @else
+                                            N/A
+                                        @endif
+                                    </dd>
+                                </div>
+                            </dl>
+                        </div>
+                    </div>
+                </x-slot>
 
-                <!-- Tab Content -->
-                <div class="p-6">
-                    <!-- Personal Tab -->
-                    <div x-show="activeTab === 'personal'" x-transition>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <h3 class="text-lg font-medium text-slate-900 mb-4">{{ __('Personal Information') }}</h3>
-                                <dl class="space-y-4">
-                                    <div>
-                                        <dt class="text-sm font-medium text-slate-500">{{ __('Full Name') }}</dt>
-                                        <dd class="mt-1 text-lg text-slate-900">{{ $member->first_name }} {{ $member->last_name }}</dd>
-                                    </div>
-                                    <div>
-                                        <dt class="text-sm font-medium text-slate-500">{{ __('Religious Name') }}</dt>
-                                        <dd class="mt-1 text-lg text-slate-900">{{ $member->religious_name ?? '-' }}</dd>
-                                    </div>
-                                    <div>
-                                        <dt class="text-sm font-medium text-slate-500">{{ __('Date of Birth') }}</dt>
-                                        <dd class="mt-1 text-lg text-slate-900">{{ $member->dob->format('M d, Y') }} ({{ $member->dob->age }} years old)</dd>
-                                    </div>
-                                </dl>
-                            </div>
-                            <div>
-                                <h3 class="text-lg font-medium text-slate-900 mb-4">{{ __('Community Status') }}</h3>
-                                <dl class="space-y-4">
-                                    <div>
-                                        <dt class="text-sm font-medium text-slate-500">{{ __('Status') }}</dt>
-                                        <dd class="mt-1">
-                                            <span class="px-3 py-1 text-sm font-semibold rounded-full bg-sanctuary-green/10 text-sanctuary-green">
-                                                {{ $member->status }}
-                                            </span>
-                                        </dd>
-                                    </div>
-                                    <div>
-                                        <dt class="text-sm font-medium text-slate-500">{{ __('Entry Date') }}</dt>
-                                        <dd class="mt-1 text-lg text-slate-900">{{ $member->entry_date->format('M d, Y') }}</dd>
-                                    </div>
-                                    <div>
-                                        <dt class="text-sm font-medium text-slate-500">{{ __('Community') }}</dt>
-                                        <dd class="mt-1 text-lg text-slate-900">
-                                            @if($member->community)
-                                                <a href="{{ route('communities.show', $member->community) }}" class="text-amber-600 hover:text-amber-700 hover:underline font-medium">
-                                                    {{ $member->community->name }}
-                                                </a>
-                                            @else
-                                                N/A
+                <x-slot name="formation">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-medium text-slate-900">{{ __('Formation Timeline') }}</h3>
+                        @can('create', \App\Models\FormationEvent::class)
+                            <x-primary-button x-data="" x-on:click.prevent="$dispatch('open-modal', 'add-formation-event')">
+                                {{ __('Add Milestone') }}
+                            </x-primary-button>
+                        @endcan
+                    </div>
+                    <x-formation-timeline :events="$member->formationEvents" :projectedEvents="$projectedEvents" />
+                </x-slot>
+
+                <x-slot name="health">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-medium text-slate-900">{{ __('Health Records') }}</h3>
+                        @can('update', $member)
+                            <x-primary-button x-data="" x-on:click.prevent="$dispatch('open-modal', 'add-health-record')">
+                                {{ __('Add Health Record') }}
+                            </x-primary-button>
+                        @endcan
+                    </div>
+                    @if($member->healthRecords->count() > 0)
+                        <div class="space-y-4">
+                            @foreach($member->healthRecords as $record)
+                                <div class="border border-stone-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                                    <div class="flex justify-between items-start">
+                                        <div class="flex-1">
+                                            <h4 class="text-lg font-medium text-slate-900">{{ $record->condition }}</h4>
+                                            @if($record->medications)
+                                                <p class="text-sm text-slate-600 mt-1"><strong>Medications:</strong> {{ $record->medications }}</p>
                                             @endif
-                                        </dd>
-                                    </div>
-                                </dl>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Formation Tab -->
-                    <div x-show="activeTab === 'formation'" x-transition>
-                        <div class="flex justify-between items-center mb-4">
-                            <h3 class="text-lg font-medium text-slate-900">{{ __('Formation Timeline') }}</h3>
-                            @can('create', \App\Models\FormationEvent::class)
-                                <x-primary-button x-data="" x-on:click.prevent="$dispatch('open-modal', 'add-formation-event')">
-                                    {{ __('Add Milestone') }}
-                                </x-primary-button>
-                            @endcan
-                        </div>
-                        <x-feast-timeline :events="$member->formationEvents()->with('documents')->get()" :member="$member" :projectedEvents="$projectedEvents" />
-                    </div>
-
-                    <!-- Health Tab -->
-                    <div x-show="activeTab === 'health'" x-transition>
-                        <div class="flex justify-between items-center mb-4">
-                            <h3 class="text-lg font-medium text-slate-900">{{ __('Health Records') }}</h3>
-                            @can('update', $member)
-                                <x-primary-button x-data="" x-on:click.prevent="$dispatch('open-modal', 'add-health-record')">
-                                    {{ __('Add Health Record') }}
-                                </x-primary-button>
-                            @endcan
-                        </div>
-                        @if($member->healthRecords->count() > 0)
-                            <div class="space-y-4">
-                                @foreach($member->healthRecords as $record)
-                                    <div class="border border-stone-200 rounded-lg p-4 hover:shadow-md transition-shadow">
-                                        <div class="flex justify-between items-start">
-                                            <div class="flex-1">
-                                                <h4 class="text-lg font-medium text-slate-900">{{ $record->condition }}</h4>
-                                                @if($record->medications)
-                                                    <p class="text-sm text-slate-600 mt-1"><strong>Medications:</strong> {{ $record->medications }}</p>
-                                                @endif
-                                                @if($record->notes)
-                                                    <p class="text-sm text-slate-600 mt-1">{{ $record->notes }}</p>
-                                                @endif
-                                                <p class="text-xs text-slate-500 mt-2">Recorded: {{ $record->recorded_at->format('M d, Y') }}</p>
-                                            </div>
-                                            <div class="flex items-center space-x-2 ml-4">
-                                                @if($record->document_path)
-                                                    <a href="{{ Storage::url($record->document_path) }}" target="_blank" class="text-sanctuary-gold hover:text-amber-700">
-                                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                            @if($record->notes)
+                                                <p class="text-sm text-slate-600 mt-1">{{ $record->notes }}</p>
+                                            @endif
+                                            <p class="text-xs text-slate-500 mt-2">Recorded: {{ $record->recorded_at->format('M d, Y') }}</p>
+                                        </div>
+                                        <div class="flex items-center space-x-2 ml-4">
+                                            @if($record->document_path)
+                                                <a href="{{ Storage::url($record->document_path) }}" target="_blank" class="text-sanctuary-gold hover:text-amber-700">
+                                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                                    </svg>
+                                                </a>
+                                            @endif
+                                            @can('update', $member)
+                                                <form method="POST" action="{{ route('health-records.destroy', $record) }}" class="inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" onclick="return confirm('Are you sure you want to delete this health record?')" class="text-red-600 hover:text-red-800">
+                                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                                                         </svg>
-                                                    </a>
-                                                @endif
-                                                @can('update', $member)
-                                                    <form method="POST" action="{{ route('health-records.destroy', $record) }}" class="inline">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" onclick="return confirm('Are you sure you want to delete this health record?')" class="text-red-600 hover:text-red-800">
-                                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                                                            </svg>
-                                                        </button>
-                                                    </form>
-                                                @endcan
-                                            </div>
+                                                    </button>
+                                                </form>
+                                            @endcan
                                         </div>
                                     </div>
-                                @endforeach
-                            </div>
-                        @else
-                            <p class="text-slate-500 text-center py-8">{{ __('No health records yet.') }}</p>
-                        @endif
-                    </div>
-
-                    <!-- Skills Tab -->
-                    <div x-show="activeTab === 'skills'" x-transition>
-                        <div class="flex justify-between items-center mb-4">
-                            <h3 class="text-lg font-medium text-slate-900">{{ __('Skills & Talents') }}</h3>
-                            @can('update', $member)
-                                <x-primary-button x-data="" x-on:click.prevent="$dispatch('open-modal', 'add-skill')">
-                                    {{ __('Add Skill') }}
-                                </x-primary-button>
-                            @endcan
-                        </div>
-                        @if($member->skills->count() > 0)
-                            @foreach(['pastoral' => 'Pastoral', 'practical' => 'Practical', 'special' => 'Special'] as $category => $label)
-                                @php
-                                    $categorySkills = $member->skills->where('category', $category);
-                                @endphp
-                                @if($categorySkills->count() > 0)
-                                    <div class="mb-6">
-                                        <h4 class="text-md font-medium text-slate-700 mb-3">{{ $label }} Skills</h4>
-                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                            @foreach($categorySkills as $skill)
-                                                <div class="border border-stone-200 rounded-lg p-3">
-                                                    <div class="flex justify-between items-start">
-                                                        <div class="flex-1">
-                                                            <h5 class="font-medium text-slate-900">{{ $skill->name }}</h5>
-                                                            <span class="text-xs text-slate-500 capitalize">{{ $skill->proficiency }}</span>
-                                                            @if($skill->notes)
-                                                                <p class="text-sm text-slate-600 mt-1">{{ $skill->notes }}</p>
-                                                            @endif
-                                                        </div>
-                                                        @can('update', $member)
-                                                            <form method="POST" action="{{ route('skills.destroy', $skill) }}" class="inline ml-2">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit" onclick="return confirm('Are you sure you want to delete this skill?')" class="text-red-600 hover:text-red-800">
-                                                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                                                                    </svg>
-                                                                </button>
-                                                            </form>
-                                                        @endcan
-                                                    </div>
-                                                </div>
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                @endif
+                                </div>
                             @endforeach
-                        @else
-                            <p class="text-slate-500 text-center py-8">{{ __('No skills recorded yet.') }}</p>
-                        @endif
-                    </div>
-
-                    <!-- Service History Tab -->
-                    <div x-show="activeTab === 'service'" x-transition>
-                        <div class="flex justify-between items-center mb-4">
-                            <h3 class="text-lg font-medium text-slate-900">{{ __('Service History') }}</h3>
-                            @can('update', $member)
-                                <x-primary-button x-data="" x-on:click.prevent="$dispatch('open-modal', 'add-service-record')">
-                                    {{ __('Add Service Record') }}
-                                </x-primary-button>
-                            @endcan
                         </div>
-                        <x-service-history-list :assignments="$member->assignments" />
+                    @else
+                        <p class="text-slate-500 text-center py-8">{{ __('No health records yet.') }}</p>
+                    @endif
+                </x-slot>
+
+                <x-slot name="skills">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-medium text-slate-900">{{ __('Skills & Talents') }}</h3>
+                        @can('update', $member)
+                            <x-primary-button x-data="" x-on:click.prevent="$dispatch('open-modal', 'add-skill')">
+                                {{ __('Add Skill') }}
+                            </x-primary-button>
+                        @endcan
                     </div>
-                </div>
-            </div>
+                    @if($member->skills->count() > 0)
+                        @foreach(['pastoral' => 'Pastoral', 'practical' => 'Practical', 'special' => 'Special'] as $category => $label)
+                            @php
+                                $categorySkills = $member->skills->where('category', $category);
+                            @endphp
+                            @if($categorySkills->count() > 0)
+                                <div class="mb-6">
+                                    <h4 class="text-md font-medium text-slate-700 mb-3">{{ $label }} Skills</h4>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                        @foreach($categorySkills as $skill)
+                                            <div class="border border-stone-200 rounded-lg p-3">
+                                                <div class="flex justify-between items-start">
+                                                    <div class="flex-1">
+                                                        <h5 class="font-medium text-slate-900">{{ $skill->name }}</h5>
+                                                        <span class="text-xs text-slate-500 capitalize">{{ $skill->proficiency }}</span>
+                                                        @if($skill->notes)
+                                                            <p class="text-sm text-slate-600 mt-1">{{ $skill->notes }}</p>
+                                                        @endif
+                                                    </div>
+                                                    @can('update', $member)
+                                                        <form method="POST" action="{{ route('skills.destroy', $skill) }}" class="inline ml-2">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" onclick="return confirm('Are you sure you want to delete this skill?')" class="text-red-600 hover:text-red-800">
+                                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                                                </svg>
+                                                            </button>
+                                                        </form>
+                                                    @endcan
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            @endif
+                        @endforeach
+                    @else
+                        <p class="text-slate-500 text-center py-8">{{ __('No skills recorded yet.') }}</p>
+                    @endif
+                </x-slot>
+
+                <x-slot name="service">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-medium text-slate-900">{{ __('Service History') }}</h3>
+                        @can('update', $member)
+                            <x-primary-button x-data="" x-on:click.prevent="$dispatch('open-modal', 'add-service-record')">
+                                {{ __('Add Service Record') }}
+                            </x-primary-button>
+                        @endcan
+                    </div>
+                    <x-service-history-list :assignments="$member->assignments" />
+                </x-slot>
+
+                <x-slot name="history">
+                    <h3 class="text-lg font-medium text-slate-900 mb-4">{{ __('Audit Log') }}</h3>
+                    <x-audit-trail :audits="$member->audits" />
+                </x-slot>
+            </x-related-records>
         </div>
     </div>
 
