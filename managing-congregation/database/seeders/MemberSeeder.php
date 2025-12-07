@@ -39,7 +39,7 @@ class MemberSeeder extends Seeder
                     'religious_name' => fake()->optional()->firstName(),
                     'dob' => fake()->dateTimeBetween('-70 years', '-18 years'),
                     'entry_date' => fake()->dateTimeBetween('-30 years', 'now'),
-                    'status' => 'Active',
+                    'status' => 'active',
                 ]);
             }
         }

@@ -26,7 +26,7 @@ class MemberFactory extends Factory
             'email' => fake()->unique()->safeEmail(),
             'dob' => fake()->date(),
             'entry_date' => fake()->date(),
-            'status' => 'Active',
+            'status' => \App\Enums\MemberStatus::Active->value,
         ];
     }
 

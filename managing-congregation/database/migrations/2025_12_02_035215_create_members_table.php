@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('civil_name')->index();
             $table->date('dob');
             $table->date('entry_date');
-            $table->string('status')->default('Active');
+            $table->string('status')->default('active');
             $table->timestamps();
             $table->softDeletes();
         });

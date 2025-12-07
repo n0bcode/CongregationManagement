@@ -55,6 +55,7 @@ class Member extends Model
     protected $casts = [
         'dob' => 'date',
         'entry_date' => 'date',
+        'status' => \App\Enums\MemberStatus::class,
     ];
 
     public function community(): \Illuminate\Database\Eloquent\Relations\BelongsTo
