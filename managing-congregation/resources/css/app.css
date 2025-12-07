@@ -109,6 +109,8 @@
     @apply placeholder:text-slate-400;
     @apply focus:border-amber-600 focus:ring-4 focus:ring-amber-500 focus:outline-none;
     @apply disabled:bg-stone-100 disabled:text-slate-500 disabled:cursor-not-allowed;
+    /* Enforce light mode styles even in dark mode */
+    @apply dark:bg-white dark:text-slate-800 dark:border-stone-300;
   }
 
   .form-textarea {

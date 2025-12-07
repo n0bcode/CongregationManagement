@@ -259,4 +259,40 @@ class NotificationService
             'created_by' => $createdBy ?? auth()->id() ?? 1,
         ]);
     }
+
+    /**
+     * Send a notification to a user.
+     *
+     * @param User $user
+     * @param string $title
+     * @param string $message
+     * @param string $type
+     * @param array $data
+     * @return void
+     */
+    public function send(User $user, string $title, string $message, string $type = 'info', array $data = []): void
+    {
+        \App\Models\Notification::create([
+            'user_id' => $user->id,
+            'title' => $title,
+            'message' => $message,
+            'type' => $type,
+            'data' => $data,
+            'priority' => 'normal', // Default priority
+        ]);
+    }
+
+    /**
+     * Get unread notifications for a user.
+     *
+     * @param User $user
+     * @return Collection
+     */
+    public function getUnread(User $user): Collection
+    {
+        return \App\Models\Notification::where('user_id', $user->id)
+            ->unread()
+            ->orderByDesc('created_at')
+            ->get();
+    }
 }

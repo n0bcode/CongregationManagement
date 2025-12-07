@@ -1,4 +1,5 @@
 import './bootstrap';
+import './smart-form';
 import Alpine from 'alpinejs';
 
 // Make Alpine available globally

@@ -22,7 +22,7 @@
             Skip to main content
         </a>
 
-        <div class="min-h-screen">
+        <div class="min-h-screen flex flex-col">
             <!-- Navigation -->
             @include('layouts.navigation')
 
@@ -40,7 +40,7 @@
             <x-flash-message />
 
             <!-- Page Content -->
-            <main id="main-content" class="py-6" role="main">
+            <main id="main-content" class="py-6 flex-1" role="main">
                 {{ $slot }}
             </main>
 
