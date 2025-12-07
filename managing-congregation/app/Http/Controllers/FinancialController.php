@@ -22,6 +22,16 @@ class FinancialController extends Controller
     ) {}
 
     /**
+     * Display the financial dashboard.
+     */
+    public function dashboard(): View
+    {
+        $this->authorize('viewAny', Expense::class); // Or a specific dashboard permission
+
+        return view('financials.dashboard');
+    }
+
+    /**
      * Display a listing of expenses.
      */
     public function index(Request $request): View

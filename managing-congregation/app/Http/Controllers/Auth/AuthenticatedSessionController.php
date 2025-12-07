@@ -30,6 +30,10 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        if ($request->user()->hasRole(\App\Enums\UserRole::TREASURER)) {
+            return redirect()->route('financials.dashboard');
+        }
+
         return redirect()->intended(route('dashboard', absolute: false));
     }
 

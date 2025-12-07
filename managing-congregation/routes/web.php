@@ -7,7 +7,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'index'])
+Route::get('/dashboard', \App\Livewire\Dashboard::class)
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
@@ -49,6 +49,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/audit-logs/export', [\App\Http\Controllers\AuditLogController::class, 'export'])->name('audit-logs.export');
 
     // Financials
+    Route::get('/financials/dashboard', [\App\Http\Controllers\FinancialController::class, 'dashboard'])->name('financials.dashboard');
     Route::resource('financials', \App\Http\Controllers\FinancialController::class)->parameters([
         'financials' => 'expense',
     ]);
@@ -111,7 +112,7 @@ Route::middleware('auth')->group(function () {
     // Reports
     Route::get('/reports/demographic', [\App\Http\Controllers\ReportController::class, 'demographic'])->name('reports.demographic');
     Route::get('/reports/advanced', [\App\Http\Controllers\ReportController::class, 'advanced'])->name('reports.advanced');
-    Route::get('/reports/export/demographic', [\App\Http\Controllers\ReportController::class, 'exportDemographic'])->name('reports.export.demographic');
+    Route::get('/reports/export/demographic', [\App\Http\Controllers\ReportController::class, 'exportDemographic'])->name('reports.demographic.export');
 
     // Celebrations
     Route::get('/celebrations', [\App\Http\Controllers\CelebrationController::class, 'index'])->name('celebrations.index');
