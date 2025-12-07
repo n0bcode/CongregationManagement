@@ -6,12 +6,11 @@ if ($attributes->has('name')) {
     $name = $attributes->get('name');
     $errorKey = str_replace(['[', ']'], ['.', ''], $name);
     $hasError = isset($errors) && $errors->has($errorKey);
-    // dump(['name' => $name, 'errorKey' => $errorKey, 'hasError' => $hasError, 'errors' => isset($errors) ? $errors->keys() : 'null']);
 }
 @endphp
 
-<input @disabled($disabled) {{ $attributes->merge([
-    'class' => 'form-input shadow-sm',
+<textarea @disabled($disabled) {{ $attributes->merge([
+    'class' => 'form-textarea shadow-sm',
     'aria-invalid' => $hasError ? 'true' : 'false',
     'aria-describedby' => $hasError && isset($name) ? "{$name}-error" : null,
-]) }}>
+]) }}>{{ $slot }}</textarea>
