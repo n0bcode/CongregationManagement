@@ -57,7 +57,7 @@ class MemberController extends Controller
     {
         \Illuminate\Support\Facades\Gate::authorize('view', $member);
 
-        $member->load(['formationEvents', 'assignments.community', 'healthRecords', 'skills']);
+        $member->load(['formationEvents', 'assignments.community', 'healthRecords', 'skills', 'audits.user']);
 
         // Calculate projected future events based on most recent formation event
         $projectedEvents = [];
@@ -86,8 +86,9 @@ class MemberController extends Controller
         }
 
         $communities = \App\Models\Community::all();
+        $actions = app(\App\Services\ContextualActionService::class)->getActions($member);
 
-        return view('members.show', compact('member', 'projectedEvents', 'communities'));
+        return view('members.show', compact('member', 'projectedEvents', 'communities', 'actions'));
     }
 
     public function edit(\App\Models\Member $member): View

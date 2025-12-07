@@ -22,35 +22,35 @@
                         <!-- Description -->
                         <div class="mb-4">
                             <x-input-label for="description" :value="__('Description')" />
-                            <textarea id="description" name="description" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" rows="4">{{ old('description') }}</textarea>
+                            <x-textarea-input id="description" name="description" class="block mt-1 w-full" rows="4">{{ old('description') }}</x-textarea-input>
                             <x-input-error :messages="$errors->get('description')" class="mt-2" />
                         </div>
 
                         <!-- Community -->
                         <div class="mb-4">
                             <x-input-label for="community_id" :value="__('Community')" />
-                            <select id="community_id" name="community_id" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required>
+                            <x-select-input id="community_id" name="community_id" class="block mt-1 w-full" required>
                                 <option value="">Select Community</option>
                                 @foreach($communities as $community)
                                     <option value="{{ $community->id }}" {{ old('community_id') == $community->id ? 'selected' : '' }}>
                                         {{ $community->name }}
                                     </option>
                                 @endforeach
-                            </select>
+                            </x-select-input>
                             <x-input-error :messages="$errors->get('community_id')" class="mt-2" />
                         </div>
 
                         <!-- Manager -->
                         <div class="mb-4">
                             <x-input-label for="manager_id" :value="__('Project Manager')" />
-                            <select id="manager_id" name="manager_id" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                            <x-select-input id="manager_id" name="manager_id" class="block mt-1 w-full">
                                 <option value="">Select Manager (Optional)</option>
                                 @foreach($members as $member)
                                     <option value="{{ $member->id }}" {{ old('manager_id') == $member->id ? 'selected' : '' }}>
                                         {{ $member->first_name }} {{ $member->last_name }}
                                     </option>
                                 @endforeach
-                            </select>
+                            </x-select-input>
                             <x-input-error :messages="$errors->get('manager_id')" class="mt-2" />
                         </div>
 
@@ -72,12 +72,12 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                             <div>
                                 <x-input-label for="status" :value="__('Status')" />
-                                <select id="status" name="status" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required>
+                                <x-select-input id="status" name="status" class="block mt-1 w-full" required>
                                     <option value="planned" {{ old('status') == 'planned' ? 'selected' : '' }}>Planned</option>
                                     <option value="active" {{ old('status') == 'active' ? 'selected' : '' }}>Active</option>
                                     <option value="completed" {{ old('status') == 'completed' ? 'selected' : '' }}>Completed</option>
                                     <option value="suspended" {{ old('status') == 'suspended' ? 'selected' : '' }}>Suspended</option>
-                                </select>
+                                </x-select-input>
                                 <x-input-error :messages="$errors->get('status')" class="mt-2" />
                             </div>
                             <div>

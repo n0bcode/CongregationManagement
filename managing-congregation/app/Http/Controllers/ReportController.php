@@ -85,6 +85,7 @@ class ReportController extends Controller
             ->when($communityId, fn ($q) => $q->where('community_id', $communityId))
             ->when($status, fn ($q) => $q->where('status', $status))
             ->groupBy('status')
+            ->toBase()
             ->get()
             ->pluck('count', 'status')
             ->toArray();
@@ -166,6 +167,7 @@ class ReportController extends Controller
             ->when($communityId, fn ($q) => $q->where('community_id', $communityId))
             ->when($status, fn ($q) => $q->where('status', $status))
             ->groupBy('status')
+            ->toBase()
             ->get()
             ->pluck('count', 'status')
             ->toArray();
