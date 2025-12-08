@@ -16,6 +16,7 @@ class MembersTable extends Component
     public string $sortDirection = 'desc';
     public array $selected = [];
     public bool $selectAll = false;
+    public int $perPage = 10;
 
     // Filters
     public ?int $communityId = null;
@@ -109,6 +110,31 @@ class MembersTable extends Component
         session()->flash('status', 'Selected members deleted successfully.');
     }
 
+    public function exportSelected()
+    {
+        $members = Member::whereIn('id', $this->selected)->get();
+        
+        // Create CSV content
+        $csv = "First Name,Last Name,Religious Name,Status,Community\n";
+        foreach ($members as $member) {
+            $csv .= sprintf(
+                '"%s","%s","%s","%s","%s"' . "\n",
+                $member->first_name,
+                $member->last_name,
+                $member->religious_name ?? '',
+                $member->status->name,
+                $member->community->name ?? ''
+            );
+        }
+        
+        // Return download response
+        return response()->streamDownload(function () use ($csv) {
+            echo $csv;
+        }, 'members-export-' . now()->format('Y-m-d-His') . '.csv', [
+            'Content-Type' => 'text/csv',
+        ]);
+    }
+
     public function updateMember($id, $field, $value)
     {
         $member = Member::find($id);
@@ -136,7 +162,7 @@ class MembersTable extends Component
     public function render()
     {
         return view('livewire.members-table', [
-            'members' => $this->getQuery()->paginate(10),
+            'members' => $this->getQuery()->paginate($this->perPage),
             'communities' => \App\Models\Community::all(),
             'statuses' => \App\Enums\MemberStatus::cases(),
             'presets' => \App\Models\FilterPreset::where('user_id', auth()->id())
