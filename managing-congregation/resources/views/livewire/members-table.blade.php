@@ -69,84 +69,113 @@
                 />
             </div>
 
-            <!-- Table -->
-            <div class="overflow-x-auto relative">
-                <table class="w-full text-sm text-left text-gray-500">
-                    <thead class="text-xs text-gray-700 uppercase bg-gray-50">
-                        <tr>
-                            <th scope="col" class="p-4">
+            <!-- Responsive Table -->
+            <x-responsive-table>
+                <x-slot name="thead">
+                    <tr>
+                        <th scope="col" class="p-4 w-4">
+                            <div class="flex items-center">
+                                <input wire:model.live="selectAll" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500">
+                            </div>
+                        </th>
+                        <th scope="col" class="py-3 px-6 cursor-pointer text-xs font-medium text-gray-500 uppercase tracking-wider" wire:click="sortBy('first_name')">
+                            Name
+                            @if($sortField === 'first_name')
+                                <span>{{ $sortDirection === 'asc' ? '↑' : '↓' }}</span>
+                            @endif
+                        </th>
+                        <th scope="col" class="py-3 px-6 cursor-pointer text-xs font-medium text-gray-500 uppercase tracking-wider" wire:click="sortBy('religious_name')">
+                            Religious Name
+                            @if($sortField === 'religious_name')
+                                <span>{{ $sortDirection === 'asc' ? '↑' : '↓' }}</span>
+                            @endif
+                        </th>
+                        <th scope="col" class="py-3 px-6 cursor-pointer text-xs font-medium text-gray-500 uppercase tracking-wider" wire:click="sortBy('status')">
+                            Status
+                            @if($sortField === 'status')
+                                <span>{{ $sortDirection === 'asc' ? '↑' : '↓' }}</span>
+                            @endif
+                        </th>
+                        <th scope="col" class="py-3 px-6 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Actions
+                        </th>
+                    </tr>
+                </x-slot>
+
+                <x-slot name="tbody">
+                    @forelse($members as $member)
+                        <tr class="bg-white border-b hover:bg-gray-50">
+                            <td class="p-4 w-4">
                                 <div class="flex items-center">
-                                    <input wire:model.live="selectAll" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500">
+                                    <input wire:model.live="selected" value="{{ $member->id }}" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500">
                                 </div>
-                            </th>
-                            <th scope="col" class="py-3 px-6 cursor-pointer" wire:click="sortBy('first_name')">
-                                Name
-                                @if($sortField === 'first_name')
-                                    <span>{{ $sortDirection === 'asc' ? '↑' : '↓' }}</span>
-                                @endif
-                            </th>
-                            <th scope="col" class="py-3 px-6 cursor-pointer" wire:click="sortBy('religious_name')">
-                                Religious Name
-                                @if($sortField === 'religious_name')
-                                    <span>{{ $sortDirection === 'asc' ? '↑' : '↓' }}</span>
-                                @endif
-                            </th>
-                            <th scope="col" class="py-3 px-6 cursor-pointer" wire:click="sortBy('status')">
-                                Status
-                                @if($sortField === 'status')
-                                    <span>{{ $sortDirection === 'asc' ? '↑' : '↓' }}</span>
-                                @endif
-                            </th>
-                            <th scope="col" class="py-3 px-6">
-                                Actions
-                            </th>
+                            </td>
+                            <td class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
+                                {{ $member->first_name }} {{ $member->last_name }}
+                            </td>
+                            <td class="py-4 px-6">
+                                <x-inline-edit
+                                    :id="$member->id"
+                                    field="religious_name"
+                                    :value="$member->religious_name ?? ''"
+                                    type="text"
+                                    livewireMethod="updateMember"
+                                    placeholder="Add religious name..."
+                                />
+                            </td>
+                            <td class="py-4 px-6">
+                                <x-inline-edit
+                                    :id="$member->id"
+                                    field="status"
+                                    :value="$member->status->value"
+                                    type="select"
+                                    :options="collect(\App\Enums\MemberStatus::cases())->mapWithKeys(fn($s) => [$s->value => $s->name])->toArray()"
+                                    livewireMethod="updateMember"
+                                    displayClass="px-2 py-1 text-xs leading-5 font-semibold rounded-full bg-emerald-100 text-emerald-800"
+                                />
+                            </td>
+                            <td class="py-4 px-6">
+                                <a href="{{ route('members.show', $member) }}" class="font-medium text-blue-600 hover:underline">View</a>
+                                <a href="{{ route('members.edit', $member) }}" class="font-medium text-blue-600 hover:underline ml-3">Edit</a>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        @forelse($members as $member)
-                            <tr class="bg-white border-b hover:bg-gray-50">
-                                <td class="p-4 w-4">
-                                    <div class="flex items-center">
-                                        <input wire:model.live="selected" value="{{ $member->id }}" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500">
+                    @empty
+                        <tr>
+                            <td colspan="5" class="py-4 px-6 text-center">No members found.</td>
+                        </tr>
+                    @endforelse
+                </x-slot>
+
+                <x-slot name="mobileContent">
+                    @forelse($members as $member)
+                        <div class="bg-white p-4 rounded-lg shadow border border-gray-200">
+                            <div class="flex justify-between items-start mb-2">
+                                <div class="flex items-center gap-3">
+                                    <input wire:model.live="selected" value="{{ $member->id }}" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500">
+                                    <div>
+                                        <h3 class="font-bold text-gray-900">{{ $member->first_name }} {{ $member->last_name }}</h3>
+                                        @if($member->religious_name)
+                                            <p class="text-sm text-gray-500">{{ $member->religious_name }}</p>
+                                        @endif
                                     </div>
-                                </td>
-                                <td class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
-                                    {{ $member->first_name }} {{ $member->last_name }}
-                                </td>
-                                <td class="py-4 px-6">
-                                    <x-inline-edit
-                                        :id="$member->id"
-                                        field="religious_name"
-                                        :value="$member->religious_name ?? ''"
-                                        type="text"
-                                        livewireMethod="updateMember"
-                                        placeholder="Add religious name..."
-                                    />
-                                </td>
-                                <td class="py-4 px-6">
-                                    <x-inline-edit
-                                        :id="$member->id"
-                                        field="status"
-                                        :value="$member->status->value"
-                                        type="select"
-                                        :options="collect(\App\Enums\MemberStatus::cases())->mapWithKeys(fn($s) => [$s->value => $s->name])->toArray()"
-                                        livewireMethod="updateMember"
-                                        displayClass="px-2 py-1 text-xs leading-5 font-semibold rounded-full bg-emerald-100 text-emerald-800"
-                                    />
-                                </td>
-                                <td class="py-4 px-6">
-                                    <a href="{{ route('members.show', $member) }}" class="font-medium text-blue-600 hover:underline">View</a>
-                                    <a href="{{ route('members.edit', $member) }}" class="font-medium text-blue-600 hover:underline ml-3">Edit</a>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="5" class="py-4 px-6 text-center">No members found.</td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-            </div>
+                                </div>
+                                <span class="px-2 py-1 text-xs font-semibold rounded-full bg-emerald-100 text-emerald-800">
+                                    {{ $member->status->name }}
+                                </span>
+                            </div>
+                            
+                            <div class="flex justify-end gap-3 mt-4 pt-3 border-t border-gray-100">
+                                <a href="{{ route('members.show', $member) }}" class="text-sm font-medium text-blue-600 hover:text-blue-800">View Details</a>
+                                <a href="{{ route('members.edit', $member) }}" class="text-sm font-medium text-gray-600 hover:text-gray-800">Edit</a>
+                            </div>
+                        </div>
+                    @empty
+                        <div class="bg-white p-4 rounded-lg shadow text-center text-gray-500">
+                            No members found.
+                        </div>
+                    @endforelse
+                </x-slot>
+            </x-responsive-table>
 
             <!-- Smart Pagination -->
             <x-smart-pagination
