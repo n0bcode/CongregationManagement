@@ -48,7 +48,7 @@
                                             {{ $project->name }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                            {{ $project->community->name }}
+                                            {{ $project->community?->name ?? 'N/A' }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                             {{ ucfirst($project->status) }}

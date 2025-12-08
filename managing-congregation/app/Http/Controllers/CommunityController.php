@@ -64,6 +64,8 @@ class CommunityController extends Controller
         AuditLog::create([
             'action' => 'community.created',
             'user_id' => auth()->id(),
+            'auditable_type' => Community::class,
+            'auditable_id' => $community->id,
             'target_type' => Community::class,
             'target_id' => $community->id,
             'changes' => $validated,
@@ -128,6 +130,8 @@ class CommunityController extends Controller
         AuditLog::create([
             'action' => 'community.updated',
             'user_id' => auth()->id(),
+            'auditable_type' => Community::class,
+            'auditable_id' => $community->id,
             'target_type' => Community::class,
             'target_id' => $community->id,
             'changes' => [
@@ -162,6 +166,8 @@ class CommunityController extends Controller
         AuditLog::create([
             'action' => 'community.deleted',
             'user_id' => auth()->id(),
+            'auditable_type' => Community::class,
+            'auditable_id' => $community->id,
             'target_type' => Community::class,
             'target_id' => $community->id,
         ]);
