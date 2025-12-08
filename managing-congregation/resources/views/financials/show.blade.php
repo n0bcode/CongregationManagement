@@ -7,7 +7,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
                     </svg>
                 </a>
-                <h2 class="font-heading text-3xl font-bold text-slate-800">
+                <h2 class="text-3xl font-bold text-stone-800">
                     {{ __('Expense Details') }}
                 </h2>
             </div>
@@ -63,7 +63,7 @@
                     </div>
                     <div class="text-right">
                         <p class="text-sm text-slate-600 mb-1">{{ __('Date') }}</p>
-                        <p class="text-2xl font-semibold text-slate-800">{{ $expense->date->format('M d, Y') }}</p>
+                        <p class="text-3xl font-bold text-stone-800">{{ $expense->date->format('M d, Y') }}</p>
                     </div>
                 </div>
             </div>

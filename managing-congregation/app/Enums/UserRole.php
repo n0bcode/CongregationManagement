@@ -11,4 +11,15 @@ enum UserRole: string
     case DIRECTOR = 'director';
     case TREASURER = 'treasurer';
     case MEMBER = 'member';
+
+    public function label(): string
+    {
+        return match ($this) {
+            self::SUPER_ADMIN => 'Super Admin',
+            self::GENERAL => 'General',
+            self::DIRECTOR => 'Director',
+            self::TREASURER => 'Treasurer',
+            self::MEMBER => 'Member',
+        };
+    }
 }

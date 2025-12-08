@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="text-2xl font-bold text-slate-800">
+        <h2 class="text-3xl font-bold text-stone-800">
             {{ __('Create New Community') }}
         </h2>
     </x-slot>

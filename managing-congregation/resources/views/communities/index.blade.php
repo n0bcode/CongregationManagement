@@ -1,16 +1,16 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex justify-between items-center">
-            <h2 class="text-2xl font-bold text-slate-800">
+            <h2 class="text-3xl font-bold text-stone-800">
                 {{ __('Communities') }}
             </h2>
             @can('create', App\Models\Community::class)
-                <a href="{{ route('communities.create') }}" class="inline-flex items-center justify-center min-h-[48px] px-6 py-3 bg-amber-600 text-white font-medium rounded-lg hover:bg-amber-700 focus:outline-none focus:ring-4 focus:ring-amber-500 transition-all shadow-sm hover:shadow-md">
+                <x-button variant="primary" href="{{ route('communities.create') }}">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
                     </svg>
                     {{ __('Create New Community') }}
-                </a>
+                </x-button>
             @endcan
         </div>
     </x-slot>

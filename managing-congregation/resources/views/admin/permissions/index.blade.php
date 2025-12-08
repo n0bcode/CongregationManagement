@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex justify-between items-center">
-            <h2 class="text-2xl font-semibold text-slate-800">
+            <h2 class="text-3xl font-bold text-stone-800">
                 {{ __('Permission Management') }}
             </h2>
             <a href="{{ route('admin.permissions.audit') }}" 

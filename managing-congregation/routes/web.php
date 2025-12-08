@@ -119,6 +119,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/celebrations/birthday/{member}/generate', [\App\Http\Controllers\CelebrationController::class, 'generateBirthday'])->name('celebrations.birthday.generate');
     Route::get('/celebrations/birthday/{member}/download', [\App\Http\Controllers\CelebrationController::class, 'downloadBirthday'])->name('celebrations.birthday.download');
     Route::post('/celebrations/birthday/{member}/email', [\App\Http\Controllers\CelebrationController::class, 'emailBirthday'])->name('celebrations.birthday.email');
+
+    // UI/UX Optimization Components
+    Route::get('/reports/builder', \App\Livewire\Reports\ReportBuilder::class)->name('reports.builder');
+    Route::get('/notifications', \App\Livewire\Notifications\NotificationCenter::class)->name('notifications.index');
+    
+    Route::middleware('can:view-admin')->prefix('admin')->name('admin.')->group(function () {
+    
+    });
 });
 
 require __DIR__.'/auth.php';

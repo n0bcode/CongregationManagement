@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Notification extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'user_id',
         'type',
@@ -22,13 +25,8 @@ class Notification extends Model
         'read_at' => 'datetime',
     ];
 
-    public function scopeUnread($query)
+    public function user()
     {
-        return $query->whereNull('read_at');
-    }
-
-    public function scopeByPriority($query, string $priority)
-    {
-        return $query->where('priority', $priority);
+        return $this->belongsTo(User::class);
     }
 }

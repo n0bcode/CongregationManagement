@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex justify-between items-center">
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            <h2 class="text-3xl font-bold text-stone-800">
                 {{ __('Member Profile') }}
             </h2>
             <div class="flex items-center space-x-4">
@@ -56,7 +56,7 @@
                             <img class="h-32 w-32 object-cover rounded-full border-4 border-stone-200" src="{{ $member->profile_photo_url }}" alt="{{ $member->full_name }}" />
                         </div>
                         <div class="flex-1">
-                            <h2 class="text-3xl font-serif font-bold text-slate-900">
+                            <h2 class="text-3xl font-serif font-bold text-stone-800">
                                 {{ $member->first_name }} {{ $member->last_name }}
                             </h2>
                             @if($member->religious_name)

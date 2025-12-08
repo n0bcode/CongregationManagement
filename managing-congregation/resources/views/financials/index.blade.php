@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex justify-between items-center">
-            <h2 class="font-heading text-3xl font-bold text-slate-800">
+            <h2 class="text-3xl font-bold text-stone-800">
                 {{ __('Financial Records') }}
             </h2>
             <div class="flex gap-3">

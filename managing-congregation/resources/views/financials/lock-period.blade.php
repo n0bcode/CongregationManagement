@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex items-center justify-between">
-            <h2 class="font-heading text-3xl font-bold text-slate-800">
+            <h2 class="text-3xl font-bold text-stone-800">
                 {{ __('Lock Financial Period') }}
             </h2>
             <x-button variant="secondary" href="{{ route('financials.index') }}">

@@ -69,6 +69,9 @@
                         <x-dropdown-link :href="route('reports.advanced')" :active="request()->routeIs('reports.advanced')">
                             {{ __('Advanced Statistics') }}
                         </x-dropdown-link>
+                        <x-dropdown-link :href="route('reports.builder')" :active="request()->routeIs('reports.builder')">
+                            {{ __('Report Builder') }}
+                        </x-dropdown-link>
                     </x-nav-dropdown>
 
                     {{-- System Dropdown (admin only) --}}
@@ -83,6 +86,7 @@
                                 <x-dropdown-link :href="route('admin.permissions.index')" :active="request()->routeIs('admin.permissions.*')">
                                     {{ __('Permissions') }}
                                 </x-dropdown-link>
+
                                 <x-dropdown-link :href="route('admin.settings.index')" :active="request()->routeIs('admin.settings.*')">
                                     {{ __('Settings') }}
                                 </x-dropdown-link>
@@ -126,6 +130,9 @@
                         </x-dropdown-link>
                         <x-dropdown-link :href="route('my-tasks.index')">
                             {{ __('My Tasks') }}
+                        </x-dropdown-link>
+                        <x-dropdown-link :href="route('notifications.index')">
+                            {{ __('Notifications') }}
                         </x-dropdown-link>
                         
                         <div class="border-t border-gray-100"></div>
@@ -236,6 +243,9 @@
                     <x-responsive-nav-link :href="route('reports.advanced')" :active="request()->routeIs('reports.advanced')" class="pl-8">
                         {{ __('Advanced Statistics') }}
                     </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('reports.builder')" :active="request()->routeIs('reports.builder')" class="pl-8">
+                        {{ __('Report Builder') }}
+                    </x-responsive-nav-link>
                 </div>
             </div>
 
@@ -259,6 +269,7 @@
                             <x-responsive-nav-link :href="route('admin.permissions.index')" :active="request()->routeIs('admin.permissions.*')" class="pl-8">
                                 {{ __('Permissions') }}
                             </x-responsive-nav-link>
+
                             <x-responsive-nav-link :href="route('admin.settings.index')" :active="request()->routeIs('admin.settings.*')" class="pl-8">
                                 {{ __('Settings') }}
                             </x-responsive-nav-link>
@@ -291,6 +302,9 @@
                 </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('my-tasks.index')">
                     {{ __('My Tasks') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('notifications.index')">
+                    {{ __('Notifications') }}
                 </x-responsive-nav-link>
 
                 <x-responsive-nav-link :href="route('profile.edit')">

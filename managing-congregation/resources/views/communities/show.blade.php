@@ -1,17 +1,17 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex justify-between items-center">
-            <h2 class="text-2xl font-bold text-slate-800">
+            <h2 class="text-3xl font-bold text-stone-800">
                 {{ $community->name }}
             </h2>
             <div class="flex gap-3">
                 @can('update', $community)
-                    <a href="{{ route('communities.edit', $community) }}" class="inline-flex items-center justify-center min-h-[48px] px-6 py-3 bg-amber-600 text-white font-medium rounded-lg hover:bg-amber-700 focus:outline-none focus:ring-4 focus:ring-amber-500 transition-all shadow-sm hover:shadow-md">
+                    <x-button variant="primary" href="{{ route('communities.edit', $community) }}">
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                         </svg>
                         {{ __('Edit') }}
-                    </a>
+                    </x-button>
                 @endcan
                 @can('delete', $community)
                     <form method="POST" 

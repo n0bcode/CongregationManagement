@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex items-center justify-between">
             <div>
-                <h2 class="font-heading text-3xl font-bold text-slate-800">
+                <h2 class="text-3xl font-bold text-stone-800">
                     Good {{ now()->format('A') === 'AM' ? 'Morning' : 'Evening' }}, {{ Auth::user()->name }}
                 </h2>
                 <p class="text-slate-600 mt-1">{{ now()->format('l, F j, Y') }}</p>

@@ -174,4 +174,20 @@ class User extends Authenticatable
     {
         return \App\Models\Member::where('email', $this->email)->first();
     }
+
+    /**
+     * Get the notifications for the user.
+     */
+    public function notifications(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Notification::class)->latest();
+    }
+
+    /**
+     * Get the unread notifications for the user.
+     */
+    public function unreadNotifications(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->notifications()->whereNull('read_at');
+    }
 }
