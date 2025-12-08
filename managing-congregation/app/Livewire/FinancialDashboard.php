@@ -2,52 +2,70 @@
 
 namespace App\Livewire;
 
+use App\Enums\UserRole;
 use App\Models\Community;
+use App\Models\Project;
 use App\Services\ChartService;
-use App\Services\FinancialService;
 use Livewire\Component;
 
 class FinancialDashboard extends Component
 {
     public $year;
-    public $month;
     public $communityId;
+    public $projectId;
 
     public function mount()
     {
         $this->year = now()->year;
-        $this->month = now()->month;
-        // Default to first community or null if user is admin, or user's community
-        $this->communityId = auth()->user()->community_id ?? Community::first()?->id;
+        $this->communityId = auth()->user()->community_id;
     }
 
-    public function render()
+    public function render(ChartService $chartService)
     {
-        $financialService = app(FinancialService::class);
-        $chartService = app(ChartService::class);
+        $user = auth()->user();
+        
+        // Scope communities based on role
+        $communities = $user->hasRole(UserRole::DIRECTOR) 
+            ? Community::where('id', $user->community_id)->get()
+            : Community::orderBy('name')->get();
 
-        $report = $financialService->generateMonthlyReport(
-            (int) $this->communityId,
-            (int) $this->year,
-            (int) $this->month
-        );
+        // If no community selected (and not restricted), default to first
+        if (!$this->communityId && $communities->isNotEmpty()) {
+            $this->communityId = $communities->first()->id;
+        }
 
-        $trendChartData = $chartService->prepareExpenseTrendData($report['daily_breakdown']);
-        $categoryChartData = $chartService->prepareCategoryDistributionData($report['by_category']);
+        $projects = Project::where('community_id', $this->communityId)->get();
 
-        $this->dispatch('charts-updated', trend: $trendChartData, category: $categoryChartData);
+        $monthlyExpenses = $chartService->getMonthlyExpenses($this->communityId, $this->year);
+        $expensesByCategory = $chartService->getExpensesByCategory($this->communityId, $this->year);
+        
+        $budgetVsActual = [];
+        if ($this->projectId) {
+            $budgetVsActual = $chartService->getBudgetVsActual($this->projectId);
+        }
 
         return view('livewire.financial-dashboard', [
-            'report' => $report,
-            'trendChartData' => $trendChartData,
-            'categoryChartData' => $categoryChartData,
-            'communities' => Community::orderBy('name')->get(),
-            'years' => range(now()->year, 2020),
-            'months' => [
-                1 => 'January', 2 => 'February', 3 => 'March', 4 => 'April',
-                5 => 'May', 6 => 'June', 7 => 'July', 8 => 'August',
-                9 => 'September', 10 => 'October', 11 => 'November', 12 => 'December'
-            ],
-        ]);
+            'communities' => $communities,
+            'projects' => $projects,
+            'monthlyExpenses' => $monthlyExpenses,
+            'expensesByCategory' => $expensesByCategory,
+            'budgetVsActual' => $budgetVsActual,
+        ])->layout('layouts.app');
+    }
+
+    public function updatedCommunityId()
+    {
+        $this->projectId = null; // Reset project when community changes
+    }
+
+    public function export(string $format)
+    {
+        $filters = [
+            'community_id' => $this->communityId,
+            'year' => $this->year,
+            'project_id' => $this->projectId,
+        ];
+
+        return app(\App\Services\FinancialReportService::class)->exportExpenses($filters, $format);
     }
 }

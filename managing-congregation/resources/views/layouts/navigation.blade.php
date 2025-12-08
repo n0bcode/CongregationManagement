@@ -50,12 +50,14 @@
                         </x-dropdown-link>
                     </x-nav-dropdown>
 
-                    {{-- Finance Dropdown --}}
                     <x-nav-dropdown 
                         label="{{ __('Finance') }}" 
                         :active="request()->routeIs('financials.*')">
-                        <x-dropdown-link :href="route('financials.index')" :active="request()->routeIs('financials.*')">
-                            {{ __('Financials') }}
+                        <x-dropdown-link :href="route('financials.dashboard')" :active="request()->routeIs('financials.dashboard')">
+                            {{ __('Dashboard') }}
+                        </x-dropdown-link>
+                        <x-dropdown-link :href="route('financials.index')" :active="request()->routeIs('financials.index')">
+                            {{ __('Expenses') }}
                         </x-dropdown-link>
                     </x-nav-dropdown>
 
@@ -219,8 +221,11 @@
                     </svg>
                 </button>
                 <div x-show="expanded" x-collapse class="bg-white">
-                    <x-responsive-nav-link :href="route('financials.index')" :active="request()->routeIs('financials.*')" class="pl-8">
-                        {{ __('Financials') }}
+                    <x-responsive-nav-link :href="route('financials.dashboard')" :active="request()->routeIs('financials.dashboard')" class="pl-8">
+                        {{ __('Dashboard') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('financials.index')" :active="request()->routeIs('financials.index')" class="pl-8">
+                        {{ __('Expenses') }}
                     </x-responsive-nav-link>
                 </div>
             </div>

@@ -1,9 +1,14 @@
+
 import './bootstrap';
 import './smart-form';
 import Alpine from 'alpinejs';
+import Sortable from 'sortablejs';
+import Chart from 'chart.js/auto';
 
 // Make Alpine available globally
 window.Alpine = Alpine;
+window.Sortable = Sortable;
+window.Chart = Chart;
 
 // Alpine.js Components
 Alpine.data('toast', () => ({

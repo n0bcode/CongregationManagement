@@ -1,78 +1,118 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Services;
 
-use Illuminate\Support\Collection;
+use App\Models\Expense;
+use App\Models\Project;
+use Illuminate\Support\Facades\DB;
 
 class ChartService
 {
     /**
-     * Prepare data for an expense trend chart (line chart).
+     * Get monthly expenses for a community for a specific year.
+     *
+     * @param int $communityId
+     * @param int $year
+     * @return array
      */
-    public function prepareExpenseTrendData(Collection $dailyBreakdown): array
+    public function getMonthlyExpenses(int $communityId, int $year): array
     {
-        $labels = $dailyBreakdown->pluck('date')->map(function ($date) {
-            return \Carbon\Carbon::parse($date)->format('M d');
-        })->toArray();
+        $expenses = Expense::where('community_id', $communityId)
+            ->whereYear('date', $year)
+            ->select(
+                DB::raw('MONTH(date) as month'),
+                DB::raw('SUM(amount) as total')
+            )
+            ->groupBy('month')
+            ->orderBy('month')
+            ->get();
 
-        $data = $dailyBreakdown->pluck('total')->map(function ($amount) {
-            return $amount / 100; // Convert to dollars
-        })->toArray();
+        $data = array_fill(1, 12, 0);
+
+        foreach ($expenses as $expense) {
+            $data[$expense->month] = $expense->total / 100; // Convert to dollars
+        }
 
         return [
-            'labels' => $labels,
+            'labels' => ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
             'datasets' => [
                 [
-                    'label' => 'Daily Expenses',
-                    'data' => $data,
-                    'borderColor' => '#d97706', // amber-600
-                    'backgroundColor' => 'rgba(217, 119, 6, 0.1)',
-                    'fill' => true,
-                    'tension' => 0.4,
-                ],
-            ],
+                    'label' => 'Monthly Expenses',
+                    'data' => array_values($data),
+                    'backgroundColor' => 'rgba(245, 158, 11, 0.5)', // amber-500
+                    'borderColor' => 'rgb(245, 158, 11)',
+                    'borderWidth' => 1,
+                ]
+            ]
         ];
     }
 
     /**
-     * Prepare data for a category distribution chart (doughnut chart).
+     * Get expenses grouped by category for a community for a specific year.
+     *
+     * @param int $communityId
+     * @param int $year
+     * @return array
      */
-    public function prepareCategoryDistributionData(Collection $byCategory): array
+    public function getExpensesByCategory(int $communityId, int $year): array
     {
-        $labels = $byCategory->pluck('category')->toArray();
-        $data = $byCategory->pluck('total')->map(function ($amount) {
-            return $amount / 100;
-        })->toArray();
-
-        // Generate colors (using a predefined palette or random generation)
-        $colors = [
-            '#ef4444', // red-500
-            '#f97316', // orange-500
-            '#f59e0b', // amber-500
-            '#84cc16', // lime-500
-            '#10b981', // emerald-500
-            '#06b6d4', // cyan-500
-            '#3b82f6', // blue-500
-            '#6366f1', // indigo-500
-            '#8b5cf6', // violet-500
-            '#d946ef', // fuchsia-500
-            '#f43f5e', // rose-500
-            '#64748b', // slate-500
-        ];
-
-        // Ensure we have enough colors
-        $backgroundColors = array_slice($colors, 0, count($data));
+        $expenses = Expense::where('community_id', $communityId)
+            ->whereYear('date', $year)
+            ->select(
+                'category',
+                DB::raw('SUM(amount) as total')
+            )
+            ->groupBy('category')
+            ->orderByDesc('total')
+            ->get();
 
         return [
-            'labels' => $labels,
+            'labels' => $expenses->pluck('category')->toArray(),
             'datasets' => [
                 [
-                    'data' => $data,
-                    'backgroundColor' => $backgroundColors,
-                ],
-            ],
+                    'data' => $expenses->map(fn($e) => $e->total / 100)->toArray(),
+                    'backgroundColor' => [
+                        'rgba(239, 68, 68, 0.7)',  // red-500
+                        'rgba(59, 130, 246, 0.7)', // blue-500
+                        'rgba(16, 185, 129, 0.7)', // emerald-500
+                        'rgba(245, 158, 11, 0.7)', // amber-500
+                        'rgba(139, 92, 246, 0.7)', // violet-500
+                        'rgba(236, 72, 153, 0.7)', // pink-500
+                    ],
+                ]
+            ]
+        ];
+    }
+
+    /**
+     * Get budget vs actual expenses for a project.
+     *
+     * @param int $projectId
+     * @return array
+     */
+    public function getBudgetVsActual(int $projectId): array
+    {
+        $project = Project::withSum('expenses', 'amount')->find($projectId);
+
+        if (!$project) {
+            return [];
+        }
+
+        $budget = $project->budget; // Already in dollars/decimal
+        $actual = ($project->expenses_sum_amount ?? 0) / 100;
+
+        return [
+            'labels' => ['Budget', 'Actual'],
+            'datasets' => [
+                [
+                    'label' => 'Amount',
+                    'data' => [$budget, $actual],
+                    'backgroundColor' => [
+                        'rgba(59, 130, 246, 0.7)', // blue-500
+                        $actual > $budget ? 'rgba(239, 68, 68, 0.7)' : 'rgba(16, 185, 129, 0.7)', // red if over, green if under
+                    ],
+                ]
+            ]
         ];
     }
 }
