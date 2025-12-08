@@ -1,12 +1,14 @@
-
 import './bootstrap';
-import './smart-form';
-import Alpine from 'alpinejs';
+import smartForm from './smart-form';
+import collapse from '@alpinejs/collapse';
 import Sortable from 'sortablejs';
 import Chart from 'chart.js/auto';
 
-// Make Alpine available globally
-window.Alpine = Alpine;
+document.addEventListener('alpine:init', () => {
+    window.Alpine.plugin(collapse);
+    window.Alpine.data('smartForm', smartForm);
+});
+
 window.Sortable = Sortable;
 window.Chart = Chart;
 
@@ -216,7 +218,7 @@ Alpine.data('smartPagination', (config) => ({
         }
         
         // Update via Livewire
-        this.$wire.set('page', page);
+        this.$wire.setPage(page);
         
         // Scroll to top
         if (!this.showInfiniteScroll) {
@@ -595,4 +597,4 @@ window.showLoading = function(button) {
 };
 
 // Start Alpine
-Alpine.start();
+// Alpine.start(); // Handled by Livewire

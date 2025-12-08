@@ -26,7 +26,7 @@ class MemberStatsWidget extends BaseWidget
 
         return [
             'total' => $query->count(),
-            'active' => $query->where('status', 'active')->count(), // Assuming 'status' column
+            'active' => $query->where('status', \App\Enums\MemberStatus::Active)->count(),
             'in_formation' => $query->whereHas('formationEvents')->count(), // Simplified logic
         ];
     }

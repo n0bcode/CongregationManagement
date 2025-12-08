@@ -184,6 +184,7 @@
                 :showJumpTo="true"
                 :showInfiniteScroll="false"
                 :pageSizeOptions="[10, 25, 50, 100]"
+                wire:key="pagination-{{ $members->currentPage() }}"
             />
         </div>
     </div>

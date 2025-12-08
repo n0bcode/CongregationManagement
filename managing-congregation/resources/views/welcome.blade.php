@@ -53,15 +53,15 @@
         <!-- Hero Section -->
         <div class="relative bg-stone-50 overflow-hidden">
             <!-- Background Pattern -->
-            <div class="absolute inset-0 opacity-50">
+            <div class="absolute inset-0 opacity-40">
                 <div class="absolute -top-24 -left-24 w-96 h-96 bg-amber-100 rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
                 <div class="absolute top-0 -right-4 w-96 h-96 bg-stone-200 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
                 <div class="absolute -bottom-8 left-20 w-96 h-96 bg-amber-50 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-4000"></div>
             </div>
 
-            <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-32">
+            <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 sm:py-40">
                 <div class="text-center max-w-4xl mx-auto">
-                    <h2 class="text-5xl sm:text-6xl font-heading font-bold text-slate-800 mb-8 leading-tight">
+                    <h2 class="text-5xl sm:text-7xl font-heading font-bold text-slate-900 mb-8 leading-tight tracking-tight animate-fade-in-up">
                         Congregation Management
                         <span class="text-amber-600 relative inline-block">
                             System
@@ -70,19 +70,19 @@
                             </svg>
                         </span>
                     </h2>
-                    <p class="text-xl text-slate-600 mb-12 max-w-2xl mx-auto leading-relaxed">
+                    <p class="text-xl sm:text-2xl text-slate-600 mb-12 max-w-2xl mx-auto leading-relaxed animate-fade-in-up animation-delay-200">
                         Comprehensive, professional, and secure solution for managing congregation members, finances, and activities.
                     </p>
                     
                     @guest
-                        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                            <a href="{{ route('register') }}" class="btn btn-primary text-lg px-8 py-4 h-auto shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all">
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-up animation-delay-400">
+                            <a href="{{ route('register') }}" class="btn btn-primary text-lg px-8 py-4 h-auto shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
                                 Get Started
                                 <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
                                 </svg>
                             </a>
-                            <a href="{{ route('login') }}" class="btn btn-secondary text-lg px-8 py-4 h-auto shadow-sm hover:shadow-md">
+                            <a href="{{ route('login') }}" class="btn btn-secondary text-lg px-8 py-4 h-auto shadow-sm hover:shadow-md transition-all duration-300">
                                 Log in
                             </a>
                         </div>
@@ -94,7 +94,7 @@
         <!-- Features Section -->
         <div class="py-24 bg-white relative z-10">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-5 pt-2">
+                <div class="text-center mb-16 pt-2">
                     <h3 class="text-3xl sm:text-4xl font-heading font-bold text-slate-800 mb-4">
                         Key Features
                     </h3>
@@ -105,8 +105,8 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                     <!-- Feature 1 -->
-                    <div class="card group hover:border-amber-200 hover:shadow-lg transition-all duration-300">
-                        <div class="w-14 h-14 bg-amber-50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-amber-100 transition-colors shrink-0">
+                    <div class="card group hover:border-amber-200 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-full">
+                        <div class="w-14 h-14 bg-amber-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-amber-100 transition-colors shrink-0">
                             <svg class="w-7 h-7 text-amber-600" width="28" height="28" style="width: 28px; height: 28px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
                             </svg>
@@ -116,8 +116,8 @@
                     </div>
 
                     <!-- Feature 2 -->
-                    <div class="card group hover:border-amber-200 hover:shadow-lg transition-all duration-300">
-                        <div class="w-14 h-14 bg-amber-50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-amber-100 transition-colors shrink-0">
+                    <div class="card group hover:border-amber-200 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-full">
+                        <div class="w-14 h-14 bg-amber-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-amber-100 transition-colors shrink-0">
                             <svg class="w-7 h-7 text-amber-600" width="28" height="28" style="width: 28px; height: 28px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                             </svg>
@@ -127,8 +127,8 @@
                     </div>
 
                     <!-- Feature 3 -->
-                    <div class="card group hover:border-amber-200 hover:shadow-lg transition-all duration-300">
-                        <div class="w-14 h-14 bg-amber-50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-amber-100 transition-colors shrink-0">
+                    <div class="card group hover:border-amber-200 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-full">
+                        <div class="w-14 h-14 bg-amber-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-amber-100 transition-colors shrink-0">
                             <svg class="w-7 h-7 text-amber-600" width="28" height="28" style="width: 28px; height: 28px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
                             </svg>
@@ -138,8 +138,8 @@
                     </div>
 
                     <!-- Feature 4 -->
-                    <div class="card group hover:border-amber-200 hover:shadow-lg transition-all duration-300">
-                        <div class="w-14 h-14 bg-amber-50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-amber-100 transition-colors shrink-0">
+                    <div class="card group hover:border-amber-200 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-full">
+                        <div class="w-14 h-14 bg-amber-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-amber-100 transition-colors shrink-0">
                             <svg class="w-7 h-7 text-amber-600" width="28" height="28" style="width: 28px; height: 28px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                             </svg>
