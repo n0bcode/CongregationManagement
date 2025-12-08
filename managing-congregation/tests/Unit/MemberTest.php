@@ -30,13 +30,13 @@ class MemberTest extends TestCase
             'first_name' => 'Mary',
             'last_name' => 'Smith',
             'religious_name' => 'Sister Mary',
-            'status' => 'Active',
+            'status' => 'active',
         ]);
 
         $this->assertEquals('Sister Mary', $member->religious_name);
         $this->assertEquals('Mary', $member->first_name);
         $this->assertEquals('Smith', $member->last_name);
-        $this->assertEquals('Active', $member->status);
+        $this->assertEquals('active', $member->status);
     }
 
     public function test_member_dates_are_casted()

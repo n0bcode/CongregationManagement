@@ -1,48 +1,18 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex justify-between items-center">
-            <h2 class="text-3xl font-bold text-stone-800">
-                {{ __('Member Profile') }}
-            </h2>
-            <div class="flex items-center space-x-4">
-                @foreach($actions as $action)
-                    @if($action->method === 'GET')
-                        <a href="{{ $action->url }}" class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150 {{ $action->variant === 'danger' ? 'text-red-600 hover:text-red-700 hover:bg-red-50' : '' }}">
-                            @if($action->icon)
-                                <!-- Icon rendering could be improved with a component -->
-                                <span class="mr-2">{{ $action->label }}</span>
-                            @else
-                                {{ $action->label }}
-                            @endif
-                        </a>
-                    @else
-                        <form method="POST" action="{{ $action->url }}" class="inline">
-                            @csrf
-                            @method($action->method)
-                            <button type="submit" 
-                                class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150 {{ $action->variant === 'danger' ? 'text-red-600 hover:text-red-700 hover:bg-red-50' : '' }}"
-                                @if($action->confirm) onclick="return confirm('{{ $action->confirmMessage }}')" @endif
-                            >
-                                {{ $action->label }}
-                            </button>
-                        </form>
-                    @endif
-                @endforeach
-                
-                @can('update', $member)
-                    <x-secondary-button
-                        x-data=""
-                        x-on:click.prevent="$dispatch('open-modal', 'transfer-member')"
-                        class="ml-2"
-                    >
-                        {{ __('Transfer') }}
-                    </x-secondary-button>
-                @endcan
-
-                <a href="{{ route('members.index') }}" class="text-sm text-gray-600 hover:text-gray-900 ml-4">
-                    {{ __('Back to List') }}
+            <div class="flex items-center gap-4">
+                <a href="{{ route('members.index') }}" class="text-slate-600 hover:text-slate-800">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                    </svg>
                 </a>
+                <h2 class="text-3xl font-bold text-stone-800">
+                    {{ __('Member Profile') }}
+                </h2>
             </div>
+            
+            <x-contextual-actions :model="$member" layout="buttons" />
         </div>
     </x-slot>
 

@@ -57,7 +57,7 @@ class MemberController extends Controller
     {
         \Illuminate\Support\Facades\Gate::authorize('view', $member);
 
-        $member->load(['formationEvents', 'assignments.community', 'healthRecords', 'skills', 'audits.user']);
+        $member->load(['formationEvents', 'assignments.community', 'healthRecords', 'skills']);
 
         // Calculate projected future events based on most recent formation event
         $projectedEvents = [];

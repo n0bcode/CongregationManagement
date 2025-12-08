@@ -35,16 +35,25 @@ class DashboardService
      */
     public function getWidgetsForUser(User $user): Collection
     {
-        $preferences = \App\Models\DashboardWidget::where('user_id', $user->id)
-            ->get()
-            ->keyBy('widget_type');
+        try {
+            $preferences = \App\Models\DashboardWidget::where('user_id', $user->id)
+                ->get()
+                ->keyBy('widget_type');
+        } catch (\Exception $e) {
+            // If there's an issue querying preferences, use empty collection
+            $preferences = collect();
+        }
 
         return collect($this->widgets)
-            ->map(fn ($class) => app($class, ['user' => $user]))
+            ->map(function ($class, $key) use ($user) {
+                $widget = app($class, ['user' => $user]);
+                $widget->widgetKey = $key; // Store the key for sorting
+                return $widget;
+            })
             ->filter(fn (DashboardWidget $widget) => $widget->canView($user))
             ->sortBy(function ($widget) use ($preferences) {
-                $class = get_class($widget);
-                return $preferences[$class]->position ?? 999;
+                $widgetKey = $widget->widgetKey ?? get_class($widget);
+                return $preferences->get($widgetKey)?->position ?? 999;
             });
     }
 

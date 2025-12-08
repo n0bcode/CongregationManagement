@@ -27,15 +27,13 @@ class TaskController extends Controller
             'status' => 'required|in:todo,in_progress,review,done',
             'priority' => 'required|in:low,medium,high,urgent',
             'assignee_id' => 'nullable|exists:members,id',
+            'reporter_id' => 'nullable|exists:members,id',
             'parent_id' => 'nullable|exists:tasks,id',
             'start_date' => 'nullable|date',
             'due_date' => 'nullable|date|after_or_equal:start_date',
         ]);
 
-        $task = $project->tasks()->create([
-            ...$validated,
-            'reporter_id' => auth()->id() ?? 1, // Fallback to system user if not logged in
-        ]);
+        $task = $project->tasks()->create($validated);
 
         // In a real app, send notification to assignee here
 

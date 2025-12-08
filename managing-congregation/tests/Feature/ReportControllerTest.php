@@ -48,12 +48,12 @@ class ReportControllerTest extends TestCase
 
         Member::factory()->create(['community_id' => $community1->id, 'status' => 'active']);
         Member::factory()->create(['community_id' => $community2->id, 'status' => 'active']);
-        Member::factory()->create(['community_id' => $community1->id, 'status' => 'inactive']);
+        Member::factory()->create(['community_id' => $community1->id, 'status' => 'exited']);
 
         // Filter by Community A
         $response = $this->actingAs($user)->get(route('reports.demographic', ['community_id' => $community1->id]));
         $response->assertOk();
-        $response->assertViewHas('totalMembers', 2); // 1 active + 1 inactive in Com A
+        $response->assertViewHas('totalMembers', 2); // 1 active + 1 exited in Com A
 
         // Filter by Status Active
         $response = $this->actingAs($user)->get(route('reports.demographic', ['status' => 'active']));

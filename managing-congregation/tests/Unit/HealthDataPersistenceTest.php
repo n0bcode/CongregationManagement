@@ -40,7 +40,7 @@ class HealthDataPersistenceTest extends TestCase
             'last_name' => 'Member',
             'dob' => now()->subYears(30),
             'entry_date' => now()->subYears(5),
-            'status' => 'Active',
+            'status' => 'active',
         ]);
         $user = User::factory()->create(['community_id' => $community->id]);
 
@@ -84,7 +84,7 @@ class HealthDataPersistenceTest extends TestCase
             'last_name' => 'Member',
             'dob' => now()->subYears(30),
             'entry_date' => now()->subYears(5),
-            'status' => 'Active',
+            'status' => 'active',
         ]);
         $user = User::factory()->create(['community_id' => $community->id]);
 
@@ -120,7 +120,7 @@ class HealthDataPersistenceTest extends TestCase
             'last_name' => 'Member',
             'dob' => now()->subYears(30),
             'entry_date' => now()->subYears(5),
-            'status' => 'Active',
+            'status' => 'active',
         ]);
         $user = User::factory()->create(['community_id' => $community->id]);
 
@@ -151,7 +151,7 @@ class HealthDataPersistenceTest extends TestCase
             'last_name' => 'Member',
             'dob' => now()->subYears(30),
             'entry_date' => now()->subYears(5),
-            'status' => 'Active',
+            'status' => 'active',
         ]);
         $user = User::factory()->create(['community_id' => $community->id]);
 
@@ -189,7 +189,7 @@ class HealthDataPersistenceTest extends TestCase
             'last_name' => 'Member',
             'dob' => now()->subYears(30),
             'entry_date' => now()->subYears(5),
-            'status' => 'Active',
+            'status' => 'active',
         ]);
         $user = User::factory()->create(['community_id' => $community->id]);
 

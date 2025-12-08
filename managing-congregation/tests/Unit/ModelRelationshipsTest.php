@@ -61,6 +61,7 @@ class ModelRelationshipsTest extends TestCase
         return [
             // User model
             [User::class, 'community', BelongsTo::class],
+            [User::class, 'notifications', 'Illuminate\Database\Eloquent\Relations\MorphMany'],
 
             // Member model
             [Member::class, 'community', BelongsTo::class],
@@ -72,6 +73,7 @@ class ModelRelationshipsTest extends TestCase
 
             // Community model
             [Community::class, 'members', HasMany::class],
+            [Community::class, 'users', HasMany::class],
 
             // FormationEvent model
             [FormationEvent::class, 'member', BelongsTo::class],

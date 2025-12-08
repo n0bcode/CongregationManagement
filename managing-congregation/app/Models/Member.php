@@ -235,4 +235,9 @@ class Member extends Model
     {
         return $this->timeline()->where('type', $type);
     }
+
+    public function audits(): \Illuminate\Database\Eloquent\Relations\MorphMany
+    {
+        return $this->morphMany(AuditLog::class, 'auditable')->orderByDesc('created_at');
+    }
 }

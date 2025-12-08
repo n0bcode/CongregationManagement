@@ -27,4 +27,9 @@ class Community extends Model
     {
         return $this->hasMany(Member::class);
     }
+
+    public function users(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(User::class);
+    }
 }
