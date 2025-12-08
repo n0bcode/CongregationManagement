@@ -15,6 +15,10 @@ class CreateMember extends Component
     public $dob = '';
     public $entry_date = '';
     public $community_id = '';
+    public $member_type = 'postulant'; // postulant, novice, professed
+    public $novitiate_entry_date = '';
+    public $first_vows_date = '';
+    public $perpetual_vows_date = '';
 
     public function mount()
     {
@@ -28,14 +32,27 @@ class CreateMember extends Component
 
     protected function rules()
     {
-        return [
+        $rules = [
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
             'religious_name' => ['nullable', 'string', 'max:255'],
             'dob' => ['required', 'date', 'before:today'],
             'entry_date' => ['required', 'date'],
             'community_id' => ['required', 'exists:communities,id'],
+            'member_type' => ['required', 'in:postulant,novice,professed'],
         ];
+
+        // Conditional validation based on member type
+        if ($this->member_type === 'novice' || $this->member_type === 'professed') {
+            $rules['novitiate_entry_date'] = ['required', 'date', 'after:entry_date'];
+        }
+
+        if ($this->member_type === 'professed') {
+            $rules['first_vows_date'] = ['required', 'date', 'after:novitiate_entry_date'];
+            $rules['perpetual_vows_date'] = ['nullable', 'date', 'after:first_vows_date'];
+        }
+
+        return $rules;
     }
 
     public function updated($propertyName)

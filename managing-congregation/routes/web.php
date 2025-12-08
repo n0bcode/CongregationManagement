@@ -48,6 +48,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/audit-logs', [\App\Http\Controllers\AuditLogController::class, 'index'])->name('audit-logs.index');
     Route::get('/audit-logs/export', [\App\Http\Controllers\AuditLogController::class, 'export'])->name('audit-logs.export');
 
+    // API: Real-time Validation
+    Route::post('/api/validate', [\App\Http\Controllers\Api\ValidationController::class, 'validateField'])->name('api.validate');
+
     // Financials
     Route::get('/financials/dashboard', [\App\Http\Controllers\FinancialController::class, 'dashboard'])->name('financials.dashboard');
     Route::resource('financials', \App\Http\Controllers\FinancialController::class)->parameters([

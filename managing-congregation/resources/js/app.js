@@ -22,6 +22,136 @@ Alpine.data('toast', () => ({
     }
 }));
 
+// Unsaved Changes Detection
+Alpine.data('unsavedChanges', (config = {}) => ({
+    originalData: {},
+    currentData: {},
+    hasChanges: false,
+    warningEnabled: config.enabled !== false,
+    
+    init() {
+        // Capture initial form state
+        this.captureFormState();
+        
+        // Watch for form changes
+        this.$el.addEventListener('input', () => {
+            this.checkForChanges();
+        });
+        
+        // Warn before leaving page
+        if (this.warningEnabled) {
+            window.addEventListener('beforeunload', this.handleBeforeUnload.bind(this));
+        }
+        
+        // Intercept navigation
+        document.addEventListener('click', this.handleLinkClick.bind(this));
+    },
+    
+    captureFormState() {
+        const form = this.$el.querySelector('form') || this.$el;
+        const formData = new FormData(form);
+        
+        this.originalData = {};
+        for (let [key, value] of formData.entries()) {
+            this.originalData[key] = value;
+        }
+        
+        this.currentData = { ...this.originalData };
+    },
+    
+    checkForChanges() {
+        const form = this.$el.querySelector('form') || this.$el;
+        const formData = new FormData(form);
+        
+        this.currentData = {};
+        for (let [key, value] of formData.entries()) {
+            this.currentData[key] = value;
+        }
+        
+        // Compare with original
+        this.hasChanges = JSON.stringify(this.originalData) !== JSON.stringify(this.currentData);
+    },
+    
+    handleBeforeUnload(event) {
+        if (this.hasChanges) {
+            event.preventDefault();
+            event.returnValue = 'You have unsaved changes. Are you sure you want to leave?';
+            return event.returnValue;
+        }
+    },
+    
+    handleLinkClick(event) {
+        if (!this.hasChanges || !this.warningEnabled) return;
+        
+        const link = event.target.closest('a');
+        if (!link || link.target === '_blank') return;
+        
+        // Don't warn for same-page anchors
+        if (link.getAttribute('href')?.startsWith('#')) return;
+        
+        // Don't warn for submit buttons
+        if (link.closest('form')) return;
+        
+        if (!confirm('You have unsaved changes. Are you sure you want to leave?')) {
+            event.preventDefault();
+        }
+    },
+    
+    markAsSaved() {
+        this.captureFormState();
+        this.hasChanges = false;
+    },
+    
+    destroy() {
+        if (this.warningEnabled) {
+            window.removeEventListener('beforeunload', this.handleBeforeUnload);
+        }
+        document.removeEventListener('click', this.handleLinkClick);
+    }
+}));
+
+// Conditional Form Component
+Alpine.data('conditionalForm', (initialData = {}) => ({
+    formData: initialData,
+    
+    init() {
+        // Watch for changes and validate dependent fields
+        Object.keys(this.formData).forEach(key => {
+            this.$watch(`formData.${key}`, (value) => {
+                this.onFieldChange(key, value);
+            });
+        });
+    },
+    
+    onFieldChange(field, value) {
+        // Clear dependent fields when parent changes
+        const dependencies = this.getFieldDependencies(field);
+        dependencies.forEach(dep => {
+            if (this.shouldClearField(field, value, dep)) {
+                this.formData[dep] = '';
+            }
+        });
+    },
+    
+    getFieldDependencies(field) {
+        // Override this method to define field dependencies
+        return [];
+    },
+    
+    shouldClearField(parentField, parentValue, dependentField) {
+        // Override this method to define clear conditions
+        return false;
+    },
+    
+    isFieldVisible(field, condition) {
+        // Evaluate visibility condition
+        if (typeof condition === 'function') {
+            return condition(this.formData);
+        }
+        return condition;
+    }
+}));
+
 // Smart Pagination Component
 Alpine.data('smartPagination', (config) => ({
     currentPage: config.currentPage,
