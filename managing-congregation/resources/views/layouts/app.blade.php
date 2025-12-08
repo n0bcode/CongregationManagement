@@ -13,6 +13,7 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @livewireStyles
 
         @stack('styles')
     </head>
@@ -54,6 +55,7 @@
             </footer>
         </div>
 
+        @livewireScripts
         @stack('scripts')
         <x-layout.mobile-navigation />
         <x-features.command-palette />

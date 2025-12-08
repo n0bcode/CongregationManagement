@@ -4,22 +4,26 @@ import collapse from '@alpinejs/collapse';
 import Sortable from 'sortablejs';
 import Chart from 'chart.js/auto';
 
-document.addEventListener('alpine:init', () => {
-    window.Alpine.plugin(collapse);
-    window.Alpine.data('smartForm', smartForm);
-});
-
+// Make Sortable and Chart available globally
 window.Sortable = Sortable;
 window.Chart = Chart;
 
-// Alpine.js Components
-Alpine.data('toast', () => ({
-    show: false,
-    message: '',
-    type: 'success',
+// Wait for Livewire to initialize Alpine
+document.addEventListener('alpine:init', () => {
+    // Register plugins
+    Alpine.plugin(collapse);
     
-    showToast(message, type = 'success', duration = 3000) {
-        this.message = message;
+    // Register custom components
+    Alpine.data('smartForm', smartForm);
+
+    // Alpine.js Components
+    Alpine.data('toast', () => ({
+        show: false,
+        message: '',
+        type: 'success',
+        
+        showToast(message, type = 'success', duration = 3000) {
+            this.message = message;
         this.type = type;
         this.show = true;
         
@@ -568,6 +572,8 @@ Alpine.data('inlineEdit', (config) => ({
     }
 }));
 
+});
+
 // Celebration animation helper
 window.celebrateMilestone = function() {
     // Simple confetti-like animation using CSS
@@ -595,6 +601,3 @@ window.showLoading = function(button) {
     button.disabled = true;
     button.innerHTML = '<span class="loading-spinner mr-2"></span> Processing...';
 };
-
-// Start Alpine
-// Alpine.start(); // Handled by Livewire
