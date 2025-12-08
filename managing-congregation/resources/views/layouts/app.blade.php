@@ -55,5 +55,7 @@
         </div>
 
         @stack('scripts')
+        <x-mobile-navigation />
+        <x-command-palette />
     </body>
 </html>
