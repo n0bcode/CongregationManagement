@@ -38,8 +38,11 @@ class AIProjectTest extends TestCase
 
     public function test_can_store_generated_project()
     {
-        $admin = User::factory()->create(['role' => UserRole::SUPER_ADMIN]);
         $community = \App\Models\Community::factory()->create();
+        $admin = User::factory()->create([
+            'role' => UserRole::SUPER_ADMIN,
+            'community_id' => $community->id,
+        ]);
         
         // Ensure user has a member profile for manager assignment
         \App\Models\Member::factory()->create([

@@ -9,6 +9,7 @@ use App\Enums\SkillProficiency;
 use App\Models\Community;
 use App\Models\Member;
 use App\Models\Skill;
+use App\Enums\MemberStatus;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -41,7 +42,7 @@ class SkillCategorizationTest extends TestCase
             'last_name' => 'Member',
             'dob' => now()->subYears(30),
             'entry_date' => now()->subYears(5),
-            'status' => 'Active',
+            'status' => MemberStatus::Active,
         ]);
 
         $validCategories = [SkillCategory::Pastoral, SkillCategory::Practical, SkillCategory::Special];
@@ -71,7 +72,7 @@ class SkillCategorizationTest extends TestCase
             'last_name' => 'Member',
             'dob' => now()->subYears(30),
             'entry_date' => now()->subYears(5),
-            'status' => 'Active',
+            'status' => MemberStatus::Active,
         ]);
 
         $validProficiencies = [
@@ -106,7 +107,7 @@ class SkillCategorizationTest extends TestCase
             'last_name' => 'Member',
             'dob' => now()->subYears(30),
             'entry_date' => now()->subYears(5),
-            'status' => 'Active',
+            'status' => MemberStatus::Active,
         ]);
 
         // Create skills in different categories
@@ -175,7 +176,7 @@ class SkillCategorizationTest extends TestCase
             'last_name' => 'Member',
             'dob' => now()->subYears(30),
             'entry_date' => now()->subYears(5),
-            'status' => 'Active',
+            'status' => MemberStatus::Active,
         ]);
 
         // Create multiple pastoral skills
@@ -217,7 +218,7 @@ class SkillCategorizationTest extends TestCase
             'last_name' => 'Member',
             'dob' => now()->subYears(30),
             'entry_date' => now()->subYears(5),
-            'status' => 'Active',
+            'status' => MemberStatus::Active,
         ]);
 
         $skill = Skill::create([

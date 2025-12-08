@@ -13,13 +13,16 @@ class DashboardServiceTest extends TestCase
 {
     public function test_it_can_register_and_retrieve_widgets()
     {
-        $service = new DashboardService();
         $user = Mockery::mock(User::class);
         $user->shouldReceive('getAttribute')->with('id')->andReturn(1);
 
         // Mock DashboardWidget model query
-        $preferenceMock = Mockery::mock('alias:\App\Models\DashboardWidget');
-        $preferenceMock->shouldReceive('where->get->keyBy')->andReturn(collect());
+        $preferenceMock = Mockery::mock(\App\Models\DashboardWidget::class);
+        $preferenceMock->shouldReceive('where')->with('user_id', 1)->andReturnSelf();
+        $preferenceMock->shouldReceive('get')->andReturn(collect());
+        // keyBy is called on Collection, not Builder, so we don't need to mock it on Builder if get() returns Collection
+
+        $service = new DashboardService($preferenceMock);
 
         // Create a mock widget
         $widget = Mockery::mock(DashboardWidget::class);
@@ -44,13 +47,15 @@ class DashboardServiceTest extends TestCase
 
     public function test_it_filters_widgets_user_cannot_view()
     {
-        $service = new DashboardService();
         $user = Mockery::mock(User::class);
         $user->shouldReceive('getAttribute')->with('id')->andReturn(1);
 
         // Mock DashboardWidget model query
-        $preferenceMock = Mockery::mock('alias:\App\Models\DashboardWidget');
-        $preferenceMock->shouldReceive('where->get->keyBy')->andReturn(collect());
+        $preferenceMock = Mockery::mock(\App\Models\DashboardWidget::class);
+        $preferenceMock->shouldReceive('where')->with('user_id', 1)->andReturnSelf();
+        $preferenceMock->shouldReceive('get')->andReturn(collect());
+
+        $service = new DashboardService($preferenceMock);
 
         $widget = Mockery::mock(DashboardWidget::class);
         $widget->shouldReceive('canView')->with($user)->andReturn(false);

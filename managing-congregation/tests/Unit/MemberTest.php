@@ -8,6 +8,7 @@ use App\Models\Community;
 use App\Models\Member;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Enums\MemberStatus;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -30,13 +31,13 @@ class MemberTest extends TestCase
             'first_name' => 'Mary',
             'last_name' => 'Smith',
             'religious_name' => 'Sister Mary',
-            'status' => 'active',
+            'status' => MemberStatus::Active,
         ]);
 
         $this->assertEquals('Sister Mary', $member->religious_name);
         $this->assertEquals('Mary', $member->first_name);
         $this->assertEquals('Smith', $member->last_name);
-        $this->assertEquals('active', $member->status);
+        $this->assertEquals(MemberStatus::Active, $member->status);
     }
 
     public function test_member_dates_are_casted()

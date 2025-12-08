@@ -115,4 +115,61 @@ class ChartService
             ]
         ];
     }
+    /**
+     * Prepare expense trend data for chart.
+     *
+     * @param \Illuminate\Support\Collection $dailyBreakdown
+     * @return array
+     */
+    public function prepareExpenseTrendData(\Illuminate\Support\Collection $dailyBreakdown): array
+    {
+        $labels = [];
+        $data = [];
+
+        foreach ($dailyBreakdown as $day) {
+            $labels[] = \Carbon\Carbon::parse($day['date'])->format('M d');
+            $data[] = $day['total'] / 100;
+        }
+
+        return [
+            'labels' => $labels,
+            'datasets' => [
+                [
+                    'label' => 'Daily Expenses',
+                    'data' => $data,
+                    'borderColor' => 'rgb(59, 130, 246)',
+                    'backgroundColor' => 'rgba(59, 130, 246, 0.5)',
+                ]
+            ]
+        ];
+    }
+
+    /**
+     * Prepare category distribution data for chart.
+     *
+     * @param \Illuminate\Support\Collection $byCategory
+     * @return array
+     */
+    public function prepareCategoryDistributionData(\Illuminate\Support\Collection $byCategory): array
+    {
+        $labels = [];
+        $data = [];
+
+        foreach ($byCategory as $category) {
+            $labels[] = $category['category'];
+            $data[] = $category['total'] / 100;
+        }
+
+        return [
+            'labels' => $labels,
+            'datasets' => [
+                [
+                    'data' => $data,
+                    'backgroundColor' => [
+                        '#EF4444', '#3B82F6', '#10B981', '#F59E0B', '#6366F1', '#EC4899'
+                    ],
+                ]
+            ]
+        ];
+    }
 }

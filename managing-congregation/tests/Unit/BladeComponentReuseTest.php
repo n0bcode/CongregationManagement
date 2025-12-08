@@ -21,10 +21,10 @@ class BladeComponentReuseTest extends TestCase
     public function blade_components_exist_for_common_ui_elements(): void
     {
         $requiredComponents = [
-            'button',
-            'status-card',
-            'ledger-row',
-            'timeline-node',
+            'ui/button',
+            'ui/status-card',
+            'features/ledger-row',
+            'features/timeline-node',
         ];
 
         foreach ($requiredComponents as $component) {
@@ -87,7 +87,7 @@ class BladeComponentReuseTest extends TestCase
      */
     public function button_component_supports_required_variants(): void
     {
-        $componentPath = resource_path('views/components/button.blade.php');
+        $componentPath = resource_path('views/components/ui/button.blade.php');
         $content = File::get($componentPath);
 
         $requiredVariants = ['primary', 'secondary', 'success', 'danger'];
@@ -106,7 +106,7 @@ class BladeComponentReuseTest extends TestCase
      */
     public function status_card_component_supports_required_variants(): void
     {
-        $componentPath = resource_path('views/components/status-card.blade.php');
+        $componentPath = resource_path('views/components/ui/status-card.blade.php');
         $content = File::get($componentPath);
 
         $requiredVariants = ['peace', 'attention', 'pending'];
@@ -125,7 +125,7 @@ class BladeComponentReuseTest extends TestCase
      */
     public function components_have_minimum_touch_target_size(): void
     {
-        $componentPath = resource_path('views/components/button.blade.php');
+        $componentPath = resource_path('views/components/ui/button.blade.php');
         $content = File::get($componentPath);
 
         // Check for 48px minimum height (accessibility requirement)
@@ -141,7 +141,7 @@ class BladeComponentReuseTest extends TestCase
      */
     public function ledger_row_component_has_proper_structure(): void
     {
-        $componentPath = resource_path('views/components/ledger-row.blade.php');
+        $componentPath = resource_path('views/components/features/ledger-row.blade.php');
         $content = File::get($componentPath);
 
         // Check for required elements
@@ -155,7 +155,7 @@ class BladeComponentReuseTest extends TestCase
      */
     public function timeline_node_component_supports_state_variants(): void
     {
-        $componentPath = resource_path('views/components/timeline-node.blade.php');
+        $componentPath = resource_path('views/components/features/timeline-node.blade.php');
         $content = File::get($componentPath);
 
         $requiredStates = ['isPast', 'isToday', 'isFuture'];

@@ -61,7 +61,8 @@ class ModelRelationshipsTest extends TestCase
         return [
             // User model
             [User::class, 'community', BelongsTo::class],
-            [User::class, 'notifications', 'Illuminate\Database\Eloquent\Relations\MorphMany'],
+            [User::class, 'notifications', HasMany::class],
+            [User::class, 'unreadNotifications', HasMany::class],
 
             // Member model
             [Member::class, 'community', BelongsTo::class],
@@ -70,6 +71,9 @@ class ModelRelationshipsTest extends TestCase
             [Member::class, 'currentAssignment', HasOne::class],
             [Member::class, 'healthRecords', HasMany::class],
             [Member::class, 'skills', HasMany::class],
+            [Member::class, 'ordinations', HasMany::class],
+            [Member::class, 'educations', HasMany::class],
+            [Member::class, 'emergencyContacts', HasMany::class],
 
             // Community model
             [Community::class, 'members', HasMany::class],

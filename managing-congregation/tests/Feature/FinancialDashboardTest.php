@@ -18,7 +18,8 @@ class FinancialDashboardTest extends TestCase
     {
         $user = User::factory()->create();
         $community = Community::factory()->create();
-        $user->update(['community_id' => $community->id]);
+        $user->community_id = $community->id;
+        $user->save();
 
         $this->actingAs($user)
             ->get('/financials/dashboard')
@@ -30,7 +31,8 @@ class FinancialDashboardTest extends TestCase
     {
         $user = User::factory()->create();
         $community = Community::factory()->create();
-        $user->update(['community_id' => $community->id]);
+        $user->community_id = $community->id;
+        $user->save();
 
         Expense::factory()->create([
             'community_id' => $community->id,
@@ -50,7 +52,8 @@ class FinancialDashboardTest extends TestCase
     {
         $user = User::factory()->create();
         $community = Community::factory()->create();
-        $user->update(['community_id' => $community->id]);
+        $user->community_id = $community->id;
+        $user->save();
         
         $project = Project::factory()->create(['community_id' => $community->id, 'budget' => 5000]);
 
@@ -64,7 +67,8 @@ class FinancialDashboardTest extends TestCase
     {
         $user = User::factory()->create();
         $community = Community::factory()->create();
-        $user->update(['community_id' => $community->id]);
+        $user->community_id = $community->id;
+        $user->save();
 
         Expense::factory()->create([
             'community_id' => $community->id,

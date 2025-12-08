@@ -15,6 +15,10 @@ class DashboardService
      */
     protected array $widgets = [];
 
+    public function __construct(
+        protected \App\Models\DashboardWidget $dashboardWidget
+    ) {}
+
     /**
      * Register a widget class.
      *
@@ -36,7 +40,7 @@ class DashboardService
     public function getWidgetsForUser(User $user): Collection
     {
         try {
-            $preferences = \App\Models\DashboardWidget::where('user_id', $user->id)
+            $preferences = $this->dashboardWidget->where('user_id', $user->id)
                 ->get()
                 ->keyBy('widget_type');
         } catch (\Exception $e) {
