@@ -21,21 +21,52 @@ class MembersTable extends Component
     public ?int $communityId = null;
     public ?string $status = null;
 
-    public function applyPreset($preset)
+    public function applyPreset($presetId)
+    {
+        // Handle built-in presets if needed, or just DB ones
+        if (in_array($presetId, ['active', 'novitiates'])) {
+             $this->applyBuiltInPreset($presetId);
+             return;
+        }
+
+        $preset = \App\Models\FilterPreset::find($presetId);
+        if ($preset) {
+            $this->reset(['search', 'communityId', 'status']);
+            $filters = $preset->filters;
+            
+            if (isset($filters['search'])) $this->search = $filters['search'];
+            if (isset($filters['communityId'])) $this->communityId = $filters['communityId'];
+            if (isset($filters['status'])) $this->status = $filters['status'];
+        }
+    }
+
+    protected function applyBuiltInPreset($preset)
     {
         $this->reset(['search', 'communityId', 'status']);
-
         switch ($preset) {
             case 'active':
                 $this->status = \App\Enums\MemberStatus::Active->value;
                 break;
             case 'novitiates':
-                $this->search = 'Novitiate'; // Assuming search covers formation stage or religious name
-                break;
-            case 'needs_attention':
-                // This might require more complex logic or a scope
+                $this->search = 'Novitiate'; 
                 break;
         }
+    }
+
+    public function saveCurrentFiltersAsPreset($name)
+    {
+        \App\Models\FilterPreset::create([
+            'user_id' => auth()->id(),
+            'name' => $name,
+            'context' => 'members_list',
+            'filters' => [
+                'search' => $this->search,
+                'communityId' => $this->communityId,
+                'status' => $this->status,
+            ],
+        ]);
+        
+        session()->flash('status', 'Filter preset saved.');
     }
 
     protected $queryString = [
@@ -108,6 +139,9 @@ class MembersTable extends Component
             'members' => $this->getQuery()->paginate(10),
             'communities' => \App\Models\Community::all(),
             'statuses' => \App\Enums\MemberStatus::cases(),
+            'presets' => \App\Models\FilterPreset::where('user_id', auth()->id())
+                ->where('context', 'members_list')
+                ->get(),
         ]);
     }
 }
