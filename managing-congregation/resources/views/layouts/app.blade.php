@@ -37,7 +37,7 @@
 
             <!-- Flash Messages -->
             <!-- Flash Messages -->
-            <x-flash-message />
+            <x-ui.flash-message />
 
             <!-- Page Content -->
             <main id="main-content" class="py-6 flex-1" role="main">
@@ -55,7 +55,7 @@
         </div>
 
         @stack('scripts')
-        <x-mobile-navigation />
-        <x-command-palette />
+        <x-layout.mobile-navigation />
+        <x-features.command-palette />
     </body>
 </html>

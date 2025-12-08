@@ -18,92 +18,92 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex items-center">
                     {{-- Dashboard - standalone --}}
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="font-medium">
+                    <x-layout.nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="font-medium">
                         {{ __('Dashboard') }}
-                    </x-nav-link>
+                    </x-layout.nav-link>
 
                     {{-- Management Dropdown --}}
-                    <x-nav-dropdown 
+                    <x-layout.nav-dropdown 
                         label="{{ __('Management') }}" 
                         :active="request()->routeIs('members.*', 'documents.*', 'celebrations.*', 'communities.*', 'projects.*', 'periodic-events.*')">
-                        <x-dropdown-link :href="route('members.index')" :active="request()->routeIs('members.*')">
+                        <x-layout.dropdown-link :href="route('members.index')" :active="request()->routeIs('members.*')">
                             {{ __('Members') }}
-                        </x-dropdown-link>
+                        </x-layout.dropdown-link>
                         @can('viewAny', \App\Models\Community::class)
-                            <x-dropdown-link :href="route('communities.index')" :active="request()->routeIs('communities.*')">
+                            <x-layout.dropdown-link :href="route('communities.index')" :active="request()->routeIs('communities.*')">
                                 {{ __('Communities') }}
-                            </x-dropdown-link>
+                            </x-layout.dropdown-link>
                         @endcan
                         @can('viewAny', \App\Models\Document::class)
-                            <x-dropdown-link :href="route('documents.index')" :active="request()->routeIs('documents.*')">
+                            <x-layout.dropdown-link :href="route('documents.index')" :active="request()->routeIs('documents.*')">
                                 {{ __('Documents') }}
-                            </x-dropdown-link>
+                            </x-layout.dropdown-link>
                         @endcan
-                        <x-dropdown-link :href="route('celebrations.index')" :active="request()->routeIs('celebrations.*')">
+                        <x-layout.dropdown-link :href="route('celebrations.index')" :active="request()->routeIs('celebrations.*')">
                             {{ __('Celebrations') }}
-                        </x-dropdown-link>
-                        <x-dropdown-link :href="route('projects.index')" :active="request()->routeIs('projects.*')">
+                        </x-layout.dropdown-link>
+                        <x-layout.dropdown-link :href="route('projects.index')" :active="request()->routeIs('projects.*')">
                             {{ __('Projects') }}
-                        </x-dropdown-link>
-                        <x-dropdown-link :href="route('periodic-events.index')" :active="request()->routeIs('periodic-events.*')">
+                        </x-layout.dropdown-link>
+                        <x-layout.dropdown-link :href="route('periodic-events.index')" :active="request()->routeIs('periodic-events.*')">
                             {{ __('Periodic Events') }}
-                        </x-dropdown-link>
-                    </x-nav-dropdown>
+                        </x-layout.dropdown-link>
+                    </x-layout.nav-dropdown>
 
-                    <x-nav-dropdown 
+                    <x-layout.nav-dropdown 
                         label="{{ __('Finance') }}" 
                         :active="request()->routeIs('financials.*')">
-                        <x-dropdown-link :href="route('financials.dashboard')" :active="request()->routeIs('financials.dashboard')">
+                        <x-layout.dropdown-link :href="route('financials.dashboard')" :active="request()->routeIs('financials.dashboard')">
                             {{ __('Dashboard') }}
-                        </x-dropdown-link>
-                        <x-dropdown-link :href="route('financials.index')" :active="request()->routeIs('financials.index')">
+                        </x-layout.dropdown-link>
+                        <x-layout.dropdown-link :href="route('financials.index')" :active="request()->routeIs('financials.index')">
                             {{ __('Expenses') }}
-                        </x-dropdown-link>
-                    </x-nav-dropdown>
+                        </x-layout.dropdown-link>
+                    </x-layout.nav-dropdown>
 
                     {{-- Reports Dropdown --}}
-                    <x-nav-dropdown 
+                    <x-layout.nav-dropdown 
                         label="{{ __('Reports') }}" 
                         :active="request()->routeIs('reports.*')">
-                        <x-dropdown-link :href="route('reports.demographic')" :active="request()->routeIs('reports.demographic')">
+                        <x-layout.dropdown-link :href="route('reports.demographic')" :active="request()->routeIs('reports.demographic')">
                             {{ __('Demographic Reports') }}
-                        </x-dropdown-link>
-                        <x-dropdown-link :href="route('reports.advanced')" :active="request()->routeIs('reports.advanced')">
+                        </x-layout.dropdown-link>
+                        <x-layout.dropdown-link :href="route('reports.advanced')" :active="request()->routeIs('reports.advanced')">
                             {{ __('Advanced Statistics') }}
-                        </x-dropdown-link>
-                        <x-dropdown-link :href="route('reports.builder')" :active="request()->routeIs('reports.builder')">
+                        </x-layout.dropdown-link>
+                        <x-layout.dropdown-link :href="route('reports.builder')" :active="request()->routeIs('reports.builder')">
                             {{ __('Report Builder') }}
-                        </x-dropdown-link>
-                    </x-nav-dropdown>
+                        </x-layout.dropdown-link>
+                    </x-layout.nav-dropdown>
 
                     {{-- System Dropdown (admin only) --}}
                     @can('viewAny', \App\Models\AuditLog::class)
-                        <x-nav-dropdown 
+                        <x-layout.nav-dropdown 
                             label="{{ __('System') }}" 
                             :active="request()->routeIs('audit-logs.*', 'admin.permissions.*', 'admin.settings.*', 'admin.backups.*')">
-                            <x-dropdown-link :href="route('audit-logs.index')" :active="request()->routeIs('audit-logs.*')">
+                            <x-layout.dropdown-link :href="route('audit-logs.index')" :active="request()->routeIs('audit-logs.*')">
                                 {{ __('Audit Logs') }}
-                            </x-dropdown-link>
+                            </x-layout.dropdown-link>
                             @can('view-admin')
-                                <x-dropdown-link :href="route('admin.permissions.index')" :active="request()->routeIs('admin.permissions.*')">
+                                <x-layout.dropdown-link :href="route('admin.permissions.index')" :active="request()->routeIs('admin.permissions.*')">
                                     {{ __('Permissions') }}
-                                </x-dropdown-link>
+                                </x-layout.dropdown-link>
 
-                                <x-dropdown-link :href="route('admin.settings.index')" :active="request()->routeIs('admin.settings.*')">
+                                <x-layout.dropdown-link :href="route('admin.settings.index')" :active="request()->routeIs('admin.settings.*')">
                                     {{ __('Settings') }}
-                                </x-dropdown-link>
-                                <x-dropdown-link :href="route('admin.backups.index')" :active="request()->routeIs('admin.backups.*')">
+                                </x-layout.dropdown-link>
+                                <x-layout.dropdown-link :href="route('admin.backups.index')" :active="request()->routeIs('admin.backups.*')">
                                     {{ __('Backups') }}
-                                </x-dropdown-link>
+                                </x-layout.dropdown-link>
                             @endcan
-                        </x-nav-dropdown>
+                        </x-layout.nav-dropdown>
                     @endcan
                 </div>
             </div>
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
-                <x-dropdown align="right" width="48">
+                <x-layout.dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-4 py-2 border border-stone-200 text-sm leading-4 font-medium rounded-lg text-slate-700 bg-white hover:bg-stone-50 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition ease-in-out duration-150 shadow-sm">
                             <div class="flex items-center gap-2">
@@ -127,34 +127,34 @@
                             <p class="text-xs text-slate-500">{{ auth()->user()->email }}</p>
                         </div>
                         
-                        <x-dropdown-link :href="route('projects.index')">
+                        <x-layout.dropdown-link :href="route('projects.index')">
                             {{ __('My Projects') }}
-                        </x-dropdown-link>
-                        <x-dropdown-link :href="route('my-tasks.index')">
+                        </x-layout.dropdown-link>
+                        <x-layout.dropdown-link :href="route('my-tasks.index')">
                             {{ __('My Tasks') }}
-                        </x-dropdown-link>
-                        <x-dropdown-link :href="route('notifications.index')">
+                        </x-layout.dropdown-link>
+                        <x-layout.dropdown-link :href="route('notifications.index')">
                             {{ __('Notifications') }}
-                        </x-dropdown-link>
+                        </x-layout.dropdown-link>
                         
                         <div class="border-t border-gray-100"></div>
 
-                        <x-dropdown-link :href="route('profile.edit')">
+                        <x-layout.dropdown-link :href="route('profile.edit')">
                             {{ __('Profile Settings') }}
-                        </x-dropdown-link>
+                        </x-layout.dropdown-link>
 
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
 
-                            <x-dropdown-link :href="route('logout')"
+                            <x-layout.dropdown-link :href="route('logout')"
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();">
                                 {{ __('Log Out') }}
-                            </x-dropdown-link>
+                            </x-layout.dropdown-link>
                         </form>
                     </x-slot>
-                </x-dropdown>
+                </x-layout.dropdown>
             </div>
 
             <!-- Hamburger -->
@@ -173,9 +173,9 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden bg-stone-50 border-t border-stone-200">
         <div class="pt-2 pb-3 space-y-1">
             {{-- Dashboard - standalone --}}
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="font-medium">
+            <x-layout.responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="font-medium">
                 {{ __('Dashboard') }}
-            </x-responsive-nav-link>
+            </x-layout.responsive-nav-link>
 
             {{-- Management Section --}}
                 <div x-data="{ expanded: {{ request()->routeIs('members.*', 'documents.*', 'celebrations.*', 'projects.*', 'periodic-events.*') ? 'true' : 'false' }} }">
@@ -189,23 +189,23 @@
                     </svg>
                 </button>
                 <div x-show="expanded" x-collapse class="bg-white">
-                    <x-responsive-nav-link :href="route('members.index')" :active="request()->routeIs('members.*')" class="pl-8">
+                    <x-layout.responsive-nav-link :href="route('members.index')" :active="request()->routeIs('members.*')" class="pl-8">
                         {{ __('Members') }}
-                    </x-responsive-nav-link>
+                    </x-layout.responsive-nav-link>
                     @can('viewAny', \App\Models\Document::class)
-                        <x-responsive-nav-link :href="route('documents.index')" :active="request()->routeIs('documents.*')" class="pl-8">
+                        <x-layout.responsive-nav-link :href="route('documents.index')" :active="request()->routeIs('documents.*')" class="pl-8">
                             {{ __('Documents') }}
-                        </x-responsive-nav-link>
+                        </x-layout.responsive-nav-link>
                     @endcan
-                    <x-responsive-nav-link :href="route('celebrations.index')" :active="request()->routeIs('celebrations.*')" class="pl-8">
+                    <x-layout.responsive-nav-link :href="route('celebrations.index')" :active="request()->routeIs('celebrations.*')" class="pl-8">
                         {{ __('Celebrations') }}
-                    </x-responsive-nav-link>
-                    <x-responsive-nav-link :href="route('projects.index')" :active="request()->routeIs('projects.*')" class="pl-8">
+                    </x-layout.responsive-nav-link>
+                    <x-layout.responsive-nav-link :href="route('projects.index')" :active="request()->routeIs('projects.*')" class="pl-8">
                         {{ __('Projects') }}
-                    </x-responsive-nav-link>
-                    <x-responsive-nav-link :href="route('periodic-events.index')" :active="request()->routeIs('periodic-events.*')" class="pl-8">
+                    </x-layout.responsive-nav-link>
+                    <x-layout.responsive-nav-link :href="route('periodic-events.index')" :active="request()->routeIs('periodic-events.*')" class="pl-8">
                         {{ __('Periodic Events') }}
-                    </x-responsive-nav-link>
+                    </x-layout.responsive-nav-link>
                 </div>
             </div>
 
@@ -221,12 +221,12 @@
                     </svg>
                 </button>
                 <div x-show="expanded" x-collapse class="bg-white">
-                    <x-responsive-nav-link :href="route('financials.dashboard')" :active="request()->routeIs('financials.dashboard')" class="pl-8">
+                    <x-layout.responsive-nav-link :href="route('financials.dashboard')" :active="request()->routeIs('financials.dashboard')" class="pl-8">
                         {{ __('Dashboard') }}
-                    </x-responsive-nav-link>
-                    <x-responsive-nav-link :href="route('financials.index')" :active="request()->routeIs('financials.index')" class="pl-8">
+                    </x-layout.responsive-nav-link>
+                    <x-layout.responsive-nav-link :href="route('financials.index')" :active="request()->routeIs('financials.index')" class="pl-8">
                         {{ __('Expenses') }}
-                    </x-responsive-nav-link>
+                    </x-layout.responsive-nav-link>
                 </div>
             </div>
 
@@ -242,15 +242,15 @@
                     </svg>
                 </button>
                 <div x-show="expanded" x-collapse class="bg-white">
-                    <x-responsive-nav-link :href="route('reports.demographic')" :active="request()->routeIs('reports.demographic')" class="pl-8">
+                    <x-layout.responsive-nav-link :href="route('reports.demographic')" :active="request()->routeIs('reports.demographic')" class="pl-8">
                         {{ __('Demographic Reports') }}
-                    </x-responsive-nav-link>
-                    <x-responsive-nav-link :href="route('reports.advanced')" :active="request()->routeIs('reports.advanced')" class="pl-8">
+                    </x-layout.responsive-nav-link>
+                    <x-layout.responsive-nav-link :href="route('reports.advanced')" :active="request()->routeIs('reports.advanced')" class="pl-8">
                         {{ __('Advanced Statistics') }}
-                    </x-responsive-nav-link>
-                    <x-responsive-nav-link :href="route('reports.builder')" :active="request()->routeIs('reports.builder')" class="pl-8">
+                    </x-layout.responsive-nav-link>
+                    <x-layout.responsive-nav-link :href="route('reports.builder')" :active="request()->routeIs('reports.builder')" class="pl-8">
                         {{ __('Report Builder') }}
-                    </x-responsive-nav-link>
+                    </x-layout.responsive-nav-link>
                 </div>
             </div>
 
@@ -267,20 +267,20 @@
                         </svg>
                     </button>
                     <div x-show="expanded" x-collapse class="bg-white">
-                        <x-responsive-nav-link :href="route('audit-logs.index')" :active="request()->routeIs('audit-logs.*')" class="pl-8">
+                        <x-layout.responsive-nav-link :href="route('audit-logs.index')" :active="request()->routeIs('audit-logs.*')" class="pl-8">
                             {{ __('Audit Logs') }}
-                        </x-responsive-nav-link>
+                        </x-layout.responsive-nav-link>
                         @can('view-admin')
-                            <x-responsive-nav-link :href="route('admin.permissions.index')" :active="request()->routeIs('admin.permissions.*')" class="pl-8">
+                            <x-layout.responsive-nav-link :href="route('admin.permissions.index')" :active="request()->routeIs('admin.permissions.*')" class="pl-8">
                                 {{ __('Permissions') }}
-                            </x-responsive-nav-link>
+                            </x-layout.responsive-nav-link>
 
-                            <x-responsive-nav-link :href="route('admin.settings.index')" :active="request()->routeIs('admin.settings.*')" class="pl-8">
+                            <x-layout.responsive-nav-link :href="route('admin.settings.index')" :active="request()->routeIs('admin.settings.*')" class="pl-8">
                                 {{ __('Settings') }}
-                            </x-responsive-nav-link>
-                            <x-responsive-nav-link :href="route('admin.backups.index')" :active="request()->routeIs('admin.backups.*')" class="pl-8">
+                            </x-layout.responsive-nav-link>
+                            <x-layout.responsive-nav-link :href="route('admin.backups.index')" :active="request()->routeIs('admin.backups.*')" class="pl-8">
                                 {{ __('Backups') }}
-                            </x-responsive-nav-link>
+                            </x-layout.responsive-nav-link>
                         @endcan
                     </div>
                 </div>
@@ -302,29 +302,29 @@
             </div>
 
             <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('projects.index')">
+                <x-layout.responsive-nav-link :href="route('projects.index')">
                     {{ __('My Projects') }}
-                </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('my-tasks.index')">
+                </x-layout.responsive-nav-link>
+                <x-layout.responsive-nav-link :href="route('my-tasks.index')">
                     {{ __('My Tasks') }}
-                </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('notifications.index')">
+                </x-layout.responsive-nav-link>
+                <x-layout.responsive-nav-link :href="route('notifications.index')">
                     {{ __('Notifications') }}
-                </x-responsive-nav-link>
+                </x-layout.responsive-nav-link>
 
-                <x-responsive-nav-link :href="route('profile.edit')">
+                <x-layout.responsive-nav-link :href="route('profile.edit')">
                     {{ __('Profile Settings') }}
-                </x-responsive-nav-link>
+                </x-layout.responsive-nav-link>
 
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
 
-                    <x-responsive-nav-link :href="route('logout')"
+                    <x-layout.responsive-nav-link :href="route('logout')"
                             onclick="event.preventDefault();
                                         this.closest('form').submit();">
                         {{ __('Log Out') }}
-                    </x-responsive-nav-link>
+                    </x-layout.responsive-nav-link>
                 </form>
             </div>
         </div>

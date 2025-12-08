@@ -11,7 +11,7 @@
             <div class="flex flex-col md:flex-row justify-between gap-4 mb-6">
                 <!-- Search & Filters -->
                 <div class="flex flex-col md:flex-row gap-4 flex-grow">
-                    <x-enhanced-search
+                    <x-tables.enhanced-search
                         model="search"
                         placeholder="Search members by name, status, community..."
                         :suggestions="[
@@ -47,7 +47,7 @@
                 </div>
 
                 <!-- Bulk Actions Menu -->
-                <x-bulk-actions-menu
+                <x-tables.bulk-actions-menu
                     :selectedCount="count($selected)"
                     :actions="[
                         [
@@ -70,7 +70,7 @@
             </div>
 
             <!-- Responsive Table -->
-            <x-responsive-table>
+            <x-tables.responsive-table>
                 <x-slot name="thead">
                     <tr>
                         <th scope="col" class="p-4 w-4">
@@ -114,7 +114,7 @@
                                 {{ $member->first_name }} {{ $member->last_name }}
                             </td>
                             <td class="py-4 px-6">
-                                <x-inline-edit
+                                <x-forms.inline-edit
                                     :id="$member->id"
                                     field="religious_name"
                                     :value="$member->religious_name ?? ''"
@@ -124,7 +124,7 @@
                                 />
                             </td>
                             <td class="py-4 px-6">
-                                <x-inline-edit
+                                <x-forms.inline-edit
                                     :id="$member->id"
                                     field="status"
                                     :value="$member->status->value"
@@ -175,10 +175,10 @@
                         </div>
                     @endforelse
                 </x-slot>
-            </x-responsive-table>
+            </x-tables.responsive-table>
 
             <!-- Smart Pagination -->
-            <x-smart-pagination
+            <x-tables.smart-pagination
                 :paginator="$members"
                 :showPageSize="true"
                 :showJumpTo="true"

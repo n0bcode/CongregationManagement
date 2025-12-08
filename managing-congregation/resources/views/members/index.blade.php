@@ -4,9 +4,9 @@
             <h2 class="text-3xl font-bold text-stone-800">
                 {{ __('Members') }}
             </h2>
-            <x-button variant="primary" href="{{ route('members.create') }}">
+            <x-ui.button variant="primary" href="{{ route('members.create') }}">
                 {{ __('Create Member') }}
-            </x-button>
+            </x-ui.button>
         </div>
     </x-slot>
 

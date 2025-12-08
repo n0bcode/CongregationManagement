@@ -21,6 +21,6 @@ class BottomSheet extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.bottom-sheet');
+        return view('components.layout.bottom-sheet');
     }
 }

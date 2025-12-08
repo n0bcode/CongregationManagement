@@ -1,4 +1,4 @@
-<x-card title="Upcoming Events" subtitle="Next 30 days">
+<x-ui.card title="Upcoming Events" subtitle="Next 30 days">
     <div class="flow-root">
         <ul role="list" class="-my-5 divide-y divide-stone-200">
             @forelse($data['events'] as $event)
@@ -35,4 +35,4 @@
             View calendar
         </a>
     </div>
-</x-card>
+</x-ui.card>

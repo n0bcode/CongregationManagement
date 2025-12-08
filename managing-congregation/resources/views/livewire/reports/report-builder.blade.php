@@ -10,15 +10,15 @@
                 </p>
             </div>
             <div class="flex flex-col sm:flex-row gap-3">
-                <x-button variant="secondary" wire:click="$set('showSaveModal', true)" class="flex items-center justify-center">
+                <x-ui.button variant="secondary" wire:click="$set('showSaveModal', true)" class="flex items-center justify-center">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
                     </svg>
                     {{ __('Save Template') }}
-                </x-button>
+                </x-ui.button>
                 
                 <div x-data="{ open: false }" class="relative">
-                    <x-button variant="primary" @click="open = !open" class="flex items-center justify-center w-full sm:w-auto">
+                    <x-ui.button variant="primary" @click="open = !open" class="flex items-center justify-center w-full sm:w-auto">
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                         </svg>
@@ -26,7 +26,7 @@
                         <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                         </svg>
-                    </x-button>
+                    </x-ui.button>
                     <div x-show="open" 
                          x-transition:enter="transition ease-out duration-100"
                          x-transition:enter-start="transform opacity-0 scale-95"
@@ -270,7 +270,7 @@
                                     @empty
                                         <tr>
                                             <td colspan="{{ count($selectedFields) }}" class="px-6 py-16 text-center">
-                                                <x-empty-state 
+                                                <x-ui.empty-state 
                                                     icon="chart-bar"
                                                     title="{{ __('No data found') }}"
                                                     description="{{ __('No records match your current filters. Try adjusting your criteria or selecting a different data source.') }}"
@@ -445,19 +445,19 @@
 
                         <!-- Modal Footer -->
                         <div class="bg-stone-50 px-6 py-4 border-t border-stone-200 flex flex-col-reverse sm:flex-row sm:justify-end gap-3">
-                            <x-button variant="secondary" 
+                            <x-ui.button variant="secondary" 
                                       wire:click="$set('showSaveModal', false)" 
                                       class="w-full sm:w-auto justify-center">
                                 {{ __('Cancel') }}
-                            </x-button>
-                            <x-button variant="primary" 
+                            </x-ui.button>
+                            <x-ui.button variant="primary" 
                                       wire:click="saveTemplate" 
                                       class="w-full sm:w-auto justify-center">
                                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                                 </svg>
                                 {{ __('Save Template') }}
-                            </x-button>
+                            </x-ui.button>
                         </div>
                     </div>
                 </div>

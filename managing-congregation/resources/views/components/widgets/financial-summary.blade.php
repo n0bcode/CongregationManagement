@@ -1,4 +1,4 @@
-<x-status-card
+<x-ui.status-card
     variant="attention"
     title="Total Expenses"
     :value="'$' . number_format($data['total_expenses'], 2)"
@@ -18,4 +18,4 @@
             </svg>
         </a>
     </div>
-</x-status-card>
+</x-ui.status-card>

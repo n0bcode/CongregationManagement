@@ -4,22 +4,22 @@
             <h2 class="text-3xl font-bold text-stone-800">
                 {{ __('Lock Financial Period') }}
             </h2>
-            <x-button variant="secondary" href="{{ route('financials.index') }}">
+            <x-ui.button variant="secondary" href="{{ route('financials.index') }}">
                 {{ __('Back to Financials') }}
-            </x-button>
+            </x-ui.button>
         </div>
     </x-slot>
 
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {{-- Info Alert --}}
-        <x-alert type="info" class="mb-6">
+        <x-ui.alert type="info" class="mb-6">
             <div>
                 <strong>{{ __('About Period Locking') }}</strong>
                 <p class="text-sm mt-1">
                     {{ __('Locking a period prevents any expenses in that month from being edited or deleted. This ensures financial records remain accurate and tamper-proof for reporting and auditing purposes.') }}
                 </p>
             </div>
-        </x-alert>
+        </x-ui.alert>
 
         {{-- Selection Form --}}
         <div class="bg-white rounded-lg shadow-sm border border-stone-200 p-8 mb-6">
@@ -97,17 +97,17 @@
                 </h3>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                    <x-status-card 
+                    <x-ui.status-card 
                         variant="info"
                         :title="__('Total Expenses')"
                         :value="(string) $lockStatus['total_expenses']"
                     />
-                    <x-status-card 
+                    <x-ui.status-card 
                         variant="attention"
                         :title="__('Locked')"
                         :value="(string) $lockStatus['locked_expenses']"
                     />
-                    <x-status-card 
+                    <x-ui.status-card 
                         variant="pending"
                         :title="__('Unlocked')"
                         :value="(string) $lockStatus['unlocked_expenses']"
@@ -130,26 +130,26 @@
 
                 {{-- Status Message --}}
                 @if($lockStatus['is_fully_locked'])
-                    <x-alert type="success">
+                    <x-ui.alert type="success">
                         <strong>{{ __('Period Fully Locked') }}</strong>
                         <p class="text-sm mt-1">
                             {{ __('All expenses in this period are locked and cannot be modified.') }}
                         </p>
-                    </x-alert>
+                    </x-ui.alert>
                 @elseif($lockStatus['is_partially_locked'])
-                    <x-alert type="warning" class="mb-4">
+                    <x-ui.alert type="warning" class="mb-4">
                         <strong>{{ __('Period Partially Locked') }}</strong>
                         <p class="text-sm mt-1">
                             {{ __('Some expenses in this period are locked. You can lock the remaining expenses below.') }}
                         </p>
-                    </x-alert>
+                    </x-ui.alert>
                 @else
-                    <x-alert type="info" class="mb-4">
+                    <x-ui.alert type="info" class="mb-4">
                         <strong>{{ __('Period Not Locked') }}</strong>
                         <p class="text-sm mt-1">
                             {{ __('No expenses in this period are locked. You can lock all expenses below.') }}
                         </p>
-                    </x-alert>
+                    </x-ui.alert>
                 @endif
 
                 {{-- Lock Action --}}
@@ -171,7 +171,7 @@
                                         {{ __('Locking this period will prevent all') }} <strong>{{ $lockStatus['unlocked_expenses'] }}</strong> 
                                         {{ __('unlocked expense(s) from being edited or deleted. Make sure all expenses are accurate before proceeding.') }}
                                     </p>
-                                    <x-button 
+                                    <x-ui.button 
                                         type="submit" 
                                         variant="danger"
                                         onclick="return confirm('{{ __('Are you sure you want to lock this period? This action cannot be undone.') }}')"
@@ -180,7 +180,7 @@
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
                                         </svg>
                                         {{ __('Lock Period') }}
-                                    </x-button>
+                                    </x-ui.button>
                                 </div>
                             </div>
                         </div>

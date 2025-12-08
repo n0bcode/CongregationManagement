@@ -8,24 +8,24 @@
                 @php
                     $defaultCommunityId = auth()->user()->community_id ?? \App\Models\Community::first()?->id ?? 1;
                 @endphp
-                <x-button variant="ghost" href="{{ route('financials.monthly-report', ['community_id' => $defaultCommunityId, 'year' => now()->year, 'month' => now()->month]) }}">
+                <x-ui.button variant="ghost" href="{{ route('financials.monthly-report', ['community_id' => $defaultCommunityId, 'year' => now()->year, 'month' => now()->month]) }}">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                     </svg>
                     {{ __('Reports') }}
-                </x-button>
+                </x-ui.button>
                 @can('lockPeriod', \App\Models\Expense::class)
-                    <x-button variant="secondary" href="{{ route('financials.lock-period.form') }}">
+                    <x-ui.button variant="secondary" href="{{ route('financials.lock-period.form') }}">
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
                         </svg>
                         {{ __('Lock Period') }}
-                    </x-button>
+                    </x-ui.button>
                 @endcan
                 @can('create', \App\Models\Expense::class)
-                    <x-button variant="primary" href="{{ route('financials.create') }}">
+                    <x-ui.button variant="primary" href="{{ route('financials.create') }}">
                         {{ __('Record Expense') }}
-                    </x-button>
+                    </x-ui.button>
                 @endcan
             </div>
         </div>
@@ -94,13 +94,13 @@
                 </div>
 
                 <div class="flex gap-3">
-                    <x-button type="submit" variant="primary">
+                    <x-ui.button type="submit" variant="primary">
                         {{ __('Apply Filters') }}
-                    </x-button>
+                    </x-ui.button>
                     @if(request()->hasAny(['category', 'month', 'start_date', 'end_date']))
-                        <x-button variant="secondary" href="{{ route('financials.index') }}">
+                        <x-ui.button variant="secondary" href="{{ route('financials.index') }}">
                             {{ __('Clear Filters') }}
-                        </x-button>
+                        </x-ui.button>
                     @endif
                 </div>
             </form>
@@ -108,7 +108,7 @@
 
         {{-- Summary Card --}}
         <div class="mb-6">
-            <x-status-card 
+            <x-ui.status-card 
                 variant="info" 
                 title="{{ __('Total Expenses') }}"
                 value="${{ number_format($totalAmount / 100, 2) }}"
@@ -121,7 +121,7 @@
             @if($expenses->count() > 0)
                 <div class="divide-y divide-stone-200">
                     @foreach($expenses as $expense)
-                        <x-ledger-row
+                        <x-features.ledger-row
                             :date="$expense->date"
                             :description="$expense->description"
                             :category="$expense->category"
@@ -149,7 +149,7 @@
                                     </span>
                                 @endif
                             </div>
-                        </x-ledger-row>
+                        </x-features.ledger-row>
                     @endforeach
                 </div>
 
@@ -174,9 +174,9 @@
                         @endif
                     </p>
                     <div class="mt-6">
-                        <x-button variant="primary" href="{{ route('financials.create') }}">
+                        <x-ui.button variant="primary" href="{{ route('financials.create') }}">
                             {{ __('Record Expense') }}
-                        </x-button>
+                        </x-ui.button>
                     </div>
                 </div>
             @endif

@@ -21,6 +21,6 @@ class CommandPalette extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.command-palette');
+        return view('components.features.command-palette');
     }
 }

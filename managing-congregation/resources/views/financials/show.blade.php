@@ -14,16 +14,16 @@
             @if(!$expense->is_locked)
                 @can('update', $expense)
                     <div class="flex gap-3">
-                        <x-button variant="secondary" href="{{ route('financials.edit', $expense) }}">
+                        <x-ui.button variant="secondary" href="{{ route('financials.edit', $expense) }}">
                             {{ __('Edit') }}
-                        </x-button>
+                        </x-ui.button>
                         @can('delete', $expense)
                             <form method="POST" action="{{ route('financials.destroy', $expense) }}" onsubmit="return confirm('{{ __('Are you sure you want to delete this expense?') }}');">
                                 @csrf
                                 @method('DELETE')
-                                <x-button type="submit" variant="danger">
+                                <x-ui.button type="submit" variant="danger">
                                     {{ __('Delete') }}
-                                </x-button>
+                                </x-ui.button>
                             </form>
                         @endcan
                     </div>
@@ -35,7 +35,7 @@
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {{-- Locked Status Alert --}}
         @if($expense->is_locked)
-            <x-alert type="warning" class="mb-6">
+            <x-ui.alert type="warning" class="mb-6">
                 <div class="flex items-center">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
@@ -50,7 +50,7 @@
                         </p>
                     </div>
                 </div>
-            </x-alert>
+            </x-ui.alert>
         @endif
 
         <div class="bg-white rounded-lg shadow-sm border border-stone-200 overflow-hidden">
@@ -148,13 +148,13 @@
 
         {{-- Actions --}}
         <div class="mt-6 flex gap-4">
-            <x-button variant="secondary" href="{{ route('financials.index') }}" class="flex-1">
+            <x-ui.button variant="secondary" href="{{ route('financials.index') }}" class="flex-1">
                 {{ __('Back to List') }}
-            </x-button>
+            </x-ui.button>
             @if(!$expense->is_locked)
-                <x-button variant="primary" href="{{ route('financials.edit', $expense) }}" class="flex-1">
+                <x-ui.button variant="primary" href="{{ route('financials.edit', $expense) }}" class="flex-1">
                     {{ __('Edit Expense') }}
-                </x-button>
+                </x-ui.button>
             @endif
         </div>
     </div>

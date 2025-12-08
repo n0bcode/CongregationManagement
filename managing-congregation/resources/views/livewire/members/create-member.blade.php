@@ -1,19 +1,19 @@
-<x-form-with-unsaved-warning>
+<x-forms.form-with-unsaved-warning>
     <div class="bg-white rounded-lg shadow-sm border border-stone-200 p-8">
         <form wire:submit.prevent="save" x-data="smartForm({ totalSteps: 3 })" @submit="$el.closest('[x-data]').markAsSaved()">
             
             {{-- Step 1: Personal Information --}}
-            <x-wizard-step step="1">
+            <x-forms.wizard-step step="1">
                 <h3 class="text-lg font-medium text-gray-900 mb-4">Step 1: Personal Information</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <x-validated-input 
+                    <x-forms.validated-input 
                         name="first_name" 
                         label="First Name (Civil)" 
                         wire:model.live="first_name" 
                         rules="required|string|max:255"
                     />
 
-                    <x-validated-input 
+                    <x-forms.validated-input 
                         name="last_name" 
                         label="Last Name (Civil)" 
                         wire:model.live="last_name" 
@@ -22,7 +22,7 @@
                 </div>
 
                 <div class="mt-4">
-                    <x-validated-input 
+                    <x-forms.validated-input 
                         name="dob" 
                         label="Date of Birth" 
                         type="date"
@@ -30,13 +30,13 @@
                         rules="required|date|before:today"
                     />
                 </div>
-            </x-wizard-step>
+            </x-forms.wizard-step>
 
             {{-- Step 2: Religious Information --}}
-            <x-wizard-step step="2">
+            <x-forms.wizard-step step="2">
                 <h3 class="text-lg font-medium text-gray-900 mb-4">Step 2: Religious Information</h3>
                 
-                <x-validated-input 
+                <x-forms.validated-input 
                     name="religious_name" 
                     label="Religious Name (Optional)" 
                     wire:model.live="religious_name" 
@@ -60,7 +60,7 @@
                     @error('member_type') <p class="text-sm text-red-600 mt-1">{{ $message }}</p> @enderror
 
                     <div class="mt-4">
-                        <x-validated-input 
+                        <x-forms.validated-input 
                             name="entry_date" 
                             label="Entry Date" 
                             type="date"
@@ -73,7 +73,7 @@
                     <div x-show="memberType === 'novice' || memberType === 'professed'" class="mt-6 p-4 bg-amber-50 border border-amber-200 rounded-lg">
                         <h4 class="font-medium text-amber-900 mb-3">Formation Dates</h4>
                         
-                        <x-validated-input 
+                        <x-forms.validated-input 
                             name="novitiate_entry_date" 
                             label="Novitiate Entry Date" 
                             type="date"
@@ -82,7 +82,7 @@
                         />
 
                         <div x-show="memberType === 'professed'" class="mt-4">
-                            <x-validated-input 
+                            <x-forms.validated-input 
                                 name="first_vows_date" 
                                 label="First Vows Date" 
                                 type="date"
@@ -92,7 +92,7 @@
                         </div>
 
                         <div x-show="memberType === 'professed'" class="mt-4">
-                            <x-validated-input 
+                            <x-forms.validated-input 
                                 name="perpetual_vows_date" 
                                 label="Perpetual Vows Date (Optional)" 
                                 type="date"
@@ -102,10 +102,10 @@
                         </div>
                     </div>
                 </div>
-            </x-wizard-step>
+            </x-forms.wizard-step>
 
             {{-- Step 3: Community --}}
-            <x-wizard-step step="3">
+            <x-forms.wizard-step step="3">
                 <h3 class="text-lg font-medium text-gray-900 mb-4">Step 3: Community Assignment</h3>
 
                 @if(auth()->user()->community_id === null)
@@ -130,9 +130,9 @@
                         You are creating this member in your assigned community.
                     </div>
                 @endif
-            </x-wizard-step>
+            </x-forms.wizard-step>
 
-            <x-wizard-navigation submitLabel="Create Member" />
+            <x-forms.wizard-navigation submitLabel="Create Member" />
         </form>
     </div>
-</x-form-with-unsaved-warning>
+</x-forms.form-with-unsaved-warning>

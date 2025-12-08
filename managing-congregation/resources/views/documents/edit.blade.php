@@ -184,15 +184,15 @@
 
                     {{-- Form Actions --}}
                     <div class="flex gap-4 pt-6 border-t border-stone-200">
-                        <x-button type="submit" variant="primary" class="flex-1">
+                        <x-ui.button type="submit" variant="primary" class="flex-1">
                             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                             </svg>
                             {{ __('Update Document') }}
-                        </x-button>
-                        <x-button variant="secondary" href="{{ route('documents.show', $document) }}" class="flex-1">
+                        </x-ui.button>
+                        <x-ui.button variant="secondary" href="{{ route('documents.show', $document) }}" class="flex-1">
                             {{ __('Cancel') }}
-                        </x-button>
+                        </x-ui.button>
                     </div>
                 </form>
             </div>

@@ -21,6 +21,6 @@ class EmptyState extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.empty-state');
+        return view('components.ui.empty-state');
     }
 }

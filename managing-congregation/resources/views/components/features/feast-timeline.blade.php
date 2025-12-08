@@ -13,7 +13,7 @@ $projectedEvents = is_array($projectedEvents) ? $projectedEvents : [];
 <div {{ $attributes->merge(['class' => 'feast-timeline overflow-x-auto py-4 -mx-6 px-6']) }}>
     <div class="flex space-x-6 min-w-max">
         @forelse($events as $event)
-            <x-timeline-node 
+            <x-features.timeline-node 
                 :event="$event"
                 :date="$event->date ?? null"
                 :title="$event->name ?? ''"

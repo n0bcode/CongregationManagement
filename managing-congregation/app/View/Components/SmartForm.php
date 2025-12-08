@@ -17,6 +17,6 @@ class SmartForm extends Component
 
     public function render()
     {
-        return view('components.smart-form');
+        return view('components.forms.smart-form');
     }
 }

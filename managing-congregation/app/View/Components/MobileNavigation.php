@@ -21,6 +21,6 @@ class MobileNavigation extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.mobile-navigation');
+        return view('components.layout.mobile-navigation');
     }
 }

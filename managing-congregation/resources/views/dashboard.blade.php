@@ -13,7 +13,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Status Cards Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-            <x-status-card 
+            <x-ui.status-card 
                 variant="peace" 
                 title="Active Members"
                 :value="$activeMembersCount"
@@ -21,7 +21,7 @@
                 icon='<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>'
             />
 
-            <x-status-card 
+            <x-ui.status-card 
                 variant="attention" 
                 title="Needs Attention"
                 :value="$needsAttentionCount"
@@ -29,7 +29,7 @@
                 icon='<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>'
             />
 
-            <x-status-card 
+            <x-ui.status-card 
                 variant="pending" 
                 title="Upcoming Events"
                 :value="$upcomingReminders->count()"
@@ -42,10 +42,10 @@
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <!-- Recent Activity -->
             <div class="lg:col-span-2">
-                <x-card title="Recent Activity" subtitle="Latest updates from your communities">
+                <x-ui.card title="Recent Activity" subtitle="Latest updates from your communities">
                     <div class="space-y-0 -mx-6">
                         @forelse($recentActivity as $activity)
-                            <x-ledger-row 
+                            <x-features.ledger-row 
                                 :date="$activity->created_at"
                                 :description="$activity->description"
                                 :category="ucfirst(str_replace('_', ' ', $activity->target_type ?? 'System'))"
@@ -57,31 +57,31 @@
                             </div>
                         @endforelse
                     </div>
-                </x-card>
+                </x-ui.card>
             </div>
 
             <!-- Quick Actions & Reminders -->
             <div>
-                <x-card title="Quick Actions">
+                <x-ui.card title="Quick Actions">
                     <div class="space-y-3">
-                        <x-button variant="primary" href="{{ route('members.create') }}" class="w-full justify-center">
+                        <x-ui.button variant="primary" href="{{ route('members.create') }}" class="w-full justify-center">
                             Add New Member
-                        </x-button>
-                        <x-button variant="secondary" href="{{ route('financials.monthly-report') }}" class="w-full justify-center">
+                        </x-ui.button>
+                        <x-ui.button variant="secondary" href="{{ route('financials.monthly-report') }}" class="w-full justify-center">
                             View Reports
-                        </x-button>
-                        <x-button variant="secondary" href="{{ route('documents.index') }}" class="w-full justify-center">
+                        </x-ui.button>
+                        <x-ui.button variant="secondary" href="{{ route('documents.index') }}" class="w-full justify-center">
                             Manage Documents
-                        </x-button>
+                        </x-ui.button>
                     </div>
-                </x-card>
+                </x-ui.card>
 
                 <!-- Upcoming Reminders -->
-                <x-card title="Upcoming Reminders" subtitle="Next 30 days" class="mt-6">
+                <x-ui.card title="Upcoming Reminders" subtitle="Next 30 days" class="mt-6">
                     @if($upcomingReminders->count() > 0)
                         <div class="space-y-0 -mx-6">
                             @foreach($upcomingReminders->take(5) as $reminder)
-                                <x-timeline-node
+                                <x-features.timeline-node
                                     :date="$reminder->reminder_date"
                                     :title="$reminder->title"
                                     :description="$reminder->description"
@@ -104,7 +104,7 @@
                             <p class="mt-2 text-sm text-slate-600">No upcoming reminders</p>
                         </div>
                     @endif
-                </x-card>
+                </x-ui.card>
             </div>
         </div>
 

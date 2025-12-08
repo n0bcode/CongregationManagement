@@ -12,7 +12,7 @@
                 </h2>
             </div>
             
-            <x-contextual-actions :model="$member" layout="buttons" />
+            <x-features.contextual-actions :model="$member" layout="buttons" />
         </div>
     </x-slot>
 
@@ -47,16 +47,16 @@
                         </div>
                         @can('update', $member)
                             <div class="flex flex-col space-y-2">
-                                <x-secondary-button x-data="" x-on:click.prevent="$dispatch('open-modal', 'update-photo')">
+                                <x-ui.secondary-button x-data="" x-on:click.prevent="$dispatch('open-modal', 'update-photo')">
                                     {{ __('Update Photo') }}
-                                </x-secondary-button>
+                                </x-ui.secondary-button>
                                 @if($member->profile_photo_path)
                                     <form method="POST" action="{{ route('members.photo.destroy', $member) }}" class="inline">
                                         @csrf
                                         @method('DELETE')
-                                        <x-danger-button onclick="return confirm('Are you sure you want to remove this photo?')" class="w-full">
+                                        <x-ui.danger-button onclick="return confirm('Are you sure you want to remove this photo?')" class="w-full">
                                             {{ __('Remove Photo') }}
-                                        </x-danger-button>
+                                        </x-ui.danger-button>
                                     </form>
                                 @endif
                             </div>
@@ -66,7 +66,7 @@
             </div>
 
             <!-- Related Records Tabs -->
-            <x-related-records :tabs="[
+            <x-features.related-records :tabs="[
                 'personal' => 'Personal',
                 'formation' => 'Formation',
                 'health' => 'Health',
@@ -129,21 +129,21 @@
                     <div class="flex justify-between items-center mb-4">
                         <h3 class="text-lg font-medium text-slate-900">{{ __('Formation Timeline') }}</h3>
                         @can('create', \App\Models\FormationEvent::class)
-                            <x-primary-button x-data="" x-on:click.prevent="$dispatch('open-modal', 'add-formation-event')">
+                            <x-ui.primary-button x-data="" x-on:click.prevent="$dispatch('open-modal', 'add-formation-event')">
                                 {{ __('Add Milestone') }}
-                            </x-primary-button>
+                            </x-ui.primary-button>
                         @endcan
                     </div>
-                    <x-formation-timeline :events="$member->formationEvents" :projectedEvents="$projectedEvents" />
+                    <x-features.formation-timeline :events="$member->formationEvents" :projectedEvents="$projectedEvents" />
                 </x-slot>
 
                 <x-slot name="health">
                     <div class="flex justify-between items-center mb-4">
                         <h3 class="text-lg font-medium text-slate-900">{{ __('Health Records') }}</h3>
                         @can('update', $member)
-                            <x-primary-button x-data="" x-on:click.prevent="$dispatch('open-modal', 'add-health-record')">
+                            <x-ui.primary-button x-data="" x-on:click.prevent="$dispatch('open-modal', 'add-health-record')">
                                 {{ __('Add Health Record') }}
-                            </x-primary-button>
+                            </x-ui.primary-button>
                         @endcan
                     </div>
                     @if($member->healthRecords->count() > 0)
@@ -194,9 +194,9 @@
                     <div class="flex justify-between items-center mb-4">
                         <h3 class="text-lg font-medium text-slate-900">{{ __('Skills & Talents') }}</h3>
                         @can('update', $member)
-                            <x-primary-button x-data="" x-on:click.prevent="$dispatch('open-modal', 'add-skill')">
+                            <x-ui.primary-button x-data="" x-on:click.prevent="$dispatch('open-modal', 'add-skill')">
                                 {{ __('Add Skill') }}
-                            </x-primary-button>
+                            </x-ui.primary-button>
                         @endcan
                     </div>
                     @if($member->skills->count() > 0)
@@ -245,24 +245,24 @@
                     <div class="flex justify-between items-center mb-4">
                         <h3 class="text-lg font-medium text-slate-900">{{ __('Service History') }}</h3>
                         @can('update', $member)
-                            <x-primary-button x-data="" x-on:click.prevent="$dispatch('open-modal', 'add-service-record')">
+                            <x-ui.primary-button x-data="" x-on:click.prevent="$dispatch('open-modal', 'add-service-record')">
                                 {{ __('Add Service Record') }}
-                            </x-primary-button>
+                            </x-ui.primary-button>
                         @endcan
                     </div>
-                    <x-service-history-list :assignments="$member->assignments" />
+                    <x-features.service-history-list :assignments="$member->assignments" />
                 </x-slot>
 
                 <x-slot name="history">
                     <h3 class="text-lg font-medium text-slate-900 mb-4">{{ __('Audit Log') }}</h3>
-                    <x-audit-trail :audits="$member->audits" />
+                    <x-features.audit-trail :audits="$member->audits" />
                 </x-slot>
-            </x-related-records>
+            </x-features.related-records>
         </div>
     </div>
 
     <!-- Add Formation Event Modal -->
-    <x-modal name="add-formation-event" focusable>
+    <x-ui.modal name="add-formation-event" focusable>
         <form method="post" action="{{ route('members.formation.store', $member) }}" class="p-6">
             @csrf
 
@@ -271,42 +271,42 @@
             </h2>
 
             <div class="mt-6">
-                <x-input-label for="stage" value="{{ __('Stage') }}" />
+                <x-forms.input-label for="stage" value="{{ __('Stage') }}" />
                 <select id="stage" name="stage" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
                     @foreach(\App\Enums\FormationStage::cases() as $stage)
                         <option value="{{ $stage->value }}">{{ $stage->label() }}</option>
                     @endforeach
                 </select>
-                <x-input-error :messages="$errors->get('stage')" class="mt-2" />
+                <x-forms.input-error :messages="$errors->get('stage')" class="mt-2" />
             </div>
 
             <div class="mt-6">
-                <x-input-label for="started_at" value="{{ __('Start Date') }}" />
-                <x-text-input id="started_at" name="started_at" type="date" class="mt-1 block w-full" required />
-                <x-input-error :messages="$errors->get('started_at')" class="mt-2" />
+                <x-forms.input-label for="started_at" value="{{ __('Start Date') }}" />
+                <x-forms.text-input id="started_at" name="started_at" type="date" class="mt-1 block w-full" required />
+                <x-forms.input-error :messages="$errors->get('started_at')" class="mt-2" />
             </div>
 
             <div class="mt-6">
-                <x-input-label for="notes" value="{{ __('Notes (Optional)') }}" />
+                <x-forms.input-label for="notes" value="{{ __('Notes (Optional)') }}" />
                 <textarea id="notes" name="notes" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" rows="3"></textarea>
-                <x-input-error :messages="$errors->get('notes')" class="mt-2" />
+                <x-forms.input-error :messages="$errors->get('notes')" class="mt-2" />
             </div>
 
             <div class="mt-6 flex justify-end">
-                <x-secondary-button x-on:click="$dispatch('close')">
+                <x-ui.secondary-button x-on:click="$dispatch('close')">
                     {{ __('Cancel') }}
-                </x-secondary-button>
+                </x-ui.secondary-button>
 
-                <x-primary-button class="ml-3">
+                <x-ui.primary-button class="ml-3">
                     {{ __('Save Milestone') }}
-                </x-primary-button>
+                </x-ui.primary-button>
             </div>
         </form>
-    </x-modal>
+    </x-ui.modal>
 
     <!-- Upload Document Modals (one per event) -->
     @foreach($member->formationEvents as $event)
-        <x-modal name="upload-document-{{ $event->id }}" focusable>
+        <x-ui.modal name="upload-document-{{ $event->id }}" focusable>
             <form method="post" action="{{ route('formation.documents.store', $event) }}" enctype="multipart/form-data" class="p-6">
                 @csrf
                 <input type="hidden" name="formation_event_id" value="{{ $event->id }}">
@@ -316,7 +316,7 @@
                 </h2>
 
                 <div class="mt-6">
-                    <x-input-label for="file-{{ $event->id }}" value="{{ __('Select File (PDF, JPG, PNG - Max 5MB)') }}" />
+                    <x-forms.input-label for="file-{{ $event->id }}" value="{{ __('Select File (PDF, JPG, PNG - Max 5MB)') }}" />
                     <input 
                         id="file-{{ $event->id }}" 
                         name="file" 
@@ -330,35 +330,35 @@
                             hover:file:bg-amber-700"
                         required 
                     />
-                    <x-input-error :messages="$errors->get('file')" class="mt-2" />
+                    <x-forms.input-error :messages="$errors->get('file')" class="mt-2" />
                 </div>
 
                 <div class="mt-6">
-                    <x-input-label for="document_type-{{ $event->id }}" value="{{ __('Document Type (Optional)') }}" />
-                    <x-text-input 
+                    <x-forms.input-label for="document_type-{{ $event->id }}" value="{{ __('Document Type (Optional)') }}" />
+                    <x-forms.text-input 
                         id="document_type-{{ $event->id }}" 
                         name="document_type" 
                         type="text" 
                         class="mt-1 block w-full" 
                         placeholder="e.g., Baptismal Certificate, Health Report"
                     />
-                    <x-input-error :messages="$errors->get('document_type')" class="mt-2" />
+                    <x-forms.input-error :messages="$errors->get('document_type')" class="mt-2" />
                 </div>
 
                 <div class="mt-6 flex justify-end">
-                    <x-secondary-button x-on:click="$dispatch('close')">
+                    <x-ui.secondary-button x-on:click="$dispatch('close')">
                         {{ __('Cancel') }}
-                    </x-secondary-button>
+                    </x-ui.secondary-button>
 
-                    <x-primary-button class="ml-3">
+                    <x-ui.primary-button class="ml-3">
                         {{ __('Upload Document') }}
-                    </x-primary-button>
+                    </x-ui.primary-button>
                 </div>
             </form>
-        </x-modal>
+        </x-ui.modal>
 
         <!-- View Documents Modal -->
-        <x-modal name="view-documents-{{ $event->id }}" focusable>
+        <x-ui.modal name="view-documents-{{ $event->id }}" focusable>
             <div class="p-6">
                 <h2 class="text-lg font-medium text-gray-900 mb-4">
                     {{ __('Documents') }} - {{ $event->stage->label() }}
@@ -410,16 +410,16 @@
                 @endif
 
                 <div class="mt-6 flex justify-end">
-                    <x-secondary-button x-on:click="$dispatch('close')">
+                    <x-ui.secondary-button x-on:click="$dispatch('close')">
                         {{ __('Close') }}
-                    </x-secondary-button>
+                    </x-ui.secondary-button>
                 </div>
             </div>
-        </x-modal>
+        </x-ui.modal>
     @endforeach
 
     <!-- Transfer Member Modal -->
-    <x-modal name="transfer-member" focusable>
+    <x-ui.modal name="transfer-member" focusable>
         <form method="post" action="{{ route('members.transfer', $member) }}" class="p-6">
             @csrf
 
@@ -432,7 +432,7 @@
             </p>
 
             <div class="mt-6">
-                <x-input-label for="community_id" value="{{ __('New Community') }}" />
+                <x-forms.input-label for="community_id" value="{{ __('New Community') }}" />
                 <select id="community_id" name="community_id" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required>
                     <option value="">{{ __('Select Community') }}</option>
                     @foreach($communities as $community)
@@ -441,29 +441,29 @@
                         @endif
                     @endforeach
                 </select>
-                <x-input-error :messages="$errors->get('community_id')" class="mt-2" />
+                <x-forms.input-error :messages="$errors->get('community_id')" class="mt-2" />
             </div>
 
             <div class="mt-6">
-                <x-input-label for="transfer_date" value="{{ __('Transfer Date') }}" />
-                <x-text-input id="transfer_date" name="transfer_date" type="date" class="mt-1 block w-full" :value="now()->format('Y-m-d')" required />
-                <x-input-error :messages="$errors->get('transfer_date')" class="mt-2" />
+                <x-forms.input-label for="transfer_date" value="{{ __('Transfer Date') }}" />
+                <x-forms.text-input id="transfer_date" name="transfer_date" type="date" class="mt-1 block w-full" :value="now()->format('Y-m-d')" required />
+                <x-forms.input-error :messages="$errors->get('transfer_date')" class="mt-2" />
             </div>
 
             <div class="mt-6 flex justify-end">
-                <x-secondary-button x-on:click="$dispatch('close')">
+                <x-ui.secondary-button x-on:click="$dispatch('close')">
                     {{ __('Cancel') }}
-                </x-secondary-button>
+                </x-ui.secondary-button>
 
-                <x-primary-button class="ml-3">
+                <x-ui.primary-button class="ml-3">
                     {{ __('Confirm Transfer') }}
-                </x-primary-button>
+                </x-ui.primary-button>
             </div>
         </form>
-    </x-modal>
+    </x-ui.modal>
 
     <!-- Update Photo Modal -->
-    <x-modal name="update-photo" focusable>
+    <x-ui.modal name="update-photo" focusable>
         <form method="post" action="{{ route('members.photo.update', $member) }}" enctype="multipart/form-data" class="p-6">
             @csrf
             @method('PUT')
@@ -473,7 +473,7 @@
             </h2>
 
             <div class="mt-6">
-                <x-input-label for="photo" value="{{ __('Select Photo (JPG, PNG - Max 2MB)') }}" />
+                <x-forms.input-label for="photo" value="{{ __('Select Photo (JPG, PNG - Max 2MB)') }}" />
                 <input 
                     id="photo" 
                     name="photo" 
@@ -487,23 +487,23 @@
                         hover:file:bg-indigo-100"
                     required 
                 />
-                <x-input-error :messages="$errors->get('photo')" class="mt-2" />
+                <x-forms.input-error :messages="$errors->get('photo')" class="mt-2" />
             </div>
 
             <div class="mt-6 flex justify-end">
-                <x-secondary-button x-on:click="$dispatch('close')">
+                <x-ui.secondary-button x-on:click="$dispatch('close')">
                     {{ __('Cancel') }}
-                </x-secondary-button>
+                </x-ui.secondary-button>
 
-                <x-primary-button class="ml-3">
+                <x-ui.primary-button class="ml-3">
                     {{ __('Save Photo') }}
-                </x-primary-button>
+                </x-ui.primary-button>
             </div>
         </form>
-    </x-modal>
+    </x-ui.modal>
 
     <!-- Add Health Record Modal -->
-    <x-modal name="add-health-record" focusable>
+    <x-ui.modal name="add-health-record" focusable>
         <form method="post" action="{{ route('members.health.store', $member) }}" enctype="multipart/form-data" class="p-6">
             @csrf
 
@@ -512,31 +512,31 @@
             </h2>
 
             <div class="mt-6">
-                <x-input-label for="condition" value="{{ __('Condition') }}" />
-                <x-text-input id="condition" name="condition" type="text" class="mt-1 block w-full" required />
-                <x-input-error :messages="$errors->get('condition')" class="mt-2" />
+                <x-forms.input-label for="condition" value="{{ __('Condition') }}" />
+                <x-forms.text-input id="condition" name="condition" type="text" class="mt-1 block w-full" required />
+                <x-forms.input-error :messages="$errors->get('condition')" class="mt-2" />
             </div>
 
             <div class="mt-6">
-                <x-input-label for="medications" value="{{ __('Medications (Optional)') }}" />
+                <x-forms.input-label for="medications" value="{{ __('Medications (Optional)') }}" />
                 <textarea id="medications" name="medications" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" rows="2"></textarea>
-                <x-input-error :messages="$errors->get('medications')" class="mt-2" />
+                <x-forms.input-error :messages="$errors->get('medications')" class="mt-2" />
             </div>
 
             <div class="mt-6">
-                <x-input-label for="health_notes" value="{{ __('Notes (Optional)') }}" />
+                <x-forms.input-label for="health_notes" value="{{ __('Notes (Optional)') }}" />
                 <textarea id="health_notes" name="notes" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" rows="3"></textarea>
-                <x-input-error :messages="$errors->get('notes')" class="mt-2" />
+                <x-forms.input-error :messages="$errors->get('notes')" class="mt-2" />
             </div>
 
             <div class="mt-6">
-                <x-input-label for="recorded_at" value="{{ __('Recorded Date') }}" />
-                <x-text-input id="recorded_at" name="recorded_at" type="date" class="mt-1 block w-full" :value="now()->format('Y-m-d')" required />
-                <x-input-error :messages="$errors->get('recorded_at')" class="mt-2" />
+                <x-forms.input-label for="recorded_at" value="{{ __('Recorded Date') }}" />
+                <x-forms.text-input id="recorded_at" name="recorded_at" type="date" class="mt-1 block w-full" :value="now()->format('Y-m-d')" required />
+                <x-forms.input-error :messages="$errors->get('recorded_at')" class="mt-2" />
             </div>
 
             <div class="mt-6">
-                <x-input-label for="health_document" value="{{ __('Document (Optional - PDF, JPG, PNG - Max 5MB)') }}" />
+                <x-forms.input-label for="health_document" value="{{ __('Document (Optional - PDF, JPG, PNG - Max 5MB)') }}" />
                 <input 
                     id="health_document" 
                     name="document" 
@@ -549,23 +549,23 @@
                         file:bg-sanctuary-green/10 file:text-sanctuary-green
                         hover:file:bg-sanctuary-green/20"
                 />
-                <x-input-error :messages="$errors->get('document')" class="mt-2" />
+                <x-forms.input-error :messages="$errors->get('document')" class="mt-2" />
             </div>
 
             <div class="mt-6 flex justify-end">
-                <x-secondary-button x-on:click="$dispatch('close')">
+                <x-ui.secondary-button x-on:click="$dispatch('close')">
                     {{ __('Cancel') }}
-                </x-secondary-button>
+                </x-ui.secondary-button>
 
-                <x-primary-button class="ml-3">
+                <x-ui.primary-button class="ml-3">
                     {{ __('Save Health Record') }}
-                </x-primary-button>
+                </x-ui.primary-button>
             </div>
         </form>
-    </x-modal>
+    </x-ui.modal>
 
     <!-- Add Skill Modal -->
-    <x-modal name="add-skill" focusable>
+    <x-ui.modal name="add-skill" focusable>
         <form method="post" action="{{ route('members.skills.store', $member) }}" class="p-6">
             @csrf
 
@@ -574,52 +574,52 @@
             </h2>
 
             <div class="mt-6">
-                <x-input-label for="skill_category" value="{{ __('Category') }}" />
+                <x-forms.input-label for="skill_category" value="{{ __('Category') }}" />
                 <select id="skill_category" name="category" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required>
                     <option value="">{{ __('Select Category') }}</option>
                     <option value="pastoral">{{ __('Pastoral') }}</option>
                     <option value="practical">{{ __('Practical') }}</option>
                     <option value="special">{{ __('Special') }}</option>
                 </select>
-                <x-input-error :messages="$errors->get('category')" class="mt-2" />
+                <x-forms.input-error :messages="$errors->get('category')" class="mt-2" />
             </div>
 
             <div class="mt-6">
-                <x-input-label for="skill_name" value="{{ __('Skill Name') }}" />
-                <x-text-input id="skill_name" name="name" type="text" class="mt-1 block w-full" placeholder="e.g., Teaching, Cooking, Music" required />
-                <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                <x-forms.input-label for="skill_name" value="{{ __('Skill Name') }}" />
+                <x-forms.text-input id="skill_name" name="name" type="text" class="mt-1 block w-full" placeholder="e.g., Teaching, Cooking, Music" required />
+                <x-forms.input-error :messages="$errors->get('name')" class="mt-2" />
             </div>
 
             <div class="mt-6">
-                <x-input-label for="proficiency" value="{{ __('Proficiency Level') }}" />
+                <x-forms.input-label for="proficiency" value="{{ __('Proficiency Level') }}" />
                 <select id="proficiency" name="proficiency" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required>
                     <option value="beginner">{{ __('Beginner') }}</option>
                     <option value="intermediate" selected>{{ __('Intermediate') }}</option>
                     <option value="advanced">{{ __('Advanced') }}</option>
                     <option value="expert">{{ __('Expert') }}</option>
                 </select>
-                <x-input-error :messages="$errors->get('proficiency')" class="mt-2" />
+                <x-forms.input-error :messages="$errors->get('proficiency')" class="mt-2" />
             </div>
 
             <div class="mt-6">
-                <x-input-label for="skill_notes" value="{{ __('Notes (Optional)') }}" />
+                <x-forms.input-label for="skill_notes" value="{{ __('Notes (Optional)') }}" />
                 <textarea id="skill_notes" name="notes" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" rows="2" placeholder="Additional details about this skill"></textarea>
-                <x-input-error :messages="$errors->get('notes')" class="mt-2" />
+                <x-forms.input-error :messages="$errors->get('notes')" class="mt-2" />
             </div>
 
             <div class="mt-6 flex justify-end">
-                <x-secondary-button x-on:click="$dispatch('close')">
+                <x-ui.secondary-button x-on:click="$dispatch('close')">
                     {{ __('Cancel') }}
-                </x-secondary-button>
+                </x-ui.secondary-button>
 
-                <x-primary-button class="ml-3">
+                <x-ui.primary-button class="ml-3">
                     {{ __('Save Skill') }}
-                </x-primary-button>
+                </x-ui.primary-button>
             </div>
         </form>
-    </x-modal>
+    </x-ui.modal>
     <!-- Add Service Record Modal -->
-    <x-modal name="add-service-record" focusable>
+    <x-ui.modal name="add-service-record" focusable>
         <form method="post" action="{{ route('members.assignments.store', $member) }}" class="p-6">
             @csrf
 
@@ -628,44 +628,44 @@
             </h2>
 
             <div class="mt-6">
-                <x-input-label for="assignment_community_id" value="{{ __('Community') }}" />
+                <x-forms.input-label for="assignment_community_id" value="{{ __('Community') }}" />
                 <select id="assignment_community_id" name="community_id" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required>
                     <option value="">{{ __('Select Community') }}</option>
                     @foreach($communities as $community)
                         <option value="{{ $community->id }}">{{ $community->name }}</option>
                     @endforeach
                 </select>
-                <x-input-error :messages="$errors->get('community_id')" class="mt-2" />
+                <x-forms.input-error :messages="$errors->get('community_id')" class="mt-2" />
             </div>
 
             <div class="mt-6">
-                <x-input-label for="role" value="{{ __('Role (Optional)') }}" />
-                <x-text-input id="role" name="role" type="text" class="mt-1 block w-full" placeholder="e.g., Director, Assistant" />
-                <x-input-error :messages="$errors->get('role')" class="mt-2" />
+                <x-forms.input-label for="role" value="{{ __('Role (Optional)') }}" />
+                <x-forms.text-input id="role" name="role" type="text" class="mt-1 block w-full" placeholder="e.g., Director, Assistant" />
+                <x-forms.input-error :messages="$errors->get('role')" class="mt-2" />
             </div>
 
             <div class="mt-6 grid grid-cols-2 gap-4">
                 <div>
-                    <x-input-label for="start_date" value="{{ __('Start Date') }}" />
-                    <x-text-input id="start_date" name="start_date" type="date" class="mt-1 block w-full" required />
-                    <x-input-error :messages="$errors->get('start_date')" class="mt-2" />
+                    <x-forms.input-label for="start_date" value="{{ __('Start Date') }}" />
+                    <x-forms.text-input id="start_date" name="start_date" type="date" class="mt-1 block w-full" required />
+                    <x-forms.input-error :messages="$errors->get('start_date')" class="mt-2" />
                 </div>
                 <div>
-                    <x-input-label for="end_date" value="{{ __('End Date (Optional)') }}" />
-                    <x-text-input id="end_date" name="end_date" type="date" class="mt-1 block w-full" />
-                    <x-input-error :messages="$errors->get('end_date')" class="mt-2" />
+                    <x-forms.input-label for="end_date" value="{{ __('End Date (Optional)') }}" />
+                    <x-forms.text-input id="end_date" name="end_date" type="date" class="mt-1 block w-full" />
+                    <x-forms.input-error :messages="$errors->get('end_date')" class="mt-2" />
                 </div>
             </div>
 
             <div class="mt-6 flex justify-end">
-                <x-secondary-button x-on:click="$dispatch('close')">
+                <x-ui.secondary-button x-on:click="$dispatch('close')">
                     {{ __('Cancel') }}
-                </x-secondary-button>
+                </x-ui.secondary-button>
 
-                <x-primary-button class="ml-3">
+                <x-ui.primary-button class="ml-3">
                     {{ __('Save Record') }}
-                </x-primary-button>
+                </x-ui.primary-button>
             </div>
         </form>
-    </x-modal>
+    </x-ui.modal>
 </x-app-layout>

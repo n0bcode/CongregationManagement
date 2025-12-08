@@ -34,7 +34,7 @@
                         <!-- General Settings -->
                         <div x-show="activeTab === 'general'" class="space-y-6">
                             <div>
-                                <x-input-label for="service_year_start" :value="__('Service Year Start Month')" />
+                                <x-forms.input-label for="service_year_start" :value="__('Service Year Start Month')" />
                                 <select id="service_year_start" name="settings[service_year_start][value]" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
                                     @foreach(range(1, 12) as $month)
                                         <option value="{{ $month }}" {{ \App\Models\SystemSetting::get('service_year_start', 1) == $month ? 'selected' : '' }}>
@@ -49,13 +49,13 @@
                         <!-- Reminders Settings -->
                         <div x-show="activeTab === 'reminders'" class="space-y-6">
                             <div>
-                                <x-input-label for="reminder_vow_expiration" :value="__('Vow Expiration Reminder (Days)')" />
-                                <x-text-input id="reminder_vow_expiration" name="settings[reminder_vow_expiration][value]" type="number" class="mt-1 block w-full" :value="\App\Models\SystemSetting::get('reminder_vow_expiration', 30)" />
+                                <x-forms.input-label for="reminder_vow_expiration" :value="__('Vow Expiration Reminder (Days)')" />
+                                <x-forms.text-input id="reminder_vow_expiration" name="settings[reminder_vow_expiration][value]" type="number" class="mt-1 block w-full" :value="\App\Models\SystemSetting::get('reminder_vow_expiration', 30)" />
                                 <input type="hidden" name="settings[reminder_vow_expiration][key]" value="reminder_vow_expiration">
                             </div>
                             <div>
-                                <x-input-label for="reminder_birthday" :value="__('Birthday Reminder (Days)')" />
-                                <x-text-input id="reminder_birthday" name="settings[reminder_birthday][value]" type="number" class="mt-1 block w-full" :value="\App\Models\SystemSetting::get('reminder_birthday', 7)" />
+                                <x-forms.input-label for="reminder_birthday" :value="__('Birthday Reminder (Days)')" />
+                                <x-forms.text-input id="reminder_birthday" name="settings[reminder_birthday][value]" type="number" class="mt-1 block w-full" :value="\App\Models\SystemSetting::get('reminder_birthday', 7)" />
                                 <input type="hidden" name="settings[reminder_birthday][key]" value="reminder_birthday">
                             </div>
                         </div>
@@ -75,7 +75,7 @@
                             <div class="border-t pt-4">
                                 <h4 class="text-md font-medium text-gray-900">Test Email Configuration</h4>
                                 <div class="mt-4 flex gap-4">
-                                    <x-text-input id="test_email" name="test_email" type="email" class="block w-full" placeholder="Enter email address" />
+                                    <x-forms.text-input id="test_email" name="test_email" type="email" class="block w-full" placeholder="Enter email address" />
                                     <button type="button" onclick="document.getElementById('test-email-form').submit()" class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700">
                                         Test Connection
                                     </button>
@@ -86,7 +86,7 @@
                         <!-- Backup Settings -->
                         <div x-show="activeTab === 'backup'" class="space-y-6">
                              <div>
-                                <x-input-label for="backup_enabled" :value="__('Enable Daily Backups')" />
+                                <x-forms.input-label for="backup_enabled" :value="__('Enable Daily Backups')" />
                                 <select id="backup_enabled" name="settings[backup_enabled][value]" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
                                     <option value="1" {{ \App\Models\SystemSetting::get('backup_enabled', false) ? 'selected' : '' }}>Yes</option>
                                     <option value="0" {{ !\App\Models\SystemSetting::get('backup_enabled', false) ? 'selected' : '' }}>No</option>
@@ -96,9 +96,9 @@
                         </div>
 
                         <div class="mt-6 flex items-center justify-end">
-                            <x-primary-button>
+                            <x-ui.primary-button>
                                 {{ __('Save Settings') }}
-                            </x-primary-button>
+                            </x-ui.primary-button>
                         </div>
                     </form>
 

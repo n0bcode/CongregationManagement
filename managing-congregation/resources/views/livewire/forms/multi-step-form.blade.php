@@ -31,20 +31,20 @@
         <div class="mt-6 flex justify-between">
             <div>
                 @if($currentStep > 1)
-                    <x-button type="button" variant="secondary" wire:click="previousStep">
+                    <x-ui.button type="button" variant="secondary" wire:click="previousStep">
                         Previous
-                    </x-button>
+                    </x-ui.button>
                 @endif
             </div>
             <div>
                 @if($currentStep < $totalSteps)
-                    <x-button type="button" variant="primary" wire:click="nextStep">
+                    <x-ui.button type="button" variant="primary" wire:click="nextStep">
                         Next
-                    </x-button>
+                    </x-ui.button>
                 @else
-                    <x-button type="submit" variant="primary">
+                    <x-ui.button type="submit" variant="primary">
                         Submit
-                    </x-button>
+                    </x-ui.button>
                 @endif
             </div>
         </div>

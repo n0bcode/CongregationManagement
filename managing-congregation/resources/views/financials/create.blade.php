@@ -165,12 +165,12 @@
 
                 {{-- Form Actions --}}
                 <div class="flex gap-4 pt-6 border-t border-stone-200">
-                    <x-button type="submit" variant="primary" class="flex-1">
+                    <x-ui.button type="submit" variant="primary" class="flex-1">
                         {{ __('Record Expense') }}
-                    </x-button>
-                    <x-button variant="secondary" href="{{ route('financials.index') }}" class="flex-1">
+                    </x-ui.button>
+                    <x-ui.button variant="secondary" href="{{ route('financials.index') }}" class="flex-1">
                         {{ __('Cancel') }}
-                    </x-button>
+                    </x-ui.button>
                 </div>
             </form>
         </div>

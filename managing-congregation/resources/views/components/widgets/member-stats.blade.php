@@ -1,4 +1,4 @@
-<x-status-card
+<x-ui.status-card
     variant="peace"
     title="Total Members"
     :value="$data['total']"
@@ -18,4 +18,4 @@
             </svg>
         </a>
     </div>
-</x-status-card>
+</x-ui.status-card>

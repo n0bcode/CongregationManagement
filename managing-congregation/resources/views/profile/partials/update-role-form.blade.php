@@ -52,9 +52,9 @@
         </div>
 
         <div class="flex items-center gap-4">
-            <x-button type="submit" variant="primary">
+            <x-ui.button type="submit" variant="primary">
                 Change Role
-            </x-button>
+            </x-ui.button>
 
             @if (session('status') === 'Role updated successfully (Testing Mode)')
                 <p class="text-sm text-emerald-600 font-medium">Role changed successfully!</p>

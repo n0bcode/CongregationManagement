@@ -70,7 +70,7 @@ class ContextualActionsTest extends TestCase
     /** @test */
     public function contextual_actions_component_exists()
     {
-        $componentPath = resource_path('views/components/contextual-actions.blade.php');
+        $componentPath = resource_path('views/components/features/contextual-actions.blade.php');
         
         $this->assertFileExists($componentPath);
     }

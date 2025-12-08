@@ -5,12 +5,12 @@
                 {{ __('Documents') }}
             </h2>
             @can('create', App\Models\Document::class)
-                <x-button variant="primary" href="{{ route('documents.create') }}">
+                <x-ui.button variant="primary" href="{{ route('documents.create') }}">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
                     </svg>
                     {{ __('Upload Document') }}
-                </x-button>
+                </x-ui.button>
             @endcan
         </div>
     </x-slot>
@@ -130,15 +130,15 @@
 
                     {{-- Action Buttons --}}
                     <div class="flex gap-4 pt-4 border-t border-stone-200">
-                        <x-button type="submit" variant="primary" class="flex-1">
+                        <x-ui.button type="submit" variant="primary" class="flex-1">
                             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                             </svg>
                             {{ __('Search') }}
-                        </x-button>
-                        <x-button variant="secondary" href="{{ route('documents.index') }}" class="flex-1">
+                        </x-ui.button>
+                        <x-ui.button variant="secondary" href="{{ route('documents.index') }}" class="flex-1">
                             {{ __('Clear Filters') }}
-                        </x-button>
+                        </x-ui.button>
                     </div>
                 </form>
             </div>
@@ -220,9 +220,9 @@
                                         </td>
                                         <td class="px-6 py-4 text-right">
                                             <div class="flex justify-end gap-2">
-                                                <x-button variant="ghost" size="sm" href="{{ route('documents.show', $document) }}">
+                                                <x-ui.button variant="ghost" size="sm" href="{{ route('documents.show', $document) }}">
                                                     {{ __('View') }}
-                                                </x-button>
+                                                </x-ui.button>
                                             </div>
                                         </td>
                                     </tr>
@@ -252,9 +252,9 @@
                     </p>
                     @can('create', App\Models\Document::class)
                         <div class="mt-6">
-                            <x-button variant="primary" href="{{ route('documents.create') }}">
+                            <x-ui.button variant="primary" href="{{ route('documents.create') }}">
                                 {{ __('Upload Document') }}
-                            </x-button>
+                            </x-ui.button>
                         </div>
                     @endcan
                 </div>

@@ -14,9 +14,9 @@
                         <h3 class="text-lg font-medium text-gray-900">Database Backups</h3>
                         <form action="{{ route('admin.backups.create') }}" method="POST">
                             @csrf
-                            <x-primary-button>
+                            <x-ui.primary-button>
                                 {{ __('Create New Backup') }}
-                            </x-primary-button>
+                            </x-ui.primary-button>
                         </form>
                     </div>
 

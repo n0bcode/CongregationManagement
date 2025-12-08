@@ -12,7 +12,7 @@
                 </h2>
             </div>
             <div class="flex gap-3">
-                <x-button 
+                <x-ui.button 
                     variant="secondary" 
                     href="{{ route('financials.export-report', ['community_id' => $report['community_id'], 'year' => $report['period']['year'], 'month' => $report['period']['month']]) }}"
                 >
@@ -20,7 +20,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                     </svg>
                     {{ __('Export PDF') }}
-                </x-button>
+                </x-ui.button>
             </div>
         </div>
     </x-slot>
@@ -83,9 +83,9 @@
                     </div>
                 </div>
 
-                <x-button type="submit" variant="primary">
+                <x-ui.button type="submit" variant="primary">
                     {{ __('Generate Report') }}
-                </x-button>
+                </x-ui.button>
             </form>
         </div>
 
@@ -97,19 +97,19 @@
 
         {{-- Summary Cards --}}
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-            <x-status-card 
+            <x-ui.status-card 
                 variant="info"
                 :title="__('Total Expenses')"
                 :value="'$' . number_format($report['summary']['total_amount_dollars'], 2)"
                 :description="__('For the selected period')"
             />
-            <x-status-card 
+            <x-ui.status-card 
                 variant="pending"
                 :title="__('Transactions')"
                 :value="(string) $report['summary']['total_count']"
                 :description="__('Number of expenses recorded')"
             />
-            <x-status-card 
+            <x-ui.status-card 
                 variant="peace"
                 :title="__('Average Expense')"
                 :value="'$' . number_format($report['summary']['average_expense_dollars'], 2)"
@@ -161,9 +161,9 @@
                     </p>
                     @can('create', \App\Models\Expense::class)
                         <div class="mt-6">
-                            <x-button variant="primary" href="{{ route('financials.create') }}">
+                            <x-ui.button variant="primary" href="{{ route('financials.create') }}">
                                 {{ __('Record Expense') }}
-                            </x-button>
+                            </x-ui.button>
                         </div>
                     @endcan
                 </div>
@@ -219,7 +219,7 @@
                 
                 <div class="divide-y divide-stone-200">
                     @foreach($report['expenses'] as $expense)
-                    <x-ledger-row
+                    <x-features.ledger-row
                         :date="$expense->date"
                         :description="$expense->description"
                         :category="$expense->category"
@@ -247,7 +247,7 @@
                                 </span>
                             @endif
                         </div>
-                    </x-ledger-row>
+                    </x-features.ledger-row>
                 @endforeach
                 </div>
             </div>

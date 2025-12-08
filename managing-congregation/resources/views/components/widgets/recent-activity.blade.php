@@ -1,7 +1,7 @@
-<x-card title="Recent Activity" subtitle="Latest updates from your communities">
+<x-ui.card title="Recent Activity" subtitle="Latest updates from your communities">
     <div class="space-y-0 -mx-6">
         @forelse($data['recentActivity'] as $activity)
-            <x-ledger-row 
+            <x-features.ledger-row 
                 :date="$activity->created_at"
                 :description="$activity->description"
                 :category="ucfirst(str_replace('_', ' ', $activity->target_type ?? 'System'))"
@@ -13,4 +13,4 @@
             </div>
         @endforelse
     </div>
-</x-card>
+</x-ui.card>
