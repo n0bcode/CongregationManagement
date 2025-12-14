@@ -116,28 +116,51 @@ class DocumentController extends Controller
             'file' => 'required|file|mimes:pdf,jpg,jpeg,png|max:10240', // 10MB max
         ]);
 
-        // Upload file
-        $file = $request->file('file');
-        $path = $file->store('documents', 'private');
+        try {
+            if ($request->hasFile('file')) { // Changed from 'file_path' to 'file'
+                $file = $request->file('file');
+                $filename = $file->getClientOriginalName();
+                $path = $file->store('documents', 'public');
+                $size = $file->getSize();
+                $mime = $file->getMimeType();
 
-        // Create document record
-        $document = Document::create([
-            'title' => $validated['title'],
-            'description' => $validated['description'] ?? null,
-            'file_path' => $path,
-            'file_name' => $file->getClientOriginalName(),
-            'mime_type' => $file->getMimeType(),
-            'file_size' => $file->getSize(),
-            'category' => $validated['category'],
-            'folder_id' => $validated['folder_id'] ?? null,
-            'community_id' => $validated['community_id'] ?? null,
-            'member_id' => $validated['member_id'] ?? null,
-            'uploaded_by' => auth()->id(),
-        ]);
+                $document = Document::create([
+                    'title' => $validated['title'],
+                    'description' => $validated['description'] ?? null,
+                    'file_path' => $path,
+                    'file_name' => $filename,
+                    'mime_type' => $mime,
+                    'file_size' => $size,
+                    'category' => $validated['category'],
+                    'folder_id' => $validated['folder_id'] ?? null,
+                    'community_id' => $validated['community_id'] ?? null,
+                    'member_id' => $validated['member_id'] ?? null,
+                    'uploaded_by' => auth()->id(),
+                ]);
 
-        return redirect()
-            ->route('documents.show', $document)
-            ->with('status', 'Document uploaded successfully.');
+                // Create audit log
+                \App\Services\AuditLogger::log(
+                    'create',
+                    'document',
+                    $document->id,
+                    null,
+                    $document->toArray(),
+                    "Uploaded document: {$document->title}"
+                );
+
+                return redirect()->route('documents.index')
+                    ->with('success', 'Document uploaded successfully.');
+            }
+
+            return back()->with('error', 'No file uploaded.');
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('Document upload failed: ' . $e->getMessage());
+            // Return error response for testing visibility
+            if (app()->environment('testing')) {
+                throw $e;
+            }
+            return back()->with('error', 'Failed to upload document: ' . $e->getMessage());
+        }
     }
 
     /**

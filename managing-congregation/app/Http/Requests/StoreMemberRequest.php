@@ -31,10 +31,10 @@ class StoreMemberRequest extends FormRequest
             'dob' => ['required', 'date', 'before:today'],
             'entry_date' => ['required', 'date'],
             'community_id' => [
-                Rule::requiredIf(fn () => auth()->user()->community_id === null),
                 'nullable',
                 'exists:communities,id',
             ],
+            'status' => ['required', Rule::enum(\App\Enums\MemberStatus::class)],
         ];
     }
 

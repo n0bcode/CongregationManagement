@@ -115,6 +115,7 @@ Route::middleware('auth')->group(function () {
     // Reports
     Route::get('/reports/demographic', [\App\Http\Controllers\ReportController::class, 'demographic'])->name('reports.demographic');
     Route::get('/reports/advanced', [\App\Http\Controllers\ReportController::class, 'advanced'])->name('reports.advanced');
+    Route::get('/reports/community-annual', [\App\Http\Controllers\ReportController::class, 'communityAnnualMembers'])->name('reports.community-annual');
     Route::get('/reports/export/demographic', [\App\Http\Controllers\ReportController::class, 'exportDemographic'])->name('reports.demographic.export');
 
     // Celebrations

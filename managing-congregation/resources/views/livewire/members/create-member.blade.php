@@ -30,6 +30,40 @@
                         rules="required|date|before:today"
                     />
                 </div>
+
+                <div class="mt-6 border-t border-gray-200 pt-4">
+                    <h4 class="text-md font-medium text-gray-700 mb-3">Passport Information (Optional)</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <x-forms.validated-input 
+                            name="passport_number" 
+                            label="Passport Number" 
+                            wire:model.live="passport_number" 
+                            rules="nullable|string|max:50"
+                        />
+                        <x-forms.validated-input 
+                            name="passport_place_of_issue" 
+                            label="Place of Issue" 
+                            wire:model.live="passport_place_of_issue" 
+                            rules="nullable|string|max:255"
+                        />
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                        <x-forms.validated-input 
+                            name="passport_issued_at" 
+                            label="Date of Issue" 
+                            type="date"
+                            wire:model.live="passport_issued_at" 
+                            rules="nullable|date"
+                        />
+                        <x-forms.validated-input 
+                            name="passport_expired_at" 
+                            label="Date of Expiry" 
+                            type="date"
+                            wire:model.live="passport_expired_at" 
+                            rules="nullable|date|after:passport_issued_at"
+                        />
+                    </div>
+                </div>
             </x-forms.wizard-step>
 
             {{-- Step 2: Religious Information --}}

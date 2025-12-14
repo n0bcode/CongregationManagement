@@ -74,6 +74,9 @@
                         <x-layout.dropdown-link :href="route('reports.builder')" :active="request()->routeIs('reports.builder')">
                             {{ __('Report Builder') }}
                         </x-layout.dropdown-link>
+                        <x-layout.dropdown-link :href="route('reports.community-annual')" :active="request()->routeIs('reports.community-annual')">
+                            {{ __('Community Annual Members') }}
+                        </x-layout.dropdown-link>
                     </x-layout.nav-dropdown>
 
                     {{-- System Dropdown (admin only) --}}
@@ -250,6 +253,9 @@
                     </x-layout.responsive-nav-link>
                     <x-layout.responsive-nav-link :href="route('reports.builder')" :active="request()->routeIs('reports.builder')" class="pl-8">
                         {{ __('Report Builder') }}
+                    </x-layout.responsive-nav-link>
+                    <x-layout.responsive-nav-link :href="route('reports.community-annual')" :active="request()->routeIs('reports.community-annual')" class="pl-8">
+                        {{ __('Community Annual Members') }}
                     </x-layout.responsive-nav-link>
                 </div>
             </div>

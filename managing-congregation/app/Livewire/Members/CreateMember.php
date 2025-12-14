@@ -19,6 +19,12 @@ class CreateMember extends Component
     public $novitiate_entry_date = '';
     public $first_vows_date = '';
     public $perpetual_vows_date = '';
+    
+    // Passport Data
+    public $passport_number = '';
+    public $passport_issued_at = '';
+    public $passport_expired_at = '';
+    public $passport_place_of_issue = '';
 
     public function mount()
     {
@@ -40,6 +46,12 @@ class CreateMember extends Component
             'entry_date' => ['required', 'date'],
             'community_id' => ['required', 'exists:communities,id'],
             'member_type' => ['required', 'in:postulant,novice,professed'],
+            
+            // Passport Validation
+            'passport_number' => ['nullable', 'string', 'max:50'],
+            'passport_issued_at' => ['nullable', 'date'],
+            'passport_expired_at' => ['nullable', 'date', 'after:passport_issued_at'],
+            'passport_place_of_issue' => ['nullable', 'string', 'max:255'],
         ];
 
         // Conditional validation based on member type

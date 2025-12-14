@@ -46,6 +46,10 @@ class Member extends Model
         'entry_date',
         'status',
         'profile_photo_path',
+        'passport_number',
+        'passport_issued_at',
+        'passport_expired_at',
+        'passport_place_of_issue',
     ];
 
     protected $appends = [
@@ -55,6 +59,8 @@ class Member extends Model
     protected $casts = [
         'dob' => 'date',
         'entry_date' => 'date',
+        'passport_issued_at' => 'date',
+        'passport_expired_at' => 'date',
         'status' => \App\Enums\MemberStatus::class,
     ];
 
@@ -129,10 +135,11 @@ class Member extends Model
                 ->orWhere('first_name', 'like', "%{$term}%")
                 ->orWhere('last_name', 'like', "%{$term}%")
                 ->orWhere('status', 'like', "%{$term}%")
-                // Search by community name
                 ->orWhereHas('community', function ($q) use ($term) {
                     $q->where('name', 'like', "%{$term}%");
                 })
+                // Search by passport number
+                ->orWhere('passport_number', 'like', "%{$term}%")
                 // Search by formation stage
                 ->orWhereHas('formationEvents', function ($q) use ($term) {
                     $q->where('stage', 'like', "%{$term}%");

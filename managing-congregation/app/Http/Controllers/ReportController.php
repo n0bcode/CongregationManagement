@@ -233,6 +233,47 @@ class ReportController extends Controller
     }
 
     /**
+     * Display community annual members report
+     */
+    public function communityAnnualMembers(Request $request): View
+    {
+        $this->checkAuthorization('viewReports');
+
+        $communityId = $request->input('community_id');
+        $year = $request->input('year', now()->year);
+
+        $communities = Community::orderBy('name')->get();
+        $members = collect([]);
+
+        if ($communityId) {
+            // Get members who had an active assignment in this community during the specified year
+            // Logic: Assignment Start <= EndOfYear AND (Assignment End IS NULL OR Assignment End >= StartOfYear)
+            $startOfYear = \Carbon\Carbon::createFromDate($year, 1, 1)->startOfDay();
+            $endOfYear = \Carbon\Carbon::createFromDate($year, 12, 31)->endOfDay();
+
+            $members = \App\Models\Member::whereHas('assignments', function ($query) use ($communityId, $startOfYear, $endOfYear) {
+                $query->where('community_id', $communityId)
+                    ->where('start_date', '<=', $endOfYear)
+                    ->where(function ($q) use ($startOfYear) {
+                        $q->whereNull('end_date')
+                            ->orWhere('end_date', '>=', $startOfYear);
+                    });
+            })
+                ->with(['assignments' => function ($query) use ($communityId) {
+                    $query->where('community_id', $communityId)->latest('start_date');
+                }])
+                ->get()
+                ->map(function ($member) {
+                    // Attach the relevant role for that period
+                    $member->historical_role = $member->assignments->first()?->role ?? 'Member';
+                    return $member;
+                });
+        }
+
+        return view('reports.community-annual', compact('communities', 'members', 'communityId', 'year'));
+    }
+
+    /**
      * Check authorization for reports
      */
     protected function checkAuthorization(string $ability): void

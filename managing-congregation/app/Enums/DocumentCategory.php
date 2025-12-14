@@ -9,6 +9,7 @@ enum DocumentCategory: string
     case VOWS = 'vows';
     case INTRODUCTION_LETTER = 'introduction_letter';
     case INTERNAL = 'internal';
+    case PASSPORT = 'passport';
     case OTHER = 'other';
 
     public function label(): string
@@ -19,6 +20,7 @@ enum DocumentCategory: string
             self::VOWS => 'Vows',
             self::INTRODUCTION_LETTER => 'Introduction Letter',
             self::INTERNAL => 'Internal',
+            self::PASSPORT => 'Passport',
             self::OTHER => 'Other',
         };
     }
@@ -31,6 +33,7 @@ enum DocumentCategory: string
             self::VOWS => 'Vow-related documents',
             self::INTRODUCTION_LETTER => 'Introduction and recommendation letters',
             self::INTERNAL => 'Internal congregation documents',
+            self::PASSPORT => 'Member passport and identification documents',
             self::OTHER => 'Other documents',
         };
     }

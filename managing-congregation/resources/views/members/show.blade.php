@@ -120,9 +120,55 @@
                                         @endif
                                     </dd>
                                 </div>
+                                    </dd>
+                                </div>
                             </dl>
                         </div>
                     </div>
+                    
+                    {{-- Passport Information --}}
+                    @if($member->passport_number)
+                        <div class="mt-8 pt-6 border-t border-slate-200">
+                            <h3 class="text-lg font-medium text-slate-900 mb-4">{{ __('Passport & Identification') }}</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <dl class="space-y-4">
+                                        <div>
+                                            <dt class="text-sm font-medium text-slate-500">{{ __('Passport Number') }}</dt>
+                                            <dd class="mt-1 text-lg text-slate-900 font-mono">{{ $member->passport_number }}</dd>
+                                        </div>
+                                        <div>
+                                            <dt class="text-sm font-medium text-slate-500">{{ __('Place of Issue') }}</dt>
+                                            <dd class="mt-1 text-lg text-slate-900">{{ $member->passport_place_of_issue ?? '-' }}</dd>
+                                        </div>
+                                    </dl>
+                                </div>
+                                <div>
+                                    <dl class="space-y-4">
+                                        <div>
+                                            <dt class="text-sm font-medium text-slate-500">{{ __('Issued Date') }}</dt>
+                                            <dd class="mt-1 text-lg text-slate-900">{{ $member->passport_issued_at?->format('M d, Y') ?? '-' }}</dd>
+                                        </div>
+                                        <div>
+                                            <dt class="text-sm font-medium text-slate-500">{{ __('Expiry Date') }}</dt>
+                                            <dd class="mt-1 text-lg text-slate-900">
+                                                {{ $member->passport_expired_at?->format('M d, Y') ?? '-' }}
+                                                @if($member->passport_expired_at && $member->passport_expired_at->isPast())
+                                                    <span class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                                                        {{ __('Expired') }}
+                                                    </span>
+                                                @elseif($member->passport_expired_at && $member->passport_expired_at->diffInMonths(now()) < 6)
+                                                    <span class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800">
+                                                        {{ __('Expiring Soon') }}
+                                                    </span>
+                                                @endif
+                                            </dd>
+                                        </div>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
                 </x-slot>
 
                 <x-slot name="formation">

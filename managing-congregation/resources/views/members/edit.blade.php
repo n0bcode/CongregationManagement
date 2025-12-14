@@ -75,6 +75,78 @@
                     @enderror
                 </div>
 
+                {{-- Passport Information --}}
+                <div class="pt-6 border-t border-stone-200">
+                    <h3 class="text-lg font-medium text-slate-700 mb-4">{{ __('Passport & Identification') }}</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="passport_number" class="block text-lg font-medium text-slate-700 mb-2">
+                                {{ __('Passport Number') }}
+                            </label>
+                            <input 
+                                type="text" 
+                                name="passport_number" 
+                                id="passport_number"
+                                value="{{ old('passport_number', $member->passport_number) }}"
+                                placeholder="{{ __('Enter passport number...') }}"
+                                class="w-full min-h-[48px] px-4 py-3 text-base text-slate-800 bg-white border border-stone-300 rounded-lg placeholder:text-slate-400 focus:border-amber-600 focus:ring-4 focus:ring-amber-500 focus:outline-none @error('passport_number') border-rose-500 @enderror"
+                            >
+                            @error('passport_number')
+                                <p class="mt-2 text-sm text-rose-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div>
+                            <label for="passport_place_of_issue" class="block text-lg font-medium text-slate-700 mb-2">
+                                {{ __('Place of Issue') }}
+                            </label>
+                            <input 
+                                type="text" 
+                                name="passport_place_of_issue" 
+                                id="passport_place_of_issue"
+                                value="{{ old('passport_place_of_issue', $member->passport_place_of_issue) }}"
+                                placeholder="{{ __('Enter place of issue...') }}"
+                                class="w-full min-h-[48px] px-4 py-3 text-base text-slate-800 bg-white border border-stone-300 rounded-lg placeholder:text-slate-400 focus:border-amber-600 focus:ring-4 focus:ring-amber-500 focus:outline-none @error('passport_place_of_issue') border-rose-500 @enderror"
+                            >
+                            @error('passport_place_of_issue')
+                                <p class="mt-2 text-sm text-rose-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div>
+                            <label for="passport_issued_at" class="block text-lg font-medium text-slate-700 mb-2">
+                                {{ __('Date of Issue') }}
+                            </label>
+                            <input 
+                                type="date" 
+                                name="passport_issued_at" 
+                                id="passport_issued_at"
+                                value="{{ old('passport_issued_at', $member->passport_issued_at?->format('Y-m-d')) }}"
+                                class="w-full min-h-[48px] px-4 py-3 text-base text-slate-800 bg-white border border-stone-300 rounded-lg focus:border-amber-600 focus:ring-4 focus:ring-amber-500 focus:outline-none @error('passport_issued_at') border-rose-500 @enderror"
+                            >
+                            @error('passport_issued_at')
+                                <p class="mt-2 text-sm text-rose-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div>
+                            <label for="passport_expired_at" class="block text-lg font-medium text-slate-700 mb-2">
+                                {{ __('Date of Expiry') }}
+                            </label>
+                            <input 
+                                type="date" 
+                                name="passport_expired_at" 
+                                id="passport_expired_at"
+                                value="{{ old('passport_expired_at', $member->passport_expired_at?->format('Y-m-d')) }}"
+                                class="w-full min-h-[48px] px-4 py-3 text-base text-slate-800 bg-white border border-stone-300 rounded-lg focus:border-amber-600 focus:ring-4 focus:ring-amber-500 focus:outline-none @error('passport_expired_at') border-rose-500 @enderror"
+                            >
+                            @error('passport_expired_at')
+                                <p class="mt-2 text-sm text-rose-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+
                 {{-- Important Dates --}}
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
