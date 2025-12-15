@@ -20,4 +20,14 @@ enum MemberStatus: string
             self::Transferred => 'Transferred',
         };
     }
+
+    public function color(): string
+    {
+        return match ($this) {
+            self::Active => 'emerald',
+            self::Deceased => 'stone',
+            self::Exited => 'rose',
+            self::Transferred => 'amber',
+        };
+    }
 }

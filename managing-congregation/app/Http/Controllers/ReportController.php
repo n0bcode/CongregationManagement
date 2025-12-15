@@ -246,28 +246,41 @@ class ReportController extends Controller
         $members = collect([]);
 
         if ($communityId) {
-            // Get members who had an active assignment in this community during the specified year
-            // Logic: Assignment Start <= EndOfYear AND (Assignment End IS NULL OR Assignment End >= StartOfYear)
-            $startOfYear = \Carbon\Carbon::createFromDate($year, 1, 1)->startOfDay();
-            $endOfYear = \Carbon\Carbon::createFromDate($year, 12, 31)->endOfDay();
-
-            $members = \App\Models\Member::whereHas('assignments', function ($query) use ($communityId, $startOfYear, $endOfYear) {
-                $query->where('community_id', $communityId)
-                    ->where('start_date', '<=', $endOfYear)
-                    ->where(function ($q) use ($startOfYear) {
-                        $q->whereNull('end_date')
-                            ->orWhere('end_date', '>=', $startOfYear);
+            if ($year == now()->year) {
+                // If checking for current year, just return members currently in this community
+                $members = \App\Models\Member::where('community_id', $communityId)
+                    ->with(['assignments' => function ($query) use ($communityId) {
+                        $query->where('community_id', $communityId)->latest('start_date');
+                    }])
+                    ->get()
+                    ->map(function ($member) {
+                        $member->historical_role = $member->assignments->first()?->role ?? 'Member';
+                        return $member;
                     });
-            })
-                ->with(['assignments' => function ($query) use ($communityId) {
-                    $query->where('community_id', $communityId)->latest('start_date');
-                }])
-                ->get()
-                ->map(function ($member) {
-                    // Attach the relevant role for that period
-                    $member->historical_role = $member->assignments->first()?->role ?? 'Member';
-                    return $member;
-                });
+            } else {
+                // Get members who had an active assignment in this community during the specified year
+                // Logic: Assignment Start <= EndOfYear AND (Assignment End IS NULL OR Assignment End >= StartOfYear)
+                $startOfYear = \Carbon\Carbon::createFromDate($year, 1, 1)->startOfDay();
+                $endOfYear = \Carbon\Carbon::createFromDate($year, 12, 31)->endOfDay();
+    
+                $members = \App\Models\Member::whereHas('assignments', function ($query) use ($communityId, $startOfYear, $endOfYear) {
+                    $query->where('community_id', $communityId)
+                        ->where('start_date', '<=', $endOfYear)
+                        ->where(function ($q) use ($startOfYear) {
+                            $q->whereNull('end_date')
+                                ->orWhere('end_date', '>=', $startOfYear);
+                        });
+                })
+                    ->with(['assignments' => function ($query) use ($communityId) {
+                        $query->where('community_id', $communityId)->latest('start_date');
+                    }])
+                    ->get()
+                    ->map(function ($member) {
+                        // Attach the relevant role for that period
+                        $member->historical_role = $member->assignments->first()?->role ?? 'Member';
+                        return $member;
+                    });
+            }
         }
 
         return view('reports.community-annual', compact('communities', 'members', 'communityId', 'year'));
