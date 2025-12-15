@@ -61,7 +61,7 @@ class Member extends Model
         'entry_date' => 'date',
         'passport_issued_at' => 'date',
         'passport_expired_at' => 'date',
-        'status' => \App\Enums\MemberStatus::class,
+        'status' => \App\Casts\CaseInsensitiveMemberStatus::class,
     ];
 
     public function community(): \Illuminate\Database\Eloquent\Relations\BelongsTo
