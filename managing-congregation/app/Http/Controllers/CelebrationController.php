@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Member;
 use App\Services\CelebrationCardService;
+use Illuminate\Http\Request;
 
 class CelebrationController extends Controller
 {
@@ -23,30 +24,33 @@ class CelebrationController extends Controller
         return view('celebrations.index', compact('upcomingBirthdays'));
     }
 
-    public function generateBirthday(Member $member)
+    public function generateBirthday(Request $request, Member $member)
     {
-        $image = $this->cardService->generateBirthdayCard($member);
+        $font = $request->input('font', 'Caveat-VariableFont_wght.ttf');
+        $image = $this->cardService->generateBirthdayCard($member, 'Happy Birthday!', 'Wishing you a year filled with blessings!', $font);
 
         return response($image)
             ->header('Content-Type', 'image/png');
     }
 
-    public function downloadBirthday(Member $member)
+    public function downloadBirthday(Request $request, Member $member)
     {
-        $image = $this->cardService->generateBirthdayCard($member);
+        $font = $request->input('font', 'Caveat-VariableFont_wght.ttf');
+        $image = $this->cardService->generateBirthdayCard($member, 'Happy Birthday!', 'Wishing you a year filled with blessings!', $font);
 
         return response($image)
             ->header('Content-Type', 'image/png')
             ->header('Content-Disposition', 'attachment; filename="birthday-card-'.$member->id.'.png"');
     }
 
-    public function emailBirthday(Member $member)
+    public function emailBirthday(Request $request, Member $member)
     {
         if (! $member->email) {
             return back()->with('error', 'Member does not have an email address.');
         }
 
-        $image = $this->cardService->generateBirthdayCard($member);
+        $font = $request->input('font', 'Caveat-VariableFont_wght.ttf');
+        $image = $this->cardService->generateBirthdayCard($member, 'Happy Birthday!', 'Wishing you a year filled with blessings!', $font);
 
         \Illuminate\Support\Facades\Mail::to($member->email)->send(new \App\Mail\CelebrationCardMail($member, $image, 'Happy Birthday!'));
 
