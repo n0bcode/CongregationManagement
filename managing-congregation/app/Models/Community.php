@@ -21,7 +21,20 @@ class Community extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['name', 'location'];
+    protected $fillable = [
+        'name',
+        'location',
+        'patron_saint',
+        'founded_at',
+        'feast_day',
+        'email',
+        'phone',
+    ];
+
+    protected $casts = [
+        'founded_at' => 'date',
+        'feast_day' => 'date',
+    ];
 
     public function members(): \Illuminate\Database\Eloquent\Relations\HasMany
     {

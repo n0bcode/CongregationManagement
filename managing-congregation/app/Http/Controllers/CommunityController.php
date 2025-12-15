@@ -52,6 +52,11 @@ class CommunityController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'location' => 'nullable|string|max:255',
+            'patron_saint' => 'nullable|string|max:255',
+            'founded_at' => 'nullable|date',
+            'feast_day' => 'nullable|date',
+            'email' => 'nullable|email|max:255',
+            'phone' => 'nullable|string|max:255',
         ], [
             'name.required' => 'Tên cộng đồng là bắt buộc.',
             'name.max' => 'Tên cộng đồng không được vượt quá 255 ký tự.',
@@ -115,6 +120,11 @@ class CommunityController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'location' => 'nullable|string|max:255',
+            'patron_saint' => 'nullable|string|max:255',
+            'founded_at' => 'nullable|date',
+            'feast_day' => 'nullable|date',
+            'email' => 'nullable|email|max:255',
+            'phone' => 'nullable|string|max:255',
         ], [
             'name.required' => 'Tên cộng đồng là bắt buộc.',
             'name.max' => 'Tên cộng đồng không được vượt quá 255 ký tự.',
@@ -122,7 +132,7 @@ class CommunityController extends Controller
         ]);
 
         // Store old values for audit
-        $oldValues = $community->only(['name', 'location']);
+        $oldValues = $community->only(['name', 'location', 'patron_saint', 'founded_at', 'feast_day', 'email', 'phone']);
 
         $community->update($validated);
 

@@ -66,6 +66,47 @@
                                 <dd class="text-base text-slate-700">{{ $community->location ?? '—' }}</dd>
                             </div>
 
+                            @if($community->patron_saint)
+                                <div>
+                                    <dt class="text-sm font-medium text-slate-500 mb-1">{{ __('Patron Saint') }}</dt>
+                                    <dd class="text-base text-slate-700 font-medium">{{ $community->patron_saint }}</dd>
+                                </div>
+                            @endif
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                @if($community->founded_at)
+                                    <div>
+                                        <dt class="text-sm font-medium text-slate-500 mb-1">{{ __('Foundation Date') }}</dt>
+                                        <dd class="text-base text-slate-700">{{ $community->founded_at->format('F d, Y') }}</dd>
+                                    </div>
+                                @endif
+
+                                @if($community->feast_day)
+                                    <div>
+                                        <dt class="text-sm font-medium text-slate-500 mb-1">{{ __('Feast Day') }}</dt>
+                                        <dd class="text-base text-slate-700">{{ $community->feast_day->format('F d, Y') }}</dd>
+                                    </div>
+                                @endif
+                            </div>
+
+                            @if($community->email || $community->phone)
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4 border-t border-stone-100">
+                                    @if($community->email)
+                                        <div>
+                                            <dt class="text-sm font-medium text-slate-500 mb-1">{{ __('Email') }}</dt>
+                                            <dd class="text-base text-slate-700 break-all">{{ $community->email }}</dd>
+                                        </div>
+                                    @endif
+
+                                    @if($community->phone)
+                                        <div>
+                                            <dt class="text-sm font-medium text-slate-500 mb-1">{{ __('Phone') }}</dt>
+                                            <dd class="text-base text-slate-700">{{ $community->phone }}</dd>
+                                        </div>
+                                    @endif
+                                </div>
+                            @endif
+
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4 border-t border-stone-200">
                                 <div>
                                     <dt class="text-sm font-medium text-slate-500 mb-1">{{ __('Created Date') }}</dt>

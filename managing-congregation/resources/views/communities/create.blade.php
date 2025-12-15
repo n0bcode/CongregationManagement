@@ -49,6 +49,86 @@
                             </p>
                         </div>
 
+                        <!-- Patron Saint Field -->
+                        <div>
+                            <label for="patron_saint" class="block text-lg font-medium text-slate-700 mb-2">
+                                {{ __('Patron Saint') }}
+                            </label>
+                            <input type="text" 
+                                   id="patron_saint" 
+                                   name="patron_saint" 
+                                   value="{{ old('patron_saint') }}"
+                                   class="w-full min-h-[48px] px-4 py-3 text-base text-slate-800 bg-white border border-stone-300 rounded-lg placeholder:text-slate-400 focus:border-amber-600 focus:ring-4 focus:ring-amber-500 focus:outline-none @error('patron_saint') border-rose-500 @enderror"
+                                   placeholder="{{ __('Enter Patron Saint') }}">
+                            @error('patron_saint')
+                                <p class="mt-2 text-sm text-rose-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <!-- Foundation Date & Feast Day -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="founded_at" class="block text-lg font-medium text-slate-700 mb-2">
+                                    {{ __('Foundation Date') }}
+                                </label>
+                                <input type="date" 
+                                       id="founded_at" 
+                                       name="founded_at" 
+                                       value="{{ old('founded_at') }}"
+                                       class="w-full min-h-[48px] px-4 py-3 text-base text-slate-800 bg-white border border-stone-300 rounded-lg placeholder:text-slate-400 focus:border-amber-600 focus:ring-4 focus:ring-amber-500 focus:outline-none @error('founded_at') border-rose-500 @enderror">
+                                @error('founded_at')
+                                    <p class="mt-2 text-sm text-rose-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div>
+                                <label for="feast_day" class="block text-lg font-medium text-slate-700 mb-2">
+                                    {{ __('Feast Day') }}
+                                </label>
+                                <input type="date" 
+                                       id="feast_day" 
+                                       name="feast_day" 
+                                       value="{{ old('feast_day') }}"
+                                       class="w-full min-h-[48px] px-4 py-3 text-base text-slate-800 bg-white border border-stone-300 rounded-lg placeholder:text-slate-400 focus:border-amber-600 focus:ring-4 focus:ring-amber-500 focus:outline-none @error('feast_day') border-rose-500 @enderror">
+                                @error('feast_day')
+                                    <p class="mt-2 text-sm text-rose-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <!-- Contact Info -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="email" class="block text-lg font-medium text-slate-700 mb-2">
+                                    {{ __('Email') }}
+                                </label>
+                                <input type="email" 
+                                       id="email" 
+                                       name="email" 
+                                       value="{{ old('email') }}"
+                                       class="w-full min-h-[48px] px-4 py-3 text-base text-slate-800 bg-white border border-stone-300 rounded-lg placeholder:text-slate-400 focus:border-amber-600 focus:ring-4 focus:ring-amber-500 focus:outline-none @error('email') border-rose-500 @enderror"
+                                       placeholder="email@example.com">
+                                @error('email')
+                                    <p class="mt-2 text-sm text-rose-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div>
+                                <label for="phone" class="block text-lg font-medium text-slate-700 mb-2">
+                                    {{ __('Phone') }}
+                                </label>
+                                <input type="text" 
+                                       id="phone" 
+                                       name="phone" 
+                                       value="{{ old('phone') }}"
+                                       class="w-full min-h-[48px] px-4 py-3 text-base text-slate-800 bg-white border border-stone-300 rounded-lg placeholder:text-slate-400 focus:border-amber-600 focus:ring-4 focus:ring-amber-500 focus:outline-none @error('phone') border-rose-500 @enderror"
+                                       placeholder="{{ __('Phone number') }}">
+                                @error('phone')
+                                    <p class="mt-2 text-sm text-rose-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
+
                         <!-- Actions -->
                         <div class="flex gap-4 pt-6 border-t border-stone-200">
                             <button type="submit" class="inline-flex items-center justify-center min-h-[48px] px-6 py-3 bg-amber-600 text-white font-semibold rounded-lg hover:bg-amber-700 focus:outline-none focus:ring-4 focus:ring-amber-500 transition-all shadow-sm hover:shadow-md flex-1">
