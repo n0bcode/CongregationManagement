@@ -97,7 +97,7 @@
                                     <div class="flex items-center justify-between p-4 bg-stone-50 rounded-lg hover:bg-stone-100 transition-colors">
                                         <div class="flex items-center gap-4">
                                             @if($member->profile_photo_path)
-                                                <img src="{{ Storage::url($member->profile_photo_path) }}" 
+                                                <img src="{{ $member->profile_photo_url }}" 
                                                      alt="{{ $member->first_name }}"
                                                      class="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm">
                                             @else

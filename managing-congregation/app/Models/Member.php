@@ -118,9 +118,18 @@ class Member extends Model
 
     public function getProfilePhotoUrlAttribute()
     {
-        return $this->profile_photo_path
-            ? \Illuminate\Support\Facades\Storage::disk('public')->url($this->profile_photo_path)
-            : 'https://ui-avatars.com/api/?name='.urlencode($this->first_name.' '.$this->last_name).'&color=7F9CF5&background=EBF4FF';
+        if (!$this->profile_photo_path) {
+            return 'https://ui-avatars.com/api/?name='.urlencode($this->first_name.' '.$this->last_name).'&color=7F9CF5&background=EBF4FF';
+        }
+
+        $url = \Illuminate\Support\Facades\Storage::disk('public')->url($this->profile_photo_path);
+        
+        // Fix for server configuration where public/ is needed in URL
+        if (!str_contains($url, '/public/storage/')) {
+            $url = str_replace('/storage/', '/public/storage/', $url);
+        }
+
+        return $url;
     }
 
     public function getFullNameAttribute(): string
