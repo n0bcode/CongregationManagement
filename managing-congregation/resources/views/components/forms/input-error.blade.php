@@ -1,7 +1,7 @@
 @props(['messages'])
 
 @if ($messages)
-    <div {{ $attributes->merge(['class' => 'text-sm text-rose-600 dark:text-rose-400 space-y-1']) }}
+    <div {{ $attributes->merge(['class' => 'text-sm text-rose-600 space-y-1']) }}
          x-data="{ show: true }"
          x-show="show"
          x-transition:enter="transition ease-out duration-300"

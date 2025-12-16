@@ -1,18 +1,17 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex justify-between items-center">
-            <h2 class="text-3xl font-bold text-stone-800">
-                {{ __('Documents') }}
-            </h2>
-            @can('create', App\Models\Document::class)
-                <x-ui.button variant="primary" href="{{ route('documents.create') }}">
-                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-                    </svg>
-                    {{ __('Upload Document') }}
-                </x-ui.button>
+        <x-ui.page-header title="{{ __('Documents') }}">
+            @can('create', \App\Models\Document::class)
+                <x-slot:actions>
+                    <x-ui.button variant="primary" href="{{ route('documents.create') }}">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                        </svg>
+                        {{ __('Upload Document') }}
+                    </x-ui.button>
+                </x-slot:actions>
             @endcan
-        </div>
+        </x-ui.page-header>
     </x-slot>
 
     <div class="py-8">
@@ -237,7 +236,7 @@
                             {{ __('Get started by uploading your first document.') }}
                         @endif
                     </p>
-                    @can('create', App\Models\Document::class)
+                    @can('create', \App\Models\Document::class)
                         <div class="mt-6">
                             <x-ui.button variant="primary" href="{{ route('documents.create') }}">
                                 {{ __('Upload Document') }}

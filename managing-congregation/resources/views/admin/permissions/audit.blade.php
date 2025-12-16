@@ -1,17 +1,16 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex justify-between items-center">
-            <h2 class="text-3xl font-bold text-stone-800">
-                {{ __('Permission Audit Log') }}
-            </h2>
-            <a href="{{ route('admin.permissions.index') }}" 
-               class="inline-flex items-center px-4 py-2 bg-white border border-stone-300 rounded-lg text-slate-700 hover:bg-stone-50 transition-colors">
-                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                </svg>
-                {{ __('Back to Permissions') }}
-            </a>
-        </div>
+        <x-ui.page-header title="{{ __('Permission Audit Log') }}">
+            <x-slot:actions>
+                <a href="{{ route('admin.permissions.index') }}" 
+                   class="inline-flex items-center px-4 py-2 bg-white border border-stone-300 rounded-lg text-slate-700 hover:bg-stone-50 transition-colors">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                    {{ __('Back to Permissions') }}
+                </a>
+            </x-slot:actions>
+        </x-ui.page-header>
     </x-slot>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

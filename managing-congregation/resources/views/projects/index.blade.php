@@ -1,8 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="text-3xl font-bold text-stone-800">
-            {{ __('Projects') }}
-        </h2>
+        <x-ui.page-header title="{{ __('Projects') }}" />
     </x-slot>
 
     <div class="py-12">
@@ -25,9 +23,9 @@
                     </div>
 
                     @if (session('success'))
-                        <div class="mb-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
-                            <span class="block sm:inline">{{ session('success') }}</span>
-                        </div>
+                        <x-ui.alert variant="success" class="mb-4">
+                            {{ session('success') }}
+                        </x-ui.alert>
                     @endif
 
                     <div class="overflow-x-auto">

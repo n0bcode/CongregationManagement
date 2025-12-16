@@ -1,10 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex justify-between items-center">
-            <h2 class="text-3xl font-bold text-stone-800">
-                {{ $community->name }}
-            </h2>
-            <div class="flex gap-3">
+        <x-ui.page-header title="{{ $community->name }}">
+            <x-slot:actions>
                 @can('update', $community)
                     <x-ui.button variant="primary" href="{{ route('communities.edit', $community) }}">
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -17,34 +14,34 @@
                     <form method="POST" 
                           action="{{ route('communities.destroy', $community) }}" 
                           class="inline"
-                          onsubmit="return confirm('{{ __('Are you sure you want to delete this community? This action cannot be undone.') }}')">
+                          onsubmit="return confirm('{{ __('Are you sure you want to delete this community? This action cannot be undone.') }}')">  
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="inline-flex items-center justify-center min-h-[48px] px-6 py-3 bg-white text-rose-600 font-medium rounded-lg border-2 border-rose-300 hover:bg-rose-50 hover:border-rose-400 focus:outline-none focus:ring-4 focus:ring-rose-300 transition-all">
+                        <x-ui.button type="submit" variant="danger">
                             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                             </svg>
                             {{ __('Delete') }}
-                        </button>
+                        </x-ui.button>
                     </form>
                 @endcan
-            </div>
-        </div>
+            </x-slot:actions>
+        </x-ui.page-header>
     </x-slot>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Success Message -->
             @if (session('success'))
-                <div class="mb-6 bg-emerald-50 border border-emerald-200 text-emerald-800 px-6 py-4 rounded-lg">
+                <x-ui.alert variant="success" class="mb-6">
                     {{ session('success') }}
-                </div>
+                </x-ui.alert>
             @endif
 
             <!-- Error Message -->
             @if (session('error'))
-                <div class="mb-6 bg-rose-50 border border-rose-200 text-rose-800 px-6 py-4 rounded-lg">
+                <x-ui.alert variant="danger" class="mb-6">
                     {{ session('error') }}
-                </div>
+                </x-ui.alert>
             @endif
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">

@@ -1,33 +1,32 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex justify-between items-center">
-            <h2 class="text-3xl font-bold text-stone-800">
-                {{ __('Communities') }}
-            </h2>
-            @can('create', App\Models\Community::class)
-                <x-ui.button variant="primary" href="{{ route('communities.create') }}">
-                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-                    </svg>
-                    {{ __('Create New Community') }}
-                </x-ui.button>
-            @endcan
-        </div>
+        <x-ui.page-header title="{{ __('Communities') }}">
+            <x-slot:actions>
+                @can('create', App\Models\Community::class)
+                    <x-ui.button variant="primary" href="{{ route('communities.create') }}">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                        </svg>
+                        {{ __('Create New Community') }}
+                    </x-ui.button>
+                @endcan
+            </x-slot:actions>
+        </x-ui.page-header>
     </x-slot>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Success Message -->
             @if (session('success'))
-                <div class="mb-6 bg-emerald-50 border border-emerald-200 text-emerald-800 px-6 py-4 rounded-lg">
+                <x-ui.alert variant="success" class="mb-6">
                     {{ session('success') }}
-                </div>
+                </x-ui.alert>
             @endif
 
             <!-- Error Message -->
             @if (session('error'))
-                <div class="mb-6 bg-rose-50 border border-rose-200 text-rose-800 px-6 py-4 rounded-lg">
+                <x-ui.alert variant="danger" class="mb-6">
                     {{ session('error') }}
-                </div>
+                </x-ui.alert>
             @endif
 
             <!-- Search Box -->
@@ -39,16 +38,16 @@
                                value="{{ request('search') }}"
                                placeholder="{{ __('Search by community name...') }}"
                                class="flex-1 min-h-[48px] px-4 py-3 text-base text-slate-800 bg-white border border-stone-300 rounded-lg placeholder:text-slate-400 focus:border-amber-600 focus:ring-4 focus:ring-amber-500 focus:outline-none">
-                        <button type="submit" class="inline-flex items-center justify-center min-h-[48px] px-6 py-3 bg-white text-slate-700 font-medium rounded-lg border-2 border-stone-300 hover:border-amber-600 hover:text-amber-600 focus:outline-none focus:ring-4 focus:ring-amber-500 transition-all">
+                        <x-ui.button type="submit" variant="secondary">
                             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                             </svg>
                             {{ __('Search') }}
-                        </button>
+                        </x-ui.button>
                         @if(request('search'))
-                            <a href="{{ route('communities.index') }}" class="inline-flex items-center justify-center min-h-[48px] px-6 py-3 bg-white text-slate-700 font-medium rounded-lg border-2 border-stone-300 hover:border-stone-400 focus:outline-none focus:ring-4 focus:ring-stone-300 transition-all">
+                            <x-ui.button href="{{ route('communities.index') }}" variant="secondary">
                                 {{ __('Clear') }}
-                            </a>
+                            </x-ui.button>
                         @endif
                     </div>
                 </form>
@@ -90,9 +89,9 @@
                                         {{ $community->location ?? '—' }}
                                     </td>
                                     <td class="px-6 py-4 text-center">
-                                        <span class="inline-flex items-center justify-center min-w-[2.5rem] px-3 py-1 bg-amber-100 text-amber-700 text-sm font-medium rounded-full">
+                                        <x-ui.badge variant="primary" size="md">
                                             {{ $community->members_count }}
-                                        </span>
+                                        </x-ui.badge>
                                     </td>
                                     <td class="px-6 py-4 text-base text-slate-600">
                                         {{ $community->created_at->format('M d, Y') }}
@@ -100,13 +99,14 @@
                                     <td class="px-6 py-4 text-right">
                                         <div class="flex items-center justify-end gap-3">
                                             @can('update', $community)
-                                                <a href="{{ route('communities.edit', $community) }}" 
-                                                   class="inline-flex items-center text-amber-600 hover:text-amber-700 font-medium transition-colors">
-                                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
-                                                    </svg>
+                                                <x-ui.action-link href="{{ route('communities.edit', $community) }}" variant="primary">
+                                                    <x-slot:icon>
+                                                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                                                        </svg>
+                                                    </x-slot:icon>
                                                     {{ __('Edit') }}
-                                                </a>
+                                                </x-ui.action-link>
                                             @endcan
                                             @can('delete', $community)
                                                 <form method="POST" 
@@ -115,8 +115,7 @@
                                                       onsubmit="return confirm('{{ __('Are you sure you want to delete this community? This action cannot be undone.') }}')">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" 
-                                                            class="inline-flex items-center text-rose-600 hover:text-rose-700 font-medium transition-colors">
+                                                    <button type="submit" class="inline-flex items-center text-rose-600 hover:text-rose-700 font-medium transition-colors focus:outline-none focus:ring-4 focus:ring-offset-2 focus:ring-rose-500 rounded">
                                                         <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                                                         </svg>

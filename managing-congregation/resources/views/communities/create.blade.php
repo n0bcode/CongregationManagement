@@ -1,8 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="text-3xl font-bold text-stone-800">
-            {{ __('Create New Community') }}
-        </h2>
+        <x-ui.page-header title="{{ __('Create New Community') }}" />
     </x-slot>
 
     <div class="py-12">
@@ -110,37 +108,36 @@
 
                         <!-- Actions -->
                         <div class="flex gap-4 pt-6 border-t border-stone-200">
-                            <button type="submit" class="inline-flex items-center justify-center min-h-[48px] px-6 py-3 bg-amber-600 text-white font-semibold rounded-lg hover:bg-amber-700 focus:outline-none focus:ring-4 focus:ring-amber-500 transition-all shadow-sm hover:shadow-md flex-1">
+                            <x-ui.button type="submit" variant="primary" class="flex-1">
                                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                                 </svg>
                                 {{ __('Create Community') }}
-                            </button>
-                            <a href="{{ route('communities.index') }}" class="inline-flex items-center justify-center min-h-[48px] px-6 py-3 bg-white text-slate-700 font-semibold rounded-lg border-2 border-stone-300 hover:border-stone-400 focus:outline-none focus:ring-4 focus:ring-stone-300 transition-all flex-1">
+                            </x-ui.button>
+                            <x-ui.button variant="secondary" href="{{ route('communities.index') }}" class="flex-1">
                                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                                 </svg>
                                 {{ __('Cancel') }}
-                            </a>
+                            </x-ui.button>
                         </div>
                     </div>
                 </form>
             </div>
 
-            <!-- Help Text -->
-            <div class="mt-6 bg-amber-50 border border-amber-200 rounded-lg p-6">
+            <x-ui.alert variant="info" class="mt-6">
                 <div class="flex items-start">
-                    <svg class="w-6 h-6 text-amber-600 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-6 h-6 text-blue-600 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                     </svg>
                     <div>
-                        <h3 class="text-base font-semibold text-slate-800 mb-2">{{ __('About Communities') }}</h3>
-                        <p class="text-sm text-slate-600 leading-relaxed">
+                        <h3 class="text-base font-semibold mb-2">{{ __('About Communities') }}</h3>
+                        <p class="text-sm leading-relaxed">
                             {{ __('Communities represent different congregations or groups within your organization. Each member belongs to one community, and certain roles (like Directors) can only manage members within their own community.') }}
                         </p>
                     </div>
                 </div>
-            </div>
+            </x-ui.alert>
         </div>
     </div>
 </x-app-layout>

@@ -1,10 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex justify-between items-center">
-            <h2 class="text-3xl font-bold text-stone-800">
-                {{ __('Financial Records') }}
-            </h2>
-            <div class="flex gap-3">
+        <x-ui.page-header title="{{ __('Financial Records') }}">
+            <x-slot:actions>
                 @php
                     $defaultCommunityId = auth()->user()->community_id ?? \App\Models\Community::first()?->id ?? 1;
                 @endphp
@@ -27,8 +24,8 @@
                         {{ __('Record Expense') }}
                     </x-ui.button>
                 @endcan
-            </div>
-        </div>
+            </x-slot:actions>
+        </x-ui.page-header>
     </x-slot>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

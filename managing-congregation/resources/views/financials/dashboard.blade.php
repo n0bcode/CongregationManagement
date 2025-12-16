@@ -1,8 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="text-3xl font-bold text-stone-800">
-            {{ __('Financial Dashboard') }}
-        </h2>
+        <x-ui.page-header title="{{ __('Financial Dashboard') }}" />
     </x-slot>
 
     <div class="py-12">

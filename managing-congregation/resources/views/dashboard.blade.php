@@ -1,13 +1,13 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex items-center justify-between">
+        <x-ui.page-header>
             <div>
-                <h2 class="text-3xl font-bold text-stone-800">
+                <h1 class="text-3xl font-bold text-slate-800">
                     Good {{ now()->format('A') === 'AM' ? 'Morning' : 'Evening' }}, {{ Auth::user()->name }}
-                </h2>
-                <p class="text-slate-600 mt-1">{{ now()->format('l, F j, Y') }}</p>
+                </h1>
+                <p class="text-base text-slate-600 mt-1">{{ now()->format('l, F j, Y') }}</p>
             </div>
-        </div>
+        </x-ui.page-header>
     </x-slot>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -153,7 +153,7 @@
         <!-- Alerts Section -->
         <div class="mt-8 space-y-4">
             @if($overdueReminders->count() > 0)
-                <div class="bg-rose-50 border border-rose-200 rounded-lg p-6">
+                <x-ui.alert variant="danger">
                     <div class="flex items-start">
                         <div class="flex-shrink-0">
                             <svg class="h-6 w-6 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -181,7 +181,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </x-ui.alert>
             @endif
         </div>
     </div>

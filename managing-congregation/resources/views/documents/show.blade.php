@@ -1,16 +1,15 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex justify-between items-center">
-            <h2 class="text-3xl font-bold text-stone-800">
-                {{ __('Document Details') }}
-            </h2>
-            <x-ui.button variant="secondary" href="{{ route('documents.index') }}">
-                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
-                </svg>
-                {{ __('Back to Documents') }}
-            </x-ui.button>
-        </div>
+        <x-ui.page-header title="{{ __('Document Details') }}">
+            <x-slot:actions>
+                <x-ui.button variant="secondary" href="{{ route('documents.index') }}">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                    </svg>
+                    {{ __('Back to Documents') }}
+                </x-ui.button>
+            </x-slot:actions>
+        </x-ui.page-header>
     </x-slot>
 
     <div class="py-8">

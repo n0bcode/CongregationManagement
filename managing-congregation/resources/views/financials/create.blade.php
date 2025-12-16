@@ -1,15 +1,9 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex items-center">
-            <a href="{{ route('financials.index') }}" class="mr-4 text-slate-600 hover:text-slate-800">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-                </svg>
-            </a>
-            <h2 class="text-3xl font-bold text-stone-800">
-                {{ __('Record New Expense') }}
-            </h2>
-        </div>
+        <x-ui.page-header 
+            title="{{ __('Record New Expense') }}" 
+            :backUrl="route('financials.index')"
+        />
     </x-slot>
 
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -175,21 +169,20 @@
             </form>
         </div>
 
-        {{-- Help Text --}}
-        <div class="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-            <div class="flex">
-                <svg class="w-5 h-5 text-blue-600 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg>
-                <div class="text-sm text-blue-800">
-                    <p class="font-medium mb-1">{{ __('Recording Tips') }}</p>
-                    <ul class="list-disc list-inside space-y-1 text-blue-700">
-                        <li>{{ __('Always attach receipts when available for better record keeping') }}</li>
-                        <li>{{ __('Use consistent category names for easier reporting') }}</li>
-                        <li>{{ __('Provide detailed descriptions to help with future reference') }}</li>
-                    </ul>
+            <x-ui.alert variant="info" class="mt-6">
+                <div class="flex">
+                    <svg class="w-5 h-5 text-blue-600 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <div class="text-sm text-blue-800">
+                        <p class="font-medium mb-1">{{ __('Recording Tips') }}</p>
+                        <ul class="list-disc list-inside space-y-1 text-blue-700">
+                            <li>{{ __('Always attach receipts when available for better record keeping') }}</li>
+                            <li>{{ __('Use consistent category names for easier reporting') }}</li>
+                            <li>{{ __('Provide detailed descriptions to help with future reference') }}</li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </div>
+            </x-ui.alert>
     </div>
 </x-app-layout>

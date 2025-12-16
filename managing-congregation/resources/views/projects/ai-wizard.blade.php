@@ -1,8 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="text-3xl font-bold text-stone-800">
-            {{ __('AI Project Manager') }}
-        </h2>
+        <x-ui.page-header title="{{ __('AI Project Manager') }}" />
     </x-slot>
 
     <div class="py-12">

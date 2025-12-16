@@ -1,13 +1,12 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex items-center justify-between">
-            <h2 class="text-3xl font-bold text-stone-800">
-                {{ __('Lock Financial Period') }}
-            </h2>
-            <x-ui.button variant="secondary" href="{{ route('financials.index') }}">
-                {{ __('Back to Financials') }}
-            </x-ui.button>
-        </div>
+        <x-ui.page-header title="{{ __('Lock Financial Period') }}">
+            <x-slot:actions>
+                <x-ui.button variant="secondary" href="{{ route('financials.index') }}">
+                    {{ __('Back to Financials') }}
+                </x-ui.button>
+            </x-slot:actions>
+        </x-ui.page-header>
     </x-slot>
 
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
