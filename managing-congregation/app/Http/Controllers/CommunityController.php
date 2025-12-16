@@ -91,13 +91,12 @@ class CommunityController extends Controller
         // Load member count
         $community->loadCount('members');
 
-        // Load 10 most recent members
-        $recentMembers = $community->members()
+        // Load members with pagination
+        $members = $community->members()
             ->latest()
-            ->limit(10)
-            ->get();
+            ->paginate(10, ['*'], 'members_page');
 
-        return view('communities.show', compact('community', 'recentMembers'));
+        return view('communities.show', compact('community', 'members'));
     }
 
     /**

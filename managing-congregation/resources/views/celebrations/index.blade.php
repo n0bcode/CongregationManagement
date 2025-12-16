@@ -52,6 +52,12 @@
                     @else
                         <p class="text-gray-500">No upcoming birthdays in the next 30 days.</p>
                     @endif
+
+                    @if($upcomingBirthdays instanceof \Illuminate\Pagination\LengthAwarePaginator)
+                        <div class="mt-6">
+                            {{ $upcomingBirthdays->links() }}
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

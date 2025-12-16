@@ -87,8 +87,13 @@ class MemberController extends Controller
 
         $communities = \App\Models\Community::all();
         $actions = app(\App\Services\ContextualActionService::class)->getActions($member);
+        
+        $audits = $member->audits()
+            ->with('user')
+            ->latest()
+            ->paginate(10, ['*'], 'audit_page');
 
-        return view('members.show', compact('member', 'projectedEvents', 'communities', 'actions'));
+        return view('members.show', compact('member', 'projectedEvents', 'communities', 'actions', 'audits'));
     }
 
     public function edit(\App\Models\Member $member): View

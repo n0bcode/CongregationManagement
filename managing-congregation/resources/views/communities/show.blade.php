@@ -121,20 +121,15 @@
                         </dl>
                     </div>
 
-                    <!-- Recent Members Card -->
+                    <!-- Members Card -->
                     <div class="bg-white rounded-lg shadow-sm border border-stone-200 p-8">
                         <div class="flex justify-between items-center mb-6">
-                            <h3 class="text-xl font-semibold text-slate-800">{{ __('Recent Members') }}</h3>
-                            @if($community->members_count > 0)
-                                <a href="{{ route('members.index', ['community_id' => $community->id]) }}" class="text-amber-600 hover:text-amber-700 font-medium text-sm">
-                                    {{ __('View All') }} →
-                                </a>
-                            @endif
+                            <h3 class="text-xl font-semibold text-slate-800">{{ __('Members') }}</h3>
                         </div>
 
-                        @if($recentMembers->count() > 0)
+                        @if($members->count() > 0)
                             <div class="space-y-3">
-                                @foreach($recentMembers as $member)
+                                @foreach($members as $member)
                                     <div class="flex items-center justify-between p-4 bg-stone-50 rounded-lg hover:bg-stone-100 transition-colors">
                                         <div class="flex items-center gap-4">
                                             @if($member->profile_photo_path)
@@ -166,14 +161,9 @@
                                 @endforeach
                             </div>
 
-                            @if($community->members_count > 10)
-                                <div class="mt-4 text-center">
-                                    <a href="{{ route('members.index', ['community_id' => $community->id]) }}" class="inline-flex items-center text-amber-600 hover:text-amber-700 font-medium">
-                                        {{ __('View all :count members', ['count' => $community->members_count]) }}
-                                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                                        </svg>
-                                    </a>
+                            @if($members->hasPages())
+                                <div class="mt-6">
+                                    {{ $members->links() }}
                                 </div>
                             @endif
                         @else

@@ -19,7 +19,8 @@ class MyTaskController extends Controller
         $tasks = \App\Models\Task::where('assignee_id', $member->id)
             ->with('project')
             ->orderBy('due_date', 'asc')
-            ->get();
+            ->orderBy('due_date', 'asc')
+            ->paginate(10);
 
         return view('my-tasks.index', compact('tasks'));
     }

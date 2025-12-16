@@ -301,7 +301,7 @@
 
                 <x-slot name="history">
                     <h3 class="text-lg font-medium text-slate-900 mb-4">{{ __('Audit Log') }}</h3>
-                    <x-features.audit-trail :audits="$member->audits" />
+                    <x-features.audit-trail :audits="$audits" />
                 </x-slot>
             </x-features.related-records>
         </div>

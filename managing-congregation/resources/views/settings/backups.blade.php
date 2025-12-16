@@ -82,6 +82,9 @@
                             </tbody>
                         </table>
                     </div>
+                    <div class="mt-4">
+                        {{ $backups->links() }}
+                    </div>
 
                 </div>
             </div>

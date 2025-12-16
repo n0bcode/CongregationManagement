@@ -99,7 +99,7 @@
                         </div>
                         <div class="border-t border-gray-200">
                             <ul role="list" class="divide-y divide-gray-200">
-                                @forelse($project->expenses as $expense)
+                                @forelse($expenses as $expense)
                                     <li class="px-4 py-4 sm:px-6">
                                         <div class="flex items-center justify-between">
                                             <div class="text-sm font-medium text-indigo-600 truncate">
@@ -123,6 +123,11 @@
                                     <li class="px-4 py-4 sm:px-6 text-center text-gray-500">No expenses recorded.</li>
                                 @endforelse
                             </ul>
+                            @if($expenses->hasPages())
+                                <div class="bg-gray-50 px-4 py-3 border-t border-gray-200 sm:px-6">
+                                    {{ $expenses->links() }}
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>

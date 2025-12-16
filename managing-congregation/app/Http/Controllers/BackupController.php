@@ -24,7 +24,20 @@ class BackupController extends Controller
             return $b['last_modified'] <=> $a['last_modified'];
         });
 
-        return view('settings.backups', compact('backups'));
+        // Manually paginate the array
+        $page = request()->get('page', 1);
+        $perPage = 10;
+        $offset = ($page * $perPage) - $perPage;
+
+        $paginatedBackups = new \Illuminate\Pagination\LengthAwarePaginator(
+            array_slice($backups, $offset, $perPage, true),
+            count($backups),
+            $perPage,
+            $page,
+            ['path' => request()->url(), 'query' => request()->query()]
+        );
+
+        return view('settings.backups', ['backups' => $paginatedBackups]);
     }
 
     public function create()

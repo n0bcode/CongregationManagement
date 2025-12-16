@@ -41,8 +41,13 @@ class ProjectController extends Controller
 
     public function show(\App\Models\Project $project)
     {
-        $project->load(['community', 'manager', 'expenses']);
-        return view('projects.show', compact('project'));
+        $project->load(['community', 'manager']);
+        
+        $expenses = $project->expenses()
+            ->orderBy('expense_date', 'desc')
+            ->paginate(10, ['*'], 'expenses_page');
+
+        return view('projects.show', compact('project', 'expenses'));
     }
 
     public function edit(\App\Models\Project $project)

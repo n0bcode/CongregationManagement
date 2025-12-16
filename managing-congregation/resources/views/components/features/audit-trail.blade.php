@@ -60,4 +60,9 @@
             </li>
         @endforelse
     </ul>
+    @if($audits instanceof \Illuminate\Pagination\LengthAwarePaginator && $audits->hasPages())
+        <div class="mt-4">
+            {{ $audits->links() }}
+        </div>
+    @endif
 </div>

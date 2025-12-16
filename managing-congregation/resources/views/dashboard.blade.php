@@ -71,19 +71,52 @@
 
             <!-- Quick Actions & Reminders -->
             <div>
-                <x-ui.card title="Quick Actions">
-                    <div class="space-y-3">
-                        <x-ui.button variant="primary" href="{{ route('members.create') }}" class="w-full justify-center">
-                            Add New Member
-                        </x-ui.button>
-                        <x-ui.button variant="secondary" href="{{ route('financials.monthly-report') }}" class="w-full justify-center">
-                            View Reports
-                        </x-ui.button>
-                        <x-ui.button variant="secondary" href="{{ route('documents.index') }}" class="w-full justify-center">
-                            Manage Documents
-                        </x-ui.button>
-                    </div>
-                </x-ui.card>
+                <!-- System Modules Grid -->
+                <div class="grid grid-cols-2 gap-4">
+                    <!-- Finance Module -->
+                    <a href="{{ route('financials.dashboard') }}" class="block group relative bg-white p-4 rounded-xl border border-stone-200 shadow-sm hover:shadow-md hover:border-emerald-300 transition-all duration-200">
+                        <div class="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
+                            <svg class="w-16 h-16 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                        <div class="flex flex-col h-full justify-between relative z-10">
+                            <div class="w-10 h-10 rounded-lg bg-emerald-100 flex items-center justify-center mb-3 group-hover:bg-emerald-200 transition-colors">
+                                <svg class="w-6 h-6 text-emerald-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-stone-800">Finance</h4>
+                                <p class="text-xs text-stone-500 mt-1">Expenses & Budget</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Reports Module -->
+                    <a href="{{ route('reports.demographic') }}" class="block group relative bg-white p-4 rounded-xl border border-stone-200 shadow-sm hover:shadow-md hover:border-blue-300 transition-all duration-200">
+                        <div class="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
+                            <svg class="w-16 h-16 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                        </div>
+                        <div class="flex flex-col h-full justify-between relative z-10">
+                            <div class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center mb-3 group-hover:bg-blue-200 transition-colors">
+                                <svg class="w-6 h-6 text-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-stone-800">Reports</h4>
+                                <p class="text-xs text-stone-500 mt-1">Data & Analytics</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Secondary Actions -->
+                <div class="mt-4 grid grid-cols-2 gap-4">
+                     <a href="{{ route('members.create') }}" class="flex items-center justify-center px-4 py-3 bg-stone-50 hover:bg-stone-100 border border-stone-200 rounded-xl text-sm font-medium text-stone-700 transition-colors">
+                        <svg class="w-5 h-5 mr-2 text-stone-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path></svg>
+                        {{ __('Add Member') }}
+                    </a>
+                    <a href="{{ route('documents.index') }}" class="flex items-center justify-center px-4 py-3 bg-stone-50 hover:bg-stone-100 border border-stone-200 rounded-xl text-sm font-medium text-stone-700 transition-colors">
+                        <svg class="w-5 h-5 mr-2 text-stone-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        {{ __('Documents') }}
+                    </a>
+                </div>
 
                 <!-- Upcoming Reminders -->
                 <x-ui.card title="Upcoming Reminders" subtitle="Next 30 days" class="mt-6">

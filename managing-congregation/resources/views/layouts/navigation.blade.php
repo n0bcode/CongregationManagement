@@ -50,33 +50,6 @@
                         </x-layout.dropdown-link>
                     </x-layout.nav-dropdown>
 
-                    <x-layout.nav-dropdown 
-                        label="{{ __('Finance') }}" 
-                        :active="request()->routeIs('financials.*')">
-                        <x-layout.dropdown-link :href="route('financials.dashboard')" :active="request()->routeIs('financials.dashboard')">
-                            {{ __('Dashboard') }}
-                        </x-layout.dropdown-link>
-                        <x-layout.dropdown-link :href="route('financials.index')" :active="request()->routeIs('financials.index')">
-                            {{ __('Expenses') }}
-                        </x-layout.dropdown-link>
-                    </x-layout.nav-dropdown>
-
-                    {{-- Reports Dropdown --}}
-                    <x-layout.nav-dropdown 
-                        label="{{ __('Reports') }}" 
-                        :active="request()->routeIs('reports.*')">
-                        <x-layout.dropdown-link :href="route('reports.demographic')" :active="request()->routeIs('reports.demographic')">
-                            {{ __('Demographic Reports') }}
-                        </x-layout.dropdown-link>
-                        <x-layout.dropdown-link :href="route('reports.advanced')" :active="request()->routeIs('reports.advanced')">
-                            {{ __('Advanced Statistics') }}
-                        </x-layout.dropdown-link>
-                        <x-layout.dropdown-link :href="route('reports.builder')" :active="request()->routeIs('reports.builder')">
-                            {{ __('Report Builder') }}
-                        </x-layout.dropdown-link>
-
-                    </x-layout.nav-dropdown>
-
                     {{-- System Dropdown (admin only) --}}
                     @can('viewAny', \App\Models\AuditLog::class)
                         <x-layout.nav-dropdown 
@@ -207,52 +180,6 @@
                     <x-layout.responsive-nav-link :href="route('periodic-events.index')" :active="request()->routeIs('periodic-events.*')" class="pl-8">
                         {{ __('Periodic Events') }}
                     </x-layout.responsive-nav-link>
-                </div>
-            </div>
-
-            {{-- Finance Section --}}
-            <div x-data="{ expanded: {{ request()->routeIs('financials.*') ? 'true' : 'false' }} }">
-                <button @click="expanded = !expanded" 
-                        class="w-full flex items-center justify-between px-4 py-2 text-base font-medium text-slate-700 hover:bg-stone-100 transition duration-150 ease-in-out"
-                        :class="{'text-amber-600 bg-amber-50': {{ request()->routeIs('financials.*') ? 'true' : 'false' }} }">
-                    <span>{{ __('Finance') }}</span>
-                    <svg class="w-5 h-5 transition-transform duration-200" :class="{'rotate-180': expanded}" 
-                         fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                    </svg>
-                </button>
-                <div x-show="expanded" x-collapse class="bg-white">
-                    <x-layout.responsive-nav-link :href="route('financials.dashboard')" :active="request()->routeIs('financials.dashboard')" class="pl-8">
-                        {{ __('Dashboard') }}
-                    </x-layout.responsive-nav-link>
-                    <x-layout.responsive-nav-link :href="route('financials.index')" :active="request()->routeIs('financials.index')" class="pl-8">
-                        {{ __('Expenses') }}
-                    </x-layout.responsive-nav-link>
-                </div>
-            </div>
-
-            {{-- Reports Section --}}
-            <div x-data="{ expanded: {{ request()->routeIs('reports.*') ? 'true' : 'false' }} }">
-                <button @click="expanded = !expanded" 
-                        class="w-full flex items-center justify-between px-4 py-2 text-base font-medium text-slate-700 hover:bg-stone-100 transition duration-150 ease-in-out"
-                        :class="{'text-amber-600 bg-amber-50': {{ request()->routeIs('reports.*') ? 'true' : 'false' }} }">
-                    <span>{{ __('Reports') }}</span>
-                    <svg class="w-5 h-5 transition-transform duration-200" :class="{'rotate-180': expanded}" 
-                         fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                    </svg>
-                </button>
-                <div x-show="expanded" x-collapse class="bg-white">
-                    <x-layout.responsive-nav-link :href="route('reports.demographic')" :active="request()->routeIs('reports.demographic')" class="pl-8">
-                        {{ __('Demographic Reports') }}
-                    </x-layout.responsive-nav-link>
-                    <x-layout.responsive-nav-link :href="route('reports.advanced')" :active="request()->routeIs('reports.advanced')" class="pl-8">
-                        {{ __('Advanced Statistics') }}
-                    </x-layout.responsive-nav-link>
-                    <x-layout.responsive-nav-link :href="route('reports.builder')" :active="request()->routeIs('reports.builder')" class="pl-8">
-                        {{ __('Report Builder') }}
-                    </x-layout.responsive-nav-link>
-
                 </div>
             </div>
 

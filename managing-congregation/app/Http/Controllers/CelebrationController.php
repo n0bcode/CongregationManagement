@@ -15,7 +15,7 @@ class CelebrationController extends Controller
     public function index()
     {
         // Upcoming Birthdays
-        $upcomingBirthdays = Member::upcomingBirthdays()->get();
+        $upcomingBirthdays = Member::upcomingBirthdays()->paginate(12);
 
         // Upcoming Vow Anniversaries (assuming first_vows_date exists, otherwise need to check schema)
         // For MVP, let's stick to birthdays first as schema might not have vow dates easily queryable without joining formation_events
