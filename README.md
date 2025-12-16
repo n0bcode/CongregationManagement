@@ -13,6 +13,8 @@
 
 **Managing the Congregation** is a specialized ERP-like solution tailored for the unique needs of religious orders. Built using the BMAD (Business Management and Development) methodology, it moves beyond simple record-keeping to provide a holistic view of community life, ensuring data integrity, privacy, and ease of administration.
 
+> 📘 **New:** [**User Guide**](./managing-congregation/docs/USER_GUIDE.md) is now available!
+
 ### What Makes This Special
 
 Unlike generic HR or CRM tools, this system is **purpose-built for religious life**, natively handling unique workflows such as:
@@ -130,8 +132,10 @@ System_Blood_Group/
 │   ├── resources/views/            # Blade Templates
 │   ├── routes/                     # Route Definitions
 │   ├── storage/app/private/        # Secure File Storage
-│   └── tests/                      # Test Suites (373 tests)
-├── docs/                           # Comprehensive Documentation
+│   ├── storage/app/private/        # Secure File Storage
+│   └── docs/
+│       └── USER_GUIDE.md           # 📘 Complete User Manual (Vietnamese)
+├── docs/                           # Technical & Project Documentation
 │   ├── architecture.md            # Technical Architecture
 │   ├── prd.md                     # Product Requirements
 │   ├── epics.md                   # Epic Breakdown
@@ -558,6 +562,7 @@ docs/
 
 - **[PRD](./docs/prd.md)**: Complete product requirements and user journeys
 - **[Architecture](./docs/architecture.md)**: Technical decisions and implementation patterns
+- **[User Guide](./managing-congregation/docs/USER_GUIDE.md)**: Comprehensive manual for end-users (VN).
 - **[Epics](./docs/epics.md)**: Detailed breakdown of features and stories
 - **[UX Design](./docs/ux-design-specification.md)**: Interface design and user experience
 
