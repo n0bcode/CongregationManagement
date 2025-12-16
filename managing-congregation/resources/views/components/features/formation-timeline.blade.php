@@ -1,10 +1,10 @@
 @props(['events', 'projectedEvents' => []])
 
 <div class="flow-root">
-    <ul role="list" class="-mb-8">
+    <ul role="list">
         @foreach($events as $event)
             <li>
-                <div class="relative pb-8">
+                <div class="relative {{ $loop->last && count($projectedEvents) === 0 ? '' : 'pb-8' }}">
                     @if(!$loop->last || count($projectedEvents) > 0)
                         <span class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-stone-200" aria-hidden="true"></span>
                     @endif
@@ -69,7 +69,7 @@
 
         @foreach($projectedEvents as $event)
             <li>
-                <div class="relative pb-8">
+                <div class="relative {{ $loop->last ? '' : 'pb-8' }}">
                     <div class="relative flex space-x-3">
                         <div>
                             <span class="h-8 w-8 rounded-full bg-stone-100 flex items-center justify-center ring-8 ring-white border-2 border-dashed border-stone-300">

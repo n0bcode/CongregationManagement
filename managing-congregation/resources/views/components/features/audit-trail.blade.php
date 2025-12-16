@@ -1,10 +1,10 @@
 @props(['audits'])
 
 <div class="flow-root">
-    <ul role="list" class="-mb-8">
+    <ul role="list">
         @forelse($audits as $audit)
             <li>
-                <div class="relative pb-8">
+                <div class="relative {{ $loop->last ? '' : 'pb-8' }}">
                     @if(!$loop->last)
                         <span class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-stone-200" aria-hidden="true"></span>
                     @endif

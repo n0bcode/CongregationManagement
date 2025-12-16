@@ -78,20 +78,19 @@
                 />
 
                 <div class="mt-4" x-data="{ memberType: @entangle('member_type') }">
-                    <label for="member_type" class="block font-medium text-sm text-gray-700 mb-1">
-                        Member Type <span class="text-red-500">*</span>
-                    </label>
-                    <select 
+                    <x-ui.label for="member_type" value="Member Type" required />
+                    
+                    <x-ui.select 
                         id="member_type" 
                         x-model="memberType"
                         wire:model.live="member_type" 
-                        class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block w-full"
+                        class="mt-1"
                     >
                         <option value="postulant">Postulant</option>
                         <option value="novice">Novice</option>
                         <option value="professed">Professed</option>
-                    </select>
-                    @error('member_type') <p class="text-sm text-red-600 mt-1">{{ $message }}</p> @enderror
+                    </x-ui.select>
+                    @error('member_type') <p class="text-sm text-rose-600 mt-1">{{ $message }}</p> @enderror
 
                     <div class="mt-4">
                         <x-forms.validated-input 
@@ -104,36 +103,37 @@
                     </div>
 
                     {{-- Conditional Formation Dates --}}
-                    <div x-show="memberType === 'novice' || memberType === 'professed'" class="mt-6 p-4 bg-amber-50 border border-amber-200 rounded-lg">
-                        <h4 class="font-medium text-amber-900 mb-3">Formation Dates</h4>
-                        
-                        <x-forms.validated-input 
-                            name="novitiate_entry_date" 
-                            label="Novitiate Entry Date" 
-                            type="date"
-                            wire:model.live="novitiate_entry_date" 
-                            ::rules="memberType === 'novice' || memberType === 'professed' ? 'required|date|after:entry_date' : ''"
-                        />
-
-                        <div x-show="memberType === 'professed'" class="mt-4">
+                    <div x-show="memberType === 'novice' || memberType === 'professed'" class="mt-6">
+                        <x-ui.alert variant="warning" title="Formation Dates">
+                            
                             <x-forms.validated-input 
-                                name="first_vows_date" 
-                                label="First Vows Date" 
+                                name="novitiate_entry_date" 
+                                label="Novitiate Entry Date" 
                                 type="date"
-                                wire:model.live="first_vows_date" 
-                                ::rules="memberType === 'professed' ? 'required|date|after:novitiate_entry_date' : ''"
+                                wire:model.live="novitiate_entry_date" 
+                                ::rules="memberType === 'novice' || memberType === 'professed' ? 'required|date|after:entry_date' : ''"
                             />
-                        </div>
 
-                        <div x-show="memberType === 'professed'" class="mt-4">
-                            <x-forms.validated-input 
-                                name="perpetual_vows_date" 
-                                label="Perpetual Vows Date (Optional)" 
-                                type="date"
-                                wire:model.live="perpetual_vows_date" 
-                                rules="nullable|date|after:first_vows_date"
-                            />
-                        </div>
+                            <div x-show="memberType === 'professed'" class="mt-4">
+                                <x-forms.validated-input 
+                                    name="first_vows_date" 
+                                    label="First Vows Date" 
+                                    type="date"
+                                    wire:model.live="first_vows_date" 
+                                    ::rules="memberType === 'professed' ? 'required|date|after:novitiate_entry_date' : ''"
+                                />
+                            </div>
+
+                            <div x-show="memberType === 'professed'" class="mt-4">
+                                <x-forms.validated-input 
+                                    name="perpetual_vows_date" 
+                                    label="Perpetual Vows Date (Optional)" 
+                                    type="date"
+                                    wire:model.live="perpetual_vows_date" 
+                                    rules="nullable|date|after:first_vows_date"
+                                />
+                            </div>
+                        </x-ui.alert>
                     </div>
                 </div>
             </x-forms.wizard-step>
@@ -144,25 +144,24 @@
 
                 @if(auth()->user()->community_id === null)
                     <div>
-                        <label for="community_id" class="block font-medium text-sm text-gray-700 mb-1">
-                            Community <span class="text-red-500">*</span>
-                        </label>
-                        <select 
+                        <x-ui.label for="community_id" value="Community" required />
+                        
+                        <x-ui.select 
                             id="community_id" 
                             wire:model.live="community_id" 
-                            class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block w-full"
+                            class="mt-1"
                         >
                             <option value="">Select a community...</option>
                             @foreach($communities as $community)
                                 <option value="{{ $community->id }}">{{ $community->name }}</option>
                             @endforeach
-                        </select>
-                        @error('community_id') <p class="text-sm text-red-600 mt-1">{{ $message }}</p> @enderror
+                        </x-ui.select>
+                        @error('community_id') <p class="text-sm text-rose-600 mt-1">{{ $message }}</p> @enderror
                     </div>
                 @else
-                    <div class="p-4 bg-blue-50 text-blue-700 rounded-md">
+                    <x-ui.alert variant="info">
                         You are creating this member in your assigned community.
-                    </div>
+                    </x-ui.alert>
                 @endif
             </x-forms.wizard-step>
 

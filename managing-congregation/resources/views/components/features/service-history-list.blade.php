@@ -2,10 +2,10 @@
 
 <div class="flow-root">
     @if($assignments->count() > 0)
-        <ul role="list" class="-mb-8">
+        <ul role="list">
             @foreach($assignments as $assignment)
                 <li>
-                    <div class="relative pb-8">
+                    <div class="relative {{ $loop->last ? '' : 'pb-8' }}">
                         @if(!$loop->last)
                             <span class="absolute top-5 left-5 -ml-px h-full w-0.5 bg-stone-200" aria-hidden="true"></span>
                         @endif

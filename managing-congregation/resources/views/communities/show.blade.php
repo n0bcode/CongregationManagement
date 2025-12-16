@@ -32,8 +32,7 @@
         </div>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Success Message -->
             @if (session('success'))
                 <div class="mb-6 bg-emerald-50 border border-emerald-200 text-emerald-800 px-6 py-4 rounded-lg">
@@ -234,6 +233,5 @@
                     </div>
                 </div>
             </div>
-        </div>
     </div>
 </x-app-layout>
