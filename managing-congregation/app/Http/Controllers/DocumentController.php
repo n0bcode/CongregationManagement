@@ -50,7 +50,12 @@ class DocumentController extends Controller
             $query->dateRange($request->start_date, $request->end_date);
         }
 
-        $documents = $query->paginate(20);
+        $perPage = $request->input('perPage', 20);
+        if (!in_array($perPage, [10, 25, 50, 100])) {
+            $perPage = 20;
+        }
+
+        $documents = $query->paginate($perPage)->withQueryString();
 
         // Get data for filters
         $folders = Folder::roots()

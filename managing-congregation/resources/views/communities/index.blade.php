@@ -155,11 +155,9 @@
             </div>
 
             <!-- Pagination -->
-            @if($communities->hasPages())
-                <div class="mt-6">
-                    {{ $communities->links() }}
-                </div>
-            @endif
+            <div class="mt-6">
+                <x-ui.pagination :paginator="$communities" />
+            </div>
         </div>
     </div>
 </x-app-layout>

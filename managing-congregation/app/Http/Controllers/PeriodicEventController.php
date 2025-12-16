@@ -6,11 +6,17 @@ use Illuminate\Http\Request;
 
 class PeriodicEventController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $perPage = $request->input('perPage', 10);
+        if (!in_array($perPage, [10, 25, 50, 100])) {
+            $perPage = 10;
+        }
+
         $events = \App\Models\PeriodicEvent::with('community')
             ->orderBy('start_date', 'asc')
-            ->paginate(10);
+            ->paginate($perPage)
+            ->withQueryString();
         return view('periodic-events.index', compact('events'));
     }
 

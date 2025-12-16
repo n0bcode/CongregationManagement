@@ -6,11 +6,17 @@ use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $perPage = $request->input('perPage', 10);
+        if (!in_array($perPage, [10, 25, 50, 100])) {
+            $perPage = 10;
+        }
+
         $projects = \App\Models\Project::with(['community', 'manager'])
             ->orderBy('created_at', 'desc')
-            ->paginate(10);
+            ->paginate($perPage)
+            ->withQueryString();
         return view('projects.index', compact('projects'));
     }
 
@@ -41,11 +47,12 @@ class ProjectController extends Controller
 
     public function show(\App\Models\Project $project)
     {
-        $project->load(['community', 'manager']);
-        
+        // Load expenses with pagination (named paginator)
+        // [TESTING] Reduced to 1 to show pagination
         $expenses = $project->expenses()
-            ->orderBy('expense_date', 'desc')
-            ->paginate(10, ['*'], 'expenses_page');
+            ->latest()
+            ->with(['category', 'recordedBy'])
+            ->paginate(1, ['*'], 'expenses_page');
 
         return view('projects.show', compact('project', 'expenses'));
     }

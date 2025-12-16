@@ -12,10 +12,16 @@ class CelebrationController extends Controller
         protected CelebrationCardService $cardService
     ) {}
 
-    public function index()
+    public function index(Request $request)
     {
         // Upcoming Birthdays
-        $upcomingBirthdays = Member::upcomingBirthdays()->paginate(12);
+        $perPage = $request->input('perPage', 10);
+        if (!in_array($perPage, [10, 25, 50, 100])) {
+            $perPage = 10;
+        }
+
+        // [TESTING] Reduced pagination to 1 to demonstrate UI functionality (removed override, using dynamic)
+        $upcomingBirthdays = Member::upcomingBirthdays()->paginate($perPage)->withQueryString();
 
         // Upcoming Vow Anniversaries (assuming first_vows_date exists, otherwise need to check schema)
         // For MVP, let's stick to birthdays first as schema might not have vow dates easily queryable without joining formation_events

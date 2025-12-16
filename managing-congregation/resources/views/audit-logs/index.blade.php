@@ -161,7 +161,7 @@
                 {{-- Pagination --}}
                 @if ($logs->hasPages())
                     <div class="border-t border-stone-warm-200 px-6 py-4">
-                        {{ $logs->links() }}
+                        <x-ui.pagination :paginator="$logs" />
                     </div>
                 @endif
             </div>

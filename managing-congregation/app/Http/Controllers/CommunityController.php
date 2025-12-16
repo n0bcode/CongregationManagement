@@ -27,7 +27,14 @@ class CommunityController extends Controller
             $query->where('name', 'like', "%{$search}%");
         }
 
-        $communities = $query->orderBy('name')->paginate(20);
+        $perPage = $request->input('perPage', 20);
+        if (!in_array($perPage, [10, 25, 50, 100])) {
+            $perPage = 20;
+        }
+
+        $communities = $query->orderBy('name')
+            ->paginate($perPage)
+            ->withQueryString();
 
         return view('communities.index', compact('communities'));
     }
@@ -91,10 +98,16 @@ class CommunityController extends Controller
         // Load member count
         $community->loadCount('members');
 
-        // Load members with pagination
+        // Load members with named paginator for "Members" tab
+        $perPage = request()->input('perPage', 10);
+        if (!in_array($perPage, [10, 25, 50, 100])) {
+            $perPage = 10;
+        }
+
         $members = $community->members()
-            ->latest()
-            ->paginate(10, ['*'], 'members_page');
+            ->with(['latestMembership.status', 'user'])
+            ->paginate($perPage, ['*'], 'members_page')
+            ->withQueryString();
 
         return view('communities.show', compact('community', 'members'));
     }

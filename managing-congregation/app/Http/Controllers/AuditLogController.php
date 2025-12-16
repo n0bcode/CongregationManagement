@@ -48,7 +48,12 @@ class AuditLogController extends Controller
             $query->where('auditable_type', $request->auditable_type);
         }
 
-        $logs = $query->paginate(50);
+        $perPage = $request->input('perPage', 50);
+        if (!in_array($perPage, [10, 25, 50, 100])) {
+            $perPage = 50;
+        }
+
+        $logs = $query->paginate($perPage)->withQueryString();
 
         // Get unique users for filter dropdown
         $users = User::orderBy('name')->get();

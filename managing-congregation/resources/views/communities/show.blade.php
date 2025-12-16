@@ -163,7 +163,7 @@
 
                             @if($members->hasPages())
                                 <div class="mt-6">
-                                    {{ $members->links() }}
+                                    <x-ui.pagination :paginator="$members" />
                                 </div>
                             @endif
                         @else

@@ -22,7 +22,12 @@ class MemberController extends Controller
             $query->where('community_id', $request->input('community_id'));
         }
 
-        $members = $query->paginate(20)->appends($request->query());
+        $perPage = $request->input('perPage', 20);
+        if (!in_array($perPage, [10, 25, 50, 100])) {
+            $perPage = 20;
+        }
+
+        $members = $query->paginate($perPage)->appends($request->query());
 
         return view('members.index', compact('members'));
     }
@@ -88,10 +93,16 @@ class MemberController extends Controller
         $communities = \App\Models\Community::all();
         $actions = app(\App\Services\ContextualActionService::class)->getActions($member);
         
+        $perPage = request()->input('perPage', 10);
+        if (!in_array($perPage, [10, 25, 50, 100])) {
+            $perPage = 10;
+        }
+
         $audits = $member->audits()
             ->with('user')
             ->latest()
-            ->paginate(10, ['*'], 'audit_page');
+            ->paginate($perPage, ['*'], 'audit_page')
+            ->withQueryString();
 
         return view('members.show', compact('member', 'projectedEvents', 'communities', 'actions', 'audits'));
     }

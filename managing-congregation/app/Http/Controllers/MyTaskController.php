@@ -16,11 +16,16 @@ class MyTaskController extends Controller
             return view('my-tasks.index', ['tasks' => collect()]);
         }
 
+        $perPage = request()->input('perPage', 10);
+        if (!in_array($perPage, [10, 25, 50, 100])) {
+            $perPage = 10;
+        }
+
         $tasks = \App\Models\Task::where('assignee_id', $member->id)
             ->with('project')
             ->orderBy('due_date', 'asc')
-            ->orderBy('due_date', 'asc')
-            ->paginate(10);
+            ->paginate($perPage)
+            ->withQueryString();
 
         return view('my-tasks.index', compact('tasks'));
     }

@@ -55,7 +55,7 @@
 
                     @if($upcomingBirthdays instanceof \Illuminate\Pagination\LengthAwarePaginator)
                         <div class="mt-6">
-                            {{ $upcomingBirthdays->links() }}
+                            <x-ui.pagination :paginator="$upcomingBirthdays" />
                         </div>
                     @endif
                 </div>
@@ -87,7 +87,4 @@
             });
         }
     </script>
-            </div>
-        </div>
-    </div>
 </x-app-layout>

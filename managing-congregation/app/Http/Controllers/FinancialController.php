@@ -57,7 +57,12 @@ class FinancialController extends Controller
             $query->dateRange($date->startOfMonth(), $date->copy()->endOfMonth());
         }
 
-        $expenses = $query->paginate(50);
+        $perPage = $request->input('perPage', 50);
+        if (!in_array($perPage, [10, 25, 50, 100])) {
+            $perPage = 50;
+        }
+
+        $expenses = $query->paginate($perPage)->withQueryString();
 
         // Get unique categories for filter
         $categories = Expense::distinct()->pluck('category')->sort();

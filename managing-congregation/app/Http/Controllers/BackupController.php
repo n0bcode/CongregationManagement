@@ -26,7 +26,7 @@ class BackupController extends Controller
 
         // Manually paginate the array
         $page = request()->get('page', 1);
-        $perPage = 10;
+        $perPage = 1; // [TESTING] Reduced to 1
         $offset = ($page * $perPage) - $perPage;
 
         $paginatedBackups = new \Illuminate\Pagination\LengthAwarePaginator(

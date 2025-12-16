@@ -155,7 +155,7 @@
 
                 {{-- Pagination --}}
                 <div class="px-6 py-4 border-t border-stone-200">
-                    {{ $expenses->links() }}
+                <x-ui.pagination :paginator="$expenses" />
                 </div>
             @else
                 <div class="p-12 text-center">

@@ -63,7 +63,7 @@
                             </table>
                         </div>
                         <div class="mt-4">
-                            {{ $tasks->links() }}
+                        <x-ui.pagination :paginator="$tasks" />
                         </div>
                     @endif
                 </div>

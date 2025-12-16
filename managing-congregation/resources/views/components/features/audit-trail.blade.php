@@ -62,7 +62,7 @@
     </ul>
     @if($audits instanceof \Illuminate\Pagination\LengthAwarePaginator && $audits->hasPages())
         <div class="mt-4">
-            {{ $audits->links() }}
+            <x-ui.pagination :paginator="$audits" />
         </div>
     @endif
 </div>

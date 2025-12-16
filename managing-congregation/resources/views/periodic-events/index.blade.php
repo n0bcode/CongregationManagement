@@ -69,7 +69,7 @@
                         </table>
                     </div>
                     <div class="mt-4">
-                        {{ $events->links() }}
+                        <x-ui.pagination :paginator="$events" />
                     </div>
                 </div>
             </div>
