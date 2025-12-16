@@ -3,11 +3,11 @@
 > A comprehensive management system designed for religious congregations to manage members, financials, documents, and community life efficiently and securely.
 
 ![Laravel](https://img.shields.io/badge/Laravel-11.x-FF2D20?style=for-the-badge&logo=laravel)
-![PHP](https://img.shields.io/badge/PHP-8.4-777BB4?style=for-the-badge&logo=php)
+![PHP](https://img.shields.io/badge/PHP-8.2%2B-777BB4?style=for-the-badge&logo=php)
 ![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?style=for-the-badge&logo=mysql)
+![Livewire](https://img.shields.io/badge/Livewire-3.x-4E56A6?style=for-the-badge&logo=livewire)
 ![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-3.x-38B2AC?style=for-the-badge&logo=tailwind-css)
 ![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker)
-![Tests](https://img.shields.io/badge/Tests-373%20Passing-28A745?style=for-the-badge&logo=github)
 
 ## 📖 Overview
 
@@ -85,12 +85,12 @@ Unlike generic HR or CRM tools, this system is **purpose-built for religious lif
 
 ### Technology Stack
 
-- **Backend**: Laravel 11.x (PHP 8.4)
+- **Backend**: Laravel 11.x (PHP 8.2+)
 - **Database**: MySQL 8.0
-- **Frontend**: Blade Templates + TailwindCSS + Alpine.js
+- **Frontend**: Blade Templates + TailwindCSS + Livewire 3.x
 - **Build Tool**: Vite (with HMR)
 - **Environment**: Docker + Laravel Sail
-- **Testing**: Pest/PHPUnit (373 tests)
+- **Testing**: Pest/PHPUnit
 - **Security**: Laravel Sanctum, RBAC with type-safe permissions
 
 ### Development Methodology
@@ -161,17 +161,20 @@ System_Blood_Group/
 ### Quick Start with Docker Sail (Recommended)
 
 1. **Clone the Repository**
+
    ```bash
    git clone https://github.com/n0bcode/CongregationManagement.git
    cd System_Blood_Group/managing-congregation
    ```
 
 2. **Environment Setup**
+
    ```bash
    cp .env.example .env
    ```
 
 3. **Start Development Environment**
+
    ```bash
    # Start all containers (Laravel, MySQL, Mailpit, Redis)
    ./vendor/bin/sail up -d
@@ -185,6 +188,7 @@ System_Blood_Group/
    ```
 
 4. **Database Setup**
+
    ```bash
    # Generate application key
    ./vendor/bin/sail artisan key:generate
@@ -203,6 +207,7 @@ System_Blood_Group/
 If you prefer not to use Laravel Sail:
 
 1. **Install Dependencies Locally**
+
    ```bash
    # Install PHP dependencies
    composer install
@@ -212,6 +217,7 @@ If you prefer not to use Laravel Sail:
    ```
 
 2. **Database Setup**
+
    ```bash
    # Create MySQL database
    mysql -u root -p -e "CREATE DATABASE congregation_management"
@@ -221,6 +227,7 @@ If you prefer not to use Laravel Sail:
    ```
 
 3. **Environment Configuration**
+
    ```bash
    # Copy environment file
    cp .env.example .env
@@ -230,11 +237,13 @@ If you prefer not to use Laravel Sail:
    ```
 
 4. **Run Migrations and Seeders**
+
    ```bash
    php artisan migrate --seed
    ```
 
 5. **Start Development Servers**
+
    ```bash
    # Start Laravel development server
    php artisan serve
@@ -249,6 +258,7 @@ If you prefer not to use Laravel Sail:
 ### Essential Commands Reference
 
 #### Docker Sail Commands
+
 ```bash
 # Start containers
 ./vendor/bin/sail up -d
@@ -279,6 +289,7 @@ If you prefer not to use Laravel Sail:
 ```
 
 #### Laravel Artisan Commands
+
 ```bash
 # Database operations
 php artisan migrate                    # Run migrations
@@ -308,6 +319,7 @@ php artisan permission:seed           # Seed permissions
 ```
 
 #### NPM Commands
+
 ```bash
 # Development
 npm run dev                           # Start Vite dev server with HMR
@@ -320,6 +332,7 @@ npm run format                        # Format code
 ```
 
 #### Testing Commands
+
 ```bash
 # Run all tests
 ./vendor/bin/sail test
@@ -336,6 +349,7 @@ php artisan test
 ```
 
 #### Database Commands (Direct MySQL)
+
 ```bash
 # Connect to database
 mysql -u root -p congregation_management
@@ -384,12 +398,12 @@ mysqldump -u username -p database_name > backup.sql
 
 ### Default Credentials
 
-| Role          | Email                  | Password   | Permissions |
-|---------------|------------------------|------------|-------------|
-| **Super Admin** | `admin@example.com`    | `password` | All permissions |
-| **General**   | `general@example.com`  | `password` | Global view, reports |
-| **Director**  | `director@example.com` | `password` | House-scoped CRUD |
-| **Member**    | `member@example.com`   | `password` | Read-only access |
+| Role            | Email                  | Password   | Permissions          |
+| --------------- | ---------------------- | ---------- | -------------------- |
+| **Super Admin** | `admin@example.com`    | `password` | All permissions      |
+| **General**     | `general@example.com`  | `password` | Global view, reports |
+| **Director**    | `director@example.com` | `password` | House-scoped CRUD    |
+| **Member**      | `member@example.com`   | `password` | Read-only access     |
 
 ### Permission Matrix
 
@@ -452,6 +466,7 @@ mysqldump -u username -p database_name > backup.sql
 ### Completed Epics ✅
 
 - **Epic 1: Foundation & Core Setup** (100% Complete)
+
   - Project initialization with Laravel Breeze
   - Core RBAC infrastructure with type-safe permissions
   - Database schema with proper relationships
@@ -467,6 +482,7 @@ mysqldump -u username -p database_name > backup.sql
 ### In Progress 🚧
 
 - **Epic 3: Community Financial Stewardship** (70% Complete)
+
   - Daily expense entry ✅
   - Receipt upload ✅
   - Monthly PDF reports ✅
@@ -489,18 +505,21 @@ mysqldump -u username -p database_name > backup.sql
 ## 🔒 Security Features
 
 ### Authentication & Authorization
+
 - **Laravel Sanctum**: API authentication
 - **RBAC System**: 50+ granular permissions
 - **Super Admin Bypass**: Administrative override capability
 - **Session Management**: 60-minute timeout, secure cookies
 
 ### Data Protection
+
 - **Private File Storage**: Sensitive documents in encrypted storage
 - **Data Scoping**: Automatic query filtering by community/house
 - **Audit Logging**: All critical actions tracked with timestamps
 - **Soft Deletes**: Data preservation with recovery capability
 
 ### Compliance
+
 - **GDPR Considerations**: Data minimization and user consent
 - **Religious Data Privacy**: Special handling of sacramental records
 - **Access Control**: Role-based data visibility
@@ -508,10 +527,12 @@ mysqldump -u username -p database_name > backup.sql
 ## 🌐 Internationalization & Localization
 
 ### Supported Languages
+
 - **Primary**: English
 - **Future**: French, Spanish, Portuguese (African mission focus)
 
 ### Cultural Considerations
+
 - **Date Formats**: Localized date display
 - **Religious Terminology**: Proper handling of formation stages
 - **Offline Capability**: Designed for areas with limited connectivity
@@ -572,6 +593,7 @@ docs/
 ### Common Issues
 
 **Database Connection Issues**
+
 ```bash
 # Reset database
 ./vendor/bin/sail artisan migrate:fresh --seed
@@ -581,6 +603,7 @@ docs/
 ```
 
 **Permission Issues**
+
 ```bash
 # Clear all Laravel caches
 ./vendor/bin/sail artisan optimize:clear
@@ -590,6 +613,7 @@ docs/
 ```
 
 **Asset Compilation Issues**
+
 ```bash
 # Clear node modules and reinstall
 rm -rf node_modules package-lock.json
@@ -600,6 +624,7 @@ rm -rf node_modules package-lock.json
 ```
 
 **Test Failures**
+
 ```bash
 # Run specific failing test
 ./vendor/bin/sail artisan test tests/Feature/Auth/RbacTest.php
@@ -652,7 +677,7 @@ rm -rf node_modules package-lock.json
 
 ```yaml
 # docker-compose.prod.yml
-version: '3.8'
+version: "3.8"
 services:
   app:
     image: congregation-management:latest
@@ -666,12 +691,14 @@ services:
 ### Hostinger Deployment Guide
 
 #### Prerequisites for Hostinger
+
 - **PHP Version**: 8.4 or higher
 - **MySQL**: 8.0 or higher
 - **SSH Access**: Enabled in Hostinger control panel
 - **Node.js**: Optional (for building assets on server)
 
 #### Hostinger Directory Structure
+
 ```
 /home/u221940070/domains/admin.sdndel.org/
 ├── public_html/              # Document root (contains /public contents)
@@ -692,12 +719,14 @@ services:
 #### Step-by-Step Hostinger Deployment
 
 1. **Upload Files to Hostinger**
+
    ```bash
    # Upload all files except /public folder to domain root
    # Upload contents of /public folder to public_html/
    ```
 
 2. **Environment Configuration**
+
    ```bash
    # Create .env file in domain root
    APP_NAME="Managing Congregation"
@@ -727,6 +756,7 @@ services:
    ```
 
 3. **Modify Entry Point (Critical)**
+
    ```php
    # public_html/index.php - Update paths from __DIR__.'/../' to __DIR__.'/../'
    <?php
@@ -745,6 +775,7 @@ services:
    ```
 
 4. **Database Setup**
+
    ```bash
    # Via SSH or Hostinger File Manager
    cd /home/u221940070/domains/admin.sdndel.org
@@ -757,6 +788,7 @@ services:
    ```
 
 5. **Storage Setup**
+
    ```bash
    # Create storage symlink
    php artisan storage:link
@@ -767,6 +799,7 @@ services:
    ```
 
 6. **Asset Compilation**
+
    ```bash
    # IMPORTANT: Build from project root (not public_html)
    cd /home/u221940070/domains/admin.sdndel.org
@@ -782,6 +815,7 @@ services:
    ```
 
 7. **Cache Optimization**
+
    ```bash
    # Clear all caches first
    php artisan cache:clear
@@ -796,6 +830,7 @@ services:
    ```
 
 8. **Final Verification**
+
    ```bash
    # Test application
    php artisan tinker --execute="echo 'Laravel working'"
@@ -883,6 +918,7 @@ FILESYSTEM_DISK=public
 #### Common Hostinger Issues & Solutions
 
 **Issue: 500 Internal Server Error**
+
 ```bash
 # Check Laravel logs
 tail storage/logs/laravel.log
@@ -895,6 +931,7 @@ cat .env | grep -v PASSWORD  # Hide sensitive data
 ```
 
 **Issue: Storage Link Not Working**
+
 ```bash
 # Remove old symlink
 rm -rf public_html/storage
@@ -907,6 +944,7 @@ ln -s ../storage/app/public public_html/storage
 ```
 
 **Issue: Vite Assets Not Loading (404 Errors)**
+
 ```bash
 # Step 1: Check if build files exist in correct location
 ls -la public_html/build/assets/
@@ -925,6 +963,7 @@ grep -r "Vite::" resources/views/
 ```
 
 **Issue: Database Connection Failed**
+
 ```bash
 # Check database credentials in .env
 php artisan tinker --execute="DB::connection()->getPdo()"
@@ -934,6 +973,7 @@ php artisan migrate:status
 ```
 
 **Issue: Permission Denied**
+
 ```bash
 # Fix storage permissions
 chmod -R 755 storage/
@@ -994,6 +1034,7 @@ EOF
 This project is proprietary software developed for religious congregation management. All rights reserved.
 
 ### Usage Rights
+
 - **Internal Use**: Authorized congregation personnel only
 - **Data Privacy**: Compliant with religious data protection requirements
 - **Security**: Regular security audits and updates required
@@ -1018,4 +1059,4 @@ This project is proprietary software developed for religious congregation manage
 
 **Managing the Congregation** - Built with ❤️ for religious communities worldwide.
 
-*Last Updated: December 2025*
+_Last Updated: December 2025_
