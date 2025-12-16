@@ -18,12 +18,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string|null $email
  * @property \Illuminate\Support\Carbon|null $dob
  * @property \Illuminate\Support\Carbon|null $entry_date
- * @property string $status
+ * @property \App\Enums\MemberStatus $status
  * @property string|null $profile_photo_path
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read \App\Models\Community $community
+ * @property-read \App\Models\Community|null $community
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\FormationEvent[] $formationEvents
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Assignment[] $assignments
  * @property-read \App\Models\Assignment|null $currentAssignment

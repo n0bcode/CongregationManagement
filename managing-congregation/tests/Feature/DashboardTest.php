@@ -34,6 +34,6 @@ class DashboardTest extends TestCase
             ->test(Dashboard::class)
             ->assertStatus(200)
             ->assertSee('Total Members')
-            ->assertSee('Quick Actions');
+            ->assertSee('System Shortcuts');
     }
 }

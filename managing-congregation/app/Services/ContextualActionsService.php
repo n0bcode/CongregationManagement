@@ -91,7 +91,7 @@ class ContextualActionsService
 
         // Photo management
         if (Gate::forUser($user)->allows('update', $member)) {
-            if ($member->photo_path) {
+            if ($member->profile_photo_path) {
                 $actions[] = [
                     'id' => 'change-photo',
                     'label' => 'Change Photo',
@@ -129,12 +129,13 @@ class ContextualActionsService
         $monthsSinceLastEvent = now()->diffInMonths($latestEvent->started_at);
 
         // Example: Postulancy requires 6 months minimum
-        if ($latestEvent->stage === 'postulancy' && $monthsSinceLastEvent >= 6) {
+        /** @var \App\Models\FormationEvent $latestEvent */
+        if ($latestEvent->stage === \App\Enums\FormationStage::Postulancy && $monthsSinceLastEvent >= 6) {
             return true;
         }
 
         // Novitiate requires 12 months minimum
-        if ($latestEvent->stage === 'novitiate' && $monthsSinceLastEvent >= 12) {
+        if ($latestEvent->stage === \App\Enums\FormationStage::Novitiate && $monthsSinceLastEvent >= 12) {
             return true;
         }
 
@@ -147,11 +148,12 @@ class ContextualActionsService
     protected function hasUpcomingVowRenewal(Member $member): bool
     {
         $latestEvent = $member->formationEvents()
-            ->whereIn('stage', ['temporary_vows', 'perpetual_vows'])
+            ->whereIn('stage', [\App\Enums\FormationStage::FirstVows, \App\Enums\FormationStage::FinalVows])
             ->latest('started_at')
             ->first();
 
-        if (!$latestEvent || $latestEvent->stage === 'perpetual_vows') {
+        /** @var \App\Models\FormationEvent|null $latestEvent */
+        if (!$latestEvent || $latestEvent->stage === \App\Enums\FormationStage::FinalVows) {
             return false;
         }
 

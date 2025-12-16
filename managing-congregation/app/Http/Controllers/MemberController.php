@@ -11,25 +11,7 @@ class MemberController extends Controller
 {
     public function index(Request $request): View
     {
-        $query = \App\Models\Member::query();
-
-        if ($request->has('search')) {
-            $query->search($request->input('search'));
-        }
-
-        // Filter by community if provided
-        if ($request->filled('community_id')) {
-            $query->where('community_id', $request->input('community_id'));
-        }
-
-        $perPage = $request->input('perPage', 20);
-        if (!in_array($perPage, [10, 25, 50, 100])) {
-            $perPage = 20;
-        }
-
-        $members = $query->paginate($perPage)->appends($request->query());
-
-        return view('members.index', compact('members'));
+        return view('members.index');
     }
 
     public function create(): View

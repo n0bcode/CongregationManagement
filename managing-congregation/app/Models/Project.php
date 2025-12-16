@@ -4,6 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property-read \App\Models\Community $community
+ * @property-read \App\Models\Member $manager
+ */
 class Project extends Model
 {
     use \Illuminate\Database\Eloquent\Factories\HasFactory, \Illuminate\Database\Eloquent\SoftDeletes;
@@ -25,29 +29,29 @@ class Project extends Model
         'budget' => 'decimal:2',
     ];
 
-    public function community()
+    public function community(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Community::class);
     }
 
-    public function manager()
+    public function manager(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Member::class, 'manager_id');
     }
 
-    public function expenses()
+    public function expenses(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Expense::class);
     }
 
-    public function members()
+    public function members(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Member::class, 'project_members')
             ->withPivot('id', 'role', 'status')
             ->withTimestamps();
     }
 
-    public function tasks()
+    public function tasks(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Task::class);
     }

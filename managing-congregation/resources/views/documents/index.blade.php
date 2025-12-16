@@ -22,30 +22,25 @@
                 <form method="GET" action="{{ route('documents.index') }}" class="space-y-6">
                     {{-- Search --}}
                     <div>
-                        <label for="search" class="block text-lg font-medium text-slate-700 mb-2">
-                            {{ __('Search') }}
-                        </label>
-                        <input
-                            type="text"
+                        <x-ui.label for="search" value="Search" class="text-lg mb-2" />
+                        <x-ui.input 
                             id="search"
                             name="search"
-                            value="{{ request('search') }}"
+                            :value="request('search')"
                             placeholder="{{ __('Search by title, description, or filename...') }}"
-                            class="w-full min-h-[48px] px-4 py-3 text-base text-slate-800 bg-white border border-stone-300 rounded-lg placeholder:text-slate-400 focus:border-amber-600 focus:ring-4 focus:ring-amber-500 focus:outline-none"
-                        >
+                            class="min-h-[48px] w-full"
+                        />
                     </div>
 
                     {{-- Filters Row --}}
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         {{-- Category Filter --}}
                         <div>
-                            <label for="category" class="block text-lg font-medium text-slate-700 mb-2">
-                                {{ __('Category') }}
-                            </label>
-                            <select
+                            <x-ui.label for="category" value="Category" class="text-lg mb-2" />
+                            <x-ui.select
                                 id="category"
                                 name="category"
-                                class="w-full min-h-[48px] px-4 py-3 text-base text-slate-800 bg-white border border-stone-300 rounded-lg focus:border-amber-600 focus:ring-4 focus:ring-amber-500 focus:outline-none"
+                                class="min-h-[48px]"
                             >
                                 <option value="">{{ __('All Categories') }}</option>
                                 @foreach($categories as $category)
@@ -53,18 +48,16 @@
                                         {{ ucfirst(str_replace('_', ' ', $category->value)) }}
                                     </option>
                                 @endforeach
-                            </select>
+                            </x-ui.select>
                         </div>
 
                         {{-- Community Filter --}}
                         <div>
-                            <label for="community_id" class="block text-lg font-medium text-slate-700 mb-2">
-                                {{ __('Community') }}
-                            </label>
-                            <select
+                            <x-ui.label for="community_id" value="Community" class="text-lg mb-2" />
+                            <x-ui.select
                                 id="community_id"
                                 name="community_id"
-                                class="w-full min-h-[48px] px-4 py-3 text-base text-slate-800 bg-white border border-stone-300 rounded-lg focus:border-amber-600 focus:ring-4 focus:ring-amber-500 focus:outline-none"
+                                class="min-h-[48px]"
                             >
                                 <option value="">{{ __('All Communities') }}</option>
                                 @foreach($communities as $community)
@@ -72,18 +65,16 @@
                                         {{ $community->name }}
                                     </option>
                                 @endforeach
-                            </select>
+                            </x-ui.select>
                         </div>
 
                         {{-- Folder Filter --}}
                         <div>
-                            <label for="folder_id" class="block text-lg font-medium text-slate-700 mb-2">
-                                {{ __('Folder') }}
-                            </label>
-                            <select
+                            <x-ui.label for="folder_id" value="Folder" class="text-lg mb-2" />
+                            <x-ui.select
                                 id="folder_id"
                                 name="folder_id"
-                                class="w-full min-h-[48px] px-4 py-3 text-base text-slate-800 bg-white border border-stone-300 rounded-lg focus:border-amber-600 focus:ring-4 focus:ring-amber-500 focus:outline-none"
+                                class="min-h-[48px]"
                             >
                                 <option value="">{{ __('All Folders') }}</option>
                                 @foreach($folders as $folder)
@@ -96,35 +87,31 @@
                                         </option>
                                     @endforeach
                                 @endforeach
-                            </select>
+                            </x-ui.select>
                         </div>
                     </div>
 
                     {{-- Date Range --}}
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <label for="start_date" class="block text-lg font-medium text-slate-700 mb-2">
-                                {{ __('From Date') }}
-                            </label>
-                            <input
+                            <x-ui.label for="start_date" value="From Date" class="text-lg mb-2" />
+                            <x-ui.input
                                 type="date"
                                 id="start_date"
                                 name="start_date"
-                                value="{{ request('start_date') }}"
-                                class="w-full min-h-[48px] px-4 py-3 text-base text-slate-800 bg-white border border-stone-300 rounded-lg focus:border-amber-600 focus:ring-4 focus:ring-amber-500 focus:outline-none"
-                            >
+                                :value="request('start_date')"
+                                class="min-h-[48px] w-full"
+                            />
                         </div>
                         <div>
-                            <label for="end_date" class="block text-lg font-medium text-slate-700 mb-2">
-                                {{ __('To Date') }}
-                            </label>
-                            <input
+                            <x-ui.label for="end_date" value="To Date" class="text-lg mb-2" />
+                            <x-ui.input
                                 type="date"
                                 id="end_date"
                                 name="end_date"
-                                value="{{ request('end_date') }}"
-                                class="w-full min-h-[48px] px-4 py-3 text-base text-slate-800 bg-white border border-stone-300 rounded-lg focus:border-amber-600 focus:ring-4 focus:ring-amber-500 focus:outline-none"
-                            >
+                                :value="request('end_date')"
+                                class="min-h-[48px] w-full"
+                            />
                         </div>
                     </div>
 

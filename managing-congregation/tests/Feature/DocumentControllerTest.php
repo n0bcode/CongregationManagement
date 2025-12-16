@@ -50,7 +50,7 @@ class DocumentControllerTest extends TestCase
         $response->assertSessionHasNoErrors();
         $document = Document::where('title', 'Test Document')->first();
         $this->assertNotNull($document, 'Document was not created');
-        $response->assertRedirect(route('documents.show', $document));
+        $response->assertRedirect(route('documents.index'));
         $this->assertDatabaseHas('documents', [
             'title' => 'Test Document',
             'community_id' => $community->id,

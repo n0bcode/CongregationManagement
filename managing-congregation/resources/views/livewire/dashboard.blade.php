@@ -10,7 +10,7 @@
         <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3" id="dashboard-widgets" wire:ignore>
             @foreach($widgets as $widget)
                 <div data-id="{{ get_class($widget) }}" class="{{ get_class($widget) === 'App\View\Components\Widgets\RecentActivityWidget' ? 'sm:col-span-2' : '' }}">
-                    {{ $widget->render() }}
+                    {!! $widget->render() !!}
                 </div>
             @endforeach
         </div>

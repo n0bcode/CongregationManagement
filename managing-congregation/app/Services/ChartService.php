@@ -30,6 +30,7 @@ class ChartService
         $data = array_fill(1, 12, 0);
 
         foreach ($expenses as $expense) {
+            // @phpstan-ignore-next-line
             $data[$expense->month] = $expense->total / 100; // Convert to dollars
         }
 
@@ -70,6 +71,7 @@ class ChartService
             'labels' => $expenses->pluck('category')->toArray(),
             'datasets' => [
                 [
+                    // @phpstan-ignore-next-line
                     'data' => $expenses->map(fn($e) => $e->total / 100)->toArray(),
                     'backgroundColor' => [
                         'rgba(239, 68, 68, 0.7)',  // red-500

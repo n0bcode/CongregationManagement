@@ -112,7 +112,7 @@ class MembersTable extends Component
 
     public function exportSelected()
     {
-        $members = Member::whereIn('id', $this->selected)->get();
+        $members = Member::whereIn('id', $this->selected)->with('community')->get();
         
         // Create CSV content
         $csv = "First Name,Last Name,Religious Name,Status,Community\n";
@@ -123,7 +123,7 @@ class MembersTable extends Component
                 $member->last_name,
                 $member->religious_name ?? '',
                 $member->status->name,
-                $member->community->name ?? ''
+                $member->community?->name ?? ''
             );
         }
         

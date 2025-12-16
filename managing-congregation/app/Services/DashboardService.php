@@ -58,7 +58,8 @@ class DashboardService
             ->sortBy(function ($widget) use ($preferences) {
                 $widgetKey = $widget->widgetKey ?? get_class($widget);
                 return $preferences->get($widgetKey)?->position ?? 999;
-            });
+            })
+            ->values();
     }
 
     /**

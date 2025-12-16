@@ -14,6 +14,38 @@ use Illuminate\Support\Facades\Log;
 class AuditLogger implements AuditLoggerInterface
 {
     /**
+     * Static helper for generic logging
+     * Matches usage in DocumentController
+     */
+    public static function log(
+        string $action,
+        string $targetType,
+        mixed $targetId,
+        mixed $oldValues,
+        array $changes,
+        ?string $description = null
+    ): void {
+        try {
+            AuditLog::create([
+                'user_id' => auth()->id(),
+                'action' => $action,
+                'auditable_type' => $targetType, // Map to auditable_type
+                'auditable_id' => $targetId,     // Map to auditable_id
+                'old_values' => $oldValues,
+                'changes' => $changes,
+                'description' => $description,
+                'ip_address' => request()->ip(),
+                'user_agent' => request()->userAgent(),
+            ]);
+        } catch (\Throwable $e) {
+            Log::critical('Failed to log generic event', [
+                'action' => $action,
+                'target_type' => $targetType,
+                'error' => $e->getMessage(),
+            ]);
+        }
+    }
+    /**
      * Log permission change
      *
      * @throws AuditLogException If audit logging fails

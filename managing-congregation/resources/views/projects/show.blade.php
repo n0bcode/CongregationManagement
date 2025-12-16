@@ -13,7 +13,7 @@
                         <div>
                             <h3 class="text-2xl font-bold text-gray-900">{{ $project->name }}</h3>
                             <p class="text-sm text-gray-500 mt-1">
-                                {{ $project->community->name }} | 
+                                {{ $project->community?->name ?? 'No Community' }} | 
                                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
                                     {{ ucfirst($project->status) }}
                                 </span>

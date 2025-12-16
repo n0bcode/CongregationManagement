@@ -315,25 +315,25 @@
             </h2>
 
             <div class="mt-6">
-                <x-forms.input-label for="stage" value="{{ __('Stage') }}" />
-                <select id="stage" name="stage" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                <x-ui.label for="stage" value="{{ __('Stage') }}" />
+                <x-ui.select id="stage" name="stage" class="mt-1">
                     @foreach(\App\Enums\FormationStage::cases() as $stage)
                         <option value="{{ $stage->value }}">{{ $stage->label() }}</option>
                     @endforeach
-                </select>
-                <x-forms.input-error :messages="$errors->get('stage')" class="mt-2" />
+                </x-ui.select>
+                <x-ui.input-error :messages="$errors->get('stage')" class="mt-2" />
             </div>
 
             <div class="mt-6">
-                <x-forms.input-label for="started_at" value="{{ __('Start Date') }}" />
-                <x-forms.text-input id="started_at" name="started_at" type="date" class="mt-1 block w-full" required />
-                <x-forms.input-error :messages="$errors->get('started_at')" class="mt-2" />
+                <x-ui.label for="started_at" value="{{ __('Start Date') }}" />
+                <x-ui.input id="started_at" name="started_at" type="date" class="mt-1 block w-full" required />
+                <x-ui.input-error :messages="$errors->get('started_at')" class="mt-2" />
             </div>
 
             <div class="mt-6">
-                <x-forms.input-label for="notes" value="{{ __('Notes (Optional)') }}" />
-                <textarea id="notes" name="notes" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" rows="3"></textarea>
-                <x-forms.input-error :messages="$errors->get('notes')" class="mt-2" />
+                <x-ui.label for="notes" value="{{ __('Notes (Optional)') }}" />
+                <x-ui.textarea id="notes" name="notes" class="mt-1 block w-full" rows="3"></x-ui.textarea>
+                <x-ui.input-error :messages="$errors->get('notes')" class="mt-2" />
             </div>
 
             <div class="mt-6 flex justify-end">
@@ -360,7 +360,7 @@
                 </h2>
 
                 <div class="mt-6">
-                    <x-forms.input-label for="file-{{ $event->id }}" value="{{ __('Select File (PDF, JPG, PNG - Max 5MB)') }}" />
+                    <x-ui.label for="file-{{ $event->id }}" value="{{ __('Select File (PDF, JPG, PNG - Max 5MB)') }}" />
                     <input 
                         id="file-{{ $event->id }}" 
                         name="file" 
@@ -374,19 +374,19 @@
                             hover:file:bg-amber-700"
                         required 
                     />
-                    <x-forms.input-error :messages="$errors->get('file')" class="mt-2" />
+                    <x-ui.input-error :messages="$errors->get('file')" class="mt-2" />
                 </div>
 
                 <div class="mt-6">
-                    <x-forms.input-label for="document_type-{{ $event->id }}" value="{{ __('Document Type (Optional)') }}" />
-                    <x-forms.text-input 
+                    <x-ui.label for="document_type-{{ $event->id }}" value="{{ __('Document Type (Optional)') }}" />
+                    <x-ui.input 
                         id="document_type-{{ $event->id }}" 
                         name="document_type" 
                         type="text" 
                         class="mt-1 block w-full" 
                         placeholder="e.g., Baptismal Certificate, Health Report"
                     />
-                    <x-forms.input-error :messages="$errors->get('document_type')" class="mt-2" />
+                    <x-ui.input-error :messages="$errors->get('document_type')" class="mt-2" />
                 </div>
 
                 <div class="mt-6 flex justify-end">
@@ -476,22 +476,22 @@
             </p>
 
             <div class="mt-6">
-                <x-forms.input-label for="community_id" value="{{ __('New Community') }}" />
-                <select id="community_id" name="community_id" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required>
+                <x-ui.label for="community_id" value="{{ __('New Community') }}" />
+                <x-ui.select id="community_id" name="community_id" class="mt-1" required>
                     <option value="">{{ __('Select Community') }}</option>
                     @foreach($communities as $community)
                         @if($community->id !== $member->community_id)
                             <option value="{{ $community->id }}">{{ $community->name }}</option>
                         @endif
                     @endforeach
-                </select>
-                <x-forms.input-error :messages="$errors->get('community_id')" class="mt-2" />
+                </x-ui.select>
+                <x-ui.input-error :messages="$errors->get('community_id')" class="mt-2" />
             </div>
 
             <div class="mt-6">
-                <x-forms.input-label for="transfer_date" value="{{ __('Transfer Date') }}" />
-                <x-forms.text-input id="transfer_date" name="transfer_date" type="date" class="mt-1 block w-full" :value="now()->format('Y-m-d')" required />
-                <x-forms.input-error :messages="$errors->get('transfer_date')" class="mt-2" />
+                <x-ui.label for="transfer_date" value="{{ __('Transfer Date') }}" />
+                <x-ui.input id="transfer_date" name="transfer_date" type="date" class="mt-1 block w-full" :value="now()->format('Y-m-d')" required />
+                <x-ui.input-error :messages="$errors->get('transfer_date')" class="mt-2" />
             </div>
 
             <div class="mt-6 flex justify-end">
@@ -517,7 +517,7 @@
             </h2>
 
             <div class="mt-6">
-                <x-forms.input-label for="photo" value="{{ __('Select Photo (JPG, PNG - Max 2MB)') }}" />
+                <x-ui.label for="photo" value="{{ __('Select Photo (JPG, PNG - Max 2MB)') }}" />
                 <input 
                     id="photo" 
                     name="photo" 
@@ -531,7 +531,7 @@
                         hover:file:bg-indigo-100"
                     required 
                 />
-                <x-forms.input-error :messages="$errors->get('photo')" class="mt-2" />
+                <x-ui.input-error :messages="$errors->get('photo')" class="mt-2" />
             </div>
 
             <div class="mt-6 flex justify-end">
@@ -556,31 +556,31 @@
             </h2>
 
             <div class="mt-6">
-                <x-forms.input-label for="condition" value="{{ __('Condition') }}" />
-                <x-forms.text-input id="condition" name="condition" type="text" class="mt-1 block w-full" required />
-                <x-forms.input-error :messages="$errors->get('condition')" class="mt-2" />
+                <x-ui.label for="condition" value="{{ __('Condition') }}" />
+                <x-ui.input id="condition" name="condition" type="text" class="mt-1 block w-full" required />
+                <x-ui.input-error :messages="$errors->get('condition')" class="mt-2" />
             </div>
 
             <div class="mt-6">
-                <x-forms.input-label for="medications" value="{{ __('Medications (Optional)') }}" />
-                <textarea id="medications" name="medications" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" rows="2"></textarea>
-                <x-forms.input-error :messages="$errors->get('medications')" class="mt-2" />
+                <x-ui.label for="medications" value="{{ __('Medications (Optional)') }}" />
+                <x-ui.textarea id="medications" name="medications" class="mt-1 block w-full" rows="2"></x-ui.textarea>
+                <x-ui.input-error :messages="$errors->get('medications')" class="mt-2" />
             </div>
 
             <div class="mt-6">
-                <x-forms.input-label for="health_notes" value="{{ __('Notes (Optional)') }}" />
-                <textarea id="health_notes" name="notes" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" rows="3"></textarea>
-                <x-forms.input-error :messages="$errors->get('notes')" class="mt-2" />
+                <x-ui.label for="health_notes" value="{{ __('Notes (Optional)') }}" />
+                <x-ui.textarea id="health_notes" name="notes" class="mt-1 block w-full" rows="3"></x-ui.textarea>
+                <x-ui.input-error :messages="$errors->get('notes')" class="mt-2" />
             </div>
 
             <div class="mt-6">
-                <x-forms.input-label for="recorded_at" value="{{ __('Recorded Date') }}" />
-                <x-forms.text-input id="recorded_at" name="recorded_at" type="date" class="mt-1 block w-full" :value="now()->format('Y-m-d')" required />
-                <x-forms.input-error :messages="$errors->get('recorded_at')" class="mt-2" />
+                <x-ui.label for="recorded_at" value="{{ __('Recorded Date') }}" />
+                <x-ui.input id="recorded_at" name="recorded_at" type="date" class="mt-1 block w-full" :value="now()->format('Y-m-d')" required />
+                <x-ui.input-error :messages="$errors->get('recorded_at')" class="mt-2" />
             </div>
 
             <div class="mt-6">
-                <x-forms.input-label for="health_document" value="{{ __('Document (Optional - PDF, JPG, PNG - Max 5MB)') }}" />
+                <x-ui.label for="health_document" value="{{ __('Document (Optional - PDF, JPG, PNG - Max 5MB)') }}" />
                 <input 
                     id="health_document" 
                     name="document" 
@@ -593,7 +593,7 @@
                         file:bg-sanctuary-green/10 file:text-sanctuary-green
                         hover:file:bg-sanctuary-green/20"
                 />
-                <x-forms.input-error :messages="$errors->get('document')" class="mt-2" />
+                <x-ui.input-error :messages="$errors->get('document')" class="mt-2" />
             </div>
 
             <div class="mt-6 flex justify-end">
@@ -618,37 +618,37 @@
             </h2>
 
             <div class="mt-6">
-                <x-forms.input-label for="skill_category" value="{{ __('Category') }}" />
-                <select id="skill_category" name="category" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required>
+                <x-ui.label for="skill_category" value="{{ __('Category') }}" />
+                <x-ui.select id="skill_category" name="category" class="mt-1" required>
                     <option value="">{{ __('Select Category') }}</option>
                     <option value="pastoral">{{ __('Pastoral') }}</option>
                     <option value="practical">{{ __('Practical') }}</option>
                     <option value="special">{{ __('Special') }}</option>
-                </select>
-                <x-forms.input-error :messages="$errors->get('category')" class="mt-2" />
+                </x-ui.select>
+                <x-ui.input-error :messages="$errors->get('category')" class="mt-2" />
             </div>
 
             <div class="mt-6">
-                <x-forms.input-label for="skill_name" value="{{ __('Skill Name') }}" />
-                <x-forms.text-input id="skill_name" name="name" type="text" class="mt-1 block w-full" placeholder="e.g., Teaching, Cooking, Music" required />
-                <x-forms.input-error :messages="$errors->get('name')" class="mt-2" />
+                <x-ui.label for="skill_name" value="{{ __('Skill Name') }}" />
+                <x-ui.input id="skill_name" name="name" type="text" class="mt-1 block w-full" placeholder="e.g., Teaching, Cooking, Music" required />
+                <x-ui.input-error :messages="$errors->get('name')" class="mt-2" />
             </div>
 
             <div class="mt-6">
-                <x-forms.input-label for="proficiency" value="{{ __('Proficiency Level') }}" />
-                <select id="proficiency" name="proficiency" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required>
+                <x-ui.label for="proficiency" value="{{ __('Proficiency Level') }}" />
+                <x-ui.select id="proficiency" name="proficiency" class="mt-1" required>
                     <option value="beginner">{{ __('Beginner') }}</option>
                     <option value="intermediate" selected>{{ __('Intermediate') }}</option>
                     <option value="advanced">{{ __('Advanced') }}</option>
                     <option value="expert">{{ __('Expert') }}</option>
-                </select>
-                <x-forms.input-error :messages="$errors->get('proficiency')" class="mt-2" />
+                </x-ui.select>
+                <x-ui.input-error :messages="$errors->get('proficiency')" class="mt-2" />
             </div>
 
             <div class="mt-6">
-                <x-forms.input-label for="skill_notes" value="{{ __('Notes (Optional)') }}" />
-                <textarea id="skill_notes" name="notes" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" rows="2" placeholder="Additional details about this skill"></textarea>
-                <x-forms.input-error :messages="$errors->get('notes')" class="mt-2" />
+                <x-ui.label for="skill_notes" value="{{ __('Notes (Optional)') }}" />
+                <x-ui.textarea id="skill_notes" name="notes" class="mt-1 block w-full" rows="2" placeholder="Additional details about this skill"></x-ui.textarea>
+                <x-ui.input-error :messages="$errors->get('notes')" class="mt-2" />
             </div>
 
             <div class="mt-6 flex justify-end">
@@ -672,32 +672,32 @@
             </h2>
 
             <div class="mt-6">
-                <x-forms.input-label for="assignment_community_id" value="{{ __('Community') }}" />
-                <select id="assignment_community_id" name="community_id" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required>
+                <x-ui.label for="assignment_community_id" value="{{ __('Community') }}" />
+                <x-ui.select id="assignment_community_id" name="community_id" class="mt-1" required>
                     <option value="">{{ __('Select Community') }}</option>
                     @foreach($communities as $community)
                         <option value="{{ $community->id }}">{{ $community->name }}</option>
                     @endforeach
-                </select>
-                <x-forms.input-error :messages="$errors->get('community_id')" class="mt-2" />
+                </x-ui.select>
+                <x-ui.input-error :messages="$errors->get('community_id')" class="mt-2" />
             </div>
 
             <div class="mt-6">
-                <x-forms.input-label for="role" value="{{ __('Role (Optional)') }}" />
-                <x-forms.text-input id="role" name="role" type="text" class="mt-1 block w-full" placeholder="e.g., Director, Assistant" />
-                <x-forms.input-error :messages="$errors->get('role')" class="mt-2" />
+                <x-ui.label for="role" value="{{ __('Role (Optional)') }}" />
+                <x-ui.input id="role" name="role" type="text" class="mt-1 block w-full" placeholder="e.g., Director, Assistant" />
+                <x-ui.input-error :messages="$errors->get('role')" class="mt-2" />
             </div>
 
             <div class="mt-6 grid grid-cols-2 gap-4">
                 <div>
-                    <x-forms.input-label for="start_date" value="{{ __('Start Date') }}" />
-                    <x-forms.text-input id="start_date" name="start_date" type="date" class="mt-1 block w-full" required />
-                    <x-forms.input-error :messages="$errors->get('start_date')" class="mt-2" />
+                    <x-ui.label for="start_date" value="{{ __('Start Date') }}" />
+                    <x-ui.input id="start_date" name="start_date" type="date" class="mt-1 block w-full" required />
+                    <x-ui.input-error :messages="$errors->get('start_date')" class="mt-2" />
                 </div>
                 <div>
-                    <x-forms.input-label for="end_date" value="{{ __('End Date (Optional)') }}" />
-                    <x-forms.text-input id="end_date" name="end_date" type="date" class="mt-1 block w-full" />
-                    <x-forms.input-error :messages="$errors->get('end_date')" class="mt-2" />
+                    <x-ui.label for="end_date" value="{{ __('End Date (Optional)') }}" />
+                    <x-ui.input id="end_date" name="end_date" type="date" class="mt-1 block w-full" />
+                    <x-ui.input-error :messages="$errors->get('end_date')" class="mt-2" />
                 </div>
             </div>
 
@@ -708,6 +708,39 @@
 
                 <x-ui.primary-button class="ml-3">
                     {{ __('Save Record') }}
+                </x-ui.primary-button>
+            </div>
+        </form>
+    </x-ui.modal>
+
+    <!-- Update Photo Modal -->
+    <x-ui.modal name="update-photo" focusable>
+        <form method="post" action="{{ route('members.photo.update', $member) }}" class="p-6" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
+
+            <h2 class="text-lg font-medium text-gray-900">
+                {{ __('Update Profile Photo') }}
+            </h2>
+
+            <div class="mt-6">
+                <x-ui.label for="photo" value="{{ __('Photo') }}" />
+                <input id="photo" name="photo" type="file" class="mt-1 block w-full text-sm text-slate-500
+                    file:mr-4 file:py-2 file:px-4
+                    file:rounded-full file:border-0
+                    file:text-sm file:font-semibold
+                    file:bg-indigo-50 file:text-indigo-700
+                    hover:file:bg-indigo-100" accept="image/*" required />
+                <x-ui.input-error :messages="$errors->get('photo')" class="mt-2" />
+            </div>
+
+            <div class="mt-6 flex justify-end">
+                <x-ui.secondary-button x-on:click="$dispatch('close')">
+                    {{ __('Cancel') }}
+                </x-ui.secondary-button>
+
+                <x-ui.primary-button class="ml-3">
+                    {{ __('Save Photo') }}
                 </x-ui.primary-button>
             </div>
         </form>

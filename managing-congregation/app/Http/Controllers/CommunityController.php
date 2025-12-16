@@ -105,7 +105,6 @@ class CommunityController extends Controller
         }
 
         $members = $community->members()
-            ->with(['latestMembership.status', 'user'])
             ->paginate($perPage, ['*'], 'members_page')
             ->withQueryString();
 

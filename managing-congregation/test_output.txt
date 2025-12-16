@@ -1,0 +1,433 @@
+
+   WARN  Metadata found in doc-comment for method Tests\Unit\BladeComponentReuseTest::blade_components_exist_for_common_ui_elements(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+   WARN  Metadata found in doc-comment for method Tests\Unit\BladeComponentReuseTest::views_use_x_component_syntax_instead_of_raw_classes(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+   WARN  Metadata found in doc-comment for method Tests\Unit\BladeComponentReuseTest::button_component_supports_required_variants(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+   WARN  Metadata found in doc-comment for method Tests\Unit\BladeComponentReuseTest::status_card_component_supports_required_variants(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+   WARN  Metadata found in doc-comment for method Tests\Unit\BladeComponentReuseTest::components_have_minimum_touch_target_size(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+   WARN  Metadata found in doc-comment for method Tests\Unit\BladeComponentReuseTest::ledger_row_component_has_proper_structure(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+   WARN  Metadata found in doc-comment for method Tests\Unit\BladeComponentReuseTest::timeline_node_component_supports_state_variants(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+   WARN  Metadata found in doc-comment for method Tests\Unit\ContextualActionServiceTest::it_registers_and_retrieves_actions(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+   WARN  Metadata found in doc-comment for method Tests\Unit\ContextualActionServiceTest::it_returns_empty_collection_if_no_actions_registered(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+   WARN  Metadata found in doc-comment for method Tests\Unit\HealthDataPersistenceTest::health_record_saves_all_required_fields(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+   WARN  Metadata found in doc-comment for method Tests\Unit\HealthDataPersistenceTest::health_record_relationships_work_correctly(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+   WARN  Metadata found in doc-comment for method Tests\Unit\HealthDataPersistenceTest::multiple_health_records_can_be_stored_for_same_member(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+   WARN  Metadata found in doc-comment for method Tests\Unit\HealthDataPersistenceTest::health_records_are_ordered_by_date_descending(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+   WARN  Metadata found in doc-comment for method Tests\Unit\HealthDataPersistenceTest::health_record_with_document_path_saves_correctly(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+   WARN  Metadata found in doc-comment for method Tests\Unit\ModelRelationshipsTest::model_relationships_have_correct_return_types(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+   WARN  Metadata found in doc-comment for method Tests\Unit\ModelRelationshipsTest::all_relationship_methods_are_tested(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+   WARN  Metadata found in doc-comment for method Tests\Unit\RouteAuthorizationTest::all_protected_routes_have_auth_middleware(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+   WARN  Metadata found in doc-comment for method Tests\Unit\RouteAuthorizationTest::protected_routes_require_authentication(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+   WARN  Metadata found in doc-comment for method Tests\Unit\RouteAuthorizationTest::dashboard_route_has_auth_and_verified_middleware(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+   WARN  Metadata found in doc-comment for method Tests\Unit\RouteAuthorizationTest::public_routes_do_not_have_auth_middleware(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+   WARN  Metadata found in doc-comment for method Tests\Unit\SkillCategorizationTest::skill_must_have_valid_category(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+   WARN  Metadata found in doc-comment for method Tests\Unit\SkillCategorizationTest::skill_must_have_valid_proficiency_level(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+   WARN  Metadata found in doc-comment for method Tests\Unit\SkillCategorizationTest::skills_are_grouped_by_category(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+   WARN  Metadata found in doc-comment for method Tests\Unit\SkillCategorizationTest::skill_category_enum_has_labels(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+   WARN  Metadata found in doc-comment for method Tests\Unit\SkillCategorizationTest::skill_proficiency_enum_has_labels(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+   WARN  Metadata found in doc-comment for method Tests\Unit\SkillCategorizationTest::member_can_have_multiple_skills_in_same_category(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+   WARN  Metadata found in doc-comment for method Tests\Unit\SkillCategorizationTest::skills_relationship_works_correctly(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+   WARN  Metadata found in doc-comment for method Tests\Feature\FinancialReportTest::it_generates_correct_monthly_report_totals(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+   WARN  Metadata found in doc-comment for method Tests\Feature\FinancialReportTest::it_aggregates_expenses_by_category_correctly(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+   WARN  Metadata found in doc-comment for method Tests\Feature\FinancialReportTest::chart_service_prepares_correct_trend_data(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+   WARN  Metadata found in doc-comment for method Tests\Feature\FinancialReportTest::chart_service_prepares_correct_category_data(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+   WARN  Metadata found in doc-comment for method Tests\Feature\Livewire\CreateMemberTest::it_renders_create_member_component(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+   WARN  Metadata found in doc-comment for method Tests\Feature\Livewire\CreateMemberTest::it_validates_required_fields(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+   WARN  Metadata found in doc-comment for method Tests\Feature\Livewire\CreateMemberTest::it_creates_member_successfully(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+   WARN  Metadata found in doc-comment for method Tests\Feature\Livewire\CreateMemberTest::it_performs_real_time_validation(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+   WARN  Metadata found in doc-comment for method Tests\Feature\SmartFormPropertyTest::it_renders_smart_form_component(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+   WARN  Metadata found in doc-comment for method Tests\Feature\SmartFormPropertyTest::it_renders_smart_form_with_files(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+   WARN  Metadata found in doc-comment for method Tests\Feature\SmartFormPropertyTest::it_renders_smart_form_with_put_method(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+   WARN  Metadata found in doc-comment for method Tests\Feature\UiUx\ContextualActionsTest::service_returns_array_of_actions(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+   WARN  Metadata found in doc-comment for method Tests\Feature\UiUx\ContextualActionsTest::actions_have_required_structure(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+   WARN  Metadata found in doc-comment for method Tests\Feature\UiUx\ContextualActionsTest::service_provides_action_icons(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+   WARN  Metadata found in doc-comment for method Tests\Feature\UiUx\ContextualActionsTest::contextual_actions_component_exists(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+   PASS  Tests\Unit\AuditServiceTest
+  ✓ log creates audit entry                                             21.49s  
+  ✓ generate tamper evident report                                       0.11s  
+  ✓ verify report integrity                                              0.21s  
+
+   PASS  Tests\Unit\BladeComponentReuseTest
+  ✓ blade components exist for common ui elements                        0.15s  
+  ✓ views use x component syntax instead of raw classes                  0.18s  
+  ✓ button component supports required variants                          0.12s  
+  ✓ status card component supports required variants                     0.07s  
+  ✓ components have minimum touch target size                            0.07s  
+  ✓ ledger row component has proper structure                            0.10s  
+  ✓ timeline node component supports state variants                      0.12s  
+
+   PASS  Tests\Unit\CommunityTest
+  ✓ community has name and location                                      0.15s  
+  ✓ community uses soft deletes                                          0.11s  
+
+   PASS  Tests\Unit\Concerns\ScopedByCommunityTest
+  ✓ it applies scope for director role                                   0.14s  
+  ✓ it applies scope for member role                                     0.12s  
+  ✓ it bypasses scope for super admin                                    0.11s  
+  ✓ it bypasses scope for general role                                   0.17s  
+  ✓ without global scopes removes the scope                              0.12s  
+  ✓ it blocks access for unauthenticated users                           0.09s  
+
+   PASS  Tests\Unit\ContextualActionServiceTest
+  ✓ it registers and retrieves actions                                   0.20s  
+  ✓ it returns empty collection if no actions registered                 0.14s  
+
+   PASS  Tests\Unit\Enums\FormationStageTest
+  ✓ it has expected cases                                                0.01s  
+  ✓ it has expected labels
+
+   PASS  Tests\Unit\Enums\MemberStatusTest
+  ✓ member status enum cases                                             0.01s  
+  ✓ member status enum labels
+
+   PASS  Tests\Unit\Enums\PermissionKeyTest
+  ✓ permission key enum has all required module permissions              0.01s  
+  ✓ members module has all required permissions
+  ✓ financials module has all required permissions
+  ✓ documents module has all required permissions
+  ✓ communities module has all required permissions
+  ✓ reports module has all required permissions
+  ✓ permission key enum values follow naming convention
+  ✓ permission keys are unique
+  ✓ permission keys have valid module names
+
+   PASS  Tests\Unit\ExampleTest
+  ✓ that true is true                                                    0.02s  
+
+   PASS  Tests\Unit\FileStorageServiceTest
+  ✓ store formation document creates file and database record            0.31s  
+  ✓ store formation document sanitizes filename                          0.19s  
+  ✓ store formation document organizes files by member and event         0.20s  
+  ✓ delete formation document soft deletes record                        0.18s  
+  ✓ get document path returns full storage path                          0.19s  
+
+   PASS  Tests\Unit\FilterPresetTest
+  ✓ can create filter preset                                             0.24s  
+  ✓ filters are cast to array                                            0.20s  
+
+   PASS  Tests\Unit\FinancialServiceTest
+  ✓ generate monthly report calculates totals correctly                  0.40s  
+  ✓ lock period locks all expenses in range                              0.33s  
+  ✓ is period locked returns true if any expense locked                  0.31s  
+
+   PASS  Tests\Unit\FormationEventTest
+  ✓ it has fillable attributes                                           0.15s  
+  ✓ it casts attributes                                                  0.18s  
+  ✓ it belongs to a member                                               0.19s  
+
+   PASS  Tests\Unit\FormationServiceTest
+  ✓ it has canon law duration constants                                  0.14s  
+  ✓ it calculates next stage date                                        0.08s  
+  ✓ it adds event                                                        0.09s  
+
+   PASS  Tests\Unit\FormationStageTest
+  ✓ it has aspirant stage                                                0.01s  
+
+   PASS  Tests\Unit\HealthDataPersistenceTest
+  ✓ health record saves all required fields                              0.43s  
+  ✓ health record relationships work correctly                           0.48s  
+  ✓ multiple health records can be stored for same member                0.38s  
+  ✓ health records are ordered by date descending                        0.52s  
+  ✓ health record with document path saves correctly                     0.38s  
+
+   PASS  Tests\Unit\Http\Requests\StoreFormationEventRequestTest
+  ✓ rules are correct                                                    0.15s  
+  ✓ authorize returns true                                               0.15s  
+
+   PASS  Tests\Unit\MemberTest
+  ✓ member belongs to community                                          0.13s  
+  ✓ member has required fields                                           0.11s  
+  ✓ member dates are casted                                              0.09s  
+  ✓ member uses soft deletes                                             0.12s  
+
+   PASS  Tests\Unit\ModelRelationshipsTest
+  ✓ model relationships have correct return types with data set #0       0.07s  
+  ✓ model relationships have correct return types with data set #1       0.09s  
+  ✓ model relationships have correct return types with data set #2       0.12s  
+  ✓ model relationships have correct return types with data set #3       0.08s  
+  ✓ model relationships have correct return types with data set #4       0.09s  
+  ✓ model relationships have correct return types with data set #5       0.04s  
+  ✓ model relationships have correct return types with data set #6       0.07s  
+  ✓ model relationships have correct return types with data set #7       0.11s  
+  ✓ model relationships have correct return types with data set #8       0.04s  
+  ✓ model relationships have correct return types with data set #9       0.04s  
+  ✓ model relationships have correct return types with data set #10      0.20s  
+  ✓ model relationships have correct return types with data set #11      0.10s  
+  ✓ model relationships have correct return types with data set #12      0.13s  
+  ✓ model relationships have correct return types with data set #13      0.05s  
+  ✓ model relationships have correct return types with data set #14      0.12s  
+  ✓ model relationships have correct return types with data set #15      0.13s  
+  ✓ model relationships have correct return types with data set #16      0.06s  
+  ✓ model relationships have correct return types with data set #17      0.12s  
+  ✓ model relationships have correct return types with data set #18      0.12s  
+  ✓ model relationships have correct return types with data set #19      0.09s  
+  ✓ all relationship methods are tested                                  0.08s  
+
+   PASS  Tests\Unit\NotificationServiceTest
+  ✓ send birthday notifications creates reminders                        0.18s  
+  ✓ schedule vow reminders creates reminders                             0.12s  
+  ✓ get upcoming reminders returns correct reminders                     0.24s  
+
+   PASS  Tests\Unit\PdfServiceTest
+  ✓ generate financial report creates download response                  0.23s  
+  ✓ generate member profile creates download response                    0.25s  
+
+   PASS  Tests\Unit\PermissionSeederTest
+  ✓ seeder creates all enum permissions                                  0.42s  
+  ✓ seeder is idempotent                                                 0.65s  
+  ✓ director role has correct default permissions                        0.37s  
+  ✓ general role has correct default permissions                         0.41s  
+  ✓ member role has limited permissions                                  0.35s  
+  ✓ all seeded permissions have required fields                          0.50s  
+  ✓ permissions are grouped by module                                    0.38s  
+  ✓ super admin has no explicit permissions                              0.33s  
+
+   PASS  Tests\Unit\PermissionServiceTest
+  ✓ assign permissions to role removes old permissions                   0.49s  
+  ✓ assign permissions to role handles empty array                       0.38s  
+  ✓ assign permissions to role ignores invalid permission keys           0.45s  
+
+   PASS  Tests\Unit\Policies\FormationPolicyTest
+  ✓ super admin can create and view                                      0.12s  
+  ✓ director can create and view                                         0.09s  
+  ✓ member cannot create                                                 0.08s  
+
+   PASS  Tests\Unit\ReportServiceTest
+  ✓ generate report from template                                        0.10s  
+  ✓ export to csv                                                        0.15s  
+
+   PASS  Tests\Unit\RouteAuthorizationTest
+  ✓ all protected routes have auth middleware                            0.15s  
+  ✓ protected routes require authentication with data set #0             0.12s  
+  ✓ protected routes require authentication with data set #1             0.05s  
+  ✓ protected routes require authentication with data set #2             0.09s  
+  ✓ protected routes require authentication with data set #3             0.06s  
+  ✓ protected routes require authentication with data set #4             0.03s  
+  ✓ protected routes require authentication with data set #5             0.07s  
+  ✓ protected routes require authentication with data set #6             0.07s  
+  ✓ protected routes require authentication with data set #7             0.09s  
+  ✓ protected routes require authentication with data set #8             0.09s  
+  ✓ protected routes require authentication with data set #9             0.22s  
+  ✓ protected routes require authentication with data set #10            0.10s  
+  ✓ protected routes require authentication with data set #11            0.09s  
+  ✓ protected routes require authentication with data set #12            0.10s  
+  ✓ protected routes require authentication with data set #13            0.09s  
+  ✓ dashboard route has auth and verified middleware                     0.12s  
+  ✓ public routes do not have auth middleware                            0.06s  
+
+   PASS  Tests\Unit\RouteScannerTest
+  ✓ extract permission from middleware with permission prefix            0.12s  
+  ✓ extract permission from middleware with can prefix                   0.10s  
+  ✓ extract permission from middleware returns null when no permission   0.08s  
+  ✓ extract permission from middleware returns first permission          0.10s  
+  ✓ generate permission metadata creates correct structure               0.07s  
+  ✓ generate permission metadata handles permission without dot          0.08s  
+  ✓ scan routes returns collection                                       0.10s  
+  ✓ scan routes finds permissions from actual routes                     0.09s  
+  ✓ scan routes removes duplicate permissions                            0.06s  
+  ✓ scanner is registered as singleton                                   0.17s  
+  ✓ scanner implements interface                                         0.16s  
+
+   PASS  Tests\Unit\SeederTest
+  ✓ database seeder seeds communities and members                        0.85s  
+
+   PASS  Tests\Unit\Services\DashboardServiceTest
+  ✓ it can register and retrieve widgets                                 0.12s  
+  ✓ it filters widgets user cannot view                                  0.06s  
+
+   PASS  Tests\Unit\Services\GlobalSearchServiceTest
+  ✓ it returns empty collection for short query                          0.08s  
+  ✓ it returns collection for valid query                                0.08s  
+
+   PASS  Tests\Unit\Services\NotificationServiceTest
+  ✓ it can send notification                                             0.19s  
+  ✓ it can get unread notifications                                      0.19s  
+
+   PASS  Tests\Unit\Services\SmartDefaultsServiceTest
+  ✓ it returns defaults for expense                                      0.13s  
+  ✓ it returns empty array for unknown type                              0.09s  
+
+   PASS  Tests\Unit\SkillCategorizationTest
+  ✓ skill must have valid category                                       0.37s  
+  ✓ skill must have valid proficiency level                              0.40s  
+  ✓ skills are grouped by category                                       0.46s  
+  ✓ skill category enum has labels                                       0.31s  
+  ✓ skill proficiency enum has labels                                    0.32s  
+  ✓ member can have multiple skills in same category                     0.64s  
+  ✓ skills relationship works correctly                                  0.61s  
+
+   PASS  Tests\Unit\SyncPermissionsCommandTest
+  ✓ sync command creates new permissions                                 0.76s  
+  ✓ sync command marks orphaned permissions as inactive                  0.75s  
+  ✓ sync command reactivates previously inactive permissions             0.66s  
+  ✓ sync command is idempotent                                           0.48s  
+  ✓ sync command dry run does not make changes                           0.33s  
+  ✓ sync command updates permission metadata                             0.39s  
+
+   PASS  Tests\Unit\UserPermissionTest
+  ✓ super admin has all permissions automatically                        0.43s  
+  ✓ director has assigned permissions only                               0.37s  
+  ✓ member has limited permissions                                       0.30s  
+  ✓ has permission works with both enum and string                       0.33s  
+  ✓ is super admin helper method                                         0.42s  
+
+   PASS  Tests\Unit\Widgets\FormationProgressWidgetTest
+  ✓ get data returns correct counts                                      0.19s  
+
+   PASS  Tests\Unit\Widgets\MemberStatsWidgetTest
+  ✓ it returns correct stats                                             0.08s  
+
+   PASS  Tests\Feature\AIProjectTest
+  ✓ can view ai wizard                                                   0.22s  
+  ✓ can generate project structure                                       0.18s  
+  ✓ can store generated project                                          0.25s  
+
+   FAIL  Tests\Feature\AccessibilityPropertyTest
+  ⨯ member profile images have alt text                                  1.40s  
+  ────────────────────────────────────────────────────────────────────────────  
+   FAILED  Tests\Feature\AccessibilityPropertyTest > member profile images h…   
+  Expected response status code [200] but received 500.
+Failed asserting that 500 is identical to 200.
+
+The following exception occurred during the last request:
+
+InvalidArgumentException: Unable to locate a class or view for component [ui.input-error]. in /var/www/html/vendor/laravel/framework/src/Illuminate/View/Compilers/ComponentTagCompiler.php:316
+Stack trace:
+#0 /var/www/html/vendor/laravel/framework/src/Illuminate/View/Compilers/ComponentTagCompiler.php(236): Illuminate\View\Compilers\ComponentTagCompiler->componentClass()
+#1 /var/www/html/vendor/laravel/framework/src/Illuminate/View/Compilers/ComponentTagCompiler.php(221): Illuminate\View\Compilers\ComponentTagCompiler->componentString()
+#2 [internal function]: Illuminate\View\Compilers\ComponentTagCompiler->{closure:Illuminate\View\Compilers\ComponentTagCompiler::compileSelfClosingTags():216}()
+#3 /var/www/html/vendor/laravel/framework/src/Illuminate/View/Compilers/ComponentTagCompiler.php(216): preg_replace_callback()
+#4 /var/www/html/vendor/laravel/framework/src/Illuminate/View/Compilers/ComponentTagCompiler.php(90): Illuminate\View\Compilers\ComponentTagCompiler->compileSelfClosingTags()
+#5 /var/www/html/vendor/laravel/framework/src/Illuminate/View/Compilers/ComponentTagCompiler.php(77): Illuminate\View\Compilers\ComponentTagCompiler->compileTags()
+#6 /var/www/html/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(440): Illuminate\View\Compilers\ComponentTagCompiler->compile()
+#7 /var/www/html/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(272): Illuminate\View\Compilers\BladeCompiler->compileComponentTags()
+#8 /var/www/html/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(186): Illuminate\View\Compilers\BladeCompiler->compileString()
+#9 /var/www/html/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(67): Illuminate\View\Compilers\BladeCompiler->compile()
+#10 /var/www/html/vendor/livewire/livewire/src/Mechanisms/ExtendBlade/ExtendedCompilerEngine.php(10): Illuminate\View\Engines\CompilerEngine->get()
+#11 /var/www/html/vendor/laravel/framework/src/Illuminate/View/View.php(209): Livewire\Mechanisms\ExtendBlade\ExtendedCompilerEngine->get()
+#12 /var/www/html/vendor/laravel/framework/src/Illuminate/View/View.php(192): Illuminate\View\View->getContents()
+#13 /var/www/html/vendor/laravel/framework/src/Illuminate/View/View.php(161): Illuminate\View\View->renderContents()
+#14 /var/www/html/vendor/laravel/framework/src/Illuminate/Http/Response.php(79): Illuminate\View\View->render()
+#15 /var/www/html/vendor/laravel/framework/src/Illuminate/Http/Response.php(35): Illuminate\Http\Response->setContent()
+#16 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(920): Illuminate\Http\Response->__construct()
+#17 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(887): Illuminate\Routing\Router::toResponse()
+#18 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(807): Illuminate\Routing\Router->prepareResponse()
+#19 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(170): Illuminate\Routing\Router->{closure:Illuminate\Routing\Router::runRouteWithinStack():807}()
+#20 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(51): Illuminate\Pipeline\Pipeline->{closure:Illuminate\Pipeline\Pipeline::prepareDestination():168}()
+#21 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\Routing\Middleware\SubstituteBindings->handle()
+#22 /var/www/html/vendor/laravel/framework/src/Illuminate/Auth/Middleware/Authenticate.php(64): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():184}:185}()
+#23 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\Auth\Middleware\Authenticate->handle()
+#24 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/VerifyCsrfToken.php(88): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():184}:185}()
+#25 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\Foundation\Http\Middleware\VerifyCsrfToken->handle()
+#26 /var/www/html/vendor/laravel/framework/src/Illuminate/View/Middleware/ShareErrorsFromSession.php(49): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():184}:185}()
+#27 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\View\Middleware\ShareErrorsFromSession->handle()
+#28 /var/www/html/vendor/laravel/framework/src/Illuminate/Session/Middleware/StartSession.php(121): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():184}:185}()
+#29 /var/www/html/vendor/laravel/framework/src/Illuminate/Session/Middleware/StartSession.php(64): Illuminate\Session\Middleware\StartSession->handleStatefulRequest()
+#30 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\Session\Middleware\StartSession->handle()
+#31 /var/www/html/vendor/laravel/framework/src/Illuminate/Cookie/Middleware/AddQueuedCookiesToResponse.php(37): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():184}:185}()
+#32 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse->handle()
+#33 /var/www/html/vendor/laravel/framework/src/Illuminate/Cookie/Middleware/EncryptCookies.php(75): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():184}:185}()
+#34 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\Cookie\Middleware\EncryptCookies->handle()
+#35 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(127): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():184}:185}()
+#36 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(807): Illuminate\Pipeline\Pipeline->then()
+#37 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(786): Illuminate\Routing\Router->runRouteWithinStack()
+#38 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(750): Illuminate\Routing\Router->runRoute()
+#39 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(739): Illuminate\Routing\Router->dispatchToRoute()
+#40 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(201): Illuminate\Routing\Router->dispatch()
+#41 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(170): Illuminate\Foundation\Http\Kernel->{closure:Illuminate\Foundation\Http\Kernel::dispatchToRouter():198}()
+#42 /var/www/html/vendor/livewire/livewire/src/Features/SupportDisablingBackButtonCache/DisableBackButtonCacheMiddleware.php(19): Illuminate\Pipeline\Pipeline->{closure:Illuminate\Pipeline\Pipeline::prepareDestination():168}()
+#43 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Livewire\Features\SupportDisablingBackButtonCache\DisableBackButtonCacheMiddleware->handle()
+#44 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():184}:185}()
+#45 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php(31): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle()
+#46 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull->handle()
+#47 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():184}:185}()
+#48 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php(51): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle()
+#49 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\Foundation\Http\Middleware\TrimStrings->handle()
+#50 /var/www/html/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePostSize.php(27): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():184}:185}()
+#51 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\Http\Middleware\ValidatePostSize->handle()
+#52 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php(110): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():184}:185}()
+#53 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance->handle()
+#54 /var/www/html/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php(49): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():184}:185}()
+#55 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\Http\Middleware\HandleCors->handle()
+#56 /var/www/html/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php(58): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():184}:185}()
+#57 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\Http\Middleware\TrustProxies->handle()
+#58 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks.php(22): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():184}:185}()
+#59 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks->handle()
+#60 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(127): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():184}:185}()
+#61 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(176): Illuminate\Pipeline\Pipeline->then()
+#62 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(145): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter()
+#63 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Testing/Concerns/MakesHttpRequests.php(607): Illuminate\Foundation\Http\Kernel->handle()
+#64 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Testing/Concerns/MakesHttpRequests.php(368): Illuminate\Foundation\Testing\TestCase->call()
+#65 /var/www/html/tests/Feature/AccessibilityPropertyTest.php(40): Illuminate\Foundation\Testing\TestCase->get()
+#66 /var/www/html/vendor/phpunit/phpunit/src/Framework/TestCase.php(1657): Tests\Feature\AccessibilityPropertyTest->test_member_profile_images_have_alt_text()
+#67 /var/www/html/vendor/phpunit/phpunit/src/Framework/TestCase.php(515): PHPUnit\Framework\TestCase->runTest()
+#68 /var/www/html/vendor/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+#69 /var/www/html/vendor/phpunit/phpunit/src/Framework/TestCase.php(361): PHPUnit\Framework\TestRunner->run()
+#70 /var/www/html/vendor/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+#71 /var/www/html/vendor/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+#72 /var/www/html/vendor/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+#73 /var/www/html/vendor/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+#74 /var/www/html/vendor/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run()
+#75 /var/www/html/vendor/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run()
+#76 {main}
+
+----------------------------------------------------------------------------------
+
+Unable to locate a class or view for component [ui.input-error].
+
+  at tests/Feature/AccessibilityPropertyTest.php:41
+     37▕         $member = Member::factory()->create(['community_id' => $community->id]);
+     38▕ 
+     39▕         // 1. Check Member Profile Page
+     40▕         $response = $this->actingAs($user)->get(route('members.show', $member));
+  ➜  41▕         $response->assertStatus(200);
+     42▕ 
+     43▕         // Assert that the profile image has an alt attribute
+     44▕         $response->assertSee('alt="'.e($member->full_name).'"', false);
+     45▕     }
+
+
+  Tests:    1 failed, 164 passed, [2m223 pending[22m (722 assertions)
+  Duration: 54.96s
+

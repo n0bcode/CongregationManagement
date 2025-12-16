@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property-read \App\Models\Community $community
+ */
 class PeriodicEvent extends Model
 {
     use \Illuminate\Database\Eloquent\SoftDeletes;
@@ -22,7 +25,7 @@ class PeriodicEvent extends Model
         'end_date' => 'date',
     ];
 
-    public function community()
+    public function community(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Community::class);
     }

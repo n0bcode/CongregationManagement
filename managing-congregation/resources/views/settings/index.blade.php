@@ -34,14 +34,14 @@
                         <!-- General Settings -->
                         <div x-show="activeTab === 'general'" class="space-y-6">
                             <div>
-                                <x-forms.input-label for="service_year_start" :value="__('Service Year Start Month')" />
-                                <select id="service_year_start" name="settings[service_year_start][value]" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                                <x-ui.label for="service_year_start" :value="__('Service Year Start Month')" />
+                                <x-ui.select id="service_year_start" name="settings[service_year_start][value]" class="mt-1">
                                     @foreach(range(1, 12) as $month)
                                         <option value="{{ $month }}" {{ \App\Models\SystemSetting::get('service_year_start', 1) == $month ? 'selected' : '' }}>
                                             {{ date('F', mktime(0, 0, 0, $month, 1)) }}
                                         </option>
                                     @endforeach
-                                </select>
+                                </x-ui.select>
                                 <input type="hidden" name="settings[service_year_start][key]" value="service_year_start">
                             </div>
                         </div>
@@ -49,13 +49,13 @@
                         <!-- Reminders Settings -->
                         <div x-show="activeTab === 'reminders'" class="space-y-6">
                             <div>
-                                <x-forms.input-label for="reminder_vow_expiration" :value="__('Vow Expiration Reminder (Days)')" />
-                                <x-forms.text-input id="reminder_vow_expiration" name="settings[reminder_vow_expiration][value]" type="number" class="mt-1 block w-full" :value="\App\Models\SystemSetting::get('reminder_vow_expiration', 30)" />
+                                <x-ui.label for="reminder_vow_expiration" :value="__('Vow Expiration Reminder (Days)')" />
+                                <x-ui.input id="reminder_vow_expiration" name="settings[reminder_vow_expiration][value]" type="number" class="mt-1 block w-full" :value="\App\Models\SystemSetting::get('reminder_vow_expiration', 30)" />
                                 <input type="hidden" name="settings[reminder_vow_expiration][key]" value="reminder_vow_expiration">
                             </div>
                             <div>
-                                <x-forms.input-label for="reminder_birthday" :value="__('Birthday Reminder (Days)')" />
-                                <x-forms.text-input id="reminder_birthday" name="settings[reminder_birthday][value]" type="number" class="mt-1 block w-full" :value="\App\Models\SystemSetting::get('reminder_birthday', 7)" />
+                                <x-ui.label for="reminder_birthday" :value="__('Birthday Reminder (Days)')" />
+                                <x-ui.input id="reminder_birthday" name="settings[reminder_birthday][value]" type="number" class="mt-1 block w-full" :value="\App\Models\SystemSetting::get('reminder_birthday', 7)" />
                                 <input type="hidden" name="settings[reminder_birthday][key]" value="reminder_birthday">
                             </div>
                         </div>
@@ -75,10 +75,10 @@
                             <div class="border-t pt-4">
                                 <h4 class="text-md font-medium text-gray-900">Test Email Configuration</h4>
                                 <div class="mt-4 flex gap-4">
-                                    <x-forms.text-input id="test_email" name="test_email" type="email" class="block w-full" placeholder="Enter email address" />
-                                    <button type="button" onclick="document.getElementById('test-email-form').submit()" class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700">
+                                    <x-ui.input id="test_email" name="test_email" type="email" class="block w-full" placeholder="Enter email address" />
+                                    <x-ui.button type="button" onclick="document.getElementById('test-email-form').submit()">
                                         Test Connection
-                                    </button>
+                                    </x-ui.button>
                                 </div>
                             </div>
                         </div>
@@ -86,11 +86,11 @@
                         <!-- Backup Settings -->
                         <div x-show="activeTab === 'backup'" class="space-y-6">
                              <div>
-                                <x-forms.input-label for="backup_enabled" :value="__('Enable Daily Backups')" />
-                                <select id="backup_enabled" name="settings[backup_enabled][value]" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                                <x-ui.label for="backup_enabled" :value="__('Enable Daily Backups')" />
+                                <x-ui.select id="backup_enabled" name="settings[backup_enabled][value]" class="mt-1">
                                     <option value="1" {{ \App\Models\SystemSetting::get('backup_enabled', false) ? 'selected' : '' }}>Yes</option>
                                     <option value="0" {{ !\App\Models\SystemSetting::get('backup_enabled', false) ? 'selected' : '' }}>No</option>
-                                </select>
+                                </x-ui.select>
                                 <input type="hidden" name="settings[backup_enabled][key]" value="backup_enabled">
                             </div>
                         </div>

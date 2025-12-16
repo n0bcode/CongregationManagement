@@ -14,36 +14,30 @@
                     <div class="space-y-6">
                         <!-- Name Field -->
                         <div>
-                            <label for="name" class="block text-lg font-medium text-slate-700 mb-2">
-                                {{ __('Community Name') }} <span class="text-rose-600">*</span>
-                            </label>
-                            <input type="text" 
-                                   id="name" 
-                                   name="name" 
-                                   value="{{ old('name') }}"
-                                   required
-                                   autofocus
-                                   class="w-full min-h-[48px] px-4 py-3 text-base text-slate-800 bg-white border border-stone-300 rounded-lg placeholder:text-slate-400 focus:border-amber-600 focus:ring-4 focus:ring-amber-500 focus:outline-none @error('name') border-rose-500 @enderror"
-                                   placeholder="{{ __('Enter community name') }}">
-                            @error('name')
-                                <p class="mt-2 text-sm text-rose-600">{{ $message }}</p>
-                            @enderror
+                            <x-ui.label for="name" :value="__('Community Name')" :required="true" />
+                            <x-ui.input 
+                                id="name" 
+                                name="name" 
+                                type="text"
+                                :value="old('name')" 
+                                :error="$errors->first('name')"
+                                required 
+                                autofocus 
+                                placeholder="{{ __('Enter community name') }}" 
+                            />
                         </div>
 
                         <!-- Location Field -->
                         <div>
-                            <label for="location" class="block text-lg font-medium text-slate-700 mb-2">
-                                {{ __('Location') }}
-                            </label>
-                            <input type="text" 
-                                   id="location" 
-                                   name="location" 
-                                   value="{{ old('location') }}"
-                                   class="w-full min-h-[48px] px-4 py-3 text-base text-slate-800 bg-white border border-stone-300 rounded-lg placeholder:text-slate-400 focus:border-amber-600 focus:ring-4 focus:ring-amber-500 focus:outline-none @error('location') border-rose-500 @enderror"
-                                   placeholder="{{ __('Enter location (optional)') }}">
-                            @error('location')
-                                <p class="mt-2 text-sm text-rose-600">{{ $message }}</p>
-                            @enderror
+                            <x-ui.label for="location" :value="__('Location')" />
+                            <x-ui.input 
+                                id="location" 
+                                name="location" 
+                                type="text"
+                                :value="old('location')" 
+                                :error="$errors->first('location')"
+                                placeholder="{{ __('Enter location (optional)') }}" 
+                            />
                             <p class="mt-2 text-sm text-slate-500">
                                 {{ __('City, province, or address of the community') }}
                             </p>
@@ -51,81 +45,66 @@
 
                         <!-- Patron Saint Field -->
                         <div>
-                            <label for="patron_saint" class="block text-lg font-medium text-slate-700 mb-2">
-                                {{ __('Patron Saint') }}
-                            </label>
-                            <input type="text" 
-                                   id="patron_saint" 
-                                   name="patron_saint" 
-                                   value="{{ old('patron_saint') }}"
-                                   class="w-full min-h-[48px] px-4 py-3 text-base text-slate-800 bg-white border border-stone-300 rounded-lg placeholder:text-slate-400 focus:border-amber-600 focus:ring-4 focus:ring-amber-500 focus:outline-none @error('patron_saint') border-rose-500 @enderror"
-                                   placeholder="{{ __('Enter Patron Saint') }}">
-                            @error('patron_saint')
-                                <p class="mt-2 text-sm text-rose-600">{{ $message }}</p>
-                            @enderror
+                            <x-ui.label for="patron_saint" :value="__('Patron Saint')" />
+                            <x-ui.input 
+                                id="patron_saint" 
+                                name="patron_saint" 
+                                type="text"
+                                :value="old('patron_saint')" 
+                                :error="$errors->first('patron_saint')"
+                                placeholder="{{ __('Enter Patron Saint') }}" 
+                            />
                         </div>
 
                         <!-- Foundation Date & Feast Day -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label for="founded_at" class="block text-lg font-medium text-slate-700 mb-2">
-                                    {{ __('Foundation Date') }}
-                                </label>
-                                <input type="date" 
-                                       id="founded_at" 
-                                       name="founded_at" 
-                                       value="{{ old('founded_at') }}"
-                                       class="w-full min-h-[48px] px-4 py-3 text-base text-slate-800 bg-white border border-stone-300 rounded-lg placeholder:text-slate-400 focus:border-amber-600 focus:ring-4 focus:ring-amber-500 focus:outline-none @error('founded_at') border-rose-500 @enderror">
-                                @error('founded_at')
-                                    <p class="mt-2 text-sm text-rose-600">{{ $message }}</p>
-                                @enderror
+                                <x-ui.label for="founded_at" :value="__('Foundation Date')" />
+                                <x-ui.input 
+                                    id="founded_at" 
+                                    name="founded_at" 
+                                    type="date"
+                                    :value="old('founded_at')" 
+                                    :error="$errors->first('founded_at')"
+                                />
                             </div>
 
                             <div>
-                                <label for="feast_day" class="block text-lg font-medium text-slate-700 mb-2">
-                                    {{ __('Feast Day') }}
-                                </label>
-                                <input type="date" 
-                                       id="feast_day" 
-                                       name="feast_day" 
-                                       value="{{ old('feast_day') }}"
-                                       class="w-full min-h-[48px] px-4 py-3 text-base text-slate-800 bg-white border border-stone-300 rounded-lg placeholder:text-slate-400 focus:border-amber-600 focus:ring-4 focus:ring-amber-500 focus:outline-none @error('feast_day') border-rose-500 @enderror">
-                                @error('feast_day')
-                                    <p class="mt-2 text-sm text-rose-600">{{ $message }}</p>
-                                @enderror
+                                <x-ui.label for="feast_day" :value="__('Feast Day')" />
+                                <x-ui.input 
+                                    id="feast_day" 
+                                    name="feast_day" 
+                                    type="date"
+                                    :value="old('feast_day')" 
+                                    :error="$errors->first('feast_day')"
+                                />
                             </div>
                         </div>
 
                         <!-- Contact Info -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label for="email" class="block text-lg font-medium text-slate-700 mb-2">
-                                    {{ __('Email') }}
-                                </label>
-                                <input type="email" 
-                                       id="email" 
-                                       name="email" 
-                                       value="{{ old('email') }}"
-                                       class="w-full min-h-[48px] px-4 py-3 text-base text-slate-800 bg-white border border-stone-300 rounded-lg placeholder:text-slate-400 focus:border-amber-600 focus:ring-4 focus:ring-amber-500 focus:outline-none @error('email') border-rose-500 @enderror"
-                                       placeholder="email@example.com">
-                                @error('email')
-                                    <p class="mt-2 text-sm text-rose-600">{{ $message }}</p>
-                                @enderror
+                                <x-ui.label for="email" :value="__('Email')" />
+                                <x-ui.input 
+                                    id="email" 
+                                    name="email" 
+                                    type="email"
+                                    :value="old('email')" 
+                                    :error="$errors->first('email')"
+                                    placeholder="email@example.com" 
+                                />
                             </div>
 
                             <div>
-                                <label for="phone" class="block text-lg font-medium text-slate-700 mb-2">
-                                    {{ __('Phone') }}
-                                </label>
-                                <input type="text" 
-                                       id="phone" 
-                                       name="phone" 
-                                       value="{{ old('phone') }}"
-                                       class="w-full min-h-[48px] px-4 py-3 text-base text-slate-800 bg-white border border-stone-300 rounded-lg placeholder:text-slate-400 focus:border-amber-600 focus:ring-4 focus:ring-amber-500 focus:outline-none @error('phone') border-rose-500 @enderror"
-                                       placeholder="{{ __('Phone number') }}">
-                                @error('phone')
-                                    <p class="mt-2 text-sm text-rose-600">{{ $message }}</p>
-                                @enderror
+                                <x-ui.label for="phone" :value="__('Phone')" />
+                                <x-ui.input 
+                                    id="phone" 
+                                    name="phone" 
+                                    type="text"
+                                    :value="old('phone')" 
+                                    :error="$errors->first('phone')"
+                                    placeholder="{{ __('Phone number') }}" 
+                                />
                             </div>
                         </div>
 

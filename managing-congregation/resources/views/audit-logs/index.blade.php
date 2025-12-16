@@ -12,12 +12,10 @@
                 <form method="GET" action="{{ route('audit-logs.index') }}" class="space-y-4">
                     <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
                         {{-- User Filter --}}
+                        {{-- User Filter --}}
                         <div>
-                            <label for="user_id" class="block text-sm font-medium text-stone-warm-700">
-                                User
-                            </label>
-                            <select id="user_id" name="user_id"
-                                class="mt-1 block w-full rounded-md border-stone-warm-300 shadow-sm focus:border-sanctuary-gold focus:ring-sanctuary-gold">
+                            <x-ui.label for="user_id" value="User" />
+                            <x-ui.select id="user_id" name="user_id" class="mt-1">
                                 <option value="">All Users</option>
                                 @foreach ($users as $user)
                                     <option value="{{ $user->id }}"
@@ -25,16 +23,13 @@
                                         {{ $user->name }}
                                     </option>
                                 @endforeach
-                            </select>
+                            </x-ui.select>
                         </div>
 
                         {{-- Action Filter --}}
                         <div>
-                            <label for="action" class="block text-sm font-medium text-stone-warm-700">
-                                Action
-                            </label>
-                            <select id="action" name="action"
-                                class="mt-1 block w-full rounded-md border-stone-warm-300 shadow-sm focus:border-sanctuary-gold focus:ring-sanctuary-gold">
+                            <x-ui.label for="action" value="Action" />
+                            <x-ui.select id="action" name="action" class="mt-1">
                                 <option value="">All Actions</option>
                                 @foreach ($actions as $action)
                                     <option value="{{ $action }}"
@@ -42,25 +37,19 @@
                                         {{ ucfirst($action) }}
                                     </option>
                                 @endforeach
-                            </select>
+                            </x-ui.select>
                         </div>
 
                         {{-- Start Date Filter --}}
                         <div>
-                            <label for="start_date" class="block text-sm font-medium text-stone-warm-700">
-                                Start Date
-                            </label>
-                            <input type="date" id="start_date" name="start_date" value="{{ request('start_date') }}"
-                                class="mt-1 block w-full rounded-md border-stone-warm-300 shadow-sm focus:border-sanctuary-gold focus:ring-sanctuary-gold">
+                            <x-ui.label for="start_date" value="Start Date" />
+                            <x-ui.input type="date" id="start_date" name="start_date" :value="request('start_date')" class="mt-1 block w-full" />
                         </div>
 
                         {{-- End Date Filter --}}
                         <div>
-                            <label for="end_date" class="block text-sm font-medium text-stone-warm-700">
-                                End Date
-                            </label>
-                            <input type="date" id="end_date" name="end_date" value="{{ request('end_date') }}"
-                                class="mt-1 block w-full rounded-md border-stone-warm-300 shadow-sm focus:border-sanctuary-gold focus:ring-sanctuary-gold">
+                            <x-ui.label for="end_date" value="End Date" />
+                            <x-ui.input type="date" id="end_date" name="end_date" :value="request('end_date')" class="mt-1 block w-full" />
                         </div>
                     </div>
 

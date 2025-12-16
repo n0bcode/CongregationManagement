@@ -254,7 +254,9 @@ class ReportController extends Controller
                     }])
                     ->get()
                     ->map(function ($member) {
-                        $member->historical_role = $member->assignments->first()?->role ?? 'Member';
+                        /** @var \App\Models\Member $member */
+                        $assignment = $member->assignments->first();
+                        $member->historical_role = $assignment?->role ?? 'Member';
                         return $member;
                     });
             } else {
@@ -277,7 +279,9 @@ class ReportController extends Controller
                     ->get()
                     ->map(function ($member) {
                         // Attach the relevant role for that period
-                        $member->historical_role = $member->assignments->first()?->role ?? 'Member';
+                        /** @var \App\Models\Member $member */
+                        $assignment = $member->assignments->first();
+                        $member->historical_role = $assignment?->role ?? 'Member';
                         return $member;
                     });
             }
