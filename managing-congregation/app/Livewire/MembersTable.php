@@ -92,8 +92,19 @@ class MembersTable extends Component
         }
     }
 
+    /**
+     * Sort by a field with validation to prevent SQL injection.
+     * Only allows whitelisted fields to be sorted.
+     */
     public function sortBy($field)
     {
+        // Whitelist of sortable columns
+        $allowedFields = ['first_name', 'last_name', 'religious_name', 'status', 'created_at', 'dob', 'entry_date'];
+        
+        if (!in_array($field, $allowedFields)) {
+            return; // Ignore invalid sort requests
+        }
+        
         if ($this->sortField === $field) {
             $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
         } else {
@@ -135,23 +146,71 @@ class MembersTable extends Component
         ]);
     }
 
+    /**
+     * Update a member field with validation.
+     * Only allows whitelisted fields to prevent unauthorized modifications.
+     */
     public function updateMember($id, $field, $value)
     {
-        $member = Member::find($id);
-        // Check authorization if needed
+        // Whitelist of allowed fields for inline updates
+        $allowedFields = ['first_name', 'last_name', 'religious_name', 'email', 'status'];
         
-        $member->update([$field => $value]);
-        session()->flash('status', 'Member updated successfully.');
+        if (!in_array($field, $allowedFields)) {
+            session()->flash('error', 'Field update not allowed.');
+            return;
+        }
+        
+        $member = Member::find($id);
+        
+        if (!$member) {
+            session()->flash('error', 'Member not found.');
+            return;
+        }
+        
+        // Check authorization
+        $this->authorize('update', $member);
+        
+        // Additional validation based on field type
+        try {
+            $validated = $this->validateField($field, $value);
+            $member->update([$field => $validated]);
+            session()->flash('status', 'Member updated successfully.');
+        } catch (\InvalidArgumentException $e) {
+            session()->flash('error', $e->getMessage());
+        }
+    }
+    
+    /**
+     * Validate field value based on field type.
+     */
+    protected function validateField(string $field, $value)
+    {
+        return match($field) {
+            'status' => in_array($value, array_column(\App\Enums\MemberStatus::cases(), 'value')) 
+                ? $value 
+                : throw new \InvalidArgumentException('Invalid status value'),
+            'email' => filter_var($value, FILTER_VALIDATE_EMAIL) 
+                ? $value 
+                : throw new \InvalidArgumentException('Invalid email format'),
+            default => $value,
+        };
     }
 
+    /**
+     * Build the query with filters and search.
+     * Escapes wildcards in search terms to prevent unintended matches.
+     */
     protected function getQuery(): Builder
     {
         return Member::query()
             ->when($this->search, function ($query) {
-                $query->where(function ($q) {
-                    $q->where('first_name', 'like', '%' . $this->search . '%')
-                      ->orWhere('last_name', 'like', '%' . $this->search . '%')
-                      ->orWhere('religious_name', 'like', '%' . $this->search . '%');
+                // Escape SQL wildcards (% and _) to treat them as literal characters
+                $escapedSearch = addcslashes($this->search, '%_');
+                
+                $query->where(function ($q) use ($escapedSearch) {
+                    $q->where('first_name', 'like', '%' . $escapedSearch . '%')
+                      ->orWhere('last_name', 'like', '%' . $escapedSearch . '%')
+                      ->orWhere('religious_name', 'like', '%' . $escapedSearch . '%');
                 });
             })
             ->when($this->communityId, fn($q) => $q->where('community_id', $this->communityId))

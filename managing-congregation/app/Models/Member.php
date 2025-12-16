@@ -137,37 +137,53 @@ class Member extends Model
         return "{$this->first_name} {$this->last_name}";
     }
 
+    /**
+     * Search members by various fields.
+     * Escapes SQL wildcards to prevent unintended matches.
+     * 
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param string $term Search term
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
     public function scopeSearch($query, $term)
     {
-        return $query->where(function ($query) use ($term) {
-            $query->where('religious_name', 'like', "%{$term}%")
-                ->orWhere('first_name', 'like', "%{$term}%")
-                ->orWhere('last_name', 'like', "%{$term}%")
-                ->orWhere('status', 'like', "%{$term}%")
-                ->orWhereHas('community', function ($q) use ($term) {
-                    $q->where('name', 'like', "%{$term}%");
+        // Escape SQL wildcards (% and _) to treat them as literal characters
+        $escapedTerm = addcslashes($term, '%_');
+        
+        return $query->where(function ($query) use ($escapedTerm) {
+            $query->where('religious_name', 'like', "%{$escapedTerm}%")
+                ->orWhere('first_name', 'like', "%{$escapedTerm}%")
+                ->orWhere('last_name', 'like', "%{$escapedTerm}%")
+                ->orWhere('status', 'like', "%{$escapedTerm}%")
+                ->orWhereHas('community', function ($q) use ($escapedTerm) {
+                    $q->where('name', 'like', "%{$escapedTerm}%");
                 })
                 // Search by passport number
-                ->orWhere('passport_number', 'like', "%{$term}%")
+                ->orWhere('passport_number', 'like', "%{$escapedTerm}%")
                 // Search by formation stage
-                ->orWhereHas('formationEvents', function ($q) use ($term) {
-                    $q->where('stage', 'like', "%{$term}%");
+                ->orWhereHas('formationEvents', function ($q) use ($escapedTerm) {
+                    $q->where('stage', 'like', "%{$escapedTerm}%");
                 })
                 // Search by skills
-                ->orWhereHas('skills', function ($q) use ($term) {
-                    $q->where('name', 'like', "%{$term}%")
-                        ->orWhere('category', 'like', "%{$term}%");
+                ->orWhereHas('skills', function ($q) use ($escapedTerm) {
+                    $q->where('name', 'like', "%{$escapedTerm}%")
+                        ->orWhere('category', 'like', "%{$escapedTerm}%");
                 })
                 // Search by health conditions
-                ->orWhereHas('healthRecords', function ($q) use ($term) {
-                    $q->where('condition', 'like', "%{$term}%");
+                ->orWhereHas('healthRecords', function ($q) use ($escapedTerm) {
+                    $q->where('condition', 'like', "%{$escapedTerm}%");
                 });
         });
     }
 
     /**
      * Scope to find members with upcoming birthdays.
-     * Replaces CURDATE() with a parameter for testability.
+     * Uses parameter binding to prevent SQL injection.
+     * 
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param string|null $startDate Optional start date (Y-m-d format)
+     * @param int $days Number of days to look ahead (default: 30)
+     * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeUpcomingBirthdays($query, $startDate = null, $days = 30)
     {
@@ -175,10 +191,11 @@ class Member extends Model
         $dateString = $date->format('Y-m-d');
         $endDateString = $date->copy()->addDays($days)->format('Y-m-d');
 
+        // Use parameter binding (?) instead of string interpolation to prevent SQL injection
         return $query->whereRaw("
-            DATE_ADD(dob, INTERVAL YEAR('{$dateString}')-YEAR(dob) + IF(DAYOFYEAR('{$dateString}') > DAYOFYEAR(dob),1,0) YEAR) 
-            BETWEEN '{$dateString}' AND '{$endDateString}'
-        ");
+            DATE_ADD(dob, INTERVAL YEAR(?)-YEAR(dob) + IF(DAYOFYEAR(?) > DAYOFYEAR(dob),1,0) YEAR) 
+            BETWEEN ? AND ?
+        ", [$dateString, $dateString, $dateString, $endDateString]);
     }
 
     /**
