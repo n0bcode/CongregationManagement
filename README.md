@@ -556,15 +556,39 @@ docs/
 ├── diagrams/                 # System Architecture Diagrams
 ├── flowcharts/               # Business Process Flows
 └── analysis/                 # Requirements Analysis
+
+managing-congregation/docs/
+├── DEVELOPER_GUIDE.md        # 🆕 Complete Developer Documentation
+└── USER_GUIDE.md             # End-User Manual (Vietnamese)
 ```
 
 ### Key Documentation
 
+#### For Developers
+
+- **[Developer Guide](./managing-congregation/docs/DEVELOPER_GUIDE.md)**: Complete technical documentation for developers
+  - Architecture patterns and best practices
+  - Docker Sail setup and development workflow
+  - Service layer architecture and code examples
+  - Gemini AI integration guide
+  - Testing strategies and CI/CD recommendations
+  - Security best practices and troubleshooting
+
+#### For Project Management
+
 - **[PRD](./docs/prd.md)**: Complete product requirements and user journeys
 - **[Architecture](./docs/architecture.md)**: Technical decisions and implementation patterns
-- **[User Guide](./managing-congregation/docs/USER_GUIDE.md)**: Comprehensive manual for end-users (VN).
 - **[Epics](./docs/epics.md)**: Detailed breakdown of features and stories
 - **[UX Design](./docs/ux-design-specification.md)**: Interface design and user experience
+
+#### For End Users
+
+- **[User Guide](./managing-congregation/docs/USER_GUIDE.md)**: Comprehensive manual for end-users (Vietnamese)
+  - System overview and getting started
+  - Step-by-step instructions for all modules
+  - Member, community, and financial management
+  - Project management and administration
+  - FAQ and support information
 
 ## 🤝 Contributing
 

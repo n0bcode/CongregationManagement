@@ -14,6 +14,8 @@
 1.4. Terms and Definitions
 1.5. System Requirements
 
+> **📘 For Developers**: If you are a developer looking for technical documentation, architecture details, or setup instructions, please refer to the [Developer Guide](./DEVELOPER_GUIDE.md).
+
 **Part 2: Getting Started**
 2.1. System Access
 2.2. Login & Logout
