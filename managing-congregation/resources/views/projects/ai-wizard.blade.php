@@ -130,16 +130,18 @@
                 });
 
                 const result = await response.json();
+                console.log('API Response:', result);
 
                 if (!result.success) throw new Error(result.message || 'Unknown error');
 
                 // Success
                 currentPlan = result.data;
+                console.log('Current Plan:', currentPlan);
                 renderReview();
                 showStep('step-review');
 
             } catch (error) {
-                console.error(error);
+                console.error('Generation Error:', error);
                 showNotification(error.message);
                 showStep('step-input');
             }
@@ -152,30 +154,54 @@
             const container = document.getElementById('tasks-container');
             container.innerHTML = '';
 
+            console.log('Rendering tasks:', currentPlan.tasks);
+
             currentPlan.tasks.forEach((task, index) => {
                 const isEpic = task.type === 'epic';
-                const div = document.createElement('div');
-                div.className = `flex items-center space-x-4 p-3 rounded-md border \${isEpic ? 'bg-indigo-50 border-indigo-200' : 'bg-white border-gray-200'}`;
+                const taskTitle = task.title || 'Untitled Task';
+                const taskType = task.type || 'task';
+                const taskPriority = task.priority || 'medium';
                 
-                div.innerHTML = `
-                    <div class="flex-1">
-                        <input type="text" value="\${task.title}" onchange="updateTask(\${index}, 'title', this.value)" 
-                            class="block w-full border-0 bg-transparent p-0 text-sm focus:ring-0 \${isEpic ? 'font-bold text-indigo-700' : 'text-gray-900'}">
-                    </div>
-                    <div class="w-24">
-                        <select onchange="updateTask(\${index}, 'type', this.value)" class="block w-full border-none bg-transparent py-0 pl-0 pr-7 text-gray-500 focus:ring-0 sm:text-xs">
-                            <option value="epic" \${task.type === 'epic' ? 'selected' : ''}>Epic</option>
-                            <option value="story" \${task.type === 'story' ? 'selected' : ''}>Story</option>
-                            <option value="task" \${task.type === 'task' ? 'selected' : ''}>Task</option>
-                            <option value="bug" \${task.type === 'bug' ? 'selected' : ''}>Bug</option>
-                        </select>
-                    </div>
-                    <div class="w-24">
-                        <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium \${getPriorityClass(task.priority)}">
-                            \${task.priority}
-                        </span>
-                    </div>
-                `;
+                const div = document.createElement('div');
+                div.className = `flex items-center space-x-4 p-3 rounded-md border ${isEpic ? 'bg-indigo-50 border-indigo-200' : 'bg-white border-gray-200'}`;
+                
+                // Create input for title
+                const titleDiv = document.createElement('div');
+                titleDiv.className = 'flex-1';
+                const titleInput = document.createElement('input');
+                titleInput.type = 'text';
+                titleInput.value = taskTitle;
+                titleInput.className = `block w-full border-0 bg-transparent p-0 text-sm focus:ring-0 ${isEpic ? 'font-bold text-indigo-700' : 'text-gray-900'}`;
+                titleInput.onchange = (e) => updateTask(index, 'title', e.target.value);
+                titleDiv.appendChild(titleInput);
+                
+                // Create select for type
+                const typeDiv = document.createElement('div');
+                typeDiv.className = 'w-24';
+                const typeSelect = document.createElement('select');
+                typeSelect.className = 'block w-full border-none bg-transparent py-0 pl-0 pr-7 text-gray-500 focus:ring-0 sm:text-xs';
+                typeSelect.onchange = (e) => updateTask(index, 'type', e.target.value);
+                ['epic', 'story', 'task', 'bug'].forEach(type => {
+                    const option = document.createElement('option');
+                    option.value = type;
+                    option.textContent = type.charAt(0).toUpperCase() + type.slice(1);
+                    option.selected = taskType === type;
+                    typeSelect.appendChild(option);
+                });
+                typeDiv.appendChild(typeSelect);
+                
+                // Create priority badge
+                const priorityDiv = document.createElement('div');
+                priorityDiv.className = 'w-24';
+                const prioritySpan = document.createElement('span');
+                prioritySpan.className = `inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${getPriorityClass(taskPriority)}`;
+                prioritySpan.textContent = taskPriority.charAt(0).toUpperCase() + taskPriority.slice(1);
+                priorityDiv.appendChild(prioritySpan);
+                
+                // Append all elements
+                div.appendChild(titleDiv);
+                div.appendChild(typeDiv);
+                div.appendChild(priorityDiv);
                 container.appendChild(div);
             });
         }

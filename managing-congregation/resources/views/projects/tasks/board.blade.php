@@ -11,14 +11,15 @@
             <div class="bg-gray-100 rounded-lg p-4 flex flex-col h-full">
                 <h4 class="font-semibold text-gray-700 mb-3 flex justify-between items-center">
                     {{ $label }}
-                    <span class="bg-gray-200 text-gray-600 text-xs px-2 py-1 rounded-full">
+                    <span class="bg-gray-200 text-gray-600 text-xs px-2 py-1 rounded-full status-count-{{ $status }}">
                         {{ $tasks->where('status', $status)->count() }}
                     </span>
                 </h4>
                 
-                <div class="space-y-3 flex-1 overflow-y-auto min-h-[200px]">
+                <div class="task-column space-y-3 flex-1 overflow-y-auto min-h-[200px]" data-status="{{ $status }}">
                     @forelse($tasks->where('status', $status) as $task)
-                        <div class="bg-white p-3 rounded shadow-sm border border-gray-200 hover:shadow-md transition-shadow cursor-pointer">
+                        <div class="task-card bg-white p-3 rounded shadow-sm border border-gray-200 hover:shadow-md transition-shadow cursor-move" 
+                             data-task-id="{{ $task->id }}">
                             <div class="flex justify-between items-start mb-2">
                                 <span class="text-xs font-semibold px-2 py-0.5 rounded 
                                     {{ $task->type === 'bug' ? 'bg-red-100 text-red-800' : 
@@ -59,7 +60,7 @@
                         </div>
                     @empty
                         <!-- Empty state for column -->
-                        <div class="text-center py-4 border-2 border-dashed border-gray-200 rounded-lg">
+                        <div class="empty-placeholder text-center py-4 border-2 border-dashed border-gray-200 rounded-lg">
                             <p class="text-xs text-gray-400">No tasks</p>
                         </div>
                     @endforelse
@@ -68,3 +69,98 @@
         @endforeach
     </div>
 </div>
+
+<!-- SortableJS Library -->
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.1/Sortable.min.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const columns = document.querySelectorAll('.task-column');
+    
+    columns.forEach(column => {
+        new Sortable(column, {
+            group: 'tasks',
+            animation: 150,
+            ghostClass: 'opacity-50',
+            dragClass: 'shadow-lg',
+            onEnd: function(evt) {
+                const taskId = evt.item.dataset.taskId;
+                const newStatus = evt.to.dataset.status;
+                const oldStatus = evt.from.dataset.status;
+                
+                // Show loading state
+                evt.item.style.opacity = '0.5';
+                
+                // Update task status via AJAX
+                fetch(`/projects/{{ $project->id }}/tasks/${taskId}/status`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({ status: newStatus })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Remove loading state
+                        evt.item.style.opacity = '1';
+                        
+                        // Update counts
+                        updateStatusCounts(oldStatus, newStatus);
+                        
+                        // Show success toast (optional)
+                        showToast('Task status updated successfully', 'success');
+                    } else {
+                        throw new Error(data.message || 'Failed to update task');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    
+                    // Revert the move
+                    if (evt.from !== evt.to) {
+                        evt.from.insertBefore(evt.item, evt.from.children[evt.oldIndex]);
+                    }
+                    
+                    evt.item.style.opacity = '1';
+                    showToast(error.message || 'Failed to update task status', 'error');
+                });
+            }
+        });
+    });
+    
+    function updateStatusCounts(oldStatus, newStatus) {
+        const oldCount = document.querySelector(`.status-count-${oldStatus}`);
+        const newCount = document.querySelector(`.status-count-${newStatus}`);
+        
+        if (oldCount) {
+            const current = parseInt(oldCount.textContent);
+            oldCount.textContent = Math.max(0, current - 1);
+        }
+        
+        if (newCount) {
+            const current = parseInt(newCount.textContent);
+            newCount.textContent = current + 1;
+        }
+    }
+    
+    function showToast(message, type = 'success') {
+        // Simple toast notification
+        const toast = document.createElement('div');
+        toast.className = `fixed bottom-4 right-4 px-6 py-3 rounded-lg shadow-lg text-white z-50 ${
+            type === 'success' ? 'bg-green-500' : 'bg-red-500'
+        }`;
+        toast.textContent = message;
+        
+        document.body.appendChild(toast);
+        
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            toast.style.transition = 'opacity 0.3s';
+            setTimeout(() => toast.remove(), 300);
+        }, 3000);
+    }
+});
+</script>

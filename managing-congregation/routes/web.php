@@ -84,6 +84,14 @@ Route::middleware('auth')->group(function () {
     Route::get('projects/{project}/tasks/{task}/edit', [\App\Http\Controllers\TaskController::class, 'edit'])->name('projects.tasks.edit');
     Route::put('projects/{project}/tasks/{task}', [\App\Http\Controllers\TaskController::class, 'update'])->name('projects.tasks.update');
     Route::delete('projects/{project}/tasks/{task}', [\App\Http\Controllers\TaskController::class, 'destroy'])->name('projects.tasks.destroy');
+    
+    // Task status update for drag-and-drop
+    Route::patch('projects/{project}/tasks/{task}/status', [\App\Http\Controllers\ProjectController::class, 'updateTaskStatus'])->name('projects.tasks.updateStatus');
+    Route::patch('projects/{project}/tasks/{task}/priority', [\App\Http\Controllers\ProjectController::class, 'updateTaskPriority'])->name('projects.tasks.updatePriority');
+    
+    // Timeline Gantt chart endpoints
+    Route::patch('projects/{project}/tasks/{task}/dates', [\App\Http\Controllers\ProjectController::class, 'updateTaskDates'])->name('projects.tasks.updateDates');
+    Route::post('projects/{project}/tasks/quick-create', [\App\Http\Controllers\ProjectController::class, 'quickCreateTask'])->name('projects.tasks.quickCreate');
 
     // My Tasks
     Route::get('projects/ai/create', [\App\Http\Controllers\AIProjectController::class, 'create'])->name('projects.ai.create');

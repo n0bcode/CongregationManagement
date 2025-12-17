@@ -82,6 +82,91 @@ class ProjectController extends Controller
         return redirect()->route('projects.index')->with('success', 'Project updated successfully.');
     }
 
+    public function updateTaskStatus(Request $request, \App\Models\Project $project, \App\Models\Task $task)
+    {
+        // Validate task belongs to project
+        if ($task->project_id !== $project->id) {
+            return response()->json(['success' => false, 'message' => 'Task not found'], 404);
+        }
+        
+        $validated = $request->validate([
+            'status' => 'required|in:todo,in_progress,review,done'
+        ]);
+        
+        $task->update(['status' => $validated['status']]);
+        
+        return response()->json([
+            'success' => true, 
+            'task' => $task,
+            'message' => 'Task status updated successfully'
+        ]);
+    }
+
+    public function updateTaskDates(Request $request, \App\Models\Project $project, \App\Models\Task $task)
+    {
+        // Validate task belongs to project
+        if ($task->project_id !== $project->id) {
+            return response()->json(['success' => false, 'message' => 'Task not found'], 404);
+        }
+        
+        $validated = $request->validate([
+            'start_date' => 'required|date',
+            'due_date' => 'required|date|after_or_equal:start_date'
+        ]);
+        
+        $task->update($validated);
+        
+        return response()->json([
+            'success' => true,
+            'task' => $task->fresh(),
+            'message' => 'Task dates updated successfully'
+        ]);
+    }
+
+    public function quickCreateTask(Request $request, \App\Models\Project $project)
+    {
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'type' => 'required|in:epic,story,task,bug',
+            'parent_id' => 'nullable|exists:tasks,id',
+            'start_date' => 'required|date',
+            'due_date' => 'required|date|after_or_equal:start_date',
+            'assignee_id' => 'nullable|exists:members,id'
+        ]);
+        
+        $validated['project_id'] = $project->id;
+        $validated['status'] = 'todo';
+        $validated['priority'] = 'medium';
+        
+        $task = \App\Models\Task::create($validated);
+        
+        return response()->json([
+            'success' => true,
+            'task' => $task->load(['assignee', 'parent', 'children']),
+            'message' => 'Task created successfully'
+        ]);
+    }
+    
+    public function updateTaskPriority(Request $request, Project $project, Task $task)
+    {
+        // Verify task belongs to project
+        if ($task->project_id !== $project->id) {
+            return response()->json(['success' => false, 'message' => 'Task not found'], 404);
+        }
+        
+        $validated = $request->validate([
+            'priority' => 'required|in:low,medium,high'
+        ]);
+        
+        $task->update(['priority' => $validated['priority']]);
+        
+        return response()->json([
+            'success' => true,
+            'task' => $task->load(['assignee', 'parent']),
+            'message' => 'Priority updated successfully'
+        ]);
+    }
+    
     public function destroy(\App\Models\Project $project)
     {
         $project->delete();
