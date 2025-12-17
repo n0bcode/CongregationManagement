@@ -26,15 +26,19 @@ class Assignment extends Model
     protected $fillable = [
         'member_id',
         'community_id',
+        'role_id',
         'start_date',
         'end_date',
         'role',
+        'position',
+        'is_current',
         'type',
     ];
 
     protected $casts = [
         'start_date' => 'date',
         'end_date' => 'date',
+        'is_current' => 'boolean',
     ];
 
     public function member(): \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -45,6 +49,11 @@ class Assignment extends Model
     public function community(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Community::class);
+    }
+
+    public function roleModel(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Role::class, 'role_id');
     }
 
     /**

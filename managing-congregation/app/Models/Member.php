@@ -40,10 +40,16 @@ class Member extends Model
         'first_name',
         'last_name',
         'religious_name',
+        'surname',
+        'given_name',
         'email',
+        'phone',
         'dob',
         'entry_date',
-        'entry_date',
+        'first_profession_date',
+        'ordination_date',
+        'date_of_death',
+        'is_deceased',
         'status',
         'profile_photo_path',
         'passport_number',
@@ -59,6 +65,10 @@ class Member extends Model
     protected $casts = [
         'dob' => 'date',
         'entry_date' => 'date',
+        'first_profession_date' => 'date',
+        'ordination_date' => 'date',
+        'date_of_death' => 'date',
+        'is_deceased' => 'boolean',
         'passport_issued_at' => 'date',
         'passport_expired_at' => 'date',
         'status' => \App\Casts\CaseInsensitiveMemberStatus::class,
@@ -114,6 +124,21 @@ class Member extends Model
     public function emergencyContacts(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(EmergencyContact::class);
+    }
+
+    public function periodicEvents(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(PeriodicEvent::class)->orderBy('start_date');
+    }
+
+    public function birthdays(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->periodicEvents()->where('type', 'birthday');
+    }
+
+    public function deathAnniversary(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(PeriodicEvent::class)->where('type', 'death');
     }
 
     public function getProfilePhotoUrlAttribute()

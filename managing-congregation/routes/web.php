@@ -132,6 +132,25 @@ Route::middleware('auth')->group(function () {
     Route::get('/celebrations/birthday/{member}/download', [\App\Http\Controllers\CelebrationController::class, 'downloadBirthday'])->name('celebrations.birthday.download');
     Route::post('/celebrations/birthday/{member}/email', [\App\Http\Controllers\CelebrationController::class, 'emailBirthday'])->name('celebrations.birthday.email');
 
+    // Directory Reports
+    Route::prefix('reports/directory')->name('reports.directory.')->group(function () {
+        Route::get('/communion/{format}', [\App\Http\Controllers\DirectoryReportController::class, 'communion'])
+            ->where('format', 'pdf|docx')
+            ->name('communion');
+        Route::get('/index/{format}', [\App\Http\Controllers\DirectoryReportController::class, 'index'])
+            ->where('format', 'pdf|excel')
+            ->name('index');
+        Route::get('/birthdays/{format}', [\App\Http\Controllers\DirectoryReportController::class, 'birthdays'])
+            ->where('format', 'pdf|excel')
+            ->name('birthdays');
+        Route::get('/deceased/{format}', [\App\Http\Controllers\DirectoryReportController::class, 'deceased'])
+            ->where('format', 'pdf|docx')
+            ->name('deceased');
+        Route::get('/community/{community}/{format}', [\App\Http\Controllers\DirectoryReportController::class, 'community'])
+            ->where('format', 'pdf|docx')
+            ->name('community');
+    });
+
     // UI/UX Optimization Components
     Route::get('/reports/builder', \App\Livewire\Reports\ReportBuilder::class)->name('reports.builder');
     Route::get('/notifications', \App\Livewire\Notifications\NotificationCenter::class)->name('notifications.index');

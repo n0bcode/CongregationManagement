@@ -24,12 +24,17 @@ class Community extends Model
     protected $fillable = [
         'name',
         'location',
+        'code',
+        'postal_code',
+        'country',
         'patron_saint',
         'founded_at',
         'feast_day',
         'email',
         'phone',
+        'activities',
     ];
+
 
     protected $casts = [
         'founded_at' => 'date',
