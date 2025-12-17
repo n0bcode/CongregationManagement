@@ -4,3 +4,4 @@ managing-congregation/.env.super
 managing-congregation/reminders/private_reminder/
 backup_*/*
 backup_*
+*/transfer/*
