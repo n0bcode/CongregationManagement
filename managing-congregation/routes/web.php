@@ -159,6 +159,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/community/{community}/{format}', [\App\Http\Controllers\DirectoryReportController::class, 'community'])
             ->where('format', 'pdf|docx')
             ->name('community');
+        
+        // Complete Directory Export (Single File)
+        Route::get('/complete/pdf', [\App\Http\Controllers\CompleteDirectoryExportController::class, 'exportPdf'])
+            ->name('complete.pdf');
+        Route::get('/complete/docx', [\App\Http\Controllers\CompleteDirectoryExportController::class, 'exportDocx'])
+            ->name('complete.docx');
     });
 
     // UI/UX Optimization Components
