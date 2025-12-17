@@ -105,10 +105,20 @@ Route::middleware('auth')->group(function () {
 
     // Permission Management (Super Admin & General only)
     Route::middleware('can:view-admin')->prefix('admin')->name('admin.')->group(function () {
+        // User Management
+        Route::get('/users', [\App\Http\Controllers\Admin\UserManagementController::class, 'index'])->name('users.index');
+        Route::patch('/users/{user}/role', [\App\Http\Controllers\Admin\UserManagementController::class, 'updateRole'])->name('users.updateRole');
+
+        // Permission Management
         Route::get('/permissions', [\App\Http\Controllers\Admin\PermissionManagementController::class, 'index'])->name('permissions.index');
+        Route::post('/permissions', [\App\Http\Controllers\Admin\PermissionManagementController::class, 'store'])->name('permissions.store');
         Route::post('/permissions/update', [\App\Http\Controllers\Admin\PermissionManagementController::class, 'update'])->name('permissions.update');
         Route::post('/permissions/sync', [\App\Http\Controllers\Admin\PermissionManagementController::class, 'sync'])->name('permissions.sync');
         Route::get('/permissions/audit', [\App\Http\Controllers\Admin\PermissionManagementController::class, 'audit'])->name('permissions.audit');
+
+        // Role Management
+        Route::post('/roles', [\App\Http\Controllers\Admin\RoleManagementController::class, 'store'])->name('roles.store');
+        Route::delete('/roles/{role}', [\App\Http\Controllers\Admin\RoleManagementController::class, 'destroy'])->name('roles.destroy');
 
         // System Settings
         Route::get('/settings', [\App\Http\Controllers\SettingsController::class, 'index'])->name('settings.index');

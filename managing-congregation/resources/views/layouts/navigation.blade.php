@@ -54,12 +54,17 @@
 
                     {{-- System Dropdown (admin only) --}}
                     @can('viewAny', \App\Models\AuditLog::class)
-                        <x-layout.nav-dropdown label="{{ __('System') }}" :active="request()->routeIs('audit-logs.*', 'admin.permissions.*', 'admin.settings.*', 'admin.backups.*')">
+                        <x-layout.nav-dropdown label="{{ __('System') }}" :active="request()->routeIs('audit-logs.*', 'admin.users.*', 'admin.permissions.*', 'admin.settings.*', 'admin.backups.*')">
                             <x-layout.dropdown-link :href="route('audit-logs.index')"
                                 :active="request()->routeIs('audit-logs.*')">
                                 {{ __('Audit Logs') }}
                             </x-layout.dropdown-link>
                             @can('view-admin')
+                                <x-layout.dropdown-link :href="route('admin.users.index')"
+                                    :active="request()->routeIs('admin.users.*')">
+                                    {{ __('Users') }}
+                                </x-layout.dropdown-link>
+
                                 <x-layout.dropdown-link :href="route('admin.permissions.index')"
                                     :active="request()->routeIs('admin.permissions.*')">
                                     {{ __('Permissions') }}
@@ -205,10 +210,10 @@
             {{-- System Section (admin only) --}}
             @can('viewAny', \App\Models\AuditLog::class)
                 <div
-                    x-data="{ expanded: {{ request()->routeIs('audit-logs.*', 'admin.permissions.*', 'admin.settings.*', 'admin.backups.*') ? 'true' : 'false' }} }">
+                    x-data="{ expanded: {{ request()->routeIs('audit-logs.*', 'admin.users.*', 'admin.permissions.*', 'admin.settings.*', 'admin.backups.*') ? 'true' : 'false' }} }">
                     <button @click="expanded = !expanded"
                         class="w-full flex items-center justify-between px-4 py-2 text-base font-medium text-slate-700 hover:bg-stone-100 transition duration-150 ease-in-out"
-                        :class="{'text-amber-600 bg-amber-50': {{ request()->routeIs('audit-logs.*', 'admin.permissions.*', 'admin.settings.*', 'admin.backups.*') ? 'true' : 'false' }} }">
+                        :class="{'text-amber-600 bg-amber-50': {{ request()->routeIs('audit-logs.*', 'admin.users.*', 'admin.permissions.*', 'admin.settings.*', 'admin.backups.*') ? 'true' : 'false' }} }">
                         <span>{{ __('System') }}</span>
                         <svg class="w-5 h-5 transition-transform duration-200" :class="{'rotate-180': expanded}" fill="none"
                             stroke="currentColor" viewBox="0 0 24 24">
@@ -221,6 +226,11 @@
                             {{ __('Audit Logs') }}
                         </x-layout.responsive-nav-link>
                         @can('view-admin')
+                            <x-layout.responsive-nav-link :href="route('admin.users.index')"
+                                :active="request()->routeIs('admin.users.*')" class="pl-8">
+                                {{ __('Users') }}
+                            </x-layout.responsive-nav-link>
+
                             <x-layout.responsive-nav-link :href="route('admin.permissions.index')"
                                 :active="request()->routeIs('admin.permissions.*')" class="pl-8">
                                 {{ __('Permissions') }}

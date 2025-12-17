@@ -30,9 +30,15 @@ A specialized, robust solution for managing religious congregations. This system
     -   **Rich Graphics**: Includes custom confetti effects and vector assets.
 -   **One-Click Actions**: Preview, Download, or Email cards directly from the dashboard.
 
-### Security
+### Security & Administration
 
--   **RBAC**: Granular Role-Based Access Control to ensure sensitive data is only accessible to authorized personnel.
+-   **RBAC (Role-Based Access Control)**: Granular permission system to ensure sensitive data is only accessible to authorized personnel.
+    -   **5 System Roles**: Super Admin, General Secretary, Director, Treasurer, Member
+    -   **Dynamic Role Creation**: Admins can create custom roles with specific permissions
+    -   **User Management**: Change user roles and assign communities
+    -   **Permission Management**: Assign permissions to roles via intuitive UI
+-   **Audit Trail**: Complete logging of all administrative actions
+-   **Secure Authentication**: Laravel Sanctum with password reset functionality
 
 ---
 
@@ -84,6 +90,36 @@ Ensure your server meets the following requirements:
 ---
 
 ## 🚀 Quick Start
+
+### Option 1: Docker Compose (Recommended)
+
+1.  **Clone & Setup**
+
+    ```bash
+    git clone https://github.com/your-org/managing-congregation.git
+    cd managing-congregation
+    cp .env.example .env
+    ```
+
+2.  **Start Services**
+
+    ```bash
+    docker compose up -d
+    ```
+
+3.  **Initialize Database**
+
+    ```bash
+    docker compose exec app php artisan key:generate
+    docker compose exec app php artisan migrate --seed
+    ```
+
+4.  **Access Application**
+    ```
+    http://localhost:8000
+    ```
+
+### Option 2: Local Development
 
 1.  **Clone & Install**
 

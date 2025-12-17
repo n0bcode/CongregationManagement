@@ -2,6 +2,14 @@
     <x-slot name="header">
         <x-ui.page-header title="{{ __('Permission Management') }}">
             <x-slot:actions>
+                <button type="button" 
+                        onclick="openCreateRoleModal()"
+                        class="inline-flex items-center px-4 py-2 bg-amber-600 text-white rounded-lg hover:bg-amber-700 transition-colors mr-2">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                    </svg>
+                    {{ __('Create Role') }}
+                </button>
                 <a href="{{ route('admin.permissions.audit') }}" 
                    class="inline-flex items-center px-4 py-2 bg-white border border-stone-300 rounded-lg text-slate-700 hover:bg-stone-50 transition-colors">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -41,8 +49,13 @@
                     class="w-full min-h-[48px] px-4 py-3 text-base text-slate-800 bg-white border border-stone-300 rounded-lg focus:border-amber-600 focus:ring-4 focus:ring-amber-500 focus:outline-none">
                 <option value="">{{ __('-- Select a Role --') }}</option>
                 @foreach ($roles as $role)
-                    @if ($role !== App\Enums\UserRole::SUPER_ADMIN)
-                        <option value="{{ $role->value }}">{{ $role->name }}</option>
+                    @if ($role->code !== 'super_admin')
+                        <option value="{{ $role->code }}">
+                            {{ $role->title }}
+                            @if (!$role->is_system)
+                                <span class="text-slate-500">(Custom)</span>
+                            @endif
+                        </option>
                     @endif
                 @endforeach
             </select>
@@ -111,6 +124,8 @@
     @push('scripts')
     <script>
         const rolePermissions = @json($rolePermissions);
+        console.log('Role Permissions Data:', rolePermissions);
+        
         const roleSelector = document.getElementById('role-selector');
         const permissionMatrix = document.getElementById('permission-matrix');
         const loadingState = document.getElementById('loading-state');
@@ -120,6 +135,8 @@
 
         roleSelector.addEventListener('change', function() {
             const selectedRole = this.value;
+            console.log('Selected role:', selectedRole);
+            console.log('Permissions for this role:', rolePermissions[selectedRole]);
             
             if (!selectedRole) {
                 permissionMatrix.classList.add('hidden');
@@ -160,6 +177,99 @@
             roleSelector.value = '';
             permissionMatrix.classList.add('hidden');
         });
+
+        // Role Creation Modal Functions
+        function openCreateRoleModal() {
+            document.getElementById('create-permission-modal').classList.remove('hidden');
+        }
+
+        function closeCreateRoleModal() {
+            document.getElementById('create-permission-modal').classList.add('hidden');
+            document.getElementById('create-permission-form').reset();
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('create-permission-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeCreateRoleModal();
+            }
+        });
+
+        // Auto-fill module from key
+        document.getElementById('permission-key').addEventListener('input', function(e) {
+            const key = e.target.value;
+            const parts = key.split('.');
+            if (parts.length > 0) {
+                document.getElementById('permission-module').value = parts[0];
+            }
+        });
     </script>
     @endpush
+
+    {{-- Create Role Modal --}}
+    <div id="create-permission-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+        <div class="bg-white rounded-lg p-8 max-w-md w-full mx-4">
+            <h3 class="text-xl font-semibold text-slate-800 mb-4">
+                {{ __('Create New Role') }}
+            </h3>
+
+            <form id="create-permission-form" method="POST" action="{{ route('admin.roles.store') }}">
+                @csrf
+
+                <div class="mb-4">
+                    <label for="permission-key" class="block text-sm font-medium text-slate-700 mb-2">
+                        {{ __('Role Code') }} <span class="text-rose-600">*</span>
+                    </label>
+                    <input type="text" 
+                           name="code" 
+                           id="permission-key"
+                           required
+                           pattern="[a-z_]+"
+                           placeholder="e.g., content_manager"
+                           class="w-full px-4 py-2 border border-stone-300 rounded-lg focus:border-amber-600 focus:ring-2 focus:ring-amber-500 focus:outline-none">
+                    <p class="mt-1 text-xs text-slate-500">
+                        {{ __('Format: lowercase with underscores (e.g., content_manager)') }}
+                    </p>
+                </div>
+
+                <div class="mb-4">
+                    <label for="permission-name" class="block text-sm font-medium text-slate-700 mb-2">
+                        {{ __('Role Title') }} <span class="text-rose-600">*</span>
+                    </label>
+                    <input type="text" 
+                           name="title" 
+                           id="permission-name"
+                           required
+                           maxlength="255"
+                           placeholder="e.g., Content Manager"
+                           class="w-full px-4 py-2 border border-stone-300 rounded-lg focus:border-amber-600 focus:ring-2 focus:ring-amber-500 focus:outline-none">
+                </div>
+
+                <div class="mb-4">
+                    <label for="permission-module" class="block text-sm font-medium text-slate-700 mb-2">
+                        {{ __('Description') }}
+                    </label>
+                    <textarea 
+                           name="description" 
+                           id="permission-module"
+                           rows="3"
+                           maxlength="500"
+                           placeholder="e.g., Manages content and documents"
+                           class="w-full px-4 py-2 border border-stone-300 rounded-lg focus:border-amber-600 focus:ring-2 focus:ring-amber-500 focus:outline-none"></textarea>
+                </div>
+
+                <div class="flex gap-4 mt-6">
+                    <button type="submit" 
+                            class="flex-1 px-6 py-2 bg-amber-600 text-white font-medium rounded-lg hover:bg-amber-700 focus:outline-none focus:ring-4 focus:ring-amber-500 transition-colors">
+                        {{ __('Create Role') }}
+                    </button>
+                    <button type="button" 
+                            onclick="closeCreateRoleModal()"
+                            class="flex-1 px-6 py-2 bg-white border border-stone-300 text-slate-700 font-medium rounded-lg hover:bg-stone-50 focus:outline-none focus:ring-4 focus:ring-stone-300 transition-colors">
+                        {{ __('Cancel') }}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 </x-app-layout>

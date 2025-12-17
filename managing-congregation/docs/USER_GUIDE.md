@@ -444,7 +444,83 @@ In project detail page:
 
 ### 3.7. System Administration
 
-#### 1. Audit Logs
+#### 1. User Role Management
+
+**Purpose**: Manage user accounts and assign appropriate roles.
+
+**Access Rights**: Super Admin and General Secretary only.
+
+**Instructions**:
+
+**A. Viewing Users**
+
+1. Navigate to **System > Users** from the main menu.
+2. View list of all users with their current roles and communities.
+3. Use search to find specific users by name or email.
+4. Filter by role to see all users with a specific role.
+
+**B. Changing User Roles**
+
+1. Click **Change Role** button next to the user.
+2. Select new role from dropdown:
+    - **Super Admin**: Full system access
+    - **General**: Administrative access
+    - **Director**: Community-scoped access (requires community assignment)
+    - **Treasurer**: Financial management
+    - **Member**: Basic access
+3. If selecting Director, choose the community to assign.
+4. Click **Update Role** to save.
+
+_⚠️ Note: You cannot change your own role. All role changes are logged in audit trail._
+
+---
+
+#### 2. Role & Permission Management
+
+**Purpose**: Create custom roles and manage permissions for each role.
+
+**Access Rights**: Super Admin and General Secretary only.
+
+**Instructions**:
+
+**A. Viewing Permissions**
+
+1. Navigate to **System > Permissions**.
+2. Select a role from the dropdown to view its permissions.
+3. Permissions are grouped by module (Members, Documents, Financials, etc.).
+
+**B. Creating Custom Roles**
+
+1. Click **Create Role** button.
+2. Fill in the form:
+    - **Role Code** `*`: Unique identifier (e.g., `content_manager`)
+    - **Role Title** `*`: Display name (e.g., `Content Manager`)
+    - **Description**: Purpose of this role
+3. Click **Create Role**.
+4. After creation, assign permissions to the new role.
+
+_💡 Tip: Create custom roles for specific responsibilities like "Document Manager" or "Reporter"._
+
+**C. Assigning Permissions to Roles**
+
+1. Select the role from dropdown.
+2. Check/uncheck permissions as needed.
+3. Click **Save Permissions** to apply changes.
+
+_⚠️ Note: System roles (Super Admin, General, Director, Treasurer, Member) cannot be deleted. Only custom roles can be removed._
+
+**D. Permission Categories**
+
+-   **Members**: View, create, update, delete member records
+-   **Documents**: Manage congregation documents
+-   **Financials**: Record and view expenses
+-   **Communities**: Manage communities and assignments
+-   **Reports**: Generate and view reports
+-   **Admin**: Access admin features
+
+---
+
+#### 3. Audit Logs
 
 System records all critical actions for transparency and data safety.
 

@@ -8,10 +8,13 @@ use App\Enums\UserRole;
 use App\Http\Controllers\Controller;
 use App\Models\AuditLog;
 use App\Models\Permission;
+use App\Models\Role;
 use App\Services\PermissionService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 
 class PermissionManagementController extends Controller
@@ -28,7 +31,10 @@ class PermissionManagementController extends Controller
      */
     public function index(): View
     {
-        $roles = UserRole::cases();
+        // Load roles from database (system + custom roles)
+        $roles = Role::orderBy('is_system', 'desc')
+            ->orderBy('title')
+            ->get();
 
         // Get all permissions grouped by module
         $permissions = Permission::orderBy('module')
@@ -72,6 +78,55 @@ class PermissionManagementController extends Controller
             return back()->withErrors(['role' => __('Invalid role specified.')]);
         } catch (\Throwable $e) {
             return back()->withErrors(['error' => __('Failed to update permissions. Please try again.')]);
+        }
+    }
+
+    /**
+     * Store a newly created permission.
+     */
+    public function store(Request $request): RedirectResponse
+    {
+        $validated = $request->validate([
+            'key' => ['required', 'string', 'unique:permissions,key', 'regex:/^[a-z_]+\.[a-z_]+$/'],
+            'name' => ['required', 'string', 'max:255'],
+            'module' => ['required', 'string', 'max:255'],
+        ]);
+
+        try {
+            $permission = Permission::create([
+                'key' => $validated['key'],
+                'name' => $validated['name'],
+                'module' => $validated['module'],
+                'is_active' => true,
+            ]);
+
+            // Log audit trail
+            AuditLog::create([
+                'user_id' => Auth::id(),
+                'action' => 'permission_created',
+                'model_type' => Permission::class,
+                'model_id' => $permission->id,
+                'description' => sprintf(
+                    'Created permission: %s (%s)',
+                    $validated['key'],
+                    $validated['name']
+                ),
+                'ip_address' => $request->ip(),
+            ]);
+
+            Log::info('Permission created', [
+                'permission_key' => $validated['key'],
+                'admin_user_id' => Auth::id(),
+            ]);
+
+            return back()->with('success', __('Permission created successfully.'));
+        } catch (\Throwable $e) {
+            Log::error('Failed to create permission', [
+                'permission_key' => $validated['key'],
+                'error' => $e->getMessage(),
+            ]);
+
+            return back()->withErrors(['error' => __('Failed to create permission. Please try again.')]);
         }
     }
 
@@ -127,14 +182,22 @@ class PermissionManagementController extends Controller
     {
         $matrix = [];
 
-        foreach (UserRole::cases() as $role) {
+        // Get all roles from database
+        $roles = Role::all();
+
+        foreach ($roles as $role) {
+            // Get permissions for this role from role_permissions table
             $permissions = DB::table('role_permissions')
-                ->join('permissions', 'permissions.id', '=', 'role_permissions.permission_id')
-                ->where('role_permissions.role', $role->value)
-                ->pluck('permissions.key')
+                ->where('role', $role->code)
+                ->pluck('permission_id')
                 ->toArray();
 
-            $matrix[$role->value] = $permissions;
+            // Get permission keys
+            $permissionKeys = Permission::whereIn('id', $permissions)
+                ->pluck('key')
+                ->toArray();
+
+            $matrix[$role->code] = $permissionKeys;
         }
 
         return $matrix;
