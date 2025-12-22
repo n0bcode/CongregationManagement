@@ -1,6 +1,6 @@
 @props(['events', 'projectedEvents' => []])
 
-<div class="flow-root">
+<div class="flow-root p-6">
     <ul role="list">
         @foreach($events as $event)
             <li>

@@ -1,6 +1,6 @@
 @props(['assignments'])
 
-<div class="flow-root">
+<div class="flow-root p-6">
     @if($assignments->count() > 0)
         <ul role="list">
             @foreach($assignments as $assignment)

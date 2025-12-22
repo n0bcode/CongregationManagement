@@ -1,6 +1,6 @@
 @props(['audits'])
 
-<div class="flow-root">
+<div class="flow-root p-6">
     <ul role="list">
         @forelse($audits as $audit)
             <li>
