@@ -83,6 +83,22 @@ class MembersTable extends Component
         $this->resetPage();
     }
 
+    public function updatedCommunityId()
+    {
+        $this->resetPage();
+    }
+
+    public function updatedStatus()
+    {
+        $this->resetPage();
+    }
+
+    public function resetFilters() 
+    {
+        $this->reset(['search', 'communityId', 'status']);
+        $this->resetPage();
+    }
+
     public function updatedSelectAll($value)
     {
         if ($value) {

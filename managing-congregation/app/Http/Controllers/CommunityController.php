@@ -27,7 +27,7 @@ class CommunityController extends Controller
             $query->where('name', 'like', "%{$search}%");
         }
 
-        $perPage = $request->input('perPage', 20);
+        $perPage = (int) $request->input('perPage', 20);
         if (!in_array($perPage, [10, 25, 50, 100])) {
             $perPage = 20;
         }
@@ -99,12 +99,14 @@ class CommunityController extends Controller
         $community->loadCount('members');
 
         // Load members with named paginator for "Members" tab
-        $perPage = request()->input('perPage', 10);
-        if (!in_array($perPage, [10, 25, 50, 100])) {
-            $perPage = 10;
+        // Show at least 5 recent members by default, sorted by join date
+        $perPage = request()->input('perPage', 5);
+        if (!in_array($perPage, [5, 10, 25, 50, 100])) {
+            $perPage = 5;
         }
 
         $members = $community->members()
+            ->latest('created_at')  // Sort by join date (newest first)
             ->paginate($perPage, ['*'], 'members_page')
             ->withQueryString();
 
@@ -175,7 +177,7 @@ class CommunityController extends Controller
 
         // Check if community has members
         $memberCount = $community->members()->count();
-        
+
         if ($memberCount > 0) {
             return back()->with('error', "Không thể xóa cộng đồng này vì còn {$memberCount} thành viên. Vui lòng chuyển hoặc xóa các thành viên trước.");
         }

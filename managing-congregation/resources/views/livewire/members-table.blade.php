@@ -10,39 +10,47 @@
             <!-- Toolbar -->
             <div class="flex flex-col md:flex-row justify-between gap-4 mb-6">
                 <!-- Search & Filters -->
-                <div class="flex flex-col md:flex-row gap-4 flex-grow">
-                    <x-tables.enhanced-search
-                        model="search"
-                        placeholder="Search members by name, status, community..."
-                        :suggestions="[
-                            'Active members',
-                            'In Formation',
-                            'Novitiate',
-                            'Professed',
-                            'Teaching',
-                            'Healthcare'
-                        ]"
-                        class="flex-grow max-w-md"
-                    />
+                <!-- Search & Filters -->
+                <div class="flex flex-col lg:flex-row gap-4 flex-grow mb-6 lg:mb-0">
+                    <!-- Search Input -->
+                    <div class="relative flex-grow max-w-md">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                            </svg>
+                        </div>
+                        <input 
+                            wire:model.live.debounce.300ms="search" 
+                            type="text" 
+                            placeholder="Search members by name, status, community..." 
+                            class="pl-10 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        >
+                    </div>
 
-                    <select wire:model.live="communityId" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5">
+                    <!-- Community Dropdown -->
+                    <select wire:model.live="communityId" class="block w-full lg:w-48 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-gray-700">
                         <option value="">All Communities</option>
                         @foreach($communities as $community)
                             <option value="{{ $community->id }}">{{ $community->name }}</option>
                         @endforeach
                     </select>
 
-                    <select wire:model.live="status" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5">
+                    <!-- Status Dropdown -->
+                    <select wire:model.live="status" class="block w-full lg:w-40 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-gray-700">
                         <option value="">All Statuses</option>
                         @foreach($statuses as $status)
                             <option value="{{ $status->value }}">{{ $status->name }}</option>
                         @endforeach
                     </select>
 
-                    <!-- Presets -->
-                    <div class="flex items-center gap-2">
-                        <button wire:click="applyPreset('active')" class="text-xs bg-gray-200 hover:bg-gray-300 px-2 py-1 rounded">Active Only</button>
-                        <button wire:click="$set('status', null)" class="text-xs text-gray-500 hover:text-gray-700 underline">Clear</button>
+                    <!-- Filters Actions -->
+                    <div class="flex items-center gap-3">
+                        <button 
+                            wire:click="resetFilters" 
+                            class="text-sm text-gray-500 hover:text-gray-900 underline whitespace-nowrap"
+                        >
+                            {{ __('Clear Filters') }}
+                        </button>
                     </div>
                 </div>
 
