@@ -88,6 +88,8 @@ Open your web browser and enter the URL provided by the Administrator:
 
 ### 2.2. Login / Logout
 
+![Login Interface](./images/admin/login-interface.png)
+
 #### Login
 
 1.  On the login screen, enter your provided **Email**.
@@ -112,7 +114,7 @@ To ensure data security, please log out when not in use:
 After successfully logging in, you will see the **Dashboard**. This is the main control center.
 
 _*(Insert Dashboard Screenshot Here)*
-![Main Dashboard Interface](link-to-image-dashboard.png)_
+![Main Dashboard Interface](./images/admin/dashboard-main-interface.png)_
 
 -   **1. Sidebar Menu**: Contains links to all main functions (Members, Communities, Reports...).
 -   **2. Top Bar**: Contains Quick Search, Notifications, and Account Information.
@@ -142,7 +144,7 @@ This function allows managing the entire lifecycle of a member in the Congregati
 1.  From the left navigation menu, select **Members**.
 2.  The list screen will display columns: Name, Religious Name, Status, and Current Community.
 
-![Member List](link-to-image-member-list.png)
+![Member List](./images/members/member-list-interface.png)
 
 -   **Search**: Enter name (Civil or Religious) in the search box at the top.
 -   **Filter**:
@@ -158,7 +160,7 @@ The creation process is designed as a **3-Step Wizard** to ensure complete infor
 
 1.  On the list screen, click **+ Create New**.
 
-![New Member Form](link-to-image-create-member.png)
+![New Member Form - Step 1](./images/members/create-member-step1.png)
 
 2.  **Step 1: Personal Information**
     -   **First Name (Civil)** `*`: Birth name.
@@ -194,6 +196,8 @@ The creation process is designed as a **3-Step Wizard** to ensure complete infor
 3.  To edit, click the **Edit** button (pencil icon) on the top right or on specific info cards.
 4.  Update information and click **Save**.
 
+![Member Profile Overview](./images/members/member-profile-overview.png)
+
 **D. Deleting a Member**
 
 1.  In the list, check the box next to the member(s) to delete.
@@ -224,10 +228,12 @@ This module is used to manage the list of Houses, Branches, or Communities belon
     -   **Members**: Number of current members in that community.
     -   **Created Date**.
 
-![Community List](link-to-image-community-list.png)
+![Community List](./images/communities/community-list-interface.png)
 
 -   **Search**: Enter community name in search box and click **Search**.
 -   **View Details**: Click Community Name to enter the details page, where you can see the specific list of members belonging to that community.
+
+![Community Details Page](./images/communities/community-details-page.png)
 
 **B. Creating a New Community**
 
@@ -240,6 +246,8 @@ This module is used to manage the list of Houses, Branches, or Communities belon
     -   **Feast Day**: Patronal Feast Day (used for event reminders).
     -   **Contact Info**: Email and Phone number of the community.
 3.  Click **Create Community** to save.
+
+![Create Community Form](./images/communities/create-community-form.png)
 
 **C. Editing**
 
@@ -280,7 +288,7 @@ This module is used to track the formation journey of members, from initial stag
 -   Each Milestone includes: Stage name, Start Date, and Notes.
 -   Future events (Planned) will be shown dimmer or marked distinctly.
 
-![Formation Timeline](link-to-image-formation-timeline.png)
+![Formation Timeline](./images/formation/formation-timeline-interface.png)
 
 **B. Adding a New Milestone**
 
@@ -292,12 +300,16 @@ This module is used to track the formation journey of members, from initial stag
 3.  Click **Save Milestone** to save.
     -   _💡 Tip: If recording an Ordination, create a milestone event and specify the place of ordination and Bishop's name in the Notes._
 
+![Add Milestone Dialog](./images/formation/add-milestone-dialog.png)
+
 **C. Formation Documents Management**
 
 Each formation stage allows attaching documents (e.g., Certificates, Vow Papers, Mission Letters...).
 
 -   **Upload**: Click upload button at the corresponding milestone, select file (PDF, JPG, PNG - Max 5MB) and name the document type.
 -   **View/Download**: Click View button to see the list and download.
+
+![Formation Documents Upload](./images/formation/formation-documents-upload.png)
 
 **D. Other Related Records**
 
@@ -339,7 +351,7 @@ This module helps transparently manage expenses for each community and the whole
     -   **Filters**: Filter by **Category** (Utilities, Food, Medical...), **Date Range**, or view by **Specific Month**.
     -   **Quick Stats**: System displays Total Amount corresponding to selected filters.
 
-![Expenses List](link-to-image-expenses.png)
+![Expenses List](./images/financial/expenses-list-interface.png)
 
 **B. Recording New Expense**
 
@@ -398,6 +410,8 @@ This module helps track and remind of recurring events (annual/monthly), e.g., C
     -   **Community**: Applicable community (or leave blank for Congregation-wide).
 4.  Click **Create Event**.
 
+![Create Periodic Event Form](./images/events/create-periodic-event-form.png)
+
 **B. Tracking Events**
 
 -   System displays upcoming events on main Dashboard or Events module.
@@ -418,6 +432,8 @@ Manage large tasks with specific deadlines and budgets (e.g., Building new house
 
 #### 3. Main Functions
 
+![Project List Interface](./images/projects/projects-list-interface.png)
+
 **A. Initiating Project**
 
 1.  Go to **Projects** menu.
@@ -436,6 +452,8 @@ In project detail page:
 
 -   **Add Members**: Assign other religious to the team.
 -   **Create Tasks**: Divide work, assign deadlines and assignees. View progress as list or Timeline.
+
+![Task Management Interface](./images/projects/task-management-interface.png)
 
 -   When recording an **Expense** in Financial module, you can tag it to a specific **Project**.
 -   System automatically aggregates and compares **Actual Cost** vs **Budget** to alert overspending.
@@ -458,6 +476,8 @@ In project detail page:
 2. View list of all users with their current roles and communities.
 3. Use search to find specific users by name or email.
 4. Filter by role to see all users with a specific role.
+
+![User Management Interface](./images/admin/user-management-interface.png)
 
 **B. Changing User Roles**
 
@@ -488,6 +508,8 @@ _⚠️ Note: You cannot change your own role. All role changes are logged in au
 1. Navigate to **System > Permissions**.
 2. Select a role from the dropdown to view its permissions.
 3. Permissions are grouped by module (Members, Documents, Financials, etc.).
+
+![Role Management Interface](./images/admin/role-management-interface.png)
 
 **B. Creating Custom Roles**
 
@@ -530,12 +552,16 @@ System records all critical actions for transparency and data safety.
     -   Filter by User, Action Type (Create, Update, Delete) or Date.
     -   **Export Report**: Download "Tamper-Evident Report" PDF for evidence storage.
 
+![Audit Logs Interface](./images/admin/audit-logs-interface.png)
+
 #### 2. Data Backups
 
 -   **Access**: Menu **Settings > Backups**.
 -   **Create Backup**: Click **Create Backup**. System packages all current data into `.sql` file.
 -   **Download**: Click filename to download to PC.
 -   _Note_: Restore must be done by technician via CLI for safety.
+
+![Backup Interface](./images/admin/backup-interface.png)
 
 #### 3. System Settings
 
