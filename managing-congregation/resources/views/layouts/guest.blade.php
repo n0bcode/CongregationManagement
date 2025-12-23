@@ -38,11 +38,11 @@
                         @if($guestLogoPath && file_exists(storage_path('app/public/' . $guestLogoPath)))
                             <img src="{{ asset('storage/' . $guestLogoPath) }}" 
                                  alt="Logo" 
-                                 class="w-16 h-16 rounded-full object-cover">
+                                 class="w-16 h-16 rounded-full object-cover ring-1 ring-stone-200/50">
                         @else
                             <img src="{{ asset('images/logo.webp') }}" 
                                  alt="Logo" 
-                                 class="w-16 h-16 rounded-full object-cover">
+                                 class="w-16 h-16 rounded-full object-cover ring-1 ring-stone-200/50">
                         @endif
                         
                         <span class="text-2xl font-heading font-bold text-slate-800">

@@ -12,10 +12,10 @@
                         
                         @if($headerLogoPath && file_exists(storage_path('app/public/' . $headerLogoPath)))
                             <img src="{{ asset('storage/' . $headerLogoPath) }}" alt="{{ config('app.name', 'Logo') }}"
-                                class="w-10 h-10 rounded-full object-cover" />
+                                class="w-10 h-10 rounded-full object-cover ring-1 ring-stone-200/50" />
                         @else
                             <img src="{{ asset('images/logo.webp') }}" alt="{{ config('app.name', 'Logo') }}"
-                                class="w-10 h-10 rounded-full object-cover" />
+                                class="w-10 h-10 rounded-full object-cover ring-1 ring-stone-200/50" />
                         @endif
                         
                         <span class="font-serif text-xl text-slate-800 hidden sm:block">Congregation</span>

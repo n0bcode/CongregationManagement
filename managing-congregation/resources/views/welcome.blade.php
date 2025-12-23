@@ -37,14 +37,13 @@
                             @if($welcomeLogoPath && file_exists(storage_path('app/public/' . $welcomeLogoPath)))
                                 <img src="{{ asset('storage/' . $welcomeLogoPath) }}" 
                                      alt="Logo" 
-                                     class="w-24 h-24 rounded-full object-cover border-4 border-white shadow-xl">
+                                     class="w-12 h-12 rounded-full object-cover ring-1 ring-stone-200/50">
                             @else
                                 <img src="{{ asset('images/logo.webp') }}" 
                                      alt="Logo" 
-                                     class="w-24 h-24 rounded-full object-cover border-4 border-white shadow-xl">
+                                     class="w-12 h-12 rounded-full object-cover ring-1 ring-stone-200/50">
                             @endif
                         </div>
-                        <h1 class="text-xl font-heading font-bold text-slate-800 hidden sm:block">{{ config('app.name') }}</h1>
                     </div>
                     
                     @if (Route::has('login'))
@@ -300,11 +299,11 @@
                         @endphp
                         
                         @if($footerLogoPath && file_exists(storage_path('app/public/' . $footerLogoPath)))
-                            <img src="{{ asset('storage/' . $footerLogoPath) }}" alt="{{ config('app.name') }}" class="w-8 h-8 object-contain">
+                            <img src="{{ asset('storage/' . $footerLogoPath) }}" alt="{{ config('app.name') }}" class="w-8 h-8 object-contain rounded-lg ring-1 ring-stone-200/50">
                         @else
                             <img src="{{ asset('images/logo.webp') }}" 
                                  alt="Logo" 
-                                 class="w-8 h-8 object-contain">
+                                 class="w-8 h-8 object-contain rounded-lg ring-1 ring-stone-200/50">
                         @endif
                         
                         <span class="text-lg font-heading font-bold text-slate-800">{{ config('app.name') }}</span>

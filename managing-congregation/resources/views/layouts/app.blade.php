@@ -67,7 +67,7 @@
                                 @endphp
                                 
                                 @if($footerLogoPath && file_exists(storage_path('app/public/' . $footerLogoPath)))
-                                    <img src="{{ asset('storage/' . $footerLogoPath) }}" alt="{{ config('app.name') }}" class="block h-7 w-auto object-contain">
+                                    <img src="{{ asset('storage/' . $footerLogoPath) }}" alt="{{ config('app.name') }}" class="block h-7 w-auto object-contain rounded-lg ring-1 ring-stone-200/50">
                                 @else
                                     <x-application-logo class="block h-7 w-auto fill-current text-amber-600" />
                                 @endif
