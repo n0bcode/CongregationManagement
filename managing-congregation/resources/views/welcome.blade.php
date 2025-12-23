@@ -95,7 +95,7 @@
                     
                     @guest
                         <div class="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-up animation-delay-400">
-                            <a href="{{ route('register') }}" class="btn btn-primary text-lg px-8 py-4 h-auto shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
+                            <a href="{{ route('register') }}" class="inline-flex items-center btn btn-primary text-lg px-8 py-4 h-auto shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
                                 Get Started
                                 <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>

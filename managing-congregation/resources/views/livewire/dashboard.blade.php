@@ -26,21 +26,20 @@
                         <h2 class="text-lg font-semibold text-gray-900">Directory Reports</h2>
                     </div>
                     <div class="flex items-center gap-4">
-                        <span class="text-sm text-gray-500 hidden lg:block">Export complete directory</span>
                         <div class="flex gap-2">
                             <a href="{{ route('reports.directory.complete.pdf') }}" 
-                               class="inline-flex items-center px-3 py-2 bg-gradient-to-r from-red-600 to-red-700 text-white text-sm font-semibold rounded-lg hover:from-red-700 hover:to-red-800 shadow-md hover:shadow-lg transition-all duration-200">
+                               class="inline-flex items-center px-3 py-1.5 bg-red-50 text-red-700 text-xs font-medium rounded hover:bg-red-100 transition-colors shadow-lg hover:shadow-xl">
                                 <svg class="w-4 h-4 mr-1.5" fill="currentColor" viewBox="0 0 20 20">
                                     <path d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"></path>
                                 </svg>
-                                <span class="hidden sm:inline">Complete</span> PDF
+                                Complete PDF
                             </a>
                             <a href="{{ route('reports.directory.complete.docx') }}" 
-                               class="inline-flex items-center px-3 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-sm font-semibold rounded-lg hover:from-blue-700 hover:to-indigo-700 shadow-md hover:shadow-lg transition-all duration-200">
+                               class="inline-flex items-center px-3 py-1.5 bg-green-50 text-green-700 text-xs font-medium rounded hover:bg-green-100 transition-colors shadow-lg hover:shadow-xl">
                                 <svg class="w-4 h-4 mr-1.5" fill="currentColor" viewBox="0 0 20 20">
                                     <path d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"></path>
                                 </svg>
-                                <span class="hidden sm:inline">Complete</span> DOCX
+                                Complete DOCX
                             </a>
                         </div>
                     </div>

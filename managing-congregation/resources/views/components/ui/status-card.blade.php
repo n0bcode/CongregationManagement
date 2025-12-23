@@ -34,7 +34,7 @@ $iconColor = $iconColors[$variant] ?? $iconColors['peace'];
         @endif
         <div class="flex-grow">
             <h3 class="text-lg font-heading font-semibold mb-2">{{ $title }}</h3>
-            <p class="text-4xl font-bold mb-1">{{ $value }}</p>
+            <p class="text-2xl sm:text-3xl lg:text-4xl font-bold mb-1 break-all">{{ $value }}</p>
             @if($description)
                 <p class="text-sm opacity-75 mt-2">{{ $description }}</p>
             @endif
