@@ -1,7 +1,7 @@
 # User Guide for Congregation Management System
 
 **Version:** 1.0
-**Last Updated:** 16/12/2025
+**Last Updated:** 23/12/2025
 
 ---
 
@@ -13,6 +13,7 @@
 1.3. How to Use This Guide
 1.4. Terms and Definitions
 1.5. System Requirements
+1.6. Video Tutorial: Creating Projects with AI ⭐ NEW
 
 > **📘 For Developers**: If you are a developer looking for technical documentation, architecture details, or setup instructions, please refer to the [Developer Guide](./DEVELOPER_GUIDE.md).
 
@@ -28,7 +29,7 @@
 3.4. Financial Management
 3.5. Periodic Events
 3.6. Project Management
-3.7. System Administration
+3.7. System Administration - 3.7.1. User Role Management - 3.7.2. Role & Permission Management - 3.7.3. Audit Logs - 3.7.4. Data Backups - 3.7.5. System Settings - 3.7.6. **Footer Customization** ⭐ NEW
 
 **Part 4: Frequently Asked Questions (FAQ)**
 
@@ -76,6 +77,20 @@ This document is intended for:
 -   **Device**: Desktop PC, Laptop, or Tablet.
 -   **Browser**: Recommended to use the latest version of **Google Chrome**, **Firefox**, or **Microsoft Edge**.
 -   **Network**: Stable Internet or Intranet connection required.
+
+### 1.6. Video Tutorial: Creating Projects with AI
+
+> **🎥 Watch & Learn**: See how to create and plan projects using the AI-powered project planning feature.
+
+<video width="320" height="240" controls>
+  <source src="./videos/AI_to_create_projects.mp4" type="video/mp4">
+</video>
+
+**[VIDEO: AI-Powered Project Creation Tutorial]**
+
+_This video demonstrates the complete workflow of creating a project using the Gemini AI integration, from initial description to fully structured tasks and milestones._
+
+_💡 Tip: Watch this tutorial to learn how AI can help you plan complex projects automatically!_
 
 ---
 
@@ -569,6 +584,111 @@ Allows Admin to change operational parameters:
 
 -   Email (SMTP) info.
 -   Default display configurations.
+-   **Footer customization** (logo, contact info, copyright).
+
+---
+
+#### 4. Footer Customization
+
+> **📘 New Feature**: Customize the footer that appears across all pages of the system, including logo, contact information, and copyright notice.
+
+**Purpose**: Personalize the application's footer with your congregation's branding and contact information.
+
+**Access Rights**: Super Admin and General Secretary only (requires `SETTINGS_MANAGE` permission).
+
+**Instructions**:
+
+**A. Accessing Footer Settings**
+
+1. Navigate to **Settings > Footer** from the main menu.
+2. The screen displays the current footer configuration and edit form.
+
+![Footer Settings Interface](./images/admin/system-settings-interface.png)
+
+**B. Customizing Footer Content**
+
+The form allows you to customize four main elements:
+
+1. **Footer Description** `*`
+
+    - Brief description of your organization (max 500 characters)
+    - This text appears in the first column of the footer
+    - _Current value shown below input field for reference_
+
+2. **Contact Address** `*`
+
+    - Physical address of your congregation/organization
+    - Displayed with a location icon in the footer
+    - _Current value shown below input field for reference_
+
+3. **Contact Email** `*`
+
+    - Public email address for inquiries
+    - Must be a valid email format
+    - Displayed with an envelope icon
+    - _Current value shown below input field for reference_
+
+4. **Copyright Text** `*`
+
+    - Copyright notice (can use HTML entities like `&copy;`)
+    - Example: `&copy; 2025 Your Congregation. All rights reserved.`
+    - _Current value shown below input field for reference_
+
+5. **Footer Logo** (Optional)
+    - Upload a custom logo to replace the default application logo
+    - **Supported Formats**: PNG, JPG, JPEG, WebP, SVG, ICO
+    - **File Size**: Maximum 2MB
+    - **Automatic Optimization**: PNG/JPG images will be:
+        - Resized to 512px (maintaining aspect ratio)
+        - Converted to WebP format for faster loading
+        - Compressed at 90% quality
+    - **Preview**: Live preview shown before saving
+    - **Remove**: Click "Remove Logo" to delete and revert to default
+
+_💡 Tip: Use a transparent PNG or SVG logo for best results. The system will automatically optimize it for web performance._
+
+**C. Logo Display Locations**
+
+Once uploaded, your custom logo will appear in:
+
+-   **Header** (Navigation bar when logged in)
+-   **Welcome Page** (Homepage header and footer)
+-   **Login/Register Pages** (Guest layout)
+-   **Footer** (All authenticated pages)
+-   **Browser Tab** (Favicon - appears in browser tabs)
+
+**D. Saving Changes**
+
+1. After filling in all required fields, click **Save Footer Settings**.
+2. System displays success message: "Footer settings updated successfully."
+3. Changes take effect immediately across all pages.
+4. **Old logo files are automatically deleted** (except default logo).
+
+_⚠️ Note: All fields with `*` are required. The form will not submit if any required field is empty._
+
+**E. Live Preview**
+
+-   The form includes a **Live Preview** section at the bottom
+-   Preview updates automatically as you type (using Alpine.js)
+-   Shows exactly how the footer will appear on the website
+-   Includes logo preview, contact information, and copyright text
+
+**F. Best Practices**
+
+-   **Logo Dimensions**: Recommended 200x200px minimum
+-   **Logo Format**: Use SVG for scalability or PNG with transparency
+-   **Optimize Images**: Compress files before upload using tools like TinyPNG
+-   **Contact Info**: Keep address concise, use full official email
+-   **Copyright**: Update the year annually (e.g., `&copy; 2025-2026`)
+
+**G. Troubleshooting**
+
+| Issue                | Solution                                         |
+| -------------------- | ------------------------------------------------ |
+| Logo not showing     | Run `php artisan storage:link` to create symlink |
+| Upload fails         | Check file size < 2MB and format is supported    |
+| Old logo not deleted | Verify storage permissions are writable          |
+| Favicon not updating | Clear browser cache (Ctrl+Shift+R)               |
 
 ---
 
