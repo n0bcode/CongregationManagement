@@ -6,6 +6,16 @@
 
         <title>{{ config('app.name') }} - Congregation Management System</title>
 
+        <!-- Dynamic Favicon -->
+        @php
+            $faviconPath = \App\Models\SystemSetting::get('footer_logo_path');
+        @endphp
+        @if($faviconPath && file_exists(storage_path('app/public/' . $faviconPath)))
+            <link rel="icon" type="image/webp" href="{{ asset('storage/' . $faviconPath) }}">
+        @else
+            <link rel="icon" type="image/webp" href="{{ asset('images/logo.webp') }}">
+        @endif
+
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,10 +28,22 @@
         <nav class="bg-white border-b border-stone-200 shadow-sm sticky top-0 z-50">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between items-center h-16">
-                    <div class="flex items-center gap-3">
-                        <img src="{{ asset('images/logo.webp') }}" 
-                             alt="Logo" 
-                             class="w-10 h-10 object-contain">
+                    <div class="flex flex-col items-center gap-4">
+                        <div class="relative">
+                            @php
+                                $welcomeLogoPath = \App\Models\SystemSetting::get('footer_logo_path');
+                            @endphp
+                            
+                            @if($welcomeLogoPath && file_exists(storage_path('app/public/' . $welcomeLogoPath)))
+                                <img src="{{ asset('storage/' . $welcomeLogoPath) }}" 
+                                     alt="Logo" 
+                                     class="w-24 h-24 rounded-full object-cover border-4 border-white shadow-xl">
+                            @else
+                                <img src="{{ asset('images/logo.webp') }}" 
+                                     alt="Logo" 
+                                     class="w-24 h-24 rounded-full object-cover border-4 border-white shadow-xl">
+                            @endif
+                        </div>
                         <h1 class="text-xl font-heading font-bold text-slate-800 hidden sm:block">{{ config('app.name') }}</h1>
                     </div>
                     
@@ -273,13 +295,22 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex flex-col md:flex-row justify-between items-center gap-6">
                     <div class="flex items-center gap-3">
-                        <img src="{{ asset('images/logo.webp') }}" 
-                             alt="Logo" 
-                             class="w-8 h-8 object-contain">
+                        @php
+                            $footerLogoPath = \App\Models\SystemSetting::get('footer_logo_path');
+                        @endphp
+                        
+                        @if($footerLogoPath && file_exists(storage_path('app/public/' . $footerLogoPath)))
+                            <img src="{{ asset('storage/' . $footerLogoPath) }}" alt="{{ config('app.name') }}" class="w-8 h-8 object-contain">
+                        @else
+                            <img src="{{ asset('images/logo.webp') }}" 
+                                 alt="Logo" 
+                                 class="w-8 h-8 object-contain">
+                        @endif
+                        
                         <span class="text-lg font-heading font-bold text-slate-800">{{ config('app.name') }}</span>
                     </div>
                     <div class="text-slate-500 text-sm">
-                        &copy; {{ date('Y') }} {{ config('app.name') }}. All rights reserved.
+                        {!! \App\Models\SystemSetting::get('footer_copyright', '&copy; ' . date('Y') . ' ' . config('app.name') . '. All rights reserved.') !!}
                     </div>
                 </div>
             </div>

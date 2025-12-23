@@ -125,6 +125,10 @@ Route::middleware('auth')->group(function () {
         Route::post('/settings', [\App\Http\Controllers\SettingsController::class, 'update'])->name('settings.update');
         Route::post('/settings/test-email', [\App\Http\Controllers\SettingsController::class, 'testEmail'])->name('settings.test-email');
         
+        // Footer Settings
+        Route::get('/settings/footer', [\App\Http\Controllers\SettingsController::class, 'footerEdit'])->name('settings.footer.edit');
+        Route::put('/settings/footer', [\App\Http\Controllers\SettingsController::class, 'footerUpdate'])->name('settings.footer.update');
+        
         // Backups
         Route::get('/backups', [\App\Http\Controllers\BackupController::class, 'index'])->name('backups.index');
         Route::post('/backups', [\App\Http\Controllers\BackupController::class, 'create'])->name('backups.create');

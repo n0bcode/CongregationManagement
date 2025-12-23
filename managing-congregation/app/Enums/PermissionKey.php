@@ -39,6 +39,9 @@ enum PermissionKey: string
     case REPORTS_EXPORT = 'reports.export';
     case REPORTS_SCHEDULE = 'reports.schedule';
 
+    // Settings Module
+    case SETTINGS_MANAGE = 'settings.manage';
+
     // Territories (Legacy - keeping for backward compatibility)
     case TERRITORIES_VIEW = 'territories.view';
     case TERRITORIES_ASSIGN = 'territories.assign';

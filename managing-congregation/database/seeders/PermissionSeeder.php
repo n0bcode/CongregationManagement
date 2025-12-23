@@ -52,6 +52,9 @@ class PermissionSeeder extends Seeder
             ['key' => PermissionKey::REPORTS_EXPORT->value, 'name' => 'Export Reports', 'module' => 'reports'],
             ['key' => PermissionKey::REPORTS_SCHEDULE->value, 'name' => 'Schedule Reports', 'module' => 'reports'],
 
+            // Settings Module
+            ['key' => PermissionKey::SETTINGS_MANAGE->value, 'name' => 'Manage System Settings', 'module' => 'settings'],
+
             // Legacy Modules (keeping for backward compatibility)
             ['key' => PermissionKey::TERRITORIES_VIEW->value, 'name' => 'View Territories', 'module' => 'territories'],
             ['key' => PermissionKey::TERRITORIES_ASSIGN->value, 'name' => 'Assign Territories', 'module' => 'territories'],
@@ -129,6 +132,8 @@ class PermissionSeeder extends Seeder
             PermissionKey::REPORTS_GENERATE->value,
             PermissionKey::REPORTS_EXPORT->value,
             PermissionKey::REPORTS_SCHEDULE->value,
+            // Settings
+            PermissionKey::SETTINGS_MANAGE->value,
             // Legacy
             PermissionKey::TERRITORIES_VIEW->value,
             PermissionKey::TERRITORIES_ASSIGN->value,

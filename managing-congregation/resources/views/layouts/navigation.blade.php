@@ -6,8 +6,18 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}" class="flex items-center gap-3">
-                        <img src="{{ asset('images/logo.webp') }}" alt="{{ config('app.name', 'Logo') }}"
-                            class="w-10 h-10 rounded-full object-cover" />
+                        @php
+                            $headerLogoPath = \App\Models\SystemSetting::get('footer_logo_path');
+                        @endphp
+                        
+                        @if($headerLogoPath && file_exists(storage_path('app/public/' . $headerLogoPath)))
+                            <img src="{{ asset('storage/' . $headerLogoPath) }}" alt="{{ config('app.name', 'Logo') }}"
+                                class="w-10 h-10 rounded-full object-cover" />
+                        @else
+                            <img src="{{ asset('images/logo.webp') }}" alt="{{ config('app.name', 'Logo') }}"
+                                class="w-10 h-10 rounded-full object-cover" />
+                        @endif
+                        
                         <span class="font-serif text-xl text-slate-800 hidden sm:block">Congregation</span>
                     </a>
                 </div>
