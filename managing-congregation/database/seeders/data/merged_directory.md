@@ -1250,3 +1250,382 @@ _Dữ liệu dùng để chúc mừng và nhớ đến các hội viên._
 ---
 
 Như vậy, toàn bộ dữ liệu từ Cơ cấu tổ chức, Nhân sự chi tiết, Địa chỉ liên hệ, đến Lịch phụng vụ và Sinh nhật đã được trích xuất đầy đủ..
+
+
+### FDB_DATA
+
+Dưới đây là thông tin chi tiết đầy đủ được trích xuất từ tài liệu "Directory 2025 - 2026" của Tỉnh dòng Salesian Don Bosco Đông Phi (AFE Province), bao gồm Kenya, Sudan và Nam Sudan.
+
+---
+
+### I. CƠ CẤU LÃNH ĐẠO TỈNH DÒNG (PROVINCIAL LEVEL)
+
+1. Hội đồng Tỉnh dòng (Provincial Council)
+
+-   **Trụ sở:** Provincial House Nairobi, Kenya.
+-   **Giám tỉnh (Provincial):** Cha George Tharaniyil.
+-   **Phó Giám tỉnh (Vice Provincial):** Cha David Nduati Mwangi.
+-   **Quản lý Tỉnh dòng (Economer):** Cha Vincent Mokaya Nyaenya.
+-   **Các Cố vấn (Councillors):**
+-   Cha Gnanaselvam Antony Sahaya.
+-   Cha Joseph Nguyen Duc Can.
+-   Cha Leo Anthony Arokianathan.
+-   Cha Alex Mulongo Wanyama.
+-   Cha Joseph Padinjareparampil.
+
+-   **Thư ký (Secretary):** Cha Dennis Manwa Bisonga.
+
+2. Văn phòng Tỉnh dòng - AFE 1 (Provincial Office)
+
+-   **Địa chỉ:** Salesians of Don Bosco, Upper Hill Road, P. O. Box 62322 - 00200 City Square, Nairobi - Kenya.
+-   **Điện thoại:** 20-2724635 / 2724493 (Nhà).
+-   **Di động:**
+-   Văn phòng: +254 785 724 635; +254 701 146 975.
+-   Giám tỉnh: +254 737 737 737; +254 797 737 737.
+-   Phó Giám tỉnh: +254 710 211 990; +254 739 244 094.
+-   Quản lý: +254 705 345 359; +254 782 747 500.
+
+-   **Email:**
+-   Giám tỉnh: provincial@donboscoeastafrica.org
+-   Phó Giám tỉnh: viceprovincial@donboscoeastafrica.org
+-   Quản lý: economer@donboscoeastafrica.org
+-   Thư ký: secretary@donboscoeastafrica.org
+-   Giám đốc DBDON: executivedirector@dbdon.org
+-   Truyền giáo: donboscomissions@donbosco.or.ke
+-   Mục vụ Giới trẻ: youthministry@donbosco.or.ke
+
+3. Ủy ban Tỉnh dòng (Provincial Commissions)
+
+-   **Đào luyện:** Cha David Nduati Mwangi.
+-   **Hội đồng Hành chính:** Cha Vincent Mokaya Nyaenya.
+-   **Mục vụ Giới trẻ:** Cha Alex Mulongo Wanyama.
+-   **Hoạt động Truyền giáo:** Cha Joseph Padinjareparampil.
+-   **Gia đình Salesian:** Cha Paul Nyaga Karuri.
+-   **Truyền thông Xã hội:** Cha Sebastian Koladiyil.
+
+---
+
+### II.
+
+PHÁI ĐOÀN SUDAN (SUDAN DELEGATION)
+
+-   **Thánh bổn mạng:** St. Josephine Bakhita.
+-   **Trưởng Phái đoàn:** Cha Joseph Nguyen Duc Can.
+-   **Quản lý Phái đoàn:** Cha Leo Anthony Doss Arokianathan.
+-   **Mục vụ Giới trẻ:** Cha Papi Reddy Gade.
+-   **Đào luyện:** Cha Michael Kalathipullatt.
+-   **Hoạt động Truyền giáo:** Cha Peter Kariuki Muigai.
+
+---
+
+### III. DANH SÁCH CÁC CỘNG THỂ VÀ HIỆN DIỆN (HOUSES & PRESENCES)
+
+1. EMBU - AFE 2
+
+-   **Thánh bổn mạng:** St John Bosco.
+-   **Hoạt động:** Trường trung học, Trung tâm dạy nghề (Mộc, Điện, Cơ khí, Xây dựng...), Nông nghiệp công nghệ cao (AITEC), Mục vụ giáo xứ.
+-   **Địa chỉ:** P. O. Box 1121-60100, Embu, Kenya.
+-   **Liên hệ:** +254 790 542 584 (Giám đốc); rector@donboscoembu.org.
+-   **Thành viên:**
+-   Cha Patrick Mugendi Njiru: Giám đốc (Rector).
+-   Sư huynh Giorgio Conte: Hiệu trưởng trường kỹ thuật (Princ. Tech).
+-   Cha Thomas Ogutu Onywoki: Phó Giám đốc, Hiệu trưởng trung học (VR/Prin. Sec).
+-   Cha James Pulickal: Giải tội (Confessor).
+-   Cha Moses Amallah: Quản trị (Admin).
+-   Thầy Solomon Galgorowle: Thực tập sinh (PT).
+-   Thầy Edwin Maranga Orioki: Thực tập sinh (PT).
+
+2. MERU PRESENCE
+
+-   **Thánh bổn mạng:** St Carlo Acutis.
+-   **Hoạt động:** Nguyện xá, hoạt động giới trẻ, giúp xứ.
+-   **Liên hệ:** c/o Don Bosco Embu; Email: merudirector@donbosco.or.ke.
+-   **Thành viên:**
+-   Cha John Marciniak: Phụ trách (In-charge).
+-   Sư huynh Francis Mulu Muia: Quản trị/Sinh viên.
+
+3. EL OBEID - AFE 3 (SUDAN)
+
+-   **Tình trạng:** ĐANG TẠM NGƯNG (SUSPENDED).
+-   **Hoạt động trước đây:** Trung tâm dạy nghề, trường tiểu học.
+
+4. JUBA - AFE 4 (SOUTH SUDAN)
+
+-   **Thánh bổn mạng:** Saint Vincent de Paul.
+-   **Hoạt động:** VTC, Giáo xứ, Trường tiểu học/trung học, Trại IDP, Nhà Tiền tập, Nhà Phái đoàn.
+-   **Địa chỉ:** P.O. Box 91, Juba, South Sudan.
+-   **Liên hệ:** +211 956 466 652; dbjubacommunity@gmail.com.
+-   **Thành viên:**
+-   Cha Jacob Thelekkadan: Quản lý Phái đoàn/Giám đốc cộng thể (Del Economer/Rector).
+-   Sư huynh Tenzing Norbu Shadap: Hiệu trưởng VTC.
+-   Cha Leo Anthony Arokianathan: Phó Giám đốc/Tiền tập sư (VR/Pre-Nov).
+-   Cha Peter Tam Pham: PDO/Hiệu trưởng trường học.
+-   Cha David Tulimelli: Quản lý Phái đoàn (Del. Ec.).
+-   Cha Joseph Nguyen Duc Can: Trưởng Phái đoàn (Delegate).
+-   Thầy Edmund Thaddeus Kung'alo: Thực tập sinh (PT).
+-   Thầy Meshack Mwape: Thực tập sinh (PT).
+
+5. MOROBO PRESENCE (SOUTH SUDAN)
+
+-   **Tình trạng:** ĐANG TẠM NGƯNG (SUSPENDED).
+
+6. NDERE PRESENCE (KENYA)
+
+-   **Thánh bổn mạng:** Don Bosco.
+-   **Hoạt động:** Trường Nông nghiệp, tuyên úy.
+-   **Địa chỉ:** P.O. Box 599-40600, Siaya, Kenya.
+-   **Liên hệ:** +254 700 305 991; nderedirector@donbosco.or.ke.
+-   **Thành viên:**
+-   Cha Anthony Mundamattam (Babu Augustine): Phụ trách (In-charge).
+
+7. KAKUMA - AFE 5 (REFUGEE CAMP)
+
+-   **Thánh bổn mạng:** Don Bosco.
+-   **Hoạt động:** Học viện kỹ thuật, 4 trung tâm huấn luyện trong trại tị nạn, Giáo xứ, Nguyện xá.
+-   **Địa chỉ:** P.O. Box 41-30501, Kakuma Turkana West, Kenya.
+-   **Liên hệ:** +254 720 604 141 (Giám đốc); dbkakuma@donbosco.or.ke.
+-   **Thành viên:**
+-   Phó tế Albert Mapesa Maende: Quản trị (Administrator).
+-   Cha Francis Mbiu Hiuhu: Hiệu trưởng (Principal), Giám đốc (Rector).
+-   Cha Lawrence Wambua Kituku: Hiệu trưởng VTC.
+-   Cha Mathew Kuthanapillil: Cha sở Holy Cross/Phó Giám đốc (PP HC/VR).
+-   Thầy Benedict Loitemu Lemakara: Thực tập sinh (PT).
+
+8. KAKUMA: GOOD SHEPHERD (TOWN) PRESENCE
+
+-   **Thánh bổn mạng:** Good Shepherd.
+-   **Thành viên:**
+-   Cha Walter Kinanga: Phụ trách/Cha sở/Quản trị (In-Charge/PP/Adm).
+-   Cha John Nzau Muinde: Phó cha sở/Mục vụ giới trẻ (Ass pp/YMC).
+
+9. KHARTOUM: ST JOSEPH'S PARISH - AFE 6 (SUDAN)
+
+-   **Tình trạng:** ĐANG TẠM NGƯNG (SUSPENDED).
+
+#### 10. KHARTOUM: ST JOSEPH'S V.T.C. -
+
+AFE 7 (SUDAN)
+
+-   **Tình trạng:** ĐANG TẠM NGƯNG (SUSPENDED).
+
+11. KORR - AFE 8
+
+-   **Thánh bổn mạng:** St John Bosco Marsabit.
+-   **Hoạt động:** Giáo xứ, Trường nội trú, Trạm xá, Trung tâm giới trẻ.
+-   **Địa chỉ:** P.O. Box 184-60300, Isiolo, Kenya.
+-   **Liên hệ:** korrrector@donboscoeastafrica.org.
+-   **Thành viên:**
+-   Cha Eric Owuor Onyango: Giám đốc/Cha sở (Rector/PP/Proj).
+-   Cha Paul Luseno Khanyonyi: Phó Giám đốc/Quản trị (VR/Adm/Asst PP).
+-   Cha Ben Owour Agunga: Phó cha sở/Mục vụ giới trẻ (Asst PP/YMC).
+
+12. KUAJOK - AFE 9 (SOUTH SUDAN)
+
+-   **Thánh bổn mạng:** Don Bosco Nest.
+-   **Hoạt động:** Trường tiểu học, Trung tâm chăm sóc trẻ em (CCC), Trung tâm phục hồi trẻ em đường phố.
+-   **Địa chỉ:** Panrok, Gogrial West County, Kuajok.
+-   **Liên hệ:** +211 923 496 826; dbnestpanrok@gmail.com.
+-   **Thành viên:**
+-   Cha John Peter Savarimuthu: Giám đốc/Hiệu trưởng tiểu học (Rector/Prin).
+-   Cha Arokia Tamilselvan: Phó Giám đốc/Quản trị (VR/Adm/CCC/YMC).
+
+13. MAKUYU - AFE 10
+
+-   **Thánh bổn mạng:** St John Bosco.
+-   **Hoạt động:** Giáo xứ, Đào tạo nghề (In ấn, Cơ khí, Điện...), Nguyện xá.
+-   **Địa chỉ:** P. O. Box 158-01020, Makuyu - Kenya.
+-   **Liên hệ:** +254 792 807 209; dbmak@donboscoeastafrica.org.
+-   **Thành viên:**
+-   Cha Victor David Mbogo: Giám đốc/Cha sở (Rector/PP).
+-   Thầy Arkangelo Elia Basangba: Thực tập sinh (PT).
+-   Cha Leonard Mutio Muli: Quản trị/Xưởng in (Adm/Press/Prod).
+-   Cha Peter Nyaanga Orucho: Phó cha sở (Asst PP).
+-   Cha James Njoroge: Phó Giám đốc/Hiệu trưởng (VR/YMC/Prin).
+
+14. MARIDI - AFE 11 (SOUTH SUDAN)
+
+-   **Thánh bổn mạng:** St John Bosco.
+-   **Hoạt động:** Giáo xứ, Trường học, Aspirantate, Phòng khám.
+-   **Địa chỉ:** C/o Salesians of Don Bosco, P. O. Box 22-8111 Juba.
+-   **Liên hệ:** +211 919 391167.
+-   **Thành viên:**
+-   Cha Michael Kalathipullatt: Giám đốc/Cha sở (Rector/PP).
+-   Cha Joseph Nakholi Chisomo: Phó Giám đốc/Quản trị (VR/Adm).
+-   Cha Heraldo Bosquez: Trường tiểu học/Phó cha sở.
+-   Thầy Fredrick Charles Oketch: Thực tập sinh (PT).
+
+15. MARSABIT - AFE 12
+
+-   **Thánh bổn mạng:** St. Joseph the Worker.
+-   **Hoạt động:** Trường kỹ thuật, nội trú, giúp xứ.
+-   **Địa chỉ:** P.O. Box 8-60500, Marsabit, Kenya.
+-   **Liên hệ:** +254 758 897328; director@donboscomarsabit.org.
+-   **Thành viên:**
+-   Cha Franklin Muchangi Njue: Giám đốc/Quản trị (Rector/Admin).
+-   Sư huynh Giacomo Comino: Nguyện xá.
+-   Cha Sunil Orathel: Hiệu trưởng/Mục vụ giới trẻ (Prin/YMC).
+
+16. NAIROBI BOSCO BOYS - AFE 13
+
+-   **Thánh bổn mạng:** St Dominic Savio.
+-   **Hoạt động:** Phục hồi trẻ đường phố, Trường tiểu học, Tiền tập viện.
+-   **Địa chỉ:** P. O. Box 27754-00506, Nairobi.
+-   **Liên hệ:** +254 734 257 337; rectorboscoboys@donboscoeastafrica.org.
+-   **Thành viên:**
+-   Cha Vincenzo Donati: Giám đốc (Rector).
+-   Cha Geoffrey Cheruiyot Keter: Giám đốc dự án (Proj. Dir).
+-   Cha Sebastian Koladiyil: Quản trị/Điều phối dự án (Adm/Proj Coord).
+-   Cha Bernard Onyiego Obino: Phó Giám đốc (VR/Prod).
+-   Cha Stanislav Somora: Nghỉ phép (Sabitical).
+-   Cha Godfrey Malietso: Học tiếng Anh.
+-   Cha George Kainikunnil: Giám đốc Tiền tập (Pre-Nov. Dir).
+-   Cha Philip Odwory: Điều phối Lang'ata.
+-   Cha Vincent Nguyen: Bảo trì (Dom. Maint).
+-   Thầy Maxmillian Evaristo Ngogo, Thầy Joseph Mweluhanga, Thầy Antony Boniphace Dadu, Thầy Fabien Ratsimbazafy, Thầy Samwel Morara Matongo, Thầy Francis Pius Mbindyo: Các sinh viên và thực tập sinh.
+
+17. NAIROBI BOYS' TOWN - AFE 14
+
+-   **Thánh bổn mạng:** St John Bosco.
+-   **Hoạt động:** Viện đào tạo nghề (Năng lượng mặt trời, Cơ khí, CNTT...), Nội trú.
+-   **Địa chỉ:** P. O. Box 24236-00502 Karen, Nairobi.
+-   **Liên hệ:** +254 742 374 651; dbbtprincipal@donboscoeastafrica.or.ke.
+-   **Thành viên:**
+-   Cha Francis Kibe Njaramba: Giám đốc (Director).
+-   Cha Dennis Nyatome Machuka: Quản trị (Admin).
+-   Cha Daniel Ojijo Jimbo: Hiệu trưởng (Principal).
+-   Sư huynh Joseph Tran Truc: Quản lý xưởng (W/shop Manager).
+-   Cha Joseph Padinjareparampil: Phó Giám đốc (VR/Boarding/YMC).
+-   Thầy Eric Mbogo Njagi, Thầy Sendranarivo Angelico Randriamamonjy: Thực tập sinh (PT).
+
+18. NAIROBI DBYES - AFE 15
+
+-   **Thánh bổn mạng:** St Kizito.
+-   **Hoạt động:** Trung tâm hoạt hình giới trẻ, BEAMS (Đa phương tiện), DBTECH Africa.
+-   **Địa chỉ:** P. O. Box 2 Karen 00502 Nairobi.
+-   **Liên hệ:** +254 706 349 971; dbyesrect@donboscoeastafrica.org.
+-   **Thành viên:**
+-   Cha Hubert Zobinou Komlan: Giám đốc (Rector/Prog).
+-   Sư huynh John Njuguna: Phó Giám đốc DBTA.
+-   Cha Michael Karikunnel: Thư ký CIVAM.
+-   Cha Isaac Maina Kirigwi: Giám đốc BEAMS.
+-   Cha Paul Nyaga Kakuri: Quản trị/Đại diện SF.
+-   Cha Hubert Pinto: Tư vấn.
+-   Cha Camiel Swertvagher: Giám đốc SAFCAM.
+-   Cha Henry Tucholski: Giám đốc IYS.
+-   Cha Gerald Umoh: Phó Giám đốc SAFCAM.
+-   Cha Gebremedhin Weldu: Sinh viên.
+
+19. NAIROBI UPPER HILL - AFE 16 (TRỤ SỞ TỈNH DÒNG)
+
+-   **Thánh bổn mạng:** Mary Help of Christians.
+-   **Hoạt động:** Đền thánh Đức Mẹ, Giáo xứ, Văn phòng Phát triển, Nguyện xá.
+-   **Địa chỉ:** P.O. Box 62322 00200, Nairobi.
+-   **Liên hệ:** +254 722 331 662; rectorupperhill@donboscoeastafrica.org.
+-   **Thành viên:**
+-   Cha David Nduati Mwangi: Giám đốc/Phó Giám tỉnh.
+-   Sư huynh Benedict Muriuki Njagi: Quản trị (Admin).
+-   Cha Vincent Mokaya Nyaenya: Quản lý Tỉnh dòng.
+-   Cha Dennis Bisonga Manwa: Phó cha sở.
+-   Cha Henry Mathagu Mwaniki: Phó Giám đốc/Cha sở/Giám đốc Đền thánh.
+-   Cha George Tharaniyil: Giám tỉnh.
+-   Cha Alex Mulongo Wanyama: Cố vấn/Mục vụ giới trẻ.
+-   Cha Paul Felix Vernal: Giải tội.
+-   Cha Devasia Manathara, Cha Adiroobanathan Reuben Mariasusai: Thành viên.
+
+20. KITALE PRESENCE
+
+-   **Thánh bổn mạng:** Sacred Heart.
+-   **Liên hệ:** donboscokitale@donboscoeastafrica.org.
+-   **Thành viên:**
+-   Cha David Kariuki Kagai: Cha sở/Phụ trách (PP/In-charge).
+-   Cha Bedan Ireri Njue.
+-   Cha Kenneth Omondi Ondeyoh.
+
+21. NAIROBI UTUME - AFE 17
+
+-   **Hoạt động:** Trung tâm Thần học.
+-   **Địa chỉ:** P. O. Box 24370-00502 Karen Nairobi.
+-   **Liên hệ:** +254 722 200 567; rector@donboscoutume.org.
+-   **Thành viên:**
+-   Cha Abel Thathi Njeru: Giám đốc (Rector).
+-   Cha Dunstan Christantus Haule: Hiệu trưởng (Principal).
+-   Cha Josephat Paul Orota: Quản trị (Admin).
+-   Cha Philip Felipe Lazatin: Giảng viên.
+-   Cha Joseph Pulikkal: Giảng viên.
+
+-   **Sinh viên Thần học:** Danh sách rất dài các Thầy từ năm 1 đến năm 4 thuộc nhiều tỉnh dòng khác nhau (AFE, TZA, AGL, etc.) .
+
+22. NZAIKONI - AFE 18
+
+-   **Thánh bổn mạng:** St Francis of Assisi.
+-   **Hoạt động:** Giáo xứ, Trung tâm Mục vụ, Nguyện xá.
+-   **Địa chỉ:** P. O. Box 1211 90100, Machakos - Kenya.
+-   **Liên hệ:** +254 742 280 050; donbosconzaikoni@gmail.com.
+-   **Thành viên:**
+-   Cha Peter Mugo: Giám đốc/Cha sở (Rector/PP).
+-   Cha Samuel Mwangi Warui.
+-   Cha John Bosco Mutuku: Phó Giám đốc/Phó cha sở.
+-   Cha Sudhir Parmar: Quản trị/Mục vụ giới trẻ.
+
+23. TONJ - AFE 19 (SOUTH SUDAN)
+
+-   **Thánh bổn mạng:** Sacred Heart.
+-   **Hoạt động:** Giáo xứ, Trường học, Trạm xá, Trại phong, Đài phát thanh.
+-   **Liên hệ:** salesians.donbosco-tonj@outlook.com.
+-   **Thành viên:**
+-   Cha Paul Nyoike Waweru: Giám đốc/Cha sở (Rector/PP).
+-   Cha Joseph Le Quoc Hung: Giám đốc Đài phát thanh/Quản trị (Dir. Radio/Adm).
+-   Cha Peter Kariuki Muigai: Phó Giám đốc/Hiệu trưởng Trung học.
+-   Thầy Simon William Molu Malau, Thầy Chikondi Malunga: Thực tập sinh (PT).
+
+24. WAU - AFE 20 (SOUTH SUDAN)
+
+-   **Thánh bổn mạng:** St. Bakhita.
+-   **Hoạt động:** Giáo xứ, Đào tạo nghề, Trẻ em đường phố.
+-   **Địa chỉ:** P. O. Box 29, Wau - South Sudan.
+-   **Liên hệ:** +211 924 655 720; dbrectordbwau@gmail.com.
+-   **Thành viên:**
+-   Cha Nabil Demos Yohana Kuku: Giám đốc/Cha sở (Rector/PP).
+-   Sư huynh Joseph Kaipananickal: Hiệu trưởng VTC.
+-   Cha Francis Anthony Devaraj: Quản trị (Admin).
+-   Cha Papi Reddy Gade: Phó Giám đốc/Phụ trách trẻ em (VR/YAR).
+-   Thầy Anthony Mulela: Phó cha sở/Hiệu trưởng (As PP/HM).
+
+---
+
+### IV. HỘI VIÊN BÊN NGOÀI TỈNH DÒNG & ĐÀO LUYỆN KHÁC
+
+1. Bên ngoài Tỉnh dòng (Outside The Province)
+
+-   **Ratisbonne (Jerusalem):** Thầy Kevin Ouma Juma, Thầy Albert Derache Leibor, Thầy Thomas Muthiani Muasa.
+-   **Louvain (Bỉ):** Cha Paul Marcellus Antimi.
+-   **Bufalotta:** Thầy Gabriel Laku Lino Jada, Thầy Ignatius Mukhwana Musambai.
+-   **UPS (Rome):** Cha Isaiah Otieno Mwango, Cha John Mwangi Ngari.
+-   **Cameroon:** Thầy Ian Sagini Kibagendi.
+-   **Ấn Độ (Chennai):** Cha Allan Chrisrea MBA.
+-   **Nhiệm vụ Hội dòng:** Cha Kevin Mwandha, Cha Giovani Rolandi, Cha Simon Asira Lipuku (Testaccio).
+
+2. Hội viên tại Tỉnh dòng TZA (Moshi - Tanzania)
+
+-   Bao gồm các Cha John Muriithi Mbogo, Cha Evans Jefferson Onyiego và danh sách dài các Thầy triết học và Tập sinh (Novices).
+
+---
+
+### V. GIA ĐÌNH SALESIAN & LIÊN HỆ KHÁC
+
+1. Các sơ FMA (Salesian Sisters)
+
+-   Có các cộng đoàn tại Kenya (Embu, Makuyu, Nairobi, Siakago), Tanzania (Dar Es Salaam), Rwanda, Ethiopia (Addis Abeba, Adua...), Nam Sudan (Tonj, Wau, Juba).
+
+2. Cộng tác viên Salesian (Cooperators)
+
+-   **Đại biểu:** Cha Felice Molino.
+-   **Điều phối viên Tỉnh:** Hannah Ndegwa (+254 722 745 847).
+
+3. Các tỉnh dòng CIVAM
+
+-   Thông tin liên hệ của các Giám tỉnh tại các tỉnh dòng Châu Phi khác (AET, AFC, ACC, AFM, AON, AGL, ANG, ATE, MDG, MOZ, TZA, ZMB, ANN, AOS).
+
+---
+
+Lưu ý: Tài liệu cũng cung cấp danh sách đầy đủ sinh nhật, ngày khấn, ngày chịu chức và danh sách các hội viên đã qua đời trong phần phụ lục .

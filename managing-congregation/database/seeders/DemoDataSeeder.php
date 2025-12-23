@@ -384,7 +384,292 @@ class DemoDataSeeder extends Seeder
             ]);
         }
         
+        // 8. FDB Data Enrichment (Address, Phone, Patron, Specific Roles)
+        $this->command->info('Running FDB Enrichment Pass...');
+        $fullContent = file_get_contents($mergedPath);
+        $this->parseFdbData($fullContent);
+
         $this->command->info('Financial demo data seeded successfully!');
+    }
+
+    private function parseFdbData(string $content)
+    {
+        // Extract FDB section (Added via append)
+        // Look for header "### FDB_DATA"
+        $parts = explode('### FDB_DATA', $content);
+        if (count($parts) < 2) {
+            $this->command->warn('No FDB_DATA section found.');
+            return;
+        }
+        $fdbContent = $parts[1];
+
+        // Split by numbered sections (e.g., "1. EMBU - AFE 2")
+        // Regex to split: line start, number, dot, space...
+        $sections = preg_split('/^(\d+)\.\s+(.+)$/m', $fdbContent, -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
+
+        // Sections array: [0]=>"Intro Text", [1]=>"1", [2]=>"EMBU...", [3]=>"body", ...
+        $this->command->info("FDB Split Segments: " . count($sections));
+
+        for ($i = 0; $i < count($sections); $i++) {
+             // Look for the "Number" part of the triplet
+            if (is_numeric(trim($sections[$i])) && isset($sections[$i+1]) && isset($sections[$i+2])) {
+                
+                $header = trim($sections[$i+1]);
+                $body = $sections[$i+2];
+
+                // Extract Community Name
+                // Header usually: "EMBU - AFE 2" or "NAIROBI BOSCO BOYS - AFE 13"
+                $namePart = explode('-', $header)[0];
+                $communityName = trim($namePart);
+
+                // Fuzzy Find Community
+                $community = $this->findCommunityFuzzy($communityName);
+                if (!$community) {
+                     // Try cleaning more?
+                     // Sometimes headers are "MERU PRESENCE"
+                     $community = $this->findCommunityFuzzy(preg_replace('/PRESENCE/i', '', $communityName));
+                }
+
+                if ($community) {
+                    $this->enrichCommunityData($community, $body);
+                    $this->parseFdbMembers($community, $body);
+                } else {
+                    // Create Missing Community (e.g., Meru, Kitale)
+                    $cleanName = trim(preg_replace('/(PRESENCE|PARISH|V\.T\.C\.)/i', '', $communityName));
+                    $cleanName = trim($cleanName, " -");
+                    if (empty($cleanName)) $cleanName = $communityName;
+
+                    $code = 'EXT-' . strtoupper(substr(preg_replace('/[^a-zA-Z]/', '', $cleanName), 0, 4)) . rand(10, 99);
+                    
+                    $community = Community::create([
+                        'code' => $code,
+                        'name' => $cleanName,
+                        'location' => $cleanName, // Default location to name, will be enriched
+                        'email' => strtolower(str_replace(' ', '', $cleanName)) . '@congregation.org',
+                    ]);
+                    
+                    $this->command->info("Created missing FDB community: {$cleanName}");
+                    $this->enrichCommunityData($community, $body);
+                    $this->parseFdbMembers($community, $body);
+                }
+                
+                // Advance index by 2 (plus loop's 1 = 3) to skip Header and Body
+                $i += 2;
+            }
+        }
+    }
+
+    private function enrichCommunityData($community, $body)
+    {
+        $lines = explode("\n", $body);
+        $updateData = [];
+
+        foreach ($lines as $line) {
+            $line = trim($line);
+            
+            // Bilingual Patterns
+            // Patron: "Thánh bổn mạng:" or "Patron:" or "Patron Saint:"
+            if (preg_match('/(Thánh bổn mạng|Patron Saint|Patron):\s*\**([^*]+)\**/ui', $line, $m)) {
+                $updateData['patron_saint'] = trim($m[2], " .");
+            }
+            // Address: "Địa chỉ:" or "Address:" or "Location:"
+            if (preg_match('/(Địa chỉ|Address|Location):\s*\**([^*]+)\**/ui', $line, $m)) {
+                $updateData['location'] = trim($m[2], " .");
+            }
+            // Contact: "Liên hệ:" or "Contact:"
+            if (preg_match('/(Liên hệ|Contact|Contact Info):\s*\**([^*]+)\**/ui', $line, $m)) {
+                $contact = trim($m[2], " .");
+                // Email extraction
+                if (preg_match('/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/', $contact, $em)) {
+                    $updateData['email'] = $em[0];
+                }
+                // Phone extraction
+                if (preg_match('/(\+\d[\d\s]+)/', $contact, $pm)) {
+                    $updateData['phone'] = trim($pm[1]);
+                }
+            }
+        }
+
+        if (!empty($updateData)) {
+            $community->update($updateData);
+        }
+    }
+
+    private function parseFdbMembers($community, $body)
+    {
+        // Line regex: "- Cha Name: Role" or "- Fr. Name: Role"
+        // Titles: Cha|Fr\.?|Sư huynh|Br\.?|Bro\.?|Thầy|Cl\.?|Phó tế|Dcn\.?|Đức Cha|Bp\.?|Bishop
+        // Uses 'ui' modifier for case-insensitivity
+        $titles = 'Cha|Fr\.?|Father|Sư huynh|Br\.?|Bro\.?|Thầy|Cl\.?|Cleric|Phó tế|Dcn\.?|Deacon|Đức Cha|Bp\.?|Bishop';
+        
+        $lines = explode("\n", $body);
+        foreach ($lines as $line) {
+            if (preg_match('/^\s*-\s+('.$titles.')\s+([^:]+)(?::(.*)|$)/ui', $line, $matches)) {
+                 $titleRaw = trim($matches[1]);
+                 $nameRaw = trim($matches[2]);
+                 $roleRaw = isset($matches[3]) ? trim($matches[3], " .") : '';
+
+                 $member = $this->findMemberFuzzy($nameRaw);
+                 
+                 if (!$member) {
+                     // Create missing member (e.g. from Presences)
+                     $parts = explode(' ', $nameRaw);
+                     $firstName = array_shift($parts);
+                     $lastName = implode(' ', $parts);
+                     if (empty($lastName)) { $lastName = $firstName; $firstName = ''; }
+
+                     $email = strtolower(preg_replace('/[^a-z0-9]/i', '', $firstName . $lastName)) . rand(10,99) . '@congregation.org';
+                     
+                     $member = Member::create([
+                         'first_name' => $firstName,
+                         'last_name' => $lastName,
+                         'email' => $email,
+                         'community_id' => $community->id,
+                         'status' => MemberStatus::Active,
+                         'religious_name' => (str_contains($titles, 'Cha') || str_contains($titles, 'Fr')) ? 'Father' : 'Brother',
+                         'dob' => Carbon::now()->subYears(40),
+                         'entry_date' => Carbon::now()->subYears(20),
+                     ]);
+                     $this->command->info("Created missing FDB Member: {$nameRaw}");
+                 }
+
+                 if ($member) {
+                     // Check if titled indicates religious status change?
+                     // E.g. found as "Cleric" in registry but listed as "Fr." now?
+                     // Currently only updating Assignments.
+                     
+                     if ($member->community_id !== $community->id && $community->id) {
+                         $member->update(['community_id' => $community->id]);
+                     }
+                     
+                     // Upsert Assignment/Role
+                     if (!empty($roleRaw)) {
+                         $roleName = $this->translateDetailedRole($roleRaw);
+                         if ($roleName) {
+                             // Deactivate old assignment if role differs? No, members can have multiple roles.
+                             // Just ensure this role exists.
+                             $exists = Assignment::where('member_id', $member->id)
+                                 ->where('community_id', $community->id)
+                                 ->where('role', $roleName)
+                                 ->exists();
+                             
+                             if (!$exists) {
+                                 Assignment::create([
+                                     'member_id' => $member->id,
+                                     'community_id' => $community->id,
+                                     'role' => $roleName,
+                                     'start_date' => Carbon::now()->startOfYear(),
+                                     'is_current' => true
+                                 ]);
+                             }
+                         }
+                     }
+                 }
+            }
+        }
+    }
+
+    private function findCommunityFuzzy($name)
+    {
+        $name = trim($name);
+        if (empty($name)) return null;
+        
+        // Exact
+        $c = Community::where('name', $name)->first();
+        if ($c) return $c;
+        
+        // Like
+        $c = Community::where('name', 'like', "%{$name}%")->first();
+        if ($c) return $c;
+
+        return null;
+    }
+
+    private function findMemberFuzzy($nameRaw)
+    {
+        // Logic: Try to match surnames or significant name parts
+        // "Patrick Mugendi Njiru" -> DB: "NJIRU Patrick Mugendi"
+        
+        $parts = explode(' ', $nameRaw);
+        if (count($parts) < 2) return null;
+
+        // Try last word as surname
+        $maybeSurname = end($parts);
+        
+        // Try query
+        $candidates = Member::where('last_name', 'like', "%{$maybeSurname}%")
+                      ->orWhere('first_name', 'like', "%{$maybeSurname}%")
+                      ->get();
+
+        foreach ($candidates as $candidate) {
+            $dbFull = strtolower($candidate->first_name . ' ' . $candidate->last_name);
+            $inputFull = strtolower($nameRaw);
+            
+            // Check intersection of parts
+            $inputParts = explode(' ', $inputFull);
+            $matchCount = 0;
+            foreach ($inputParts as $p) {
+                if (strlen($p) > 2 && str_contains($dbFull, $p)) {
+                    $matchCount++;
+                }
+            }
+            
+            // If significant match
+            if ($matchCount >= 2 || ($matchCount == 1 && count($inputParts) == 2)) {
+                return $candidate;
+            }
+        }
+        return null;
+    }
+
+    private function translateDetailedRole($roleRaw) {
+        // 1. Check for English in Parentheses: "Giám đốc (Rector)"
+        if (preg_match('/\(([^)]+)\)/', $roleRaw, $m)) {
+            $en = $m[1];
+             $map = [
+                'Rector' => 'Rector',
+                'VR' => 'Vice Rector',
+                'Princ' => 'Principal',
+                'Principal' => 'Principal',
+                'Adm' => 'Administrator',
+                'Admin' => 'Administrator',
+                'PP' => 'Parish Priest',
+                'Parish Priest' => 'Parish Priest',
+                'Asst PP' => 'Assistant Parish Priest',
+                'YMC' => 'Youth Minister',
+                'Confessor' => 'Confessor',
+                'PT' => 'Practical Trainee',
+                'In-charge' => 'In-Charge',
+                'Curate' => 'Curate',
+            ];
+            foreach ($map as $k => $v) {
+                if (stripos($en, $k) !== false) return $v;
+            }
+            return ucfirst($en);
+        }
+        
+        // 2. Direct English Roles (if no parens or standalone)
+        $englishRoles = ['Rector', 'Vice Rector', 'Principal', 'Administrator', 'Parish Priest', 'Curate', 'Assistant Parish Priest', 'Youth Minister', 'Confessor', 'Practical Trainee', 'In-Charge', 'Treasurer', 'Secretary'];
+        foreach ($englishRoles as $er) {
+            if (stripos($roleRaw, $er) !== false) return $er;
+        }
+
+        // 3. Fallback for Vietnamese
+        $vnMap = [
+            'Giám đốc' => 'Rector',
+            'Phó Giám đốc' => 'Vice Rector',
+            'Hiệu trưởng' => 'Principal',
+            'Quản lý' => 'Administrator',
+            'Cha sở' => 'Parish Priest',
+            'Phó cha sở' => 'Assistant Parish Priest',
+            'Mục vụ giới trẻ' => 'Youth Minister',
+            'Thực tập sinh' => 'Practical Trainee',
+            'Phụ trách' => 'In-Charge',
+        ];
+        foreach ($vnMap as $k => $v) {
+            if (stripos($roleRaw, $k) !== false) return $v;
+        }
+        return null;
     }
 
     private function parseDate($dateStr) {
