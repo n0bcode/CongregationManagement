@@ -18,6 +18,11 @@ class AIProjectController extends Controller
         $this->geminiService = $geminiService;
     }
 
+    public function tutorial()
+    {
+        return view('projects.ai-tutorial');
+    }
+
     public function create()
     {
         $hasApiKey = !empty(config('services.gemini.key')) || !empty(env('GEMINI_API_KEY'));

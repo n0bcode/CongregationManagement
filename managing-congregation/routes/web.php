@@ -93,11 +93,13 @@ Route::middleware('auth')->group(function () {
     Route::patch('projects/{project}/tasks/{task}/dates', [\App\Http\Controllers\ProjectController::class, 'updateTaskDates'])->name('projects.tasks.updateDates');
     Route::post('projects/{project}/tasks/quick-create', [\App\Http\Controllers\ProjectController::class, 'quickCreateTask'])->name('projects.tasks.quickCreate');
 
-    // My Tasks
+    // AI Project Management
+    Route::get('projects/ai/tutorial', [\App\Http\Controllers\AIProjectController::class, 'tutorial'])->name('projects.ai.tutorial');
     Route::get('projects/ai/create', [\App\Http\Controllers\AIProjectController::class, 'create'])->name('projects.ai.create');
     Route::post('projects/ai/generate', [\App\Http\Controllers\AIProjectController::class, 'generate'])->name('projects.ai.generate');
     Route::post('projects/ai/store', [\App\Http\Controllers\AIProjectController::class, 'store'])->name('projects.ai.store');
 
+    // My Tasks
     Route::get('my-tasks', [\App\Http\Controllers\MyTaskController::class, 'index'])->name('my-tasks.index');
 
     // Periodic Events
