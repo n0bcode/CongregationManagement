@@ -3,7 +3,7 @@
 > A comprehensive management system designed for religious congregations to manage members, financials, documents, and community life efficiently and securely.
 
 ![Laravel](https://img.shields.io/badge/Laravel-11.x-FF2D20?style=for-the-badge&logo=laravel)
-![PHP](https://img.shields.io/badge/PHP-8.2%2B-777BB4?style=for-the-badge&logo=php)
+![PHP](https://img.shields.io/badge/PHP-8.3.6-777BB4?style=for-the-badge&logo=php)
 ![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?style=for-the-badge&logo=mysql)
 ![Livewire](https://img.shields.io/badge/Livewire-3.x-4E56A6?style=for-the-badge&logo=livewire)
 ![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-3.x-38B2AC?style=for-the-badge&logo=tailwind-css)
@@ -26,10 +26,11 @@ Unlike generic HR or CRM tools, this system is **purpose-built for religious lif
 
 ### Project Status
 
-- **Current Phase**: Implementation (Phase 4 of BMAD Methodology)
-- **Completed Epics**: 2 out of 5 (Foundation, Member Management, Financial Management partially complete)
-- **Test Coverage**: 373 tests passing (100% success rate)
-- **Architecture**: Complete and validated
+- **Current Phase**: Production (v1.0.0)
+- **Release Date**: December 27, 2025
+- **System Scale**: 28 models, 186 routes, 14 major modules
+- **Test Coverage**: Comprehensive (PHPUnit 11.5.3)
+- **Documentation**: Complete and production-ready
 
 ## ✨ Key Features
 
@@ -87,13 +88,14 @@ Unlike generic HR or CRM tools, this system is **purpose-built for religious lif
 
 ### Technology Stack
 
-- **Backend**: Laravel 11.x (PHP 8.2+)
+- **Backend**: Laravel 11.x (PHP 8.3.6)
 - **Database**: MySQL 8.0
-- **Frontend**: Blade Templates + TailwindCSS + Livewire 3.x
+- **Frontend**: Blade Templates + TailwindCSS 3.4 + Livewire 3.7 (Heavy Usage) + Alpine.js
 - **Build Tool**: Vite (with HMR)
-- **Environment**: Docker + Laravel Sail
-- **Testing**: Pest/PHPUnit
-- **Security**: Laravel Sanctum, RBAC with type-safe permissions
+- **Environment**: Docker + Laravel Sail 1.41
+- **Testing**: PHPUnit 11.5.3
+- **Export Libraries**: DomPDF 3.1, PHPWord 1.4, Maatwebsite Excel 3.1, Intervention Image 3.11
+- **Security**: Laravel Sanctum, Dynamic RBAC with type-safe permissions
 
 ### Development Methodology
 
@@ -151,395 +153,151 @@ System_Blood_Group/
 
 ## 🚀 Getting Started
 
-### Prerequisites
+### Quick Start (5 Minutes)
 
-- **Docker Desktop** (latest version) - for Sail development
-- **PHP 8.4+** - for local development
-- **Composer** - PHP dependency manager
-- **Node.js 20+** - for asset compilation
-- **MySQL 8.0+** - database server
-- **Git** (latest version)
-- **4GB+ RAM** available for containers
-- **10GB+ free disk space**
-
-### Quick Start with Docker Sail (Recommended)
-
-1. **Clone the Repository**
-
-   ```bash
-   git clone https://github.com/n0bcode/CongregationManagement.git
-   cd System_Blood_Group/managing-congregation
-   ```
-
-2. **Environment Setup**
-
-   ```bash
-   cp .env.example .env
-   ```
-
-3. **Start Development Environment**
-
-   ```bash
-   # Start all containers (Laravel, MySQL, Mailpit, Redis)
-   ./vendor/bin/sail up -d
-
-   # Install PHP dependencies
-   ./vendor/bin/sail composer install
-
-   # Install Node dependencies and start development server
-   ./vendor/bin/sail npm install
-   ./vendor/bin/sail npm run dev
-   ```
-
-4. **Database Setup**
-
-   ```bash
-   # Generate application key
-   ./vendor/bin/sail artisan key:generate
-
-   # Run migrations and seeders
-   ./vendor/bin/sail artisan migrate --seed
-   ```
-
-5. **Access the Application**
-   - **Main App**: [http://localhost](http://localhost)
-   - **Mailpit (Email Testing)**: [http://localhost:8025](http://localhost:8025)
-   - **phpMyAdmin**: [http://localhost:8080](http://localhost:8080)
-
-### Alternative Setup (Without Sail)
-
-If you prefer not to use Laravel Sail:
-
-1. **Install Dependencies Locally**
-
-   ```bash
-   # Install PHP dependencies
-   composer install
-
-   # Install Node dependencies
-   npm install
-   ```
-
-2. **Database Setup**
-
-   ```bash
-   # Create MySQL database
-   mysql -u root -p -e "CREATE DATABASE congregation_management"
-
-   # Or using Docker for just MySQL
-   docker run --name mysql-congregation -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=congregation_management -p 3306:3306 -d mysql:8.0
-   ```
-
-3. **Environment Configuration**
-
-   ```bash
-   # Copy environment file
-   cp .env.example .env
-
-   # Generate application key
-   php artisan key:generate
-   ```
-
-4. **Run Migrations and Seeders**
-
-   ```bash
-   php artisan migrate --seed
-   ```
-
-5. **Start Development Servers**
-
-   ```bash
-   # Start Laravel development server
-   php artisan serve
-
-   # Start Vite development server (in another terminal)
-   npm run dev
-   ```
-
-6. **Access the Application**
-   - **Main App**: [http://localhost:8000](http://localhost:8000)
-
-### Essential Commands Reference
-
-#### Docker Sail Commands
+Get up and running quickly with Docker Sail:
 
 ```bash
-# Start containers
+# 1. Clone and navigate
+git clone https://github.com/n0bcode/CongregationManagement.git
+cd System_Blood_Group/managing-congregation
+
+# 2. Setup environment
+cp .env.example .env
+
+# 3. Start containers and install dependencies
 ./vendor/bin/sail up -d
+./vendor/bin/sail composer install
+./vendor/bin/sail npm install
 
-# Stop containers
-./vendor/bin/sail down
+# 4. Initialize database
+./vendor/bin/sail artisan key:generate
+./vendor/bin/sail artisan migrate --seed
 
-# View container status
-./vendor/bin/sail ps
-
-# Access container shell
-./vendor/bin/sail shell
-
-# Run artisan commands
-./vendor/bin/sail artisan <command>
-
-# Run composer commands
-./vendor/bin/sail composer <command>
-
-# Run npm commands
-./vendor/bin/sail npm <command>
-
-# Run tests
-./vendor/bin/sail test
-
-# View logs
-./vendor/bin/sail logs
+# 5. Start development server
+./vendor/bin/sail npm run dev
 ```
 
-#### Laravel Artisan Commands
+**Access the application:**
 
-```bash
-# Database operations
-php artisan migrate                    # Run migrations
-php artisan migrate:rollback           # Rollback last migration
-php artisan migrate:fresh              # Drop all tables and rerun migrations
-php artisan migrate:status             # Show migration status
-php artisan db:seed                    # Run seeders
-php artisan migrate:refresh --seed     # Refresh and seed
+- Main App: http://localhost
+- Mailpit (Email Testing): http://localhost:8025
 
-# Cache operations
-php artisan cache:clear                # Clear application cache
-php artisan config:clear               # Clear config cache
-php artisan route:clear                # Clear route cache
-php artisan view:clear                 # Clear view cache
-php artisan optimize                   # Cache config, routes, views
-php artisan optimize:clear             # Clear all caches
+**Default Login:**
 
-# Key operations
-php artisan key:generate              # Generate application key
+- Email: `admin@example.com`
+- Password: `password`
 
-# Storage operations
-php artisan storage:link              # Create storage symlink
+### 📚 Detailed Setup Guides
 
-# User management (custom commands if implemented)
-php artisan user:create               # Create new user
-php artisan permission:seed           # Seed permissions
-```
+For comprehensive setup instructions, troubleshooting, and alternative installation methods, see:
 
-#### NPM Commands
-
-```bash
-# Development
-npm run dev                           # Start Vite dev server with HMR
-npm run build                         # Build for production
-npm run preview                       # Preview production build
-
-# Code quality
-npm run lint                          # Run ESLint
-npm run format                        # Format code
-```
-
-#### Testing Commands
-
-```bash
-# Run all tests
-./vendor/bin/sail test
-php artisan test
-
-# Run specific test file
-./vendor/bin/sail test tests/Feature/AuthTest.php
-
-# Run with coverage
-./vendor/bin/sail test --coverage
-
-# Run tests in watch mode
-./vendor/bin/sail test --watch
-```
-
-#### Database Commands (Direct MySQL)
-
-```bash
-# Connect to database
-mysql -u root -p congregation_management
-
-# Or via Docker
-./vendor/bin/sail mysql
-
-# Import database
-mysql -u username -p database_name < backup.sql
-
-# Export database
-mysqldump -u username -p database_name > backup.sql
-```
+- **[Developer Onboarding Guide](./docs/developer-onboarding.md)** - Complete quick start with prerequisites, project structure, and common tasks
+- **[Developer Guide](./managing-congregation/docs/DEVELOPER_GUIDE.md)** - In-depth technical documentation
+- **[Deployment Guide](./docs/deployment-guide.md)** - Production deployment procedures
 
 ## 🧪 Testing & Quality Assurance
 
-### Running Tests
+### Quick Test Commands
 
 ```bash
 # Run all tests
 ./vendor/bin/sail artisan test
 
-# Run with coverage (if Xdebug enabled)
+# Run with coverage
 ./vendor/bin/sail artisan test --coverage
 
-# Run specific test suites
-./vendor/bin/sail artisan test tests/Feature/Auth/
-./vendor/bin/sail artisan test tests/Unit/
+# Run specific test
+./vendor/bin/sail artisan test tests/Feature/MemberTest.php
 ```
 
-### Test Results
+### Test Coverage
 
-- **Total Tests**: 373
-- **Passing**: 373 ✅
-- **Coverage**: Comprehensive (Auth, Models, Services, Controllers)
-- **Test Types**: Feature tests, Unit tests, Performance tests
+- **Framework:** PHPUnit 11.5.3
+- **Coverage:** Comprehensive (Auth, RBAC, Models, Services, Controllers, Livewire)
+- **Quality:** Laravel Pint (PSR-12), PHPStan static analysis
 
-### Quality Gates
+### 📚 Complete Testing Guide
 
-- **Code Style**: Laravel Pint (PSR-12)
-- **Static Analysis**: PHPStan integration
-- **Security**: Laravel Security features + RBAC validation
-- **Performance**: <2s page load times, optimized queries
+For detailed testing patterns, best practices, and CI/CD setup, see:
+
+- **[Testing Documentation](./docs/testing-documentation.md)** - Complete testing guide with patterns and examples
 
 ## 👥 User Roles & Access
 
-### Default Credentials
+### Default Credentials (Development)
 
-| Role            | Email                  | Password   | Permissions          |
-| --------------- | ---------------------- | ---------- | -------------------- |
-| **Super Admin** | `admin@example.com`    | `password` | All permissions      |
-| **General**     | `general@example.com`  | `password` | Global view, reports |
-| **Director**    | `director@example.com` | `password` | House-scoped CRUD    |
-| **Member**      | `member@example.com`   | `password` | Read-only access     |
+| Role            | Email                  | Password   |
+| --------------- | ---------------------- | ---------- |
+| **Super Admin** | `admin@example.com`    | `password` |
+| **General**     | `general@example.com`  | `password` |
+| **Director**    | `director@example.com` | `password` |
+| **Member**      | `member@example.com`   | `password` |
 
-### Permission Matrix
+### 📚 Complete RBAC Documentation
 
-- **Super Admin**: Full system access (bypass pattern)
-- **General**: Global reports, member search, financial oversight
-- **Director**: Community-specific data management
-- **Member**: Personal profile access only
+For detailed permission matrix, dynamic role creation, and security patterns, see:
+
+- **[Features Implemented](./docs/features-implemented.md)** - Security & Access Control section
+- **[Project Context](./docs/project_context.md)** - RBAC rules and patterns
 
 ## 🔧 Development Workflow
 
-### Daily Development
+### Quick Reference
 
 ```bash
-# Start environment
+# Daily development
 ./vendor/bin/sail up -d
+./vendor/bin/sail npm run dev
 
-# Run tests continuously
-./vendor/bin/sail artisan test --watch
-
-# Code formatting
-./vendor/bin/sail pint
-
-# Static analysis
-./vendor/bin/sail phpstan analyse
+# Code quality
+./vendor/bin/sail pint              # Format code
+./vendor/bin/sail phpstan analyse   # Static analysis
+./vendor/bin/sail artisan test      # Run tests
 ```
 
-### Backup & Version Control
+### 📚 Complete Guides
 
-```bash
-# Preview changes before backup
-./backup-unified.sh preview <commit-id>
+- **[Developer Onboarding](./docs/developer-onboarding.md)** - Daily workflow, common tasks, best practices
+- **[Deployment Guide](./docs/deployment-guide.md)** - Production deployment, updates, rollbacks
+- **[Testing Documentation](./docs/testing-documentation.md)** - Testing patterns and CI/CD
 
-# Simple backup (recommended for daily use)
-./backup-unified.sh simple <commit-id>
+## 📊 Implementation Status
 
-# Full backup with detailed logging
-./backup-unified.sh full <commit-id>
+**Current Version:** v1.0.0 (Production)  
+**Release Date:** December 27, 2025  
+**System Scale:** 28 models, 186 routes, 14 major modules
 
-# Auto-select backup mode based on changes
-./backup-unified.sh <commit-id>
-```
+### 📚 Complete Feature List
 
-### Deployment
+For detailed implementation status and feature inventory, see:
 
-```bash
-# Build for production
-./vendor/bin/sail npm run build
+- **[Features Implemented](./docs/features-implemented.md)** - Complete catalog of all 14 modules
+- **[Feature Roadmap](./docs/feature-roadmap.md)** - 2026 strategic plans and future enhancements
+- **[CHANGELOG](./CHANGELOG.md)** - Version history from 0.1.0 to 1.0.0
 
-# Optimize Laravel for production
-./vendor/bin/sail artisan config:cache
-./vendor/bin/sail artisan route:cache
-./vendor/bin/sail artisan view:cache
+## 🔒 Security & Compliance
 
-# Run final tests
-./vendor/bin/sail artisan test
-```
+**Key Features:**
 
-## 📊 Current Implementation Status
+- Dynamic RBAC with 50+ permissions
+- Laravel Sanctum API authentication
+- Comprehensive audit logging
+- Private file storage with encryption
+- Community-scoped data access
 
-### Completed Epics ✅
+### 📚 Security Documentation
 
-- **Epic 1: Foundation & Core Setup** (100% Complete)
+- **[Features Implemented](./docs/features-implemented.md)** - Security & Access Control section
+- **[Project Context](./docs/project_context.md)** - Security rules and patterns
+- **[Deployment Guide](./docs/deployment-guide.md)** - Security checklist
 
-  - Project initialization with Laravel Breeze
-  - Core RBAC infrastructure with type-safe permissions
-  - Database schema with proper relationships
-  - User authentication and authorization
+## 🌐 Internationalization
 
-- **Epic 2: Member Lifecycle & Profile Management** (100% Complete)
-  - Comprehensive member profiles with photos
-  - Visual formation timeline with Canon Law calculations
-  - Secure document upload for formation records
-  - Member transfer history and service tracking
-  - Advanced search and filtering
+**Current:** English  
+**Planned (2026):** French, Spanish, Portuguese, Vietnamese
 
-### In Progress 🚧
-
-- **Epic 3: Community Financial Stewardship** (70% Complete)
-
-  - Daily expense entry ✅
-  - Receipt upload ✅
-  - Monthly PDF reports ✅
-  - Financial period locking ✅
-  - Community creation 🔄
-
-- **Epic 4: Strategic Oversight & Reporting** (80% Complete)
-  - Generalate dashboard ✅
-  - Critical vow expiry alerts ✅
-  - Financial reports viewing ✅
-  - Audit trail logging ✅
-
-### Future Epics 🔮
-
-- **Epic 5: Project & Grant Management** (Backlog)
-  - Project creation and planning
-  - Grant application tracking
-  - Evidence upload and monitoring
-
-## 🔒 Security Features
-
-### Authentication & Authorization
-
-- **Laravel Sanctum**: API authentication
-- **RBAC System**: 50+ granular permissions
-- **Super Admin Bypass**: Administrative override capability
-- **Session Management**: 60-minute timeout, secure cookies
-
-### Data Protection
-
-- **Private File Storage**: Sensitive documents in encrypted storage
-- **Data Scoping**: Automatic query filtering by community/house
-- **Audit Logging**: All critical actions tracked with timestamps
-- **Soft Deletes**: Data preservation with recovery capability
-
-### Compliance
-
-- **GDPR Considerations**: Data minimization and user consent
-- **Religious Data Privacy**: Special handling of sacramental records
-- **Access Control**: Role-based data visibility
-
-## 🌐 Internationalization & Localization
-
-### Supported Languages
-
-- **Primary**: English
-- **Future**: French, Spanish, Portuguese (African mission focus)
-
-### Cultural Considerations
-
-- **Date Formats**: Localized date display
-- **Religious Terminology**: Proper handling of formation stages
-- **Offline Capability**: Designed for areas with limited connectivity
+See **[Feature Roadmap](./docs/feature-roadmap.md)** for multi-language support plans.
 
 ## 📚 Documentation
 
@@ -547,37 +305,54 @@ mysqldump -u username -p database_name > backup.sql
 
 ```
 docs/
-├── prd.md                     # Product Requirements Document
-├── architecture.md           # Technical Architecture Decisions
-├── epics.md                  # Epic and Story Breakdown
-├── ux-design-specification.md # UI/UX Design Guidelines
-├── bmm-workflow-status.yaml  # Project Status Tracking
-├── sprint-artifacts/         # Implementation Stories
-├── diagrams/                 # System Architecture Diagrams
-├── flowcharts/               # Business Process Flows
-└── analysis/                 # Requirements Analysis
+├── project_context.md                  # 🆕 Core rules and patterns for AI agents
+├── features-implemented.md             # 🆕 Complete feature inventory
+├── export-architecture.md              # 🆕 PDF/Excel/DOCX generation patterns
+├── livewire-patterns.md                # 🆕 Livewire component architecture
+├── deployment-guide.md                 # 🆕 Production deployment procedures
+├── developer-onboarding.md             # 🆕 Quick start guide (5 minutes)
+├── testing-documentation.md            # 🆕 Testing patterns and best practices
+├── feature-roadmap.md                  # 🆕 2026 strategic roadmap
+├── api-documentation.md                # 🆕 Planned REST API (Q3 2026)
+├── documentation-update-summary.md     # 🆕 Documentation update summary
+├── prd.md                              # Product Requirements (Historical)
+├── architecture.md                     # Technical Architecture (Historical)
+├── epics.md                            # Epic and Story Breakdown
+├── ux-design-specification.md          # UI/UX Design Guidelines
+├── bmm-workflow-status.yaml            # Project Status Tracking
+├── sprint-artifacts/                   # Implementation Stories
+├── diagrams/                           # System Architecture Diagrams
+├── flowcharts/                         # Business Process Flows
+└── analysis/                           # Requirements Analysis
 
 managing-congregation/docs/
-├── DEVELOPER_GUIDE.md        # 🆕 Complete Developer Documentation
-└── USER_GUIDE.md             # End-User Manual (Vietnamese)
+├── DEVELOPER_GUIDE.md                  # Complete Developer Documentation
+└── USER_GUIDE.md                       # End-User Manual (Vietnamese)
+
+CHANGELOG.md                            # 🆕 Version history (0.1.0 → 1.0.0)
 ```
 
 ### Key Documentation
 
-#### For Developers
+#### For AI Agents & Developers (🆕 Updated December 2025)
 
-- **[Developer Guide](./managing-congregation/docs/DEVELOPER_GUIDE.md)**: Complete technical documentation for developers
-  - Architecture patterns and best practices
-  - Docker Sail setup and development workflow
-  - Service layer architecture and code examples
-  - Gemini AI integration guide
-  - Testing strategies and CI/CD recommendations
-  - Security best practices and troubleshooting
+- **[Project Context](./docs/project_context.md)**: **START HERE** - Core rules, patterns, and tech stack for AI agents
+- **[Features Implemented](./docs/features-implemented.md)**: Complete inventory of all 14 modules, 28 models, 186 routes
+- **[Developer Onboarding](./docs/developer-onboarding.md)**: Quick start guide - get running in 5 minutes
+- **[Testing Documentation](./docs/testing-documentation.md)**: PHPUnit patterns, feature/unit/Livewire testing
+- **[Livewire Patterns](./docs/livewire-patterns.md)**: Component architecture and state management
+- **[Export Architecture](./docs/export-architecture.md)**: PDF/Excel/DOCX generation patterns
+- **[Deployment Guide](./docs/deployment-guide.md)**: Production deployment with Docker Compose
+- **[Developer Guide](./managing-congregation/docs/DEVELOPER_GUIDE.md)**: Legacy comprehensive technical documentation
 
-#### For Project Management
+#### For Product & Planning
 
-- **[PRD](./docs/prd.md)**: Complete product requirements and user journeys
-- **[Architecture](./docs/architecture.md)**: Technical decisions and implementation patterns
+- **[Feature Roadmap](./docs/feature-roadmap.md)**: 2026 strategic plans (PWA, AI expansion, global collaboration)
+- **[API Documentation](./docs/api-documentation.md)**: Planned REST API for Q3 2026
+- **[CHANGELOG](./CHANGELOG.md)**: Complete version history from 0.1.0 to 1.0.0
+- **[Documentation Update Summary](./docs/documentation-update-summary.md)**: Summary of December 2025 documentation refresh
+- **[PRD](./docs/prd.md)**: Original product requirements (Historical reference)
+- **[Architecture](./docs/architecture.md)**: Original technical decisions (Historical reference)
 - **[Epics](./docs/epics.md)**: Detailed breakdown of features and stories
 - **[UX Design](./docs/ux-design-specification.md)**: Interface design and user experience
 
@@ -592,471 +367,73 @@ managing-congregation/docs/
 
 ## 🤝 Contributing
 
-### Development Guidelines
+**Code Standards:**
 
-1. **Follow BMAD Methodology**: All changes should align with current epic goals
-2. **Write Tests First**: Maintain 100% test coverage for new features
-3. **Use Type Safety**: Leverage PHP 8.4 features and custom enums
-4. **Security First**: All changes must pass security review
-5. **Documentation**: Update relevant docs for any architectural changes
+- PHP 8.3.6 with strict typing
+- PSR-12 formatting (Laravel Pint)
+- PHPUnit 11.5.3 for testing
+- Comprehensive test coverage required
 
-### Code Standards
+### 📚 Development Guidelines
 
-- **PHP**: PSR-12 with Laravel Pint formatting
-- **JavaScript**: Standard ESLint rules
-- **CSS**: TailwindCSS with component-based architecture
-- **Testing**: Pest PHP syntax preferred
-- **Git**: Conventional commit messages
+For complete coding standards, patterns, and contribution process, see:
 
-### Pull Request Process
-
-1. Create feature branch from `main`
-2. Implement with comprehensive tests
-3. Update documentation if needed
-4. Pass all CI checks (tests, linting, security)
-5. Request review from team lead
-6. Merge after approval
+- **[Project Context](./docs/project_context.md)** - Core rules and patterns
+- **[Developer Onboarding](./docs/developer-onboarding.md)** - Development workflow
+- **[Testing Documentation](./docs/testing-documentation.md)** - Testing requirements
 
 ## 🐛 Troubleshooting
 
-### Common Issues
-
-**Database Connection Issues**
+### Quick Fixes
 
 ```bash
+# Clear all caches
+./vendor/bin/sail artisan optimize:clear
+
 # Reset database
 ./vendor/bin/sail artisan migrate:fresh --seed
 
-# Check MySQL container
-./vendor/bin/sail ps
-```
-
-**Permission Issues**
-
-```bash
-# Clear all Laravel caches
-./vendor/bin/sail artisan optimize:clear
-
-# Reset permissions (development only)
-./vendor/bin/sail artisan db:seed --class=PermissionSeeder
-```
-
-**Asset Compilation Issues**
-
-```bash
-# Clear node modules and reinstall
-rm -rf node_modules package-lock.json
-./vendor/bin/sail npm install
-
-# Force rebuild assets
+# Rebuild assets
 ./vendor/bin/sail npm run build
 ```
 
-**Test Failures**
+### 📚 Complete Troubleshooting Guide
 
-```bash
-# Run specific failing test
-./vendor/bin/sail artisan test tests/Feature/Auth/RbacTest.php
+For detailed troubleshooting, common issues, and solutions, see:
 
-# Debug with verbose output
-./vendor/bin/sail artisan test --verbose
-```
-
-### Performance Issues
-
-- **Slow Page Loads**: Check database queries with Laravel Debugbar
-- **Memory Issues**: Monitor PHP container resources
-- **Asset Loading**: Ensure Vite HMR is working properly
-
-### Getting Help
-
-1. Check existing documentation in `docs/` folder
-2. Review test cases for usage examples
-3. Check GitHub issues for known problems
-4. Contact development team for support
-
-## 📈 Performance & Scalability
-
-### Current Performance Metrics
-
-- **Page Load Time**: <2 seconds on 4G networks
-- **Database Queries**: Optimized with proper indexing
-- **Asset Size**: Compressed and cached via Vite
-- **Concurrent Users**: Tested with 50+ simultaneous users
-
-### Scalability Considerations
-
-- **Database**: MySQL with read replicas for reporting
-- **Caching**: Redis for session and query caching
-- **File Storage**: Cloud storage (S3/MinIO) for production
-- **Containerization**: Horizontal scaling with Docker Swarm/Kubernetes
+- **[Developer Onboarding](./docs/developer-onboarding.md)** - Common issues and debugging
+- **[Deployment Guide](./docs/deployment-guide.md)** - Production troubleshooting
+- **[Testing Documentation](./docs/testing-documentation.md)** - Test debugging
 
 ## 🔄 Deployment & Production
 
-### Production Checklist
+### Quick Production Checklist
 
 - [ ] Environment variables configured
 - [ ] SSL certificates installed
 - [ ] Database backups scheduled
 - [ ] Monitoring tools configured
-- [ ] CDN setup for assets
 - [ ] Security headers enabled
 
-### Docker Production Setup
+### Deployment Options
 
-```yaml
-# docker-compose.prod.yml
-version: "3.8"
-services:
-  app:
-    image: congregation-management:latest
-    environment:
-      - APP_ENV=production
-      - APP_DEBUG=false
-    volumes:
-      - ./storage:/var/www/html/storage
-```
+**Docker Compose (Recommended):**
 
-### Hostinger Deployment Guide
+- Full control over infrastructure
+- Easy to scale and maintain
+- Comprehensive guide available
 
-#### Prerequisites for Hostinger
+**Shared Hosting (Hostinger, etc.):**
 
-- **PHP Version**: 8.4 or higher
-- **MySQL**: 8.0 or higher
-- **SSH Access**: Enabled in Hostinger control panel
-- **Node.js**: Optional (for building assets on server)
+- Cost-effective for small deployments
+- Requires manual configuration
+- Step-by-step guide available
 
-#### Hostinger Directory Structure
+### 📚 Complete Deployment Guide
 
-```
-/home/u221940070/domains/admin.sdndel.org/
-├── public_html/              # Document root (contains /public contents)
-│   ├── index.php            # Modified entry point
-│   ├── .htaccess            # Laravel routing
-│   ├── build/               # Vite compiled assets
-│   └── storage/             # Symlink to ../storage/app/public
-├── app/                     # Laravel application code
-├── bootstrap/
-├── config/
-├── database/
-├── resources/
-├── routes/
-├── storage/                 # File storage (logs, cache, uploads)
-└── vendor/                  # Composer dependencies
-```
+For detailed production deployment instructions, Docker setup, Hostinger deployment, troubleshooting, and maintenance procedures, see:
 
-#### Step-by-Step Hostinger Deployment
-
-1. **Upload Files to Hostinger**
-
-   ```bash
-   # Upload all files except /public folder to domain root
-   # Upload contents of /public folder to public_html/
-   ```
-
-2. **Environment Configuration**
-
-   ```bash
-   # Create .env file in domain root
-   APP_NAME="Managing Congregation"
-   APP_ENV=production
-   APP_KEY=base64:your-generated-app-key
-   APP_DEBUG=false
-   APP_URL=https://your-domain.com
-
-   # Database (from Hostinger MySQL settings)
-   DB_CONNECTION=mysql
-   DB_HOST=127.0.0.1
-   DB_PORT=3306
-   DB_DATABASE=your_database_name
-   DB_USERNAME=your_db_username
-   DB_PASSWORD=your_db_password
-
-   # File storage
-   FILESYSTEM_DISK=public
-
-   # Session configuration
-   SESSION_DRIVER=database
-   SESSION_LIFETIME=120
-
-   # Cache (use database for shared hosting)
-   CACHE_DRIVER=file
-   QUEUE_CONNECTION=database
-   ```
-
-3. **Modify Entry Point (Critical)**
-
-   ```php
-   # public_html/index.php - Update paths from __DIR__.'/../' to __DIR__.'/../'
-   <?php
-   use Illuminate\Http\Request;
-
-   define('LARAVEL_START', microtime(true));
-
-   if (file_exists($maintenance = __DIR__.'/../storage/framework/maintenance.php')) {
-       require $maintenance;
-   }
-
-   require __DIR__.'/../vendor/autoload.php';
-
-   (require_once __DIR__.'/../bootstrap/app.php')
-       ->handleRequest(Request::capture());
-   ```
-
-4. **Database Setup**
-
-   ```bash
-   # Via SSH or Hostinger File Manager
-   cd /home/u221940070/domains/admin.sdndel.org
-
-   # Run migrations
-   php artisan migrate --force
-
-   # Seed database (optional, for initial data)
-   php artisan db:seed --force
-   ```
-
-5. **Storage Setup**
-
-   ```bash
-   # Create storage symlink
-   php artisan storage:link
-
-   # Set proper permissions
-   chmod -R 755 storage/
-   chmod -R 755 bootstrap/cache/
-   ```
-
-6. **Asset Compilation**
-
-   ```bash
-   # IMPORTANT: Build from project root (not public_html)
-   cd /home/u221940070/domains/admin.sdndel.org
-
-   # Install dependencies if needed
-   npm install
-
-   # Build assets (this creates files in public_html/build/)
-   npm run build
-
-   # Verify build files exist
-   ls -la public_html/build/
-   ```
-
-7. **Cache Optimization**
-
-   ```bash
-   # Clear all caches first
-   php artisan cache:clear
-   php artisan config:clear
-   php artisan route:clear
-   php artisan view:clear
-
-   # Cache for production
-   php artisan config:cache
-   php artisan route:cache
-   php artisan view:cache
-   ```
-
-8. **Final Verification**
-
-   ```bash
-   # Test application
-   php artisan tinker --execute="echo 'Laravel working'"
-
-   # Check storage permissions
-   ls -la storage/
-
-   # Verify database connection
-   php artisan migrate:status
-   ```
-
-#### Essential Hostinger Commands
-
-```bash
-# SSH Access (replace with your actual path)
-ssh u221940070@your-server.hostinger.com
-cd domains/admin.sdndel.org
-
-# Laravel Commands
-php artisan migrate --force                 # Run migrations
-php artisan migrate:rollback --force        # Rollback migrations
-php artisan db:seed --force                 # Run seeders
-php artisan storage:link                    # Create storage symlink
-php artisan cache:clear                     # Clear cache
-php artisan config:cache                    # Cache config
-php artisan route:cache                     # Cache routes
-php artisan view:cache                      # Cache views
-php artisan optimize                        # Optimize all
-php artisan optimize:clear                  # Clear all optimizations
-
-# File Permissions
-chmod -R 755 storage/                       # Storage permissions
-chmod -R 755 bootstrap/cache/               # Cache permissions
-chmod 644 .env                              # Environment file
-
-# Database Management
-php artisan migrate:status                  # Check migration status
-php artisan tinker                          # Laravel REPL
-php artisan db:monitor                      # Database monitoring
-
-# Queue Management (if using queues)
-php artisan queue:work                      # Process queues
-php artisan queue:failed                    # View failed jobs
-php artisan queue:retry all                 # Retry failed jobs
-
-# Maintenance Mode
-php artisan down                           # Enable maintenance
-php artisan up                             # Disable maintenance
-```
-
-#### Hostinger-Specific Configuration
-
-```env
-# .env production settings for Hostinger
-APP_ENV=production
-APP_DEBUG=false
-APP_URL=https://your-domain.com
-
-# Database (Hostinger MySQL)
-DB_CONNECTION=mysql
-DB_HOST=localhost
-DB_DATABASE=u221940070_congregation
-DB_USERNAME=u221940070_user
-DB_PASSWORD=your_password
-
-# Session (important for shared hosting)
-SESSION_DRIVER=file
-SESSION_LIFETIME=120
-
-# Cache (file-based for shared hosting)
-CACHE_DRIVER=file
-
-# Mail (if using Hostinger SMTP)
-MAIL_MAILER=smtp
-MAIL_HOST=mail.your-domain.com
-MAIL_PORT=587
-MAIL_USERNAME=your-email@your-domain.com
-MAIL_PASSWORD=your-email-password
-MAIL_ENCRYPTION=tls
-
-# Filesystem
-FILESYSTEM_DISK=public
-```
-
-#### Common Hostinger Issues & Solutions
-
-**Issue: 500 Internal Server Error**
-
-```bash
-# Check Laravel logs
-tail storage/logs/laravel.log
-
-# Clear all caches
-php artisan optimize:clear
-
-# Check .env file
-cat .env | grep -v PASSWORD  # Hide sensitive data
-```
-
-**Issue: Storage Link Not Working**
-
-```bash
-# Remove old symlink
-rm -rf public_html/storage
-
-# Create new symlink
-php artisan storage:link
-
-# Or create manually
-ln -s ../storage/app/public public_html/storage
-```
-
-**Issue: Vite Assets Not Loading (404 Errors)**
-
-```bash
-# Step 1: Check if build files exist in correct location
-ls -la public_html/build/assets/
-
-# Step 2: Verify .htaccess allows asset serving
-cat public_html/.htaccess | grep -A 10 "RewriteEngine"
-
-# Step 3: Clear browser cache and Laravel caches
-php artisan optimize:clear
-
-# Step 4: Check if assets are being loaded correctly in Blade
-grep -r "Vite::" resources/views/
-
-# Step 5: If using Vite directives, ensure they're correct
-# In Blade templates, should be: @vite(['resources/css/app.css', 'resources/js/app.js'])
-```
-
-**Issue: Database Connection Failed**
-
-```bash
-# Check database credentials in .env
-php artisan tinker --execute="DB::connection()->getPdo()"
-
-# Test database connection
-php artisan migrate:status
-```
-
-**Issue: Permission Denied**
-
-```bash
-# Fix storage permissions
-chmod -R 755 storage/
-chmod -R 755 bootstrap/cache/
-
-# Check file ownership
-ls -la storage/
-```
-
-#### Hostinger File Manager Alternative
-
-If SSH is not available, use Hostinger File Manager:
-
-1. **Upload Files**: Use File Manager to upload all project files
-2. **Create .env**: Create `.env` file via File Manager
-3. **Run Commands**: Use "Run PHP Script" in Advanced settings
-4. **Check Logs**: View `storage/logs/laravel.log` via File Manager
-
-#### Automated Deployment Script (Optional)
-
-```bash
-#!/bin/bash
-# deploy.sh - Place in project root
-
-echo "🚀 Starting Hostinger deployment..."
-
-# Build assets locally
-npm run build
-
-# Upload files via FTP or Git
-# (Configure your preferred upload method)
-
-# Run remote commands via SSH
-ssh user@server << EOF
-cd /path/to/domain/root
-php artisan migrate --force
-php artisan storage:link
-php artisan optimize
-echo "✅ Deployment completed!"
-EOF
-```
-
-#### Backup Strategy
-
-- **Database**: Use Hostinger's built-in backup or phpMyAdmin export
-- **Files**: Download via FTP or use backup scripts
-- **Code**: Git versioning for rollback capability
-
-### Backup Strategy
-
-- **Database**: Daily automated backups via Hostinger or custom scripts
-- **Files**: Secure cloud storage with encryption
-- **Code**: Git versioning with tags
-- **Configuration**: Environment-specific settings
+- **[Deployment Guide](./docs/deployment-guide.md)** - Complete production deployment documentation
 
 ## 📄 License & Legal
 
@@ -1088,4 +465,4 @@ This project is proprietary software developed for religious congregation manage
 
 **Managing the Congregation** - Built with ❤️ for religious communities worldwide.
 
-_Last Updated: December 2025_
+_Last Updated: December 27, 2025 - v1.0.0 Production Release_
