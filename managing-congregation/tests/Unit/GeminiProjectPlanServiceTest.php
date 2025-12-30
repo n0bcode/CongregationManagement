@@ -65,9 +65,9 @@ class GeminiProjectPlanServiceTest extends TestCase
 
         $this->assertEquals('Manual Key Project', $plan['project_name']);
         
-        // Assert the request was made with the manual key
+        // Assert the request was made with the manual key in the header (not URL)
         Http::assertSent(function ($request) {
-            return str_contains($request->url(), 'key=manual-key-123');
+            return $request->hasHeader('x-goog-api-key', 'manual-key-123');
         });
     }
 

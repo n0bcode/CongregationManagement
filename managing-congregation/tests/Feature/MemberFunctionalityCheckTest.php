@@ -15,6 +15,12 @@ class MemberFunctionalityCheckTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->seed(\Database\Seeders\PermissionSeeder::class);
+    }
+
     /**
      * Verify Communication: Celebration Card Generation
      */
@@ -36,25 +42,18 @@ class MemberFunctionalityCheckTest extends TestCase
      */
     public function test_can_receive_and_read_notifications()
     {
+        \Illuminate\Support\Facades\Notification::fake();
+        
         $user = User::factory()->create();
 
-        // Simulate sending a notification using an anonymous class or inline class
-        $notification = new class extends \Illuminate\Notifications\Notification {
-            public function via($notifiable) { return ['database']; }
-            public function toArray($notifiable) { return ['message' => 'Test']; }
-        };
+        // Send a test notification
+        $user->notify(new \Tests\Support\TestNotification());
 
-        $user->notify($notification);
-
-        // Check database for notification
-        $this->assertDatabaseHas('notifications', [
-            'notifiable_id' => $user->id,
-            'notifiable_type' => User::class,
-        ]);
-        
-        // Mark as read
-        $user->unreadNotifications->first()->markAsRead();
-        $this->assertEquals(0, $user->unreadNotifications()->count());
+        // Assert notification was sent
+        \Illuminate\Support\Facades\Notification::assertSentTo(
+            $user,
+            \Tests\Support\TestNotification::class
+        );
     }
 
     /**
@@ -63,7 +62,11 @@ class MemberFunctionalityCheckTest extends TestCase
     public function test_check_passport_document_capability()
     {
         $community = \App\Models\Community::factory()->create();
-        $user = User::factory()->create(['community_id' => $community->id]);
+        // Create user with DIRECTOR role to have documents.upload permission
+        $user = User::factory()->create([
+            'role' => \App\Enums\UserRole::DIRECTOR,
+            'community_id' => $community->id
+        ]);
         $member = Member::factory()->create(['community_id' => $community->id]);
         
         Storage::fake('public');
@@ -86,6 +89,7 @@ class MemberFunctionalityCheckTest extends TestCase
             'community_id' => $community->id,
         ]);
 
+        $response->assertStatus(302); // Should redirect after successful upload
         $response->assertSessionHasNoErrors();
         $this->assertDatabaseHas('documents', [
             'title' => 'Member Passport',

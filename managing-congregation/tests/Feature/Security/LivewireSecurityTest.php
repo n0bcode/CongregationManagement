@@ -12,6 +12,12 @@ class LivewireSecurityTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->seed(\Database\Seeders\PermissionSeeder::class);
+    }
+
     /**
      * Test that MembersTable updateMember validates field names.
      *

@@ -24,6 +24,29 @@ class AIProjectTest extends TestCase
 
     public function test_can_generate_project_structure()
     {
+        // Mock config to provide API key
+        config(['services.gemini.key' => 'fake-test-key']);
+        
+        // Mock Gemini API response
+        \Illuminate\Support\Facades\Http::fake([
+            'generativelanguage.googleapis.com/*' => \Illuminate\Support\Facades\Http::response([
+                'candidates' => [[
+                    'content' => [
+                        'parts' => [[
+                            'text' => json_encode([
+                                'project_name' => 'AI Generated App',
+                                'description' => 'Mobile fitness tracking application',
+                                'tasks' => [
+                                    ['title' => 'Design UI/UX', 'type' => 'epic', 'priority' => 'high'],
+                                    ['title' => 'Setup Backend', 'type' => 'task', 'priority' => 'high'],
+                                ]
+                            ])
+                        ]]
+                    ]
+                ]]
+            ], 200)
+        ]);
+        
         $admin = User::factory()->create(['role' => UserRole::SUPER_ADMIN]);
 
         $response = $this->actingAs($admin)->post(route('projects.ai.generate'), [

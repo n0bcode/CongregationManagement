@@ -27,7 +27,7 @@ class NotificationCenterTest extends TestCase
         $user = User::factory()->create();
         
         // Create notifications
-        \Illuminate\Support\Facades\DB::table('notifications')->insert([
+        \Illuminate\Support\Facades\DB::table('user_notifications')->insert([
             'user_id' => $user->id,
             'type' => 'info',
             'title' => 'Unread',
@@ -37,7 +37,7 @@ class NotificationCenterTest extends TestCase
             'updated_at' => now(),
         ]);
         
-        \Illuminate\Support\Facades\DB::table('notifications')->insert([
+        \Illuminate\Support\Facades\DB::table('user_notifications')->insert([
             'user_id' => $user->id,
             'type' => 'info',
             'title' => 'Read',
@@ -58,7 +58,7 @@ class NotificationCenterTest extends TestCase
     public function test_can_mark_as_read()
     {
         $user = User::factory()->create();
-        $id = \Illuminate\Support\Facades\DB::table('notifications')->insertGetId([
+        $id = \Illuminate\Support\Facades\DB::table('user_notifications')->insertGetId([
             'user_id' => $user->id,
             'type' => 'info',
             'title' => 'Unread',
@@ -72,13 +72,13 @@ class NotificationCenterTest extends TestCase
             ->test(NotificationCenter::class)
             ->call('markAsRead', $id);
 
-        $this->assertNotNull(\Illuminate\Support\Facades\DB::table('notifications')->find($id)->read_at);
+        $this->assertNotNull(\Illuminate\Support\Facades\DB::table('user_notifications')->find($id)->read_at);
     }
 
     public function test_can_mark_all_as_read()
     {
         $user = User::factory()->create();
-        \Illuminate\Support\Facades\DB::table('notifications')->insert([
+        \Illuminate\Support\Facades\DB::table('user_notifications')->insert([
             'user_id' => $user->id,
             'type' => 'info',
             'title' => 'Unread 1',
@@ -87,7 +87,7 @@ class NotificationCenterTest extends TestCase
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-        \Illuminate\Support\Facades\DB::table('notifications')->insert([
+        \Illuminate\Support\Facades\DB::table('user_notifications')->insert([
             'user_id' => $user->id,
             'type' => 'info',
             'title' => 'Unread 2',
@@ -101,6 +101,6 @@ class NotificationCenterTest extends TestCase
             ->test(NotificationCenter::class)
             ->call('markAllAsRead');
 
-        $this->assertEquals(0, \Illuminate\Support\Facades\DB::table('notifications')->where('user_id', $user->id)->whereNull('read_at')->count());
+        $this->assertEquals(0, \Illuminate\Support\Facades\DB::table('user_notifications')->where('user_id', $user->id)->whereNull('read_at')->count());
     }
 }

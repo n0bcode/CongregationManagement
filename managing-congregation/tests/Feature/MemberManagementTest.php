@@ -56,6 +56,7 @@ class MemberManagementTest extends TestCase
             'religious_name' => 'Brother John',
             'dob' => '1990-01-01',
             'entry_date' => '2010-01-01',
+            'status' => 'active',
         ];
 
         $response = $this->actingAs($user)->post('/members', $memberData);
@@ -83,6 +84,7 @@ class MemberManagementTest extends TestCase
             'last_name' => 'Doe',
             'dob' => '1990-01-01',
             'entry_date' => '2010-01-01',
+            'status' => 'active',
         ];
 
         $response = $this->actingAs($user)->post('/members', $memberData);

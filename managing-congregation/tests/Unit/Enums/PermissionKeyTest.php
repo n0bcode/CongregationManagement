@@ -222,6 +222,7 @@ class PermissionKeyTest extends TestCase
             'territories',
             'publishers',
             'formation',
+            'settings',
         ];
 
         foreach (PermissionKey::cases() as $permission) {

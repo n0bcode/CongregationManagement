@@ -74,6 +74,9 @@ class ModelRelationshipsTest extends TestCase
             [Member::class, 'ordinations', HasMany::class],
             [Member::class, 'educations', HasMany::class],
             [Member::class, 'emergencyContacts', HasMany::class],
+            [Member::class, 'periodicEvents', HasMany::class],
+            [Member::class, 'birthdays', HasMany::class],
+            [Member::class, 'deathAnniversary', HasOne::class],
 
             // Community model
             [Community::class, 'members', HasMany::class],
@@ -90,6 +93,7 @@ class ModelRelationshipsTest extends TestCase
             // Assignment model
             [Assignment::class, 'member', BelongsTo::class],
             [Assignment::class, 'community', BelongsTo::class],
+            [Assignment::class, 'roleModel', BelongsTo::class],
         ];
     }
 

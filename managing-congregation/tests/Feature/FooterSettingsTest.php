@@ -66,10 +66,12 @@ class FooterSettingsTest extends TestCase
     {
         $user = User::factory()->create(['role' => UserRole::GENERAL]);
         
-        // Assign SETTINGS_MANAGE permission to GENERAL role
-        $user->role->permissions()->attach(
-            Permission::where('key', PermissionKey::SETTINGS_MANAGE->value)->first()
-        );
+        // Assign SETTINGS_MANAGE permission to GENERAL role via pivot table
+        $permission = Permission::where('key', PermissionKey::SETTINGS_MANAGE->value)->first();
+        \Illuminate\Support\Facades\DB::table('role_permissions')->insert([
+            'role' => UserRole::GENERAL->value,
+            'permission_id' => $permission->id,
+        ]);
 
         $response = $this->actingAs($user)->get(route('admin.settings.footer.edit'));
 

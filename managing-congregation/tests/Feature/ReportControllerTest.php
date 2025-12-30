@@ -42,6 +42,9 @@ class ReportControllerTest extends TestCase
 
     public function test_demographic_report_filters_data()
     {
+        // Ensure clean state
+        Member::query()->forceDelete();
+        
         $user = User::factory()->create(['role' => \App\Enums\UserRole::SUPER_ADMIN]);
         $community1 = Community::factory()->create(['name' => 'Community A']);
         $community2 = Community::factory()->create(['name' => 'Community B']);

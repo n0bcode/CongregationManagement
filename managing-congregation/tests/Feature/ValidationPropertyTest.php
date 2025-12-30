@@ -38,6 +38,7 @@ class ValidationPropertyTest extends TestCase
             'last_name' => 'Doe',
             'dob' => now()->addDay()->format('Y-m-d'),
             'entry_date' => now()->format('Y-m-d'),
+            'status' => 'active',
         ]);
 
         $response->assertSessionHasErrors('dob');
@@ -47,6 +48,7 @@ class ValidationPropertyTest extends TestCase
             'last_name' => 'Doe',
             'dob' => now()->subDay()->format('Y-m-d'),
             'entry_date' => now()->format('Y-m-d'),
+            'status' => 'active',
         ]);
 
         $response->assertSessionHasNoErrors('dob');

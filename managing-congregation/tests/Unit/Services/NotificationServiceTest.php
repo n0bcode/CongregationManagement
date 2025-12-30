@@ -21,7 +21,7 @@ class NotificationServiceTest extends TestCase
 
         $service->send($user, 'Test Title', 'Test Message');
 
-        $this->assertDatabaseHas('notifications', [
+        $this->assertDatabaseHas('user_notifications', [
             'title' => 'Test Title',
             'message' => 'Test Message',
             'type' => 'info',

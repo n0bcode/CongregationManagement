@@ -17,6 +17,12 @@ class MemberScopingTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->seed(\Database\Seeders\PermissionSeeder::class);
+    }
+
     #[Test]
     public function director_sees_only_their_community_members(): void
     {
@@ -70,7 +76,9 @@ class MemberScopingTest extends TestCase
     #[Test]
     public function super_admin_sees_all_members(): void
     {
-        // Arrange
+        // Arrange - ensure clean state
+        Member::query()->forceDelete();
+        
         $community1 = Community::factory()->create();
         $community2 = Community::factory()->create();
 
@@ -92,7 +100,9 @@ class MemberScopingTest extends TestCase
     #[Test]
     public function general_sees_all_members(): void
     {
-        // Arrange
+        // Arrange - ensure clean state
+        Member::query()->forceDelete();
+        
         $community1 = Community::factory()->create();
         $community2 = Community::factory()->create();
 
